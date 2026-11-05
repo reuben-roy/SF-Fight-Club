@@ -57,6 +57,7 @@ open -> locked -> settled
 - **Locking** happens at the bell, before the match computes. Bets with a server timestamp after `locked_at` are rejected with a clear error.
 - **Settlement** happens when the match is `complete` (after it airs, so nobody's balance spoils the result).
 - **Void**: host void, walkover, or a failed match the host gives up on. Every stake comes back through a ledger row.
+- **Champion withdrawal**: a champion (outright) bet on a fighter who withdraws is refunded. The stake returns through a ledger row and leaves the pool. Other champion bets stay. Play money prefers that refund over a lost outright ticket.
 - **Nobody backed the winner**: refund every user stake. The house seed is discarded.
 
 ### Leaderboard
@@ -68,6 +69,7 @@ open -> locked -> settled
 ### Who can bet
 
 - Spectators and founders can bet. Founders can bet on their own idea, which shows a FOUNDER badge on the live bet ticker. They can't influence the result, since judges see no betting data and bets lock before compute.
+- One account per verified email. The host can ban an account.
 - Hosts can't bet in a tournament they run.
 - VCs on a tournament's tiebreak panel can't bet in that tournament.
 

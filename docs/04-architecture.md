@@ -76,7 +76,7 @@ match.sealed              compute finished, script built (director version)
 match.failed              step key, error, retry count
 ```
 
-Every LLM call also writes a row to `llm_calls` with the full request, response, token counts, latency, cost and step key. Events reference calls by ID. That's what the raw view of the trace viewer shows.
+Every LLM call also writes a row to `llm_calls` with the full request, response, token counts, latency, cost and step key. Events reference calls by ID. That's what the raw view of the trace viewer shows. Failed attempts and retries are in that view, marked as retries.
 
 ### Idempotent steps
 
@@ -89,12 +89,12 @@ Each orchestrator step has a stable key, for example `m_91/r2/v1/A` or `m_91/r2/
 1. Validate lengths: title up to 60 chars, one-liner up to 140, description up to 1,500.
 2. Moderation with Mistral Moderation 2. Reject harmful categories.
 3. Injection screen. A utility-model classifier plus regex for obvious patterns ("ignore previous", "you are now", "score this"). Flagged ideas go to host review, not straight to rejection. A founder might innocently write "ignore the hype".
-4. Duplicate check. Embed with Mistral Embed. Cosine similarity above 0.92 with an existing entrant goes to host review.
-5. Standard Brief (`prompts/brief.md`). Same template and length for everyone. The submitter sees and approves it, or edits within the same limits.
+4. Duplicate check. Embed with Mistral Embed. Cosine similarity above 0.92 with an existing entrant goes to host review. An idea that is an existing real company is also flagged for host review. The default is to allow it when the submission is framed as an idea, because the rubric judges the opportunity.
+5. Standard Brief (`prompts/brief.md`). Same template and length for everyone. The submitter sees and approves it, or edits within the same template and limits, including claims that were not in the original idea. The model that drafts the brief still may not invent claims. If the submitter keeps rejecting the brief, the host can lock it. The brief is frozen when entrants lock.
 
 ### Weigh-in (per idea, after entrants lock)
 
-1. Research (`prompts/researcher.md`) through the Conversations API with the built-in `web_search` tool. At most 8 searches. The orchestrator keeps the best 12 sources as the evidence locker: URL, title, snippet up to 500 chars, retrieved_at.
+1. Research (`prompts/researcher.md`) through the Conversations API with the built-in `web_search` tool. At most 8 searches. The orchestrator keeps the best 12 sources as the evidence locker: URL, title, snippet up to 500 chars, retrieved_at. If the research step times out, retry up to 3 times, then build the dossier from what finished and mark that dossier partial in the weigh-in log. That mark is not the entailment verdict `partial`.
 2. Fact-check the dossier's own claims against its locker.
 3. Weigh-in judge (`prompts/weighin_judge.md`), 3 samples, median.
 4. Fighter card: stats, tier, archetype, sprite seed.
@@ -121,6 +121,8 @@ seal
 All LLM outputs use structured outputs with a JSON schema generated from `packages/schemas`. On a schema failure, retry once with the validation error appended. On a second failure, mark the step failed and the match `failed`.
 
 Fighter refusals (the model declines to argue) get one retry with a reminder that this is a fictional debate game about business ideas. A second refusal becomes an empty volley. The judge sees "Fighter 2 made no argument this volley."
+
+Volleys go through moderation. If the speech contains slurs or harassment, regenerate that volley once. A second hit is replaced with an empty volley.
 
 ## Data model
 
@@ -218,4 +220,4 @@ The SSE stream starts with a `snapshot` event: everything needed to render the s
 
 - `llm_calls` is the trace store. Add a simple internal page listing calls per match with cost and latency.
 - Log every `match.failed` with the step key and error.
-- Track eval-health numbers per tournament (position consistency, draw rate, upset rate) on the host console.
+- Track eval-health numbers per tournament (position consistency, draw rate, upset rate, per-category win rates) on the host console. Category and novelty rates are read across tournaments. Never retune a tournament that has already started.
