@@ -44,7 +44,7 @@ One build per tournament, frozen when the host creates the tournament. Its hash 
 
 `build_hash = sha256(canonical_json({models, params, budgets, prompt_hashes, rubric_hash, engine_version}))`. Show the first 6 hex chars in the UI.
 
-Cosmetics (sprite, archetype, weapon skins, corner color) come from the idea and the seed. They never touch scoring.
+Cosmetics never touch scoring. Sprite, archetype and weapon skins come from the idea and the fighter's sprite seed. Which fighter stands on the left is drawn from `match_seed`, not from seed number. Left stays orange and right stays blue.
 
 ## Match lifecycle
 
@@ -70,6 +70,8 @@ We compute the whole match before anyone sees it.
 Locking bets before compute is what protects betting. Nobody, including admins, can know a result while its bets are open. Sealing the result until air time is about spoilers, which matters for the room but not for money.
 
 While computing, the arena plays the pre-fight: fighters walk in, the tale of the tape, the crowd. If compute finishes early, the match waits for the host. If the host airs a match that is still computing, the pre-fight loops with a "judges are deliberating" card.
+
+On the web, more than one match may air at once. Each match page has its own clock. Arena Mode airs one match at a time.
 
 Live compute (streaming the fight as the LLM writes it) is out of scope. It stalls on slow calls and the HP scaling below needs the final totals.
 
@@ -111,7 +113,7 @@ Each round runs two volleys per fighter, written simultaneously.
 - `defense`: a response to a specific opponent shot from volley 1 (`responds_to` is required).
 - `attack` or `pitch`: pressing the case.
 
-Every shot names one criterion from the current round, lists evidence IDs it relies on, or sets `estimate: true` if it is reasoning without a source. See the schema in [schemas/contracts.ts](../schemas/contracts.ts).
+Every shot names one criterion from the current round, lists evidence IDs it relies on, or sets `estimate: true` if it is reasoning without a source. See the schema in [schemas/contracts.ts](../schemas/contracts.ts). A shot that names a criterion from another round is dropped and logged. A `defense` whose `responds_to` does not name a real volley-1 shot is treated as a `pitch` on the same criterion. If a fighter argues the wrong idea or confuses the two sides, the judge scores the ideas, not the confusion. A validator checks that every shot names a criterion and a target, and logs a warning when it does not.
 
 Simultaneous volleys remove first-mover and last-word advantages. The arena still alternates shots for drama, but nobody wrote in response to a shot they hadn't seen.
 
@@ -177,6 +179,8 @@ Compute `Delta_AB` and `Delta_BA` from each judge order on its own.
 | Winner took zero damage | adds `PERFECT` | | "PERFECT" |
 
 The thresholds (`DRAW_MARGIN = 1.5`, `KO_MARGIN = 10`, `DECISION_FLOOR = 12`, `BACKFIRE = 1.5`, `BACKFIRE_CAP = 3`) live in the rubric preset so a host can tune them before the tournament. They are frozen with the build.
+
+One fighter still advances when both ideas score badly. If both weighted rubric totals are under 30, the outcome banner also reads PYRRHIC VICTORY.
 
 ### HP scaling
 
@@ -286,10 +290,11 @@ Shot timing and weapon choice are in [05-ui.md](05-ui.md#arena-choreography).
 
 ## Brackets
 
-- Sizes 2 to 64. Round up to the next power of two. Byes go to the top seeds.
-- Seeding modes: `weighin` (default, standard 1 vs N layout so seeds 1 and 2 can only meet in the final) or `random` (seeded RNG, logged).
+- Sizes 2 to 64. A field larger than 64 is refused. Qualifiers run as separate tournaments. Round up to the next power of two. Byes go to the top seeds.
+- Seeding modes: `weighin` (default, standard 1 vs N layout so seeds 1 and 2 can only meet in the final) or `random` (seeded RNG, logged). If every entrant has the same weigh-in total, `weighin` seeding falls back to a random draw from a logged seed.
 - A bye is outcome `BYE`. The fighter skips a step of the Tower with no match computed and no bets offered.
-- A withdrawal or disqualification after the bracket is published gives the opponent a `WALKOVER`. Bets on that match are void.
+- A withdrawal or disqualification after the bracket is published gives the opponent a `WALKOVER`. Bets on that match are void. That includes a match already `sealed` but not yet aired: the sealed result is not aired, the opponent gets the walkover, and bets on that match are void.
+- Disqualifying a fighter who already won a `complete` match gives their next opponent a walkover. Those completed results stand, and bets on them stay settled.
 - No re-seeding between rounds.
 - Rounds air in order. A match can only compute once both of its feeder matches are `complete` (or `sealed`, if the host wants to precompute a whole row).
 

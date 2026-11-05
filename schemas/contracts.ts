@@ -116,7 +116,7 @@ export interface EvidenceItem {
   foundBy: { kind: "dossier"; ideaId: string } | { kind: "scouting"; fighter: Slot };
 }
 
-/** Output of prompts/researcher.md. */
+/** Output of prompts/researcher.md. A research timeout retries up to 3 times, then this is built from what finished and the weigh-in log marks it partial. */
 export interface Dossier {
   ideaId: string;
   sections: {
@@ -149,12 +149,12 @@ export type ShotType = "pitch" | "attack" | "defense";
 export interface Shot {
   id: string; // "r1.v1.A.s2", assigned by the orchestrator, not the model
   type: ShotType;
-  criterion: CriterionId; // must belong to the current round
+  criterion: CriterionId; // must belong to the current round; another round's criterion is dropped and logged
   headline: string; // <= 12 words, shown as the caption
   claim: string; // <= 60 words, shown in receipts
   evidence: string[]; // evidence IDs from the match locker
   estimate: boolean;
-  respondsTo?: string; // required when type === "defense"
+  respondsTo?: string; // required when type === "defense"; a missing shot is treated as a pitch on this criterion
 }
 
 /** Output of prompts/fighter.md for one volley. The model returns shots without ids. */
@@ -306,7 +306,7 @@ interface EventBase {
 }
 
 export type MatchEvent =
-  | (EventBase & { type: "match.locked"; matchSeed: string; buildHash: string; corners: { left: Slot; right: Slot } })
+  | (EventBase & { type: "match.locked"; matchSeed: string; buildHash: string; corners: { left: Slot; right: Slot } }) // corners drawn from matchSeed, not seed number
   | (EventBase & { type: "scouting.completed"; fighter: Slot; evidence: EvidenceItem[]; callIds: string[] })
   | (EventBase & { type: "volley.submitted"; volley: Volley; callId: string })
   | (EventBase & { type: "factcheck.completed"; fighter: Slot; round: RoundNumber | "sudden_death"; checks: ShotFactCheck[]; callIds: string[] })

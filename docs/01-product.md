@@ -35,8 +35,8 @@ These show up in the UI on the landing page and before the first fight.
 
 ## Core loop
 
-1. **Host creates a tournament.** Size (4 to 64), rubric preset, seeding mode, schedule. The fighter build (model version, prompts, tools, budgets, rubric version) is frozen and hashed at this moment.
-2. **Submissions.** Ideas come in through a form or a host import. Each goes through moderation, duplicate detection and prompt-injection screening, then gets rewritten into a Standard Brief (same template and length for everyone). The submitter approves the brief.
+1. **Host creates a tournament.** Size (2 to 64), rubric preset, seeding mode, schedule. The fighter build (model version, prompts, tools, budgets, rubric version) is frozen and hashed at this moment. A field larger than 64 is refused; qualifiers are separate tournaments. See [02-fight-system.md](02-fight-system.md#brackets).
+2. **Submissions.** Ideas come in through a form or a host import. Each goes through moderation, duplicate detection and prompt-injection screening, then gets rewritten into a Standard Brief (same template and length for everyone). The submitter approves the brief. Joke ideas are allowed. Non-English submissions are accepted; the brief is written in English and the original text is kept as an appendix. When more submissions arrive than there are slots, they wait in arrival order and the host curates the final field.
 3. **Weigh-in.** A research agent builds a dossier for each idea with a fixed web search budget and a shared evidence locker. A weigh-in judge scores each idea alone on the rubric. This produces the fighter card (stats, archetype, sprite) and the seed.
 4. **Bracket published.** The Tower appears. Byes go to top seeds if the field isn't a power of two. Outright champion betting opens.
 5. **Match.**
@@ -77,7 +77,7 @@ The demo should run start to finish on stage with 8 ideas in about 15 minutes.
 
 ### v1
 
-- Accounts, open public submissions with a waitlist.
+- Accounts, open public submissions with a waitlist in arrival order. The host curates the final field.
 - Outright champion bets and prop bets ("Ends in K.O.?", "Anyone fact-checked?").
 - Shareable fight clips (canvas capture to WebM) and fighter card images.
 - AI ring announcer voice using Voxtral TTS.
