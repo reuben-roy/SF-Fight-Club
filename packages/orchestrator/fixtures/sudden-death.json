@@ -1,0 +1,1412 @@
+{
+  "steps": {
+    "scout/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "searchesRun": 2,
+            "evidence": [
+              {
+                "url": "https://example.com/scout-a",
+                "title": "Permit desk",
+                "snippet": "No new permit source.",
+                "retrievedAt": "2026-11-05T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "scout/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "searchesRun": 2,
+            "evidence": [
+              {
+                "url": "https://example.com/scout-b",
+                "title": "Patio weather",
+                "snippet": "No new weather source.",
+                "retrievedAt": "2026-11-05T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "A states the pain",
+                "claim": "Both ideas name a real customer.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "pitch",
+                "criterion": "market",
+                "headline": "A sizes the field",
+                "claim": "Both ideas can name a buyer.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "A answers back",
+                "claim": "The counter keeps the same estimate.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "pitch",
+                "criterion": "market",
+                "headline": "A presses on",
+                "claim": "Nothing here separates the two ideas.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "B states the pain",
+                "claim": "Both ideas name a real customer.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "pitch",
+                "criterion": "market",
+                "headline": "B sizes the field",
+                "claim": "Both ideas can name a buyer.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "B answers back",
+                "claim": "The counter keeps the same estimate.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "pitch",
+                "criterion": "market",
+                "headline": "B presses on",
+                "claim": "Nothing here separates the two ideas.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "problem",
+                "comparison": "problem compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "market",
+                "comparison": "market compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "wtp",
+                "comparison": "wtp compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Scored from the anchors."
+          }
+        }
+      ]
+    },
+    "r1/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "problem",
+                "comparison": "problem compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "market",
+                "comparison": "market compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "wtp",
+                "comparison": "wtp compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Scored from the anchors."
+          }
+        }
+      ]
+    },
+    "r2/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "differentiation",
+                "headline": "A states the pain",
+                "claim": "Both ideas name a real customer.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "pitch",
+                "criterion": "moat",
+                "headline": "A sizes the field",
+                "claim": "Both ideas can name a buyer.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "differentiation",
+                "headline": "A answers back",
+                "claim": "The counter keeps the same estimate.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "pitch",
+                "criterion": "moat",
+                "headline": "A presses on",
+                "claim": "Nothing here separates the two ideas.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "differentiation",
+                "headline": "B states the pain",
+                "claim": "Both ideas name a real customer.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "pitch",
+                "criterion": "moat",
+                "headline": "B sizes the field",
+                "claim": "Both ideas can name a buyer.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "differentiation",
+                "headline": "B answers back",
+                "claim": "The counter keeps the same estimate.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "pitch",
+                "criterion": "moat",
+                "headline": "B presses on",
+                "claim": "Nothing here separates the two ideas.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "differentiation",
+                "comparison": "differentiation compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "moat",
+                "comparison": "moat compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "timing",
+                "comparison": "timing compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Scored from the anchors."
+          }
+        }
+      ]
+    },
+    "r2/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "differentiation",
+                "comparison": "differentiation compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "moat",
+                "comparison": "moat compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "timing",
+                "comparison": "timing compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Scored from the anchors."
+          }
+        }
+      ]
+    },
+    "r3/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "gtm",
+                "headline": "A states the pain",
+                "claim": "Both ideas name a real customer.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "pitch",
+                "criterion": "feasibility",
+                "headline": "A sizes the field",
+                "claim": "Both ideas can name a buyer.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "gtm",
+                "headline": "A answers back",
+                "claim": "The counter keeps the same estimate.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "pitch",
+                "criterion": "feasibility",
+                "headline": "A presses on",
+                "claim": "Nothing here separates the two ideas.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "gtm",
+                "headline": "B states the pain",
+                "claim": "Both ideas name a real customer.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "pitch",
+                "criterion": "feasibility",
+                "headline": "B sizes the field",
+                "claim": "Both ideas can name a buyer.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "gtm",
+                "headline": "B answers back",
+                "claim": "The counter keeps the same estimate.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "pitch",
+                "criterion": "feasibility",
+                "headline": "B presses on",
+                "claim": "Nothing here separates the two ideas.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "gtm",
+                "comparison": "gtm compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "feasibility",
+                "comparison": "feasibility compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "scale",
+                "comparison": "scale compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Scored from the anchors."
+          }
+        }
+      ]
+    },
+    "r3/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "gtm",
+                "comparison": "gtm compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "feasibility",
+                "comparison": "feasibility compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "scale",
+                "comparison": "scale compared against the anchors.",
+                "fighter_1": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Anchored against the rubric.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Scored from the anchors."
+          }
+        }
+      ]
+    },
+    "report": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "headline": "PermitPilot wins in sudden death",
+            "whyTheyWon": [
+              "The scoreline was a draw.",
+              "Three sudden-death votes picked PermitPilot.",
+              "The cascade stopped at the judges."
+            ],
+            "turningPoint": {
+              "text": "The closing volley tipped a tied card."
+            },
+            "loserTakeaways": [
+              "Separate the idea on one criterion.",
+              "Bring a sourced number next time."
+            ],
+            "announcerLines": [
+              {
+                "cueRef": "sudden-death",
+                "text": "Sudden death."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sd/closing/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Permit the city",
+                "claim": "The permit backlog is the better opportunity.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sd/closing/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Forecast the block",
+                "claim": "Outdoor revenue is the better opportunity.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sd/judge/AB/1": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "analysis": "One idea names a buyer who already pays for a workaround.",
+            "winner": "fighter_1",
+            "confidence": 0.7,
+            "decidingFactor": "Problem severity is more concrete."
+          }
+        }
+      ]
+    },
+    "sd/judge/BA/1": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "analysis": "One idea names a buyer who already pays for a workaround.",
+            "winner": "fighter_2",
+            "confidence": 0.7,
+            "decidingFactor": "Problem severity is more concrete."
+          }
+        }
+      ]
+    },
+    "sd/judge/AB/2": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "analysis": "One idea names a buyer who already pays for a workaround.",
+            "winner": "fighter_1",
+            "confidence": 0.7,
+            "decidingFactor": "Problem severity is more concrete."
+          }
+        }
+      ]
+    },
+    "sd/judge/BA/2": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "analysis": "One idea names a buyer who already pays for a workaround.",
+            "winner": "fighter_1",
+            "confidence": 0.7,
+            "decidingFactor": "Problem severity is more concrete."
+          }
+        }
+      ]
+    }
+  }
+}
