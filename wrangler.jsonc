@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sf-fight-club",
+  "compatibility_date": "2026-11-01",
+  // Static preview of the arena prototype. Replace with the real app once it exists.
+  "assets": {
+    "directory": "./prototype"
+  }
+}
