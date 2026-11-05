@@ -273,7 +273,8 @@ export interface MatchResolution {
   decidedBy: "scores" | TiebreakStrategy;
   tiebreak?: TiebreakRecord[];
   lambda: number; // HP per rubric point
-  hpAfterRound: { A: [number, number, number]; B: [number, number, number] }; // before sudden death
+  hpAfterRound: { A: [number, number, number]; B: [number, number, number] }; // display HP before sudden death
+  pyrrhic?: boolean; // both weighted rubric totals are under 30
 }
 
 export type TiebreakRecord =
@@ -379,7 +380,13 @@ export type Cue =
     })
   | (CueBase & { kind: "hammer"; target: Slot; criterion: CriterionId; reason: string; damage: number; hpAfter: Record<Slot, number> })
   | (CueBase & { kind: "scorecard"; round: RoundNumber; rows: { criterion: CriterionId; A: number; B: number; points: number; hp: number; to: Slot | null }[]; agreement: number })
-  | (CueBase & { kind: "outcome"; outcome: OutcomeKind; decisionType?: "unanimous" | "majority"; perfect: boolean })
+  | (CueBase & {
+      kind: "outcome";
+      outcome: OutcomeKind;
+      decisionType?: "unanimous" | "majority";
+      perfect: boolean;
+      pyrrhic?: boolean; // banner also reads PYRRHIC VICTORY
+    })
   | (CueBase & { kind: "sudden_death"; closings: Record<Slot, string>; tally: Record<Slot, number> })
   | (CueBase & { kind: "finisher"; winner: Slot; loser: Slot; style: "ko" | "decision" })
   | (CueBase & { kind: "winner"; winner: Slot; decidedBy: MatchResolution["decidedBy"] });

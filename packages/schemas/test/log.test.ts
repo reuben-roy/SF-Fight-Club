@@ -104,6 +104,7 @@ describe("compute log and broadcast", () => {
           A: [100, 93, 77],
           B: [49, 46, 0],
         },
+        pyrrhic: false,
       }).outcome,
     ).toBe("KO");
   });

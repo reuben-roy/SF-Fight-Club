@@ -147,6 +147,7 @@ export const matchResolutionSchema = z.strictObject({
     A: hpTripleSchema,
     B: hpTripleSchema,
   }),
+  pyrrhic: z.boolean().optional(),
 });
 
 const eventBase = {
@@ -306,6 +307,7 @@ export const cueSchema = z.discriminatedUnion("kind", [
     outcome: outcomeKindSchema,
     decisionType: z.enum(["unanimous", "majority"]).optional(),
     perfect: z.boolean(),
+    pyrrhic: z.boolean().optional(),
   }),
   cue("sudden_death", {
     closings: z.strictObject({ A: z.string(), B: z.string() }),
