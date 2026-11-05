@@ -50,7 +50,7 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 
 | ID | Case | Expected behavior | Status |
 |---|---|---|---|
-| FE-1 | Mistral call fails (429, 5xx, timeout) | Backoff with jitter, 5 attempts. Then the step fails and the match goes `failed`. Host retries from the last completed step. | Decided |
+| FE-1 | Model call fails (429, 5xx, timeout) | Backoff with jitter, 5 attempts, waiting on a Durable Object alarm. Then the step fails and the match goes `failed`. Host retries from the last completed step. Applies to Workers AI and to an external provider such as Mistral. | Decided. [04 Budgets](04-architecture.md#budgets-and-limits) |
 | FE-2 | Output fails schema validation | One retry with the validation error appended. Then fail the step. | Decided |
 | FE-3 | Fighter refuses to argue | One retry with a reminder that this is a fictional business debate. Then an empty volley. | Decided |
 | FE-4 | Fighter argues for the wrong idea or confuses sides | Judge prompt tells the judge to score the idea, not the confusion. Add a cheap validator: every shot must name a criterion and its target. Log a warning. | Decided. [02 Rounds](02-fight-system.md#2-to-4-rounds) |
@@ -68,9 +68,9 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 | FE-16 | Shot verdicts from the judge contradict criterion scores (lots of landed hits for the side that lost the criterion) | Fine by design. Criterion scores decide. Those hits render as GLANCING. | Decided |
 | FE-17 | A criterion has damage but no carrier shots | Judges' hammer cue carries it | Decided |
 | FE-18 | Idea text or a volley tries to talk to the judge | Judge ignores it and sets `injectionSuspected`. Host console shows the flag. | Decided |
-| FE-19 | Tournament budget runs out mid-floor | Worker refuses to start new matches. Running ones finish. Host raises the budget or stops. | Decided |
-| FE-20 | Worker crashes mid-match | Job lease expires. Another worker picks it up and resumes from the last completed step key. | Decided |
-| FE-21 | Two workers pick up the same match | `FOR UPDATE SKIP LOCKED` on jobs plus `unique (match_id, step_key)` on events. The second insert fails and that worker drops the job. | Decided |
+| FE-19 | Tournament budget runs out mid-floor | The match owner refuses to start new matches. Running ones finish. Host raises the budget or stops. | Decided. [04 Budgets](04-architecture.md#budgets-and-limits) |
+| FE-20 | Match agent evicted mid-match | Its alarm fires, it reads `match_events`, and it resumes from the first missing step key. Completed steps are not re-run. | Decided. [08 Jobs](08-cloudflare.md#jobs) |
+| FE-21 | A second start arrives for the same match | The match id names one Durable Object, so the second call lands on that instance and sees the existing step keys. `UNIQUE (match_id, step_key)` rejects a duplicate insert. | Decided. [08 Jobs](08-cloudflare.md#jobs) |
 | FE-22 | A volley's speech is fine but contains slurs or harassment | Run moderation on volleys. On a hit, regenerate once, then replace with an empty volley. | Decided. [04 Match](04-architecture.md#match) |
 
 ## Broadcast
@@ -78,7 +78,7 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 | ID | Case | Expected behavior | Status |
 |---|---|---|---|
 | BC-1 | Viewer joins mid-match | `snapshot` event, then live cues | Decided |
-| BC-2 | Viewer's connection drops | SSE reconnect with `Last-Event-ID`. Missed cues apply instantly. | Decided |
+| BC-2 | Viewer's connection drops | Reconnect to the match Durable Object with the last cue id. SSE uses `Last-Event-ID`. Missed cues apply instantly. | Decided. [08 Realtime](08-cloudflare.md#realtime) |
 | BC-3 | Tab goes to the background | Render loop pauses. On return, apply missed cues instantly. | Decided |
 | BC-4 | Host airs a match that's still computing | Pre-fight loop with "judges are deliberating" until sealed, then the fight starts with `air_started_at` set at that moment | Decided |
 | BC-5 | Two matches air at once on the web | Allowed on the web (each match page has its own clock). Arena Mode airs one at a time. | Decided. [02 Sealed broadcast](02-fight-system.md#sealed-broadcast) |
@@ -95,7 +95,7 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 | BT-1 | Bet arrives at the lock instant | Server timestamp vs `locked_at`. Ties go to rejection. | Decided |
 | BT-2 | Double-click submits twice | Idempotency key. Second request returns the first bet. | Decided |
 | BT-3 | Stake is zero, negative, fractional, or above balance | Rejected | Decided |
-| BT-4 | Concurrent bets drain the wallet below zero | Wallet row lock inside the transaction | Decided |
+| BT-4 | Concurrent bets drain the wallet below zero | Wallet update, ledger debit, and bet insert are one D1 batch. The second batch sees the new balance and is rejected. | Decided. [04 Data model](04-architecture.md#data-model) |
 | BT-5 | Nobody backed the winner | Refund all user stakes | Decided |
 | BT-6 | Only one side has user money | House seed on the other side gives the winners a small return | Decided |
 | BT-7 | Match voided after settlement | Not allowed. Void only before settlement. | Decided |

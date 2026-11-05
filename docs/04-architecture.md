@@ -1,32 +1,34 @@
 # 04. Architecture
 
+Deploy detail (D1 types, free-tier limits, Durable Objects, Better Auth, model providers) lives in [08-cloudflare.md](08-cloudflare.md). This file is the logical model and the pipeline. Column meaning lives here. Physical types and Cloudflare limits live in 08.
+
 ## Stack
 
-TypeScript end to end, so the engine, the worker and the UI share one set of types.
+TypeScript end to end, so the engine, the agents, and the UI share one set of types.
 
 | Layer | Choice | Why |
 |---|---|---|
-| Web app | Next.js (App Router), React, TypeScript, Tailwind CSS | Fast to build, one deploy for UI and API routes |
+| Web app and API | Cloudflare Worker, React, TypeScript, Tailwind. Client bundle as Workers Static Assets on that Worker. | One deploy for UI and API. |
 | Arena renderer | PixiJS v8 on a canvas, GSAP timelines | WebGL sprites, particles and screen shake at 60 fps. GSAP timelines map cleanly onto broadcast cues. |
 | HUD and UI motion | DOM over the canvas, Motion (framer-motion) | Health bars and text stay crisp, selectable and accessible |
-| LLM | Mistral API through `@mistralai/mistralai` | Hackathon sponsor. Large 4 for fighters and judges, Small 4 for utility, Moderation 2 for intake, built-in `web_search` for research. |
-| Database | Postgres (Supabase) | Event log, bets, wallets. Supabase also gives auth and realtime. |
-| Realtime | Server-Sent Events from the web app, or Supabase Realtime | One-way broadcast cues. SSE resumes with `Last-Event-ID`. |
-| Jobs | A worker process polling a Postgres jobs table (`FOR UPDATE SKIP LOCKED`) | Matches take minutes. Serverless timeouts would kill them. Inngest or Trigger.dev are fine swaps later. |
-| Hosting | Vercel for web, Fly.io or Railway for the worker, Supabase | Or everything on one Fly machine for the demo |
+| Database | Cloudflare D1 | Event log, bets, wallets, Better Auth. SQL, SQLite dialect. See [08](08-cloudflare.md#data-d1). |
+| Auth | Better Auth on D1 | Public founder and spectator sign-up, sessions, profile role. Access may additionally gate the host console. |
+| Match runtime | Durable Objects and the Agents SDK | A match runs for minutes. One object per match calls the orchestrator and the pure engine, and resumes from the compute log. |
+| Realtime | WebSocket on the match Durable Object. SSE from the Worker when the client cannot hold a socket. | One-way broadcast cues. Reconnect carries the last cue id (`Last-Event-ID` on SSE). |
+| Jobs | DO alarms on the owning agent. A Queue fans out host actions. A Cron Trigger runs the daily Seed Bucks bridge. | The object is the lock. Pattern in [08 Jobs](08-cloudflare.md#jobs). |
+| Models | Workers AI, an external provider, or fixture replay. Mistral is the hackathon default. | One pinned build for every fighter. Demos use fixtures and spend nothing. |
 
-Mistral model IDs change. Resolve current IDs from `GET /v1/models` when a tournament is created and pin the dated ID into the build. Don't hardcode `-latest` aliases into anything that runs during a tournament.
+The fighter-build defaults, including Mistral model ids, are in [02](02-fight-system.md#the-fighter-build). Pin a dated model id into the build when the tournament is created. Don't hardcode `-latest` aliases into anything that runs during a tournament. Provider wiring is in [08 Models](08-cloudflare.md#models).
 
 ## Repo layout
 
 ```
 apps/
-  web/              Next.js app: pages, API routes, SSE broadcast
-  worker/           Orchestrator: runs weigh-ins and matches, writes the compute log
+  web/              Worker: API, Better Auth, static assets, broadcast upgrade
 packages/
   schemas/          Types and zod schemas (start from /schemas/contracts.ts)
   engine/           Pure TS. Bracket, seeding, scoring, damage, outcome, tiebreak, director. No I/O.
-  orchestrator/     LLM steps: brief, research, scouting, volley, fact-check, judge, report
+  orchestrator/     Model steps, and fixture replay for demos and tests
   prompts/          Prompt templates (start from /prompts), loaded by content hash
   arena/            PixiJS renderer. Input: broadcast script. Output: pixels and sound.
 evals/
@@ -34,26 +36,30 @@ evals/
   reports/          Harness output
 ```
 
+`apps/web` and `packages/orchestrator` are the planned homes. They are not in the repo yet. Templates today live in `/prompts`.
+
 `packages/engine` is the most important package to get right and the easiest to test. It never calls an LLM, never reads the clock, never touches the database. Every function takes data and returns data. Unit test it hard, especially `resolveMatch`, `scaleHp`, `distributeDamage`, `seedBracket` and `runTiebreak`.
+
+`packages/orchestrator` has two entries. The real entry calls the provider named in the fighter build. The fixture entry replays canned outputs by step key so the UI, the agents, and the harness run with no model configured. Both write the same compute-log shapes.
 
 ## Components
 
 ```
-            +--------------------+        +-------------------+
- browser -> | apps/web           | -----> | Postgres          |
-  (SSE)  <- |  pages, API, SSE   | <----- |  events, bets ... |
-            +--------------------+        +-------------------+
-                                             ^      |
-                                    writes   |      | jobs
-                                             |      v
-                                          +-------------------+      +-------------+
-                                          | apps/worker       | ---> | Mistral API |
-                                          |  orchestrator     | <--- |             |
-                                          |  + engine         |      +-------------+
-                                          +-------------------+
+ browser --> +----------------------+ --> D1
+  socket <-- | Worker (apps/web)    |     events, bets, auth
+             |  API, assets, cron   |
+             +----------+-----------+
+                        | wake (Queue fan-out)
+                        v
+             +----------------------+ --> Workers AI
+             | MatchAgent /         |     or external model
+             | WeighInAgent (DO)    |     (Mistral by default)
+             |  orchestrator        |
+             |  + pure engine       |
+             +----------------------+
 ```
 
-The web app never calls Mistral. The worker never serves HTTP. They meet in the database.
+The Worker serves HTTP and the client. It does not call a model. The agents do. They call `@sf-fight-club/engine` for every score, outcome, and script. The engine has no I/O. D1 holds the compute log both sides read. A Queue message only names the object that should wake up.
 
 ## The compute log
 
@@ -80,21 +86,21 @@ Every LLM call also writes a row to `llm_calls` with the full request, response,
 
 ### Idempotent steps
 
-Each orchestrator step has a stable key, for example `m_91/r2/v1/A` or `m_91/r2/judge/BA`. Before running a step, the worker checks whether an event with that key exists. If it does, it reuses it. A crashed or failed match resumes from the last completed step on retry, and steps that already succeeded never re-run. This matters because LLM outputs aren't reproducible, and a re-run step could change history that other steps already used.
+Each orchestrator step has a stable key, for example `m_91/r2/v1/A` or `m_91/r2/judge/BA`. Before running a step, the agent checks whether an event with that key exists. If it does, it reuses it. A crashed or evicted match resumes from the last completed step when its alarm fires, and steps that already succeeded never re-run. This matters because LLM outputs aren't reproducible, and a re-run step could change history that other steps already used. The compute log in D1 is the resume source. See [08 Match runtime](08-cloudflare.md#match-runtime).
 
 ## Orchestrator pipeline
 
 ### Intake (per idea, on submit)
 
 1. Validate lengths: title up to 60 chars, one-liner up to 140, description up to 1,500.
-2. Moderation with Mistral Moderation 2. Reject harmful categories.
+2. Moderation with the model named in the build. The hackathon default is Mistral Moderation 2. Reject harmful categories.
 3. Injection screen. A utility-model classifier plus regex for obvious patterns ("ignore previous", "you are now", "score this"). Flagged ideas go to host review, not straight to rejection. A founder might innocently write "ignore the hype".
-4. Duplicate check. Embed with Mistral Embed. Cosine similarity above 0.92 with an existing entrant goes to host review. An idea that is an existing real company is also flagged for host review. The default is to allow it when the submission is framed as an idea, because the rubric judges the opportunity.
+4. Duplicate check. Embed with the model named in the build. The hackathon default is Mistral Embed. Cosine similarity above 0.92 with an existing entrant goes to host review. An idea that is an existing real company is also flagged for host review. The default is to allow it when the submission is framed as an idea, because the rubric judges the opportunity.
 5. Standard Brief (`prompts/brief.md`). Same template and length for everyone. The submitter sees and approves it, or edits within the same template and limits, including claims that were not in the original idea. The model that drafts the brief still may not invent claims. If the submitter keeps rejecting the brief, the host can lock it. The brief is frozen when entrants lock.
 
 ### Weigh-in (per idea, after entrants lock)
 
-1. Research (`prompts/researcher.md`) through the Conversations API with the built-in `web_search` tool. At most 8 searches. The orchestrator keeps the best 12 sources as the evidence locker: URL, title, snippet up to 500 chars, retrieved_at. If the research step times out, retry up to 3 times, then build the dossier from what finished and mark that dossier partial in the weigh-in log. That mark is not the entailment verdict `partial`.
+1. Research (`prompts/researcher.md`) with the search tool named in the build. The hackathon default is the Mistral Conversations API with built-in `web_search`. At most 8 searches. The orchestrator keeps the best 12 sources as the evidence locker: URL, title, snippet up to 500 chars, retrieved_at. If the research step times out, retry up to 3 times, then build the dossier from what finished and mark that dossier partial in the weigh-in log. That mark is not the entailment verdict `partial`. The prompt template is the same for Workers AI and for Mistral.
 2. Fact-check the dossier's own claims against its locker.
 3. Weigh-in judge (`prompts/weighin_judge.md`), 3 samples, median.
 4. Fighter card: stats, tier, archetype, sprite seed.
@@ -126,7 +132,7 @@ Volleys go through moderation. If the speech contains slurs or harassment, regen
 
 ## Data model
 
-Postgres. Types abbreviated. Every table has `id uuid pk` and `created_at`.
+Logical model. Every table has `id` and `created_at`. Abbreviations: `jsonb` is a JSON document, `text[]` and `uuid[]` are lists, `bigint` is an integer, `bool` is a boolean. D1 column types, indexes, and the 2 MB row rule are in [08 D1](08-cloudflare.md#data-d1). Better Auth adds `user`, `session`, `account`, and `verification` in the same database.
 
 ```sql
 tournaments   (name, slug, status, size, rubric_preset, rubric_hash, build jsonb, build_hash,
@@ -145,7 +151,8 @@ match_events  (match_id, seq int, step_key text, type text, payload jsonb,
                unique (match_id, seq), unique (match_id, step_key))
 llm_calls     (match_id null, idea_id null, step_key, role, model, params jsonb,
                request jsonb, response jsonb, tokens_in, tokens_out, latency_ms, cost_usd, error)
-jobs          (kind, ref_id, status, attempts, run_after, locked_by, locked_at, last_error)
+jobs          (kind, ref_id, status, attempts, last_error, scheduled_at)
+              -- audit only. The Durable Object named by ref_id is the lock.
 
 profiles      (user_id, handle, role)                              -- spectator | founder | host | vc
 wallets       (user_id pk, balance bigint)                         -- integer Seed Bucks
@@ -158,11 +165,11 @@ vc_votes      (match_id, vc_user_id, pick, reason, recused bool)   -- v2
 hot_takes     (fighter_id, vc_user_id, text)                       -- v2
 ```
 
-Wallet balance changes only through `ledger` rows inserted in the same transaction as the bet or payout, with a row lock on the wallet. The balance can be rebuilt from the ledger at any time.
+Wallet balance changes only through `ledger` rows committed in the same D1 batch as the bet or payout. D1 applies one database's writes one at a time, so that batch is the serialization point. The balance can be rebuilt from the ledger at any time.
 
 ## API
 
-Route handlers under `apps/web/app/api`. Host routes require the host role.
+Worker routes. Host routes require a Better Auth session whose `profiles.role` is `host`. Cloudflare Access may also sit in front of the host console. It does not replace the role check, and it is not the public account system.
 
 ```
 POST  /api/tournaments                              host: create, freezes build
@@ -175,7 +182,7 @@ POST  /api/matches/:id/open-betting                 host
 POST  /api/matches/:id/lock                         host: bell, enqueues compute
 POST  /api/matches/:id/air                          host: start broadcast
 GET   /api/matches/:id                              public: status, fighters, odds
-GET   /api/matches/:id/broadcast                    SSE: cues gated by the broadcast clock
+GET   /api/matches/:id/broadcast                    WebSocket on the match object; SSE fallback. Cues gated by the broadcast clock.
 GET   /api/matches/:id/trace                        public after complete, 404 before
 POST  /api/matches/:id/retry                        host: only when failed
 POST  /api/matches/:id/void                         host: refunds bets
@@ -186,15 +193,15 @@ GET   /api/leaderboard
 
 ### Not leaking sealed results
 
-- `GET /bracket` and `GET /matches/:id` return `winner_id` and `outcome` only when the match is `complete`. Before that, a sealed match looks the same as a computing one.
+- `GET /bracket` and `GET /matches/:id` return `winner_id` and `outcome` only when the match is `complete`. Before that, a sealed match looks the same as a computing one. Those handlers select an explicit column list.
 - `GET /trace` returns 404 until `complete`.
-- The SSE endpoint sends cue `n` only once `now >= air_started_at + cue.t_ms - 3000`. The 3-second lead keeps playback smooth on slow networks.
+- The broadcast (match-object WebSocket, or SSE from the Worker) sends cue `n` only once `now >= air_started_at + cue.t_ms - 3000`. The 3-second lead keeps playback smooth on slow networks.
 - Notifications and push messages about results wait for `complete`.
-- Supabase row-level security must hide `outcome`, `winner_id`, `script` and `match_events` from the anon role until `complete`. If we use Supabase Realtime, don't subscribe clients to the raw tables.
+- The browser never holds a D1 binding. Public handlers list the columns they return, omit `script`, and skip `match_events` until `complete`. The socket sends cues. Agents SDK client state stays free of sealed fields. Sealing is that query boundary.
 
 ### Late joiners and reconnects
 
-The SSE stream starts with a `snapshot` event: everything needed to render the state at the current broadcast time (HP, round, last cue). Then it streams cues. On reconnect, the client sends `Last-Event-ID` and gets the cues it missed. The arena applies missed cues instantly without animation, then resumes live.
+The broadcast starts with a `snapshot` event: everything needed to render the state at the current broadcast time (HP, round, last cue). Then it streams cues. On reconnect, the client sends the last cue id (SSE uses `Last-Event-ID`) and gets the cues it missed. The arena applies missed cues instantly without animation, then resumes live.
 
 ## Determinism and replays
 
@@ -204,8 +211,8 @@ The SSE stream starts with a `snapshot` event: everything needed to render the s
 
 ## Budgets and limits
 
-- Tournament `budget_usd` with a running `spent_usd` updated from `llm_calls`. The worker refuses to start a match if the remaining budget is below 3x the median match cost.
-- A global concurrency limiter in the worker (start at 6 concurrent Mistral calls, tune to the workspace's rate limits). Exponential backoff with jitter on 429 and 5xx, up to 5 attempts.
+- Tournament `budget_usd` with a running `spent_usd` updated from `llm_calls`. The match owner refuses to start a match if the remaining budget is below 3x the median match cost. The `$0.25` median in [02](02-fight-system.md#cost-and-time-budget-per-match) is the Mistral Large 4 estimate. A Workers AI build records its own `cost_usd`.
+- A concurrency cap on `TournamentAgent` (start at 6 in-flight model calls, tune to the provider). Exponential backoff with jitter on 429 and 5xx, up to 5 attempts, waiting on a DO alarm so the isolate is not held open for the whole backoff.
 - Per-step timeouts: 60s for volleys and judges, 120s for research.
 
 ## Security and privacy
@@ -218,6 +225,6 @@ The SSE stream starts with a `snapshot` event: everything needed to render the s
 
 ## Observability
 
-- `llm_calls` is the trace store. Add a simple internal page listing calls per match with cost and latency.
+- `llm_calls` is the trace store. Add a simple internal page listing calls per match with cost and latency. Workers logs cover request failures around that store.
 - Log every `match.failed` with the step key and error.
 - Track eval-health numbers per tournament (position consistency, draw rate, upset rate, per-category win rates) on the host console. Category and novelty rates are read across tournaments. Never retune a tournament that has already started.

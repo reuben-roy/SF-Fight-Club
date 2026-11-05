@@ -52,7 +52,7 @@ open -> locked -> settled
            \-> void (refund every stake)
 ```
 
-- **Placing**: `POST /api/bets` with an idempotency key. Server time decides. Stake must be an integer from 10 up to the current balance. The wallet row gets locked, a ledger row debits the stake, and the bet row is inserted, all in one transaction.
+- **Placing**: `POST /api/bets` with an idempotency key. Server time decides. Stake must be an integer from 10 up to the current balance. The wallet update, the ledger debit, and the bet insert commit as one D1 batch. D1 runs one database's writes one at a time, so a second bet sees the updated balance.
 - **Odds move** until the bell. The slip shows an estimate. The real payout uses the final pool at lock.
 - **Locking** happens at the bell, before the match computes. Bets with a server timestamp after `locked_at` are rejected with a clear error.
 - **Settlement** happens when the match is `complete` (after it airs, so nobody's balance spoils the result).

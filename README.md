@@ -6,7 +6,7 @@ A single-elimination tournament for San Francisco startup ideas, built at the Mi
 
 ## Status
 
-Design and groundwork. Shared contracts live in `packages/schemas`. Fight math lives in `packages/engine`. No app yet.
+Design and groundwork. Shared contracts live in `packages/schemas`. Fight math lives in `packages/engine`. The deploy target is Cloudflare: a Worker for the app and API, D1 for SQL, Durable Objects and the Agents SDK for match orchestration, Better Auth on D1 for public accounts. No app is scaffolded yet. Demos are planned to run on fixture replay in `packages/orchestrator`, with no model spend.
 
 ## What's here
 
@@ -15,13 +15,14 @@ Design and groundwork. Shared contracts live in `packages/schemas`. Fight math l
 | [docs/01-product.md](docs/01-product.md) | The idea, personas, core loop, fairness story, phases, open decisions |
 | [docs/02-fight-system.md](docs/02-fight-system.md) | Match format, volleys, fact-checks, scores to HP math, outcomes, tiebreaks, broadcast |
 | [docs/03-evals.md](docs/03-evals.md) | The rubric with anchors and caps, judge protocol, bias controls, the judge-the-judge harness |
-| [docs/04-architecture.md](docs/04-architecture.md) | Stack, repo layout, compute log, orchestrator pipeline, data model, API, sealing |
+| [docs/04-architecture.md](docs/04-architecture.md) | Logical architecture: compute log, orchestrator pipeline, data model, API, sealing |
 | [docs/05-ui.md](docs/05-ui.md) | Mistral-derived design tokens, the Tower, the arena, weapons, choreography, film room |
 | [docs/06-betting-and-vc.md](docs/06-betting-and-vc.md) | Play-money parimutuel betting, and the v2 VC panel |
 | [docs/07-edge-cases.md](docs/07-edge-cases.md) | Edge-case register with decided, proposed and open items |
+| [docs/08-cloudflare.md](docs/08-cloudflare.md) | Deploy path: Workers, D1, Durable Objects, Agents SDK, Better Auth, model providers |
 | [schemas/contracts.ts](schemas/contracts.ts) | Types for every LLM output, the compute log and the broadcast script. Plain TypeScript, no dependencies. |
 | [schemas/rubric.vc-default.json](schemas/rubric.vc-default.json) | The default rubric, machine-readable |
-| [packages/schemas](packages/schemas) | `@sf-fight-club/schemas`. Zod parsers for those contracts, plus committed JSON Schema for Mistral structured outputs. |
+| [packages/schemas](packages/schemas) | `@sf-fight-club/schemas`. Zod parsers for those contracts, plus committed JSON Schema for structured outputs (Mistral helper included). |
 | [packages/engine](packages/engine) | `@sf-fight-club/engine`. Pure bracket, scoring, HP, tiebreak, and director. No I/O. |
 | [prompts/](prompts/) | Prompt templates for every agent role |
 | [prototype/arena.html](prototype/arena.html) | Standalone visual prototype of the arena and the Tower. Open it in a browser. |
