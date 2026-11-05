@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SF Fight Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pixelify+Sans:wght@500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF4; --paper-2:#F2F1E8; --line:#E4E2D6; --line-2:#BFBCAC; --muted:#8B8879;
+  --ink:#151524; --ink-2:#242433; --ink-3:#56566C;
+  --sun-1:#FFDD73; --sun-2:#FFAF01; --sun-3:#FF8204; --sun-4:#FA500F; --sun-5:#E51300; --sun-6:#C4001D;
+  --red:#FA500F; --blue:#0082E6; --blue-light:#55B3FB; --blue-dark:#044298; --good:#44BA82;
+  --night:#151524; --night-2:#242433; --night-3:#343446; --cream:#FAFAF4;
+  --shadow:4px 4px 0 var(--ink);
+  --stripes:linear-gradient(to bottom,var(--sun-1) 0 20%,var(--sun-2) 20% 40%,var(--sun-3) 40% 60%,var(--sun-4) 60% 80%,var(--sun-5) 80% 100%);
+  --mono:'Space Mono',ui-monospace,Menlo,monospace;
+  --pixel:'Pixelify Sans','Space Mono',monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#151524; --paper-2:#242433; --line:#343446; --line-2:#56566C; --muted:#B8B8CC;
+    --ink:#FAFAF4; --ink-2:#F2F1E8; --ink-3:#B8B8CC; --shadow:4px 4px 0 #000; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#151524; --paper-2:#242433; --line:#343446; --line-2:#56566C; --muted:#B8B8CC;
+  --ink:#FAFAF4; --ink-2:#F2F1E8; --ink-3:#B8B8CC; --shadow:4px 4px 0 #000; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font:15px/1.45 Inter,system-ui,sans-serif;overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em}
+
+/* top bar */
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding:10px 16px;border-bottom:2px solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:20}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--pixel);font-weight:700;font-size:20px;letter-spacing:.02em;white-space:nowrap}
+.brand i{display:block;width:22px;height:22px;background:var(--stripes);border:2px solid var(--ink)}
+.tabs{display:flex;gap:6px;margin-left:8px}
+.tab{border:2px solid var(--ink);background:var(--paper);padding:5px 10px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.wallet{margin-left:auto;font-family:var(--mono);font-size:13px;white-space:nowrap;border:2px solid var(--ink);padding:4px 10px;background:var(--paper-2)}
+.wallet b{font-weight:700}
+
+main{max-width:1320px;margin:0 auto;padding:16px}
+[hidden]{display:none!important}
+
+/* buttons */
+.btn{border:2px solid var(--ink);background:var(--paper);box-shadow:3px 3px 0 var(--ink);padding:7px 12px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn.hot{background:var(--sun-4);color:#151524;border-color:#151524;box-shadow:3px 3px 0 #151524}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* ARENA */
+.arena-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start}
+@media (max-width:1000px){.arena-grid{grid-template-columns:minmax(0,1fr)}}
+.frame{background:var(--night);border:2px solid #151524;box-shadow:var(--shadow);color:var(--cream)}
+.hud{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;padding:10px 12px}
+.side{display:grid;gap:4px;min-width:0}
+.side.right{text-align:right}
+.plate{display:flex;align-items:baseline;gap:8px;min-width:0}
+.side.right .plate{flex-direction:row-reverse}
+.nm{font-family:var(--pixel);font-weight:700;font-size:clamp(13px,2.2vw,20px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.side.left .nm{color:var(--sun-2)} .side.right .nm{color:var(--blue-light)}
+.meta{font-family:var(--mono);font-size:11px;color:#B8B8CC;white-space:nowrap}
+.hp{position:relative;height:18px;background:#101013;border:2px solid var(--cream);box-shadow:3px 3px 0 #000;overflow:hidden}
+.hp .ghost,.hp .fill{position:absolute;top:0;bottom:0;left:0;width:100%}
+.side.right .hp .ghost,.side.right .hp .fill{left:auto;right:0}
+.hp .ghost{background:var(--cream)}
+.hp .fill{background:linear-gradient(to bottom,var(--sun-1) 0 34%,var(--sun-2) 34% 68%,var(--sun-4) 68% 100%)}
+.hp::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(to right,transparent 0 calc(5% - 2px),#101013 calc(5% - 2px) 5%)}
+.hp.low .fill{background:var(--sun-5);animation:low 1s steps(1) infinite}
+@keyframes low{50%{background:var(--sun-6)}}
+.hpn{font-family:var(--mono);font-size:11px;color:#B8B8CC}
+.center{text-align:center;display:grid;gap:4px;justify-items:center}
+.rnd{font-family:var(--pixel);font-weight:700;font-size:clamp(12px,1.8vw,16px);background:var(--cream);color:#151524;padding:2px 8px;white-space:nowrap}
+.chips{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
+.chip{font-family:var(--mono);font-size:10px;text-transform:uppercase;border:1px solid #56566C;padding:1px 5px;color:#B8B8CC}
+.chip.on{background:var(--sun-2);color:#151524;border-color:var(--sun-2)}
+.build{font-family:var(--mono);font-size:9px;color:#88889C;letter-spacing:.06em}
+@media (max-width:620px){
+  .hud{grid-template-columns:1fr 1fr;grid-template-areas:"l r" "c c";gap:8px}
+  .side.left{grid-area:l} .side.right{grid-area:r} .center{grid-area:c}
+  .plate,.side.right .plate{flex-direction:column;align-items:flex-start;gap:0}
+  .side.right .plate{align-items:flex-end}
+  .build{display:none}
+  .tabs{margin-left:0}
+  main{padding:12px}
+}
+
+.stage{position:relative;aspect-ratio:16/9;overflow:hidden;container-type:inline-size;border-top:2px solid #151524;border-bottom:2px solid #151524;background:#151524}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges}
+.fx,.ov{position:absolute;inset:0;pointer-events:none}
+.ov{display:grid;place-items:center}
+.ov .interactive{pointer-events:auto}
+.flash{position:absolute;inset:0;background:var(--cream);opacity:0;pointer-events:none}
+.flash.go{animation:flash 640ms steps(1) 1}
+@keyframes flash{0%{opacity:.85}16%{opacity:0}50%{opacity:.6}66%{opacity:0}100%{opacity:0}}
+
+.dmg{position:absolute;transform:translate(-50%,-100%);font-family:var(--pixel);font-weight:700;font-size:clamp(11px,3.2cqw,32px);color:var(--sun-1);-webkit-text-stroke:1.5px #151524;paint-order:stroke fill;text-shadow:2px 2px 0 #151524;animation:float 1100ms ease-out forwards;white-space:nowrap}
+.dmg.crit{color:var(--cream);font-size:clamp(13px,4.4cqw,44px)}
+.dmg.partial{color:var(--sun-2)}
+.dmg.self{color:var(--sun-5)}
+.dmg.word{font-size:clamp(10px,2cqw,18px);color:#DCDCE8}
+@keyframes float{0%{transform:translate(-50%,-50%) scale(1.7)}14%{transform:translate(-50%,-100%) scale(1)}100%{transform:translate(-50%,-280%);opacity:0}}
+.stamp{position:absolute;left:50%;top:38%;font-family:var(--pixel);font-weight:700;font-size:clamp(14px,5.5cqw,58px);color:var(--cream);-webkit-text-stroke:2px #151524;paint-order:stroke fill;text-shadow:4px 4px 0 #151524;white-space:nowrap;transform:translate(-50%,-50%) rotate(-6deg);animation:stamp 1000ms steps(8) forwards}
+.stamp.sun{color:var(--sun-1)} .stamp.red{color:var(--sun-5)} .stamp.blue{color:var(--blue-light)}
+.stamp.big{font-size:clamp(36px,16cqw,170px);top:42%;animation:stampHold 600ms steps(6) forwards}
+@keyframes stamp{0%{transform:translate(-50%,-50%) scale(2.2) rotate(-6deg);opacity:0}18%{transform:translate(-50%,-50%) scale(1) rotate(-6deg);opacity:1}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1) rotate(-6deg)}}
+@keyframes stampHold{0%{transform:translate(-50%,-50%) scale(2.6) rotate(-6deg);opacity:0}100%{transform:translate(-50%,-50%) scale(1) rotate(-6deg);opacity:1}}
+.rm .stamp,.rm .stamp.big,.rm .dmg{animation-name:fade}
+@keyframes fade{0%{opacity:0}15%{opacity:1}85%{opacity:1}100%{opacity:0}}
+
+/* overlays */
+.band{width:100%;background:var(--stripes);border-top:3px solid #151524;border-bottom:3px solid #151524;text-align:center;padding:2.2% 0;animation:wipe 1900ms steps(10) forwards;color:#151524}
+.band h2{margin:0;font-family:var(--pixel);font-weight:700;font-size:clamp(16px,6cqw,66px);line-height:1;text-shadow:3px 3px 0 var(--cream)}
+.band p{margin:.4em 0 0;font-family:var(--mono);font-size:clamp(7px,1.8cqw,13px);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+@keyframes wipe{0%{clip-path:inset(0 100% 0 0)}20%{clip-path:inset(0 0 0 0)}80%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 0 0 100%)}}
+.rm .band{animation-name:fade}
+.card{background:var(--cream);color:#151524;border:3px solid #151524;box-shadow:6px 6px 0 #151524;padding:clamp(5px,2.4cqw,16px);max-width:min(94%,640px);max-height:94%;overflow:hidden;width:100%;animation:rise 300ms steps(4)}
+@keyframes rise{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+.card h3{margin:0 0 clamp(2px,1cqw,8px);font-family:var(--pixel);font-size:clamp(11px,3.4cqw,22px)}
+.card table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:clamp(7px,2cqw,12px)}
+.card th{text-align:left;font-weight:700;border-bottom:2px solid #151524;padding:clamp(1px,.5cqw,3px) 4px;text-transform:uppercase}
+.card td{padding:clamp(1px,.6cqw,4px) 4px;border-bottom:1px solid #E4E2D6;white-space:nowrap}
+.card td.n{text-align:right}
+.card .win{background:var(--sun-1)}
+.card .foot{margin-top:clamp(2px,1cqw,8px);font-family:var(--mono);font-size:clamp(7px,1.8cqw,11px);color:#56566C}
+.tape{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.tape .f{border:2px solid #151524;padding:clamp(3px,1.4cqw,8px);background:#fff}
+.tape .f b{font-family:var(--pixel);font-size:clamp(10px,3.6cqw,24px);display:block}
+.tape .f.a b{color:var(--sun-4)} .tape .f.b b{color:var(--blue)}
+.tape .vs{font-family:var(--pixel);font-weight:700;font-size:clamp(14px,4cqw,40px)}
+.tape small{font-family:var(--mono);font-size:clamp(6px,1.7cqw,11px);display:block;color:#56566C}
+.start{display:grid;gap:clamp(4px,2cqw,12px);justify-items:center;text-align:center}
+.ov .btn{padding:clamp(3px,1.2cqw,7px) clamp(6px,2cqw,12px);font-size:clamp(9px,2cqw,12px)}
+
+/* caption + controls */
+.caption{display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;padding:10px 12px;min-height:76px}
+.tag{font-family:var(--pixel);font-weight:700;font-size:13px;padding:1px 6px;color:#151524;background:var(--sun-2);white-space:nowrap}
+.tag.b{background:var(--blue-light)}
+.wpn{font-family:var(--mono);font-size:10px;color:#B8B8CC;text-transform:uppercase;letter-spacing:.06em}
+.head{grid-column:1/-1;margin:0;font-weight:600;font-size:clamp(14px,2vw,18px);line-height:1.3}
+.head.struck{text-decoration:line-through;text-decoration-color:var(--sun-5);text-decoration-thickness:3px;color:#B8B8CC}
+.parry{grid-column:1/-1;margin:0;font-size:13px;color:var(--blue-light)}
+.evs{display:flex;gap:4px;flex-wrap:wrap;grid-column:1/3}
+.ev{font-family:var(--mono);font-size:10px;padding:1px 5px;border:1px solid #56566C}
+.ev.supported{border-color:var(--good);color:var(--good)}
+.ev.partial{border-color:var(--sun-2);color:var(--sun-2)}
+.ev.estimate{color:#B8B8CC}
+.ev.fabricated{border-color:var(--sun-5);color:#fff;background:var(--sun-5);text-decoration:line-through}
+.capdmg{font-family:var(--pixel);font-weight:700;font-size:18px;color:var(--sun-1);text-align:right}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px 12px;border-top:2px solid #242433}
+.controls .btn{background:var(--night-2);color:var(--cream);border-color:var(--cream);box-shadow:3px 3px 0 #000}
+.controls .btn[aria-pressed="true"]{background:var(--cream);color:#151524}
+.controls .sp{margin-left:auto}
+
+/* receipts */
+.receipts{border:2px solid var(--ink);background:var(--paper);box-shadow:var(--shadow);max-height:calc(100vh - 110px);overflow:auto;position:sticky;top:70px}
+.receipts header{padding:12px 14px;border-bottom:2px solid var(--ink);background:var(--paper-2)}
+.receipts h3{margin:0;font-family:var(--pixel);font-size:18px}
+.receipts header p{margin:2px 0 0;font-size:12px;color:var(--ink-3)}
+.receipts ol{list-style:none;margin:0;padding:0}
+.receipts li{padding:10px 14px;border-bottom:1px solid var(--line);animation:rise 250ms steps(3)}
+.rhead{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-family:var(--mono);font-size:10px;text-transform:uppercase}
+.rtag{padding:1px 5px;color:#151524;background:var(--sun-2);font-weight:700}
+.rtag.b{background:var(--blue-light)}
+.vpill{padding:1px 5px;border:1px solid var(--ink-3)}
+.vpill.hit,.vpill.crit{background:var(--sun-1);color:#151524;border-color:var(--sun-2)}
+.vpill.backfire{background:var(--sun-5);color:#fff;border-color:var(--sun-5)}
+.rdmg{margin-left:auto;font-weight:700}
+.receipts li b{display:block;margin:4px 0 2px;font-size:14px}
+.receipts li p{margin:2px 0;font-size:13px;color:var(--ink-3)}
+.receipts li .jn{color:var(--ink)}
+.receipts .evs .ev{border-color:var(--line-2);color:var(--ink-3)}
+.receipts .evs .ev.supported{border-color:var(--good);color:var(--good)}
+.receipts .evs .ev.fabricated{color:#fff}
+.empty{padding:14px;font-size:13px;color:var(--ink-3)}
+
+/* film room dialog */
+dialog{border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);background:var(--paper);color:var(--ink);padding:0;max-width:min(760px,calc(100vw - 32px));width:100%}
+dialog::backdrop{background:rgba(21,21,36,.6)}
+.dlg-h{padding:14px 16px;background:var(--stripes);border-bottom:3px solid var(--ink);color:#151524}
+.dlg-h h2{margin:0;font-family:var(--pixel);font-size:clamp(18px,3vw,28px)}
+.dlg-h p{margin:4px 0 0;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.dlg-b{padding:14px 16px;display:grid;gap:14px}
+.dlg-b h4{margin:0 0 6px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.dlg-b ul{margin:0;padding-left:18px}
+.dlg-b li{margin:3px 0}
+.tbl{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
+.tbl th,.tbl td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.tbl th{border-bottom:2px solid var(--ink);text-transform:uppercase}
+.tbl td.n,.tbl th.n{text-align:right}
+.tbl tr.rt td{background:var(--paper-2);font-weight:700}
+.tblwrap{overflow-x:auto}
+.dlg-f{display:flex;justify-content:flex-end;padding:0 16px 16px}
+
+/* TOWER */
+.tower-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start}
+@media (max-width:1000px){.tower-grid{grid-template-columns:minmax(0,1fr)}}
+.tower-wrap{border:2px solid var(--ink);box-shadow:var(--shadow);background:var(--paper-2);padding:16px 12px;overflow:hidden}
+.tower-wrap > h2{margin:0;font-family:var(--pixel);font-size:24px}
+.tower-wrap > p{margin:2px 0 12px;color:var(--ink-3);font-size:13px}
+.tower{position:relative;display:flex;flex-direction:column;gap:46px}
+.wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+.belt{position:relative;z-index:1;margin:0 auto;width:min(340px,100%);border:3px solid var(--ink);background:var(--stripes);box-shadow:var(--shadow);padding:10px;text-align:center;color:#151524}
+.belt b{display:block;font-family:var(--pixel);font-size:18px}
+.belt span{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.floor{position:relative;z-index:1;display:grid;grid-template-columns:96px minmax(0,1fr);gap:8px;align-items:center}
+.rail{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);border-left:4px solid var(--sun-4);padding-left:6px}
+.rail b{display:block;color:var(--ink);font-size:12px}
+.slots{display:flex;justify-content:space-around;gap:12px}
+.mcard{width:200px;flex:none;border:2px solid var(--ink);background:var(--paper);box-shadow:3px 3px 0 var(--ink);font-size:13px}
+.mcard.live{outline:3px solid var(--sun-4);outline-offset:2px;animation:pulse 1.2s steps(2) infinite}
+@keyframes pulse{50%{outline-color:var(--sun-1)}}
+.rm .mcard.live{animation:none}
+.frow{display:grid;grid-template-columns:30px 1fr auto;gap:6px;align-items:center;padding:4px 6px;border-bottom:1px solid var(--line);min-height:36px}
+.frow img,.frow .ph{width:28px;height:28px;image-rendering:pixelated;background:var(--paper-2)}
+.frow .fn{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.frow .sd{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.frow.lose{opacity:.45}
+.frow.lose .fn{text-decoration:line-through}
+.frow.win .fn::after{content:" \25B2";color:var(--sun-4);font-size:10px}
+.frow.tbd .fn{font-weight:400;color:var(--ink-3);font-size:12px}
+.frow.arrive{animation:arrive 900ms steps(6)}
+@keyframes arrive{0%{background:var(--sun-1)}100%{background:transparent}}
+.mfoot{display:flex;align-items:center;gap:6px;padding:5px 6px;font-family:var(--mono);font-size:10px;text-transform:uppercase}
+.pill{padding:1px 5px;border:1px solid var(--ink-3)}
+.pill.live{background:var(--sun-5);color:#fff;border-color:var(--sun-5)}
+.pill.bet{background:var(--sun-1);color:#151524;border-color:var(--sun-2)}
+.pill.final{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pill.upset{background:var(--blue);color:#fff;border-color:var(--blue)}
+.mfoot .btn{margin-left:auto;padding:2px 6px;font-size:10px;box-shadow:2px 2px 0 var(--ink)}
+@media (max-width:900px){
+  .wires{display:none}
+  .floor{grid-template-columns:minmax(0,1fr)}
+  .slots{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 4px 10px}
+  .mcard{scroll-snap-align:start}
+}
+.hopper{position:fixed;width:28px;height:28px;image-rendering:pixelated;z-index:50;pointer-events:none}
+
+/* bet slip */
+.slip{border:2px solid var(--ink);box-shadow:var(--shadow);background:var(--paper);position:sticky;top:70px}
+.slip header{padding:12px 14px;border-bottom:2px solid var(--ink);background:var(--paper-2)}
+.slip h3{margin:0;font-family:var(--pixel);font-size:18px}
+.slip header p{margin:2px 0 0;font-family:var(--mono);font-size:11px;text-transform:uppercase;color:var(--ink-3)}
+.slip .body{padding:12px 14px;display:grid;gap:10px}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pick button{border:2px solid var(--ink);background:var(--paper);padding:10px 8px;text-align:left;box-shadow:3px 3px 0 var(--ink)}
+.pick button b{display:block;font-family:var(--pixel);font-size:16px}
+.pick button span{font-family:var(--mono);font-size:12px}
+.pick button[aria-pressed="true"]{background:var(--sun-1);color:#151524;border-color:#151524}
+.stakes{display:flex;gap:6px;flex-wrap:wrap}
+.stakes .btn{padding:4px 8px;box-shadow:2px 2px 0 var(--ink)}
+.stakein{display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:12px}
+.stakein input{width:110px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);padding:5px 6px;font-family:var(--mono)}
+.est{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.mybets{font-size:13px;border-top:1px solid var(--line);padding-top:8px}
+.mybets div{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px}
+.lockstamp{font-family:var(--pixel);font-size:22px;color:var(--sun-5);text-align:center;border:3px solid var(--sun-5);padding:6px;transform:rotate(-3deg)}
+.msg{font-size:12px;color:var(--sun-5);min-height:1em;margin:0}
+
+footer{max-width:1320px;margin:8px auto 24px;padding:0 16px;font-family:var(--mono);font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><i aria-hidden="true"></i>SF FIGHT CLUB</div>
+  <nav class="tabs" role="tablist" aria-label="Views">
+    <button class="tab" role="tab" aria-selected="true" data-view="arena">Arena</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="tower">The Tower</button>
+  </nav>
+  <div class="wallet" title="Play money only">S$ <b id="wallet">1,000</b></div>
+</header>
+
+<main>
+  <!-- ARENA -->
+  <section id="view-arena" aria-label="Arena">
+    <div class="arena-grid">
+      <div class="frame">
+        <div class="hud">
+          <div class="side left">
+            <div class="plate"><span class="nm">PERMITPILOT</span><span class="meta">#1 / TIER S</span></div>
+            <div class="hp" id="hpA"><div class="ghost"></div><div class="fill"></div></div>
+            <div class="hpn" id="hpnA">100 HP</div>
+          </div>
+          <div class="center">
+            <div class="rnd" id="rnd">PRE-FIGHT</div>
+            <div class="chips" id="chips"></div>
+            <div class="build">BUILD A1B2C3 / SAME AGENT BOTH CORNERS</div>
+          </div>
+          <div class="side right">
+            <div class="plate"><span class="nm">FOGCAST</span><span class="meta">#8 / TIER B</span></div>
+            <div class="hp" id="hpB"><div class="ghost"></div><div class="fill"></div></div>
+            <div class="hpn" id="hpnB">100 HP</div>
+          </div>
+        </div>
+        <div class="stage" id="stage">
+          <canvas id="cv" width="480" height="270" role="img" aria-label="Arena: PermitPilot on the left, Fogcast on the right, San Francisco skyline at sunset"></canvas>
+          <div class="fx" id="fx"></div>
+          <div class="flash" id="flash"></div>
+          <div class="ov" id="ov"></div>
+        </div>
+        <div class="caption" id="caption" aria-hidden="true">
+          <span class="tag" id="capTag">READY</span><span class="wpn" id="capWpn">Floor 1 / Bout 1</span><span class="capdmg" id="capDmg"></span>
+          <p class="head" id="capHead">PermitPilot vs Fogcast. Bets are locked. The match is sealed.</p>
+          <p class="parry" id="capParry" hidden></p>
+          <div class="evs" id="capEv"></div>
+        </div>
+        <div class="controls">
+          <button class="btn" id="bPlay">Start</button>
+          <button class="btn" id="bRestart">Restart</button>
+          <span class="mono" style="font-size:11px;color:#B8B8CC">Speed</span>
+          <button class="btn" data-speed="1" aria-pressed="true">1x</button>
+          <button class="btn" data-speed="2" aria-pressed="false">2x</button>
+          <button class="btn" data-speed="4" aria-pressed="false">4x</button>
+          <button class="btn sp" id="bMotion" aria-pressed="false">Reduced motion</button>
+        </div>
+        <div class="sr" aria-live="polite" id="live"></div>
+      </div>
+      <aside class="receipts" aria-label="Receipts">
+        <header><h3>Receipts</h3><p>Every shot, the judge's verdict and the sources. Shots appear as they air.</p></header>
+        <ol id="rlist"></ol>
+        <div class="empty" id="rempty">Nothing has aired yet.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- TOWER -->
+  <section id="view-tower" aria-label="The Tower" hidden>
+    <div class="tower-grid">
+      <div class="tower-wrap">
+        <h2>The Tower</h2>
+        <p>Floor 1 at the bottom. Winners climb. Sealed results stay hidden until they air.</p>
+        <div class="tower" id="tower"></div>
+      </div>
+      <aside class="slip" aria-label="Bet slip" id="slip"></aside>
+    </div>
+  </section>
+</main>
+
+<footer>Built at the Mistral AI hackathon / Prototype with fictional demo data / Play money only, no cash value</footer>
+
+<dialog id="film" aria-labelledby="filmTitle"></dialog>
+
+<script>
+(() => {
+'use strict';
+const $ = (s, el = document) => el.querySelector(s);
+const W = 480, H = 270, HZ = 158, GROUND = 205, S = 2;
+
+// ---------------------------------------------------------------------------
+// Demo data. Fictional ideas, numbers and sources.
+// Mirrors the worked example in docs/02-fight-system.md.
+// ---------------------------------------------------------------------------
+const FIGHTERS = {
+  A: { name: 'PermitPilot', seed: 1, tier: 'S', arch: 'Juggernaut', line: 'AI agent that files and chases SF building permits' },
+  B: { name: 'Fogcast', seed: 8, tier: 'B', arch: 'Fortress', line: 'Microclimate forecasts for SF outdoor businesses' },
+};
+const CRIT = {
+  problem: { name: 'Problem', w: 15, weapon: 'flame' },
+  market: { name: 'Market', w: 12, weapon: 'ballista' },
+  wtp: { name: 'WTP', w: 8, weapon: 'coins' },
+  differentiation: { name: 'Differentiation', w: 12, weapon: 'laser' },
+  moat: { name: 'Moat', w: 10, weapon: 'trebuchet' },
+  timing: { name: 'Why now', w: 10, weapon: 'railgun' },
+  gtm: { name: 'GTM', w: 12, weapon: 'gatling' },
+  feasibility: { name: 'Feasibility', w: 11, weapon: 'rocket' },
+  scale: { name: 'Scale', w: 10, weapon: 'orbital' },
+};
+const WEAPON = {
+  flame: { name: 'Flame lance', travel: 450 },
+  ballista: { name: 'Ballista', travel: 1000 },
+  coins: { name: 'Coin cannon', travel: 700 },
+  laser: { name: 'Laser rifle', travel: 150 },
+  trebuchet: { name: 'Trebuchet', travel: 1100 },
+  railgun: { name: 'Clockwork railgun', travel: 450 },
+  gatling: { name: 'Gatling', travel: 600 },
+  rocket: { name: 'Rocket', travel: 900 },
+  orbital: { name: 'Orbital beam', travel: 500 },
+};
+const ROUNDS = [
+  { n: 1, name: 'MARKET', crit: ['problem', 'market', 'wtp'] },
+  { n: 2, name: 'MOAT', crit: ['differentiation', 'moat', 'timing'] },
+  { n: 3, name: 'EXECUTION', crit: ['gtm', 'feasibility', 'scale'] },
+];
+const SHOTS = {
+  1: [
+    { id: 'r1.v1.A.s1', by: 'A', type: 'pitch', c: 'problem', impact: 3, out: 'crit', dmg: 22, head: 'SF permits take 7+ months. Builders bleed cash waiting.', claim: 'The median SF residential permit takes over seven months. Carrying costs on a stalled project run thousands a week, so builders already pay expediters to chase the queue.', ev: [['E4', 'supported']], note: 'Backlog figure supported by E4. Specific, expensive pain.' },
+    { id: 'r1.v1.B.s1', by: 'B', type: 'pitch', c: 'problem', impact: 1, out: 'glancing', dmg: 0, head: 'Summer fog cancels one in five outdoor bookings.', claim: 'Outdoor venues in the Mission and Marina see cancellations spike on fog days. Owners guess from airport forecasts that miss street-level conditions.', ev: [['E11', 'partial']], note: 'Real pain, but E11 covers events only. Lower stakes than permits.' },
+    { id: 'r1.v1.A.s2', by: 'A', type: 'attack', c: 'market', impact: 2, out: 'hit', dmg: 7, head: "Fogcast's market is one city's patios.", claim: 'Fogcast sells to outdoor restaurants and venues in one fog-prone city. Even at full penetration that is a few thousand accounts.', ev: [['estimate', 'estimate']], note: 'Estimate, but the reasoning holds. Fogcast never sized beyond SF.' },
+    { id: 'r1.v1.B.s2', by: 'B', type: 'attack', c: 'wtp', impact: 2, out: 'parried', dmg: 0, head: 'Builders already pay expediters. This is just a cheaper one.', claim: 'Permit expediters exist and are cheap. PermitPilot competes on price with humans who have relationships at the counter.', ev: [['E7', 'supported']], parry: 'Expediters bill $150 an hour and still wait in line. We cut the line.', note: 'Parried. Expediters are a cost PermitPilot replaces, not a price ceiling.' },
+    { id: 'r1.v2.A.s3', by: 'A', type: 'pitch', c: 'market', impact: 3, out: 'crit', dmg: 10, head: '40 US metros share the same backlog. $3B, bottom-up.', claim: 'Forty metros report median permit times above 90 days. About 410k permits a year at roughly $7k of expediting and rework each is about $3B serviceable.', ev: [['E5', 'supported']], note: 'Bottom-up build with sourced permit counts. Best shot of the round.' },
+    { id: 'r1.v2.B.s3', by: 'B', type: 'pitch', c: 'wtp', impact: 1, out: 'whiff', dmg: 0, head: 'Event venues pay $400 a month for risk tools.', claim: 'Event venues already pay for weather insurance and risk dashboards, so a hyperlocal forecast slots into an existing budget.', ev: [['estimate', 'estimate']], note: 'Unsourced price point. Insurance is a different buyer.' },
+    { id: 'r1.v2.A.s4', by: 'A', type: 'attack', c: 'wtp', impact: 2, out: 'hit', dmg: 12, head: "Restaurants won't pay for weather. The free app is fine.", claim: 'Restaurant owners check free forecasts today. Fogcast has to beat free for a buyer with thin margins.', ev: [['E9', 'supported']], note: 'Supported by E9, a survey of small restaurant software spend.' },
+  ],
+  2: [
+    { id: 'r2.v1.B.s1', by: 'B', type: 'pitch', c: 'differentiation', impact: 2, out: 'hit', dmg: 7, head: 'Street-level sensors beat airport forecasts by 6°F.', claim: 'Fogcast runs a mesh of rooftop sensors. In a 60-day pilot it beat the airport forecast by an average of 6°F at street level.', ev: [['E12', 'supported']], note: 'Clear, sourced edge over the status quo.' },
+    { id: 'r2.v1.A.s1', by: 'A', type: 'pitch', c: 'moat', impact: 1, out: 'glancing', dmg: 0, head: 'Every permit we file trains the approval model.', claim: 'Each filing teaches PermitPilot which plan-check comments a reviewer raises, so approval odds improve with volume.', ev: [['estimate', 'estimate']], note: 'Plausible data moat, but so are Fogcast sensors. Even on moat.' },
+    { id: 'r2.v1.B.s2', by: 'B', type: 'attack', c: 'moat', impact: 2, out: 'parried', dmg: 0, head: 'Any agent can fill a form. Where is the moat?', claim: 'Form-filling agents are a commodity. A copycat ships this in a month.', ev: [['estimate', 'estimate']], parry: 'The moat is 12k reviewer comments, not the form.', note: 'Parried by the reviewer-comment dataset argument.' },
+    { id: 'r2.v1.A.s2', by: 'A', type: 'pitch', c: 'timing', impact: 2, out: 'hit', dmg: 3, head: 'The 2026 reform made digital filing mandatory.', claim: 'The city moved permit intake to a mandatory digital portal. Every filing is machine-readable for the first time.', ev: [['E6', 'supported']], note: 'Specific, datable shift.' },
+    { id: 'r2.v2.B.s3', by: 'B', type: 'pitch', c: 'timing', impact: 1, out: 'glancing', dmg: 0, head: 'Cheap sensors made hyperlocal weather possible.', claim: 'Sensor costs fell below $40 a unit, which makes a dense city mesh affordable.', ev: [['E12', 'partial']], note: 'True, but available to everyone.' },
+    { id: 'r2.v2.A.s3', by: 'A', type: 'attack', c: 'differentiation', impact: 1, out: 'glancing', dmg: 0, head: 'Weather apps are free and everywhere.', claim: 'Customers already have five free weather apps. Accuracy alone rarely wins.', ev: [['E9', 'supported']], note: 'Fair, but the 6°F gap is a real difference.' },
+  ],
+  3: [
+    { id: 'r3.v1.A.s1', by: 'A', type: 'pitch', c: 'gtm', impact: 2, out: 'hit', dmg: 11, head: 'Start with the 200 SF expediters. One call each.', claim: 'Expediters are the first customers, not the competition. They resell PermitPilot to every builder they already serve.', ev: [['E8', 'supported']], note: 'Concrete first segment with a channel. E8 lists the registry.' },
+    { id: 'r3.v1.B.s1', by: 'B', type: 'attack', c: 'feasibility', impact: 3, out: 'crit', dmg: 16, head: "PermitPilot needs portal access it doesn't have.", claim: 'Filing on behalf of applicants requires an authorized agent account, and the city portal has no public API. One policy change kills the product.', ev: [['E10', 'supported']], note: 'Biggest risk in the match. PermitPilot had no plan for portal access.' },
+    { id: 'r3.v1.A.s2', by: 'A', type: 'pitch', c: 'scale', impact: 2, out: 'hit', dmg: 8, head: 'Permits are step one. Inspections and lending are next.', claim: 'Once PermitPilot holds the project file, inspections scheduling and construction lending are natural add-ons with bigger budgets.', ev: [['estimate', 'estimate']], note: 'Credible expansion path, reasoned rather than sourced.' },
+    { id: 'r3.v1.B.s2', by: 'B', type: 'pitch', c: 'gtm', impact: 0, out: 'backfire', dmg: 9, head: '40% of Mission restaurants lose $10k a year to weather.', claim: 'Forty percent of Mission restaurants lose $10k a year to weather, so they will pay to plan around it.', ev: [['E14', 'fabricated']], note: 'E14 is not in the evidence locker. Fabrication, backfire.' },
+    { id: 'r3.v2.A.s3', by: 'A', type: 'attack', c: 'gtm', impact: 2, out: 'partial', dmg: 6, head: 'Restaurants churn like crazy. So will your customers.', claim: 'Small restaurants close at high rates, so Fogcast rebuys its customer base every few years.', ev: [['E13', 'supported']], note: 'Supported, slightly overstated.' },
+    { id: 'r3.v2.B.s3', by: 'B', type: 'pitch', c: 'scale', impact: 1, out: 'whiff', dmg: 0, head: 'Every outdoor business on earth has weather.', claim: 'Weather affects every outdoor business, so the ceiling is enormous.', ev: [['estimate', 'estimate']], note: 'Generic. No path from SF patios to a global product.' },
+    { id: 'r3.v2.A.s4', by: 'A', type: 'pitch', c: 'scale', impact: 3, out: 'crit', dmg: 12, head: 'Construction is a $2T industry drowning in paperwork.', claim: 'Permits are the first document in a $2T industry that still runs on PDFs. Owning that file is a platform.', ev: [['E5', 'supported']], note: 'The finishing blow on venture scale.', final: true },
+  ],
+};
+const CARDS = {
+  1: { rows: [['problem', 8.5, 6.0, 3.75, 22, 'B'], ['market', 7.0, 4.5, 3.0, 17, 'B'], ['wtp', 7.5, 5.0, 2.0, 12, 'B']], agree: 94 },
+  2: { rows: [['differentiation', 6.0, 7.0, 1.2, 7, 'A'], ['moat', 6.0, 6.0, 0, 0, null], ['timing', 7.0, 6.5, 0.5, 3, 'B']], agree: 89 },
+  3: { rows: [['gtm', 6.5, 4.0, 3.0, 17, 'B'], ['feasibility', 5.0, 7.5, 2.75, 16, 'A'], ['scale', 7.0, 3.5, 3.5, 20, 'B']], agree: 91, extra: 'Backfire: Fogcast cited E14, which is not in the locker. 1.5 rubric points, 9 HP.' },
+};
+const REPORT = {
+  headline: 'PermitPilot K.O.s Fogcast in round 3',
+  why: [
+    'Problem severity, +2.5. A seven-month permit queue is sourced, expensive pain. Fog cancellations are real but lower stakes.',
+    'Market size, +2.5. PermitPilot sized $3B bottom-up across 40 metros. Fogcast never sized beyond SF.',
+    'Venture scale, +3.5. Permits lead into inspections and lending. Fogcast\'s expansion story stayed generic.',
+  ],
+  turning: 'The round 1 ballista (r1.v2.A.s3): a sourced, bottom-up $3B market.',
+  takeaways: [
+    'Size the market across fog- and heat-prone metros, not only SF.',
+    'Find a buyer with budget, like event insurers or venue operators, instead of restaurants.',
+    'Cite only sources in the locker. E14 cost 9 HP.',
+  ],
+};
+
+// sanity check: displayed damage must land on the documented HP path
+(() => {
+  const hp = { A: 100, B: 100 };
+  for (const r of [1, 2, 3]) for (const s of SHOTS[r]) {
+    if (s.out === 'backfire') hp[s.by] -= s.dmg; else hp[s.by === 'A' ? 'B' : 'A'] -= s.dmg;
+  }
+  console.assert(hp.A === 77 && hp.B === 0, 'HP path mismatch', hp);
+})();
+
+// ---------------------------------------------------------------------------
+// Palettes and procedural mechs
+// ---------------------------------------------------------------------------
+const PAL = {
+  orange: { c: '#FA500F', l: '#FFAF01', d: '#933800' },
+  blue: { c: '#0082E6', l: '#55B3FB', d: '#044298' },
+  yellow: { c: '#FFAF01', l: '#FFDD73', d: '#A77201' },
+  red: { c: '#E51300', l: '#FF6660', d: '#AD0E00' },
+  green: { c: '#44BA82', l: '#94EACC', d: '#1B7250' },
+  rasp: { c: '#C4001D', l: '#FF6529', d: '#7B0A12' },
+  tang: { c: '#FF8204', l: '#FFCC9A', d: '#B75002' },
+  steel: { c: '#88889C', l: '#DCDCDE', d: '#56566C' },
+};
+function rng(seed) {
+  let s = (Math.imul(seed | 0, 2654435761) >>> 0) || 1;
+  return () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; };
+}
+function buildMech(seed) {
+  const R = rng(seed);
+  const base = Math.floor(R() * 3), body = Math.floor(R() * 3), gun = Math.floor(R() * 2);
+  const rects = [];
+  const P = (x, y, w, h, c) => rects.push({ x, y, w, h, c });
+  let top;
+  if (base === 0) { P(-15, -9, 30, 9, 'd'); P(-14, -8, 28, 7, 'k'); for (let i = -12; i <= 10; i += 6) P(i, -6, 3, 3, 'l'); top = -9; }
+  else if (base === 1) { P(-10, -14, 5, 14, 'd'); P(5, -14, 5, 14, 'd'); P(-12, -3, 9, 3, 'k'); P(3, -3, 9, 3, 'k'); P(-9, -13, 3, 8, 'c'); P(6, -13, 3, 8, 'c'); top = -14; }
+  else { P(-13, -8, 9, 8, 'k'); P(4, -8, 9, 8, 'k'); P(-10, -5, 3, 3, 'l'); P(7, -5, 3, 3, 'l'); P(-12, -11, 24, 4, 'd'); top = -11; }
+  let bodyTop;
+  if (body === 0) { P(-12, top - 16, 24, 16, 'c'); P(-12, top - 16, 24, 2, 'l'); P(-12, top - 3, 24, 3, 'd'); bodyTop = top - 16; }
+  else if (body === 1) { P(-12, top - 12, 24, 12, 'c'); P(-10, top - 15, 20, 3, 'c'); P(-7, top - 17, 14, 2, 'c'); P(-10, top - 15, 20, 1, 'l'); P(-12, top - 3, 24, 3, 'd'); bodyTop = top - 17; }
+  else { P(-8, top - 22, 16, 22, 'c'); P(-8, top - 22, 16, 2, 'l'); P(-8, top - 12, 16, 2, 'd'); bodyTop = top - 22; }
+  P(1, bodyTop + 4, 7, 4, 'w'); P(2, bodyTop + 5, 2, 1, 'g');
+  const gy = bodyTop + 9;
+  if (gun === 0) { P(5, gy, 17, 4, 'k'); P(20, gy - 1, 4, 6, 'd'); }
+  else { P(5, gy - 1, 10, 6, 'd'); P(13, gy, 11, 2, 'k'); P(13, gy + 3, 9, 2, 'k'); }
+  P(-11, bodyTop - 12, 1, 12, 'k'); P(-19, bodyTop - 12, 8, 5, 'a');
+  return { rects, muzzle: { x: 24, y: gy + 2 }, top: bodyTop - 12 };
+}
+function drawMech(ctx, mech, pal, cx, base, facing, flash, sc) {
+  const k = sc || S;
+  const colors = { c: pal.c, l: pal.l, d: pal.d, k: '#151524', w: '#FAFAF4', g: '#55B3FB', a: '#FFDD73' };
+  const X = r => facing > 0 ? cx + r.x * k : cx - (r.x + r.w) * k;
+  ctx.fillStyle = flash ? '#FFFFFF' : '#151524';
+  for (const r of mech.rects) ctx.fillRect(X(r) - k, base + r.y * k - k, (r.w + 2) * k, (r.h + 2) * k);
+  for (const r of mech.rects) { ctx.fillStyle = flash ? '#FFFFFF' : colors[r.c]; ctx.fillRect(X(r), base + r.y * k, r.w * k, r.h * k); }
+}
+
+// ---------------------------------------------------------------------------
+// Background: stripe sunset over a pixel SF skyline
+// ---------------------------------------------------------------------------
+const bg = document.createElement('canvas'); bg.width = W; bg.height = H;
+const reflections = [];
+(function drawBackground() {
+  const c = bg.getContext('2d');
+  const R = rng(2026);
+  const bands = [[0, '#FFF4D2'], [30, '#FFDD73'], [58, '#FEC63A'], [82, '#FFAF01'], [104, '#FF8204'], [124, '#FA500F'], [142, '#E51300']];
+  for (let i = 0; i < bands.length; i++) {
+    const y0 = bands[i][0], y1 = i + 1 < bands.length ? bands[i + 1][0] : HZ;
+    c.fillStyle = bands[i][1]; c.fillRect(0, y0, W, y1 - y0);
+    if (i > 0) { c.fillStyle = bands[i - 1][1]; for (let x = 0; x < W; x += 2) c.fillRect(x, y0, 1, 1); for (let x = 1; x < W; x += 4) c.fillRect(x, y0 + 1, 1, 1); }
+  }
+  // sun with horizontal cuts
+  const cx = 240, r = 46;
+  for (let y = HZ - r; y < HZ; y++) {
+    const dy = HZ - y, hw = Math.floor(Math.sqrt(r * r - dy * dy));
+    if (dy < 24 && dy % 6 < 2) continue;
+    c.fillStyle = dy > 30 ? '#FAFAF4' : '#FFF4D2'; c.fillRect(cx - hw, y, hw * 2, 1);
+  }
+  // far hills with Sutro Tower
+  c.fillStyle = '#343446';
+  for (let x = 0; x < W; x++) {
+    const h = Math.round(6 + 3 * Math.sin(x / 23) + 2 * Math.sin(x / 9 + 1) + 16 * Math.exp(-Math.pow((x - 420) / 32, 2)));
+    c.fillRect(x, HZ - h, 1, h);
+  }
+  const sx = 420, sy = HZ - 24;
+  const line = (x0, y0, x1, y1) => { const n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0)); for (let i = 0; i <= n; i++) c.fillRect(Math.round(x0 + (x1 - x0) * i / n), Math.round(y0 + (y1 - y0) * i / n), 1, 1); };
+  line(sx - 6, sy, sx - 1, sy - 22); line(sx + 6, sy, sx + 1, sy - 22);
+  c.fillRect(sx - 6, sy - 22, 13, 1); c.fillRect(sx - 4, sy - 12, 9, 1);
+  c.fillRect(sx - 5, sy - 31, 1, 9); c.fillRect(sx, sy - 33, 1, 11); c.fillRect(sx + 5, sy - 31, 1, 9);
+  c.fillStyle = '#E51300'; c.fillRect(sx, sy - 34, 1, 1);
+  // Golden Gate
+  c.fillStyle = '#242433';
+  const tower = x => { c.fillRect(x, 92, 2, HZ - 92); c.fillRect(x + 5, 92, 2, HZ - 92); c.fillRect(x - 1, 90, 9, 3); c.fillRect(x, 104, 7, 2); c.fillRect(x, 118, 7, 2); c.fillRect(x, 131, 7, 2); };
+  tower(44); tower(126);
+  c.fillRect(0, 138, 178, 4);
+  const cable = x => x < 47 ? 92 + (47 - x) * 0.77 : x <= 129 ? 134 - 42 * Math.pow((x - 88) / 41, 2) : 92 + (x - 129) * 0.85;
+  for (let x = 0; x < 178; x++) { const y = Math.round(Math.min(cable(x), 138)); c.fillRect(x, y, 1, 1); if (x % 4 === 0) c.fillRect(x, y, 1, 138 - y); }
+  // skyline with the Transamerica Pyramid and Salesforce Tower
+  c.fillStyle = '#151524';
+  const lit = [];
+  let bx = 252;
+  while (bx < 404) { const w = 6 + Math.floor(R() * 9), h = 10 + Math.floor(R() * 28); c.fillRect(bx, HZ - h, w, h); for (let i = 0; i < 4; i++) lit.push([bx + 1 + Math.floor(R() * (w - 2)), HZ - h + 2 + Math.floor(R() * (h - 4))]); bx += w + Math.floor(R() * 3); }
+  for (let y = 74; y < HZ; y++) { const hw = Math.floor((y - 74) / 5.5); c.fillRect(322 - hw, y, hw * 2 + 1, 1); }
+  c.fillRect(322, 64, 1, 10);
+  c.fillRect(354, 86, 13, HZ - 86); c.fillRect(355, 83, 11, 3); c.fillRect(357, 81, 7, 2);
+  c.fillStyle = '#FFDD73'; for (const [x, y] of lit) if (R() < 0.6) c.fillRect(x, y, 1, 1);
+  // water
+  c.fillStyle = '#242433'; c.fillRect(0, HZ, W, H - HZ);
+  const sun = ['#FFDD73', '#FFAF01', '#FF8204', '#FA500F', '#E51300'];
+  for (let y = HZ + 2; y < GROUND; y += 3) {
+    const depth = (y - HZ) / (GROUND - HZ), span = 64 * (1 - depth * 0.6), col = sun[Math.min(4, Math.floor(depth * 5))];
+    for (let x = 240 - span; x < 240 + span;) { const len = 3 + Math.floor(R() * 10); if (R() < 0.7) reflections.push({ x: Math.round(x), y, len, col }); x += len + 2 + Math.floor(R() * 6); }
+    for (let k = 0; k < 4; k++) { c.fillStyle = '#343446'; c.fillRect(Math.floor(R() * W), y, 3 + Math.floor(R() * 8), 1); }
+  }
+  // piers
+  const pier = (x0, x1) => {
+    c.fillStyle = '#343446'; c.fillRect(x0, GROUND, x1 - x0, H - GROUND);
+    c.fillStyle = '#56566C'; c.fillRect(x0, GROUND, x1 - x0, 2);
+    c.fillStyle = '#242433'; for (let x = x0 + 6; x < x1; x += 8) c.fillRect(x, GROUND + 3, 1, H - GROUND);
+    c.fillStyle = '#151524'; c.fillRect(x0 + 4, GROUND + 8, 4, H); c.fillRect(x1 - 8, GROUND + 8, 4, H);
+  };
+  pier(18, 186); pier(294, 462);
+})();
+
+// ---------------------------------------------------------------------------
+// Playback clock and scheduler. Everything runs on playback time.
+// ---------------------------------------------------------------------------
+const cv = $('#cv'), g = cv.getContext('2d');
+g.imageSmoothingEnabled = false;
+const reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
+let reduced = reduceMQ.matches;
+let clock = 0, playing = false, started = false, speed = 1, slowUntil = -1, freezeUntil = 0, queue = [];
+let hp, ghost, ghostHold, FT, projs, beams, parts, shields, walls, winds, crowdJump, shakeAmp, shakeT0, ended;
+
+function at(t, fn) { let i = queue.length; while (i > 0 && queue[i - 1].t > t) i--; queue.splice(i, 0, { t, fn }); }
+function runQueue() { while (queue.length && queue[0].t <= clock) queue.shift().fn(); }
+
+function resetState() {
+  clock = 0; slowUntil = -1; freezeUntil = 0; queue = []; ended = false;
+  hp = { A: 100, B: 100 }; ghost = { A: 100, B: 100 }; ghostHold = { A: 0, B: 0 };
+  FT = {
+    A: { x: 105, facing: 1, mech: buildMech(7), pal: PAL.orange, recoilAt: -1e9, flashUntil: -1, gone: false },
+    B: { x: 375, facing: -1, mech: buildMech(42), pal: PAL.blue, recoilAt: -1e9, flashUntil: -1, gone: false },
+  };
+  projs = []; beams = []; parts = []; shields = []; walls = []; winds = []; crowdJump = -1; shakeAmp = 0; shakeT0 = -1e9;
+}
+
+// ---------------------------------------------------------------------------
+// Director: lays the broadcast script out on a timeline
+// ---------------------------------------------------------------------------
+function direct() {
+  const cues = []; let t = 400;
+  cues.push({ t, kind: 'intro' }); t += 3200;
+  for (const R of ROUNDS) {
+    cues.push({ t, kind: 'round_title', round: R }); t += 2000;
+    for (const s of SHOTS[R.n]) {
+      const wp = WEAPON[CRIT[s.c].weapon];
+      cues.push({ t, kind: 'shot', shot: s, round: R });
+      t += Math.max(2600, 350 + wp.travel + 250 + 1000);
+      if (s.final) t += 1800;
+    }
+    cues.push({ t, kind: 'scorecard', round: R.n }); t += 5000;
+  }
+  cues.push({ t, kind: 'winner' });
+  return cues;
+}
+const CUES = direct();
+
+// ---------------------------------------------------------------------------
+// Effects
+// ---------------------------------------------------------------------------
+const SUNC = ['#FFDD73', '#FFAF01', '#FF8204', '#FA500F', '#FAFAF4'];
+const other = k => (k === 'A' ? 'B' : 'A');
+const muzzle = k => { const F = FT[k]; return { x: F.x + F.facing * F.mech.muzzle.x * S, y: GROUND + F.mech.muzzle.y * S }; };
+const chest = k => ({ x: FT[k].x, y: GROUND - 30 });
+
+function burst(x, y, n, colors, spd = 70, life = 520, grav = 140, size = 2) {
+  for (let i = 0; i < n; i++) {
+    const a = Math.random() * Math.PI * 2, v = spd * (0.35 + Math.random());
+    parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - spd * 0.3, life: life * (0.6 + Math.random() * 0.6), c: colors[i % colors.length], s: size, g: grav });
+  }
+}
+function puff(x, y, n = 6) { for (let i = 0; i < n; i++) parts.push({ x: x + (Math.random() - 0.5) * 6, y: y + (Math.random() - 0.5) * 4, vx: (Math.random() - 0.5) * 14, vy: -14 - Math.random() * 14, life: 700, c: i % 2 ? '#BFBCAC' : '#8B8879', s: 3, g: -6 }); }
+function shake(a) { if (reduced) return; shakeAmp = a; shakeT0 = clock; }
+function flashScreen() { if (reduced) return; const f = $('#flash'); f.classList.remove('go'); void f.offsetWidth; f.classList.add('go'); }
+
+const fx = $('#fx'), ov = $('#ov');
+function floatAt(x, y, text, cls) {
+  const el = document.createElement('div'); el.className = 'dmg ' + (cls || ''); el.textContent = text;
+  el.style.left = (x / W * 100) + '%'; el.style.top = (y / H * 100) + '%';
+  el.style.animationDuration = (1100 / speed) + 'ms';
+  fx.appendChild(el); setTimeout(() => el.remove(), 1200 / speed + 50);
+}
+function stamp(text, cls, hold) {
+  const el = document.createElement('div'); el.className = 'stamp ' + (cls || ''); el.textContent = text;
+  if (!hold) { el.style.animationDuration = (1000 / speed) + 'ms'; setTimeout(() => el.remove(), 1000 / speed + 50); }
+  fx.appendChild(el); return el;
+}
+const live = $('#live');
+function say(msg) { live.textContent = msg; }
+
+function applyDamage(who, dmg, kind) {
+  if (!dmg) return;
+  hp[who] = Math.max(0, hp[who] - dmg);
+  ghostHold[who] = clock + 400;
+  const p = chest(who);
+  floatAt(p.x, p.y - 14, '-' + dmg, kind === 'crit' ? 'crit' : kind === 'partial' ? 'partial' : kind === 'backfire' ? 'self' : '');
+  $('#capDmg').textContent = (kind === 'backfire' ? 'SELF -' : '-') + dmg + ' HP';
+  say(FIGHTERS[who].name + ' takes ' + dmg + ' damage. ' + FIGHTERS[who].name + ' at ' + hp[who] + '.');
+}
+
+// ---------------------------------------------------------------------------
+// Weapons
+// ---------------------------------------------------------------------------
+function endPoint(s) {
+  const tgt = other(s.by), T = FT[tgt], dir = FT[s.by].facing;
+  if (s.out === 'parried') return { x: T.x - dir * 44, y: GROUND - 34 };
+  if (s.out === 'whiff') return { x: T.x + dir * 90, y: GROUND - 96 };
+  return { x: T.x + (Math.random() * 8 - 4), y: GROUND - 30 + (Math.random() * 8 - 4) };
+}
+function addProj(p) { p.t0 = clock; projs.push(p); }
+function launch(s) {
+  const w = CRIT[s.c].weapon, m = muzzle(s.by), e = endPoint(s), F = FT[s.by];
+  F.recoilAt = clock;
+  burst(m.x, m.y, 6, ['#FAFAF4', '#FFDD73'], 40, 200, 0);
+  const base = { x0: m.x, y0: m.y, x1: e.x, y1: e.y };
+  const size = s.impact >= 3 ? 1.4 : s.impact <= 1 ? 0.7 : 1;
+  switch (w) {
+    case 'ballista': addProj({ ...base, kind: 'bolt', dur: 1000, arc: 52, size }); break;
+    case 'trebuchet': addProj({ ...base, kind: 'boulder', dur: 1100, arc: 118, size }); break;
+    case 'flame': addProj({ ...base, kind: 'fire', dur: 450, arc: 0, size, trail: ['#FFDD73', '#FF8204', '#E51300'] }); break;
+    case 'coins': for (let i = 0; i < 7; i++) at(clock + i * 40, () => addProj({ ...base, x1: e.x + (Math.random() * 16 - 8), y1: e.y + (Math.random() * 10 - 5), kind: 'coin', dur: 700 - i * 40, arc: 36 + i * 7 })); break;
+    case 'laser': beams.push({ kind: 'laser', t0: clock, dur: 300, ...base, col: s.by === 'A' ? '#FFAF01' : '#55B3FB' }); break;
+    case 'railgun': for (let i = 0; i < 3; i++) at(clock + i * 70, () => burst(m.x, m.y, 8, ['#FFDD73', '#BFBCAC'], 24, 220, 0, 1)); at(clock + 200, () => addProj({ ...base, kind: 'slug', dur: 250, arc: 0, trail: ['#55B3FB', '#FAFAF4'] })); break;
+    case 'gatling': for (let i = 0; i < 8; i++) at(clock + i * 55, () => { const mm = muzzle(s.by); FT[s.by].recoilAt = clock; addProj({ x0: mm.x, y0: mm.y + (i % 2), x1: e.x + (Math.random() * 10 - 5), y1: e.y + (Math.random() * 10 - 5), kind: 'bullet', dur: 200, arc: 0 }); }); break;
+    case 'rocket': addProj({ ...base, kind: 'rocket', dur: 900, arc: 34, wobble: 9, size, trail: ['#BFBCAC', '#8B8879', '#FF8204'] }); break;
+    case 'orbital': beams.push({ kind: 'warn', t0: clock, dur: 300, x1: e.x, y1: e.y }); at(clock + 300, () => beams.push({ kind: 'orbital', t0: clock, dur: 520, x1: e.x, y1: e.y, size })); break;
+  }
+}
+function impact(s) {
+  const tgt = other(s.by), T = FT[tgt], p = chest(tgt);
+  switch (s.out) {
+    case 'hit': case 'crit': case 'partial': {
+      const crit = s.out === 'crit';
+      burst(p.x, p.y, crit ? 42 : 22, SUNC, crit ? 120 : 75);
+      T.flashUntil = clock + 90;
+      shake(crit || CRIT[s.c].weapon === 'ballista' ? 6 : 2);
+      if (crit) { if (!reduced) freezeUntil = performance.now() + 80; crowdJump = clock + 500; stamp(s.c === 'problem' ? 'HAIR ON FIRE' : 'CRITICAL', 'sun'); }
+      applyDamage(tgt, s.dmg, s.out);
+      break;
+    }
+    case 'parried': {
+      const dir = FT[s.by].facing;
+      if (CRIT[s.c].weapon === 'trebuchet') walls.push({ x: T.x - dir * 44, t0: clock - 140, dur: 900 });
+      else shields.push({ x: T.x - dir * 44, y: GROUND - 34, t0: clock, dur: 700 });
+      burst(T.x - dir * 44, GROUND - 34, 14, ['#FAFAF4', '#55B3FB'], 60, 400, 60);
+      for (let i = 0; i < 5; i++) parts.push({ x: T.x - dir * 44, y: GROUND - 36, vx: -dir * (30 + Math.random() * 40), vy: -120 - Math.random() * 60, life: 700, c: '#FAFAF4', s: 2, g: 200 });
+      stamp('PARRIED', 'blue');
+      const cp = $('#capParry'); cp.hidden = false; cp.textContent = FIGHTERS[tgt].name + ' parries: ' + s.parry;
+      $('#capDmg').textContent = '0 HP';
+      say(FIGHTERS[tgt].name + ' parries.');
+      break;
+    }
+    case 'glancing': burst(p.x, p.y, 8, ['#FAFAF4', '#DCDCDE'], 40, 300); floatAt(p.x, p.y - 14, 'GLANCING', 'word'); $('#capDmg').textContent = '0 HP'; break;
+    case 'whiff': floatAt(T.x, GROUND - 60, 'MISS', 'word'); $('#capDmg').textContent = 'MISS'; break;
+  }
+  addReceipt(s);
+}
+function backfire(s, T0) {
+  const F = FT[s.by];
+  at(T0 + 200, () => { const m = muzzle(s.by); puff(m.x, m.y); });
+  at(T0 + 520, () => { const m = muzzle(s.by); puff(m.x, m.y, 9); F.recoilAt = clock; });
+  at(T0 + 880, () => {
+    const m = muzzle(s.by);
+    burst(m.x, m.y, 48, ['#E51300', '#FF8204', '#FFDD73', '#151524'], 130, 650);
+    F.flashUntil = clock + 130; shake(6); crowdJump = clock + 500;
+    stamp('FACT-CHECKED', 'red');
+    $('#capHead').classList.add('struck');
+    applyDamage(s.by, s.dmg, 'backfire');
+    addReceipt(s);
+  });
+}
+function knockOut(loser) {
+  if (!reduced) { slowUntil = clock + 460; flashScreen(); }
+  at(clock + 140, () => { const el = stamp('K.O.', 'big', true); el.dataset.keep = '1'; });
+  at(clock + 260, () => {
+    const F = FT[loser], dir = FT[other(loser)].facing; // blow away from the winner
+    for (const r of F.mech.rects) {
+      for (let yy = 0; yy < r.h; yy++) for (let xx = 0; xx < r.w; xx++) {
+        if ((xx + yy) % 2) continue;
+        const lx = F.facing > 0 ? F.x + (r.x + xx) * S : F.x - (r.x + xx + 1) * S;
+        const ly = GROUND + (r.y + yy) * S;
+        const col = { c: F.pal.c, l: F.pal.l, d: F.pal.d, k: '#151524', w: '#FAFAF4', g: '#55B3FB', a: '#FFDD73' }[r.c];
+        parts.push({ x: lx, y: ly, vx: dir * (50 + Math.random() * 150), vy: -20 - Math.random() * 40, life: 1400 + Math.random() * 1400, c: col, s: S, g: -12 });
+      }
+    }
+    F.gone = true;
+    for (let i = 0; i < 14; i++) winds.push({ y: 40 + Math.random() * 190, x: -60 - Math.random() * 200, len: 30 + Math.random() * 60, v: 380 + Math.random() * 200, t0: clock, dur: 1600 });
+    say(FIGHTERS[loser].name + ' is knocked out.');
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Cue handlers
+// ---------------------------------------------------------------------------
+function clearOv(after) { at(clock + after, () => { ov.innerHTML = ''; }); }
+function showIntro() {
+  ov.innerHTML = `<div class="card"><div class="tape">
+    <div class="f a"><small>#${FIGHTERS.A.seed} / TIER ${FIGHTERS.A.tier} / ${FIGHTERS.A.arch}</small><b>${FIGHTERS.A.name}</b><small>${FIGHTERS.A.line}</small></div>
+    <div class="vs">VS</div>
+    <div class="f b"><small>#${FIGHTERS.B.seed} / TIER ${FIGHTERS.B.tier} / ${FIGHTERS.B.arch}</small><b>${FIGHTERS.B.name}</b><small>${FIGHTERS.B.line}</small></div>
+  </div><div class="foot">TALE OF THE TAPE / BUILD A1B2C3 / SAME AGENT IN BOTH CORNERS / ONLY THE IDEA FIGHTS</div></div>`;
+  clearOv(3000);
+}
+function showRound(R) {
+  $('#rnd').textContent = 'R' + R.n + ' ' + R.name;
+  $('#chips').innerHTML = R.crit.map(c => `<span class="chip" data-c="${c}">${CRIT[c].name} ${CRIT[c].w}</span>`).join('');
+  ov.innerHTML = `<div class="band"><h2>ROUND ${R.n} / ${R.name}</h2><p>${R.crit.map(c => CRIT[c].name + ' ' + CRIT[c].w).join(' / ')}</p></div>`;
+  const b = ov.firstChild; b.style.animationDuration = (1900 / speed) + 'ms';
+  clearOv(1900);
+  say('Round ' + R.n + ', ' + R.name + '.');
+}
+function setCaption(s) {
+  const t = $('#capTag'); t.textContent = FIGHTERS[s.by].name.toUpperCase(); t.className = 'tag ' + (s.by === 'B' ? 'b' : '');
+  $('#capWpn').textContent = WEAPON[CRIT[s.c].weapon].name + ' / ' + CRIT[s.c].name + ' / ' + s.type;
+  const h = $('#capHead'); h.textContent = s.head; h.classList.remove('struck');
+  $('#capParry').hidden = true; $('#capDmg').textContent = '';
+  $('#capEv').innerHTML = s.ev.map(([id, st]) => `<span class="ev ${st}">${id === 'estimate' ? 'ESTIMATE' : id + ' ' + st}</span>`).join('');
+  for (const c of document.querySelectorAll('.chip')) c.classList.toggle('on', c.dataset.c === s.c);
+}
+function doShot(s) {
+  const T0 = clock;
+  setCaption(s);
+  if (s.out === 'backfire') { backfire(s, T0); return; }
+  const travel = WEAPON[CRIT[s.c].weapon].travel;
+  at(T0 + 350, () => launch(s));
+  at(T0 + 350 + travel, () => {
+    impact(s);
+    if (s.final && hp[other(s.by)] === 0) knockOut(other(s.by));
+  });
+}
+function showScorecard(n) {
+  const C = CARDS[n], R = ROUNDS[n - 1];
+  for (const el of fx.querySelectorAll('.stamp[data-keep]')) el.remove();
+  const rows = C.rows.map(([c, a, b, pts, hpv, to]) => `<tr><td>${CRIT[c].name}</td><td class="n">${CRIT[c].w}</td><td class="n ${a > b ? 'win' : ''}">${a.toFixed(1)}</td><td class="n ${b > a ? 'win' : ''}">${b.toFixed(1)}</td><td class="n">${pts ? pts.toFixed(2) : 'clash'}</td><td class="n">${to ? '-' + hpv + ' ' + FIGHTERS[to].name : '0'}</td></tr>`).join('');
+  ov.innerHTML = `<div class="card"><h3>ROUND ${n} / ${R.name} / SCORECARD</h3><table><thead><tr><th>Criterion</th><th class="n">Wt</th><th class="n">${FIGHTERS.A.name}</th><th class="n">${FIGHTERS.B.name}</th><th class="n">Pts</th><th class="n">HP</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="foot">Judged twice with positions swapped, then averaged. Agreement ${C.agree}%.${C.extra ? '<br>' + C.extra : ''}</div></div>`;
+  clearOv(4800);
+}
+function showWinner() {
+  ended = true; playing = false; $('#bPlay').textContent = 'Replay';
+  $('#rnd').textContent = 'FINAL';
+  for (const el of fx.querySelectorAll('.stamp[data-keep]')) el.remove();
+  ov.innerHTML = `<div class="card interactive" style="text-align:center"><h3 style="font-size:clamp(14px,4cqw,40px);margin-bottom:4px">${FIGHTERS.A.name.toUpperCase()} WINS</h3>
+    <div class="foot" style="margin:0 0 10px;color:#151524;font-weight:700">K.O. / ROUND 3 / WON BY 13.3 RUBRIC POINTS / DECIDED BY SCORES</div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="btn hot" id="bWhy">Why did they win?</button><button class="btn" id="bTower">Watch them climb</button></div></div>`;
+  $('#bWhy').onclick = openFilm; $('#bTower').onclick = () => showView('tower');
+  say('PermitPilot wins by K.O.');
+  bracketAfterMatch();
+}
+function dispatch(c) {
+  if (c.kind === 'intro') showIntro();
+  else if (c.kind === 'round_title') showRound(c.round);
+  else if (c.kind === 'shot') doShot(c.shot);
+  else if (c.kind === 'scorecard') showScorecard(c.round);
+  else if (c.kind === 'winner') showWinner();
+}
+
+// ---------------------------------------------------------------------------
+// Receipts and film room
+// ---------------------------------------------------------------------------
+const VERD = { crit: 'Landed / crit', hit: 'Landed', partial: 'Partial', parried: 'Parried', glancing: 'Glancing', whiff: 'Miss', backfire: 'Fact-checked' };
+function addReceipt(s) {
+  $('#rempty').hidden = true;
+  const li = document.createElement('li');
+  const dmgTxt = s.out === 'backfire' ? 'self -' + s.dmg : s.dmg ? '-' + s.dmg : '0';
+  li.innerHTML = `<div class="rhead"><span class="rtag ${s.by === 'B' ? 'b' : ''}">${FIGHTERS[s.by].name}</span><span>${CRIT[s.c].name} / ${s.type}</span><span class="vpill ${s.out}">${VERD[s.out]}</span><span class="rdmg">${dmgTxt} HP</span></div>
+    <b></b><p class="cl"></p>${s.parry ? '<p class="pp"></p>' : ''}<p class="jn"></p><div class="evs">${s.ev.map(([id, st]) => `<span class="ev ${st}">${id === 'estimate' ? 'ESTIMATE' : id + ' ' + st}</span>`).join('')}</div>`;
+  li.querySelector('b').textContent = s.head;
+  li.querySelector('.cl').textContent = s.claim;
+  if (s.parry) li.querySelector('.pp').textContent = 'Defense: ' + s.parry;
+  li.querySelector('.jn').textContent = 'Judge: ' + s.note + ' (' + s.id + ')';
+  $('#rlist').prepend(li);
+}
+function openFilm() {
+  const rows = [1, 2, 3].map(n => CARDS[n].rows.map(([c, a, b, pts, hpv, to]) => `<tr><td>R${n} ${CRIT[c].name}</td><td class="n">${CRIT[c].w}</td><td class="n">${a.toFixed(1)}</td><td class="n">${b.toFixed(1)}</td><td class="n">${(a - b > 0 ? '+' : '') + (a - b).toFixed(1)}</td><td class="n">${pts ? pts.toFixed(2) + ' to ' + FIGHTERS[to].name : 'clash'}</td><td class="n">${hpv ? '-' + hpv : 0}</td></tr>`).join('')).join('');
+  const d = $('#film');
+  d.innerHTML = `<div class="dlg-h"><h2 id="filmTitle">${REPORT.headline}</h2><p>K.O. / won by 13.3 rubric points / decided by scores / stable (both judge orders agree)</p></div>
+  <div class="dlg-b">
+    <div><h4>Why ${FIGHTERS.A.name} won</h4><ul>${REPORT.why.map(w => `<li>${w}</li>`).join('')}</ul></div>
+    <div><h4>Turning point</h4><p style="margin:0">${REPORT.turning}</p></div>
+    <div class="tblwrap"><h4>Scorecard</h4><table class="tbl"><thead><tr><th>Criterion</th><th class="n">Wt</th><th class="n">${FIGHTERS.A.name}</th><th class="n">${FIGHTERS.B.name}</th><th class="n">Margin</th><th class="n">Rubric pts</th><th class="n">HP</th></tr></thead><tbody>${rows}
+      <tr class="rt"><td>Backfire (E14)</td><td></td><td></td><td></td><td></td><td class="n">1.50 to ${FIGHTERS.B.name}</td><td class="n">-9</td></tr>
+      <tr class="rt"><td>Weighted total</td><td class="n">100</td><td class="n">67.65</td><td class="n">54.35</td><td class="n">+13.30</td><td class="n">KO &ge; 10</td><td class="n">5.80 HP/pt</td></tr></tbody></table></div>
+    <div><h4>For ${FIGHTERS.B.name}'s founder</h4><ul>${REPORT.takeaways.map(w => `<li>${w}</li>`).join('')}</ul></div>
+  </div><div class="dlg-f"><button class="btn" id="bClose">Close</button></div>`;
+  $('#bClose').onclick = () => d.close();
+  d.showModal();
+}
+
+// ---------------------------------------------------------------------------
+// Render loop
+// ---------------------------------------------------------------------------
+function line(x0, y0, x1, y1, col, th = 1) {
+  g.fillStyle = col; const n = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0)));
+  for (let i = 0; i <= n; i++) g.fillRect(Math.round(x0 + (x1 - x0) * i / n), Math.round(y0 + (y1 - y0) * i / n), th, th);
+}
+function projPos(p, t) {
+  const k = Math.min(1, Math.max(0, (t - p.t0) / p.dur));
+  let x = p.x0 + (p.x1 - p.x0) * k, y = p.y0 + (p.y1 - p.y0) * k - (p.arc || 0) * 4 * k * (1 - k);
+  if (p.wobble) y += Math.sin(k * Math.PI * 5) * p.wobble * (1 - k);
+  return { x, y, k };
+}
+function update(dt) {
+  for (let i = projs.length - 1; i >= 0; i--) {
+    const p = projs[i], q = projPos(p, clock);
+    if (p.trail && Math.random() < 0.8) parts.push({ x: q.x, y: q.y, vx: (Math.random() - 0.5) * 12, vy: -6, life: 380, c: p.trail[Math.floor(Math.random() * p.trail.length)], s: 2, g: -10 });
+    if (q.k >= 1) projs.splice(i, 1);
+  }
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const p = parts[i]; p.life -= dt;
+    if (p.life <= 0) { parts.splice(i, 1); continue; }
+    p.vy += p.g * dt / 1000; p.x += p.vx * dt / 1000; p.y += p.vy * dt / 1000;
+  }
+  if (parts.length > 900) parts.splice(0, parts.length - 900);
+  for (const k of ['A', 'B']) {
+    const F = FT[k]; if (F.gone) continue;
+    if (hp[k] < 50 && Math.random() < dt / 260) puff(F.x + (Math.random() - 0.5) * 20, GROUND + F.mech.top * S + 6, 1);
+    if (hp[k] < 25 && Math.random() < dt / 180) burst(F.x + (Math.random() - 0.5) * 24, GROUND - 20 - Math.random() * 30, 3, ['#FFDD73', '#FF8204'], 40, 250, 80, 1);
+    if (clock > ghostHold[k]) ghost[k] = Math.max(hp[k], ghost[k] - dt * 0.09);
+  }
+  beams = beams.filter(b => clock - b.t0 < b.dur);
+  shields = shields.filter(s => clock - s.t0 < s.dur);
+  walls = walls.filter(w => clock - w.t0 < w.dur);
+  winds = winds.filter(w => clock - w.t0 < w.dur);
+}
+function drawProj(p) {
+  const q = projPos(p, clock), pr = projPos(p, clock - 40);
+  const dx = q.x - pr.x, dy = q.y - pr.y, len = Math.hypot(dx, dy) || 1, ux = dx / len, uy = dy / len;
+  const sz = p.size || 1;
+  switch (p.kind) {
+    case 'bolt': { const L = 16 * sz; line(q.x - ux * L, q.y - uy * L, q.x, q.y, '#FAFAF4', 2); line(q.x - ux * L, q.y - uy * L, q.x - ux * (L - 4), q.y - uy * (L - 4) - 3, '#E51300', 2); g.fillStyle = '#FFAF01'; g.fillRect(Math.round(q.x) - 2, Math.round(q.y) - 2, 4 * sz, 4 * sz); break; }
+    case 'boulder': { const s = Math.round(7 * sz); g.fillStyle = '#151524'; g.fillRect(Math.round(q.x) - s / 2 - 1, Math.round(q.y) - s / 2 - 1, s + 2, s + 2); g.fillStyle = '#8B8879'; g.fillRect(Math.round(q.x) - s / 2, Math.round(q.y) - s / 2, s, s); g.fillStyle = '#BFBCAC'; g.fillRect(Math.round(q.x) - s / 2 + 1, Math.round(q.y) - s / 2 + 1, 2, 2); break; }
+    case 'coin': { const spin = Math.floor(clock / 60) % 2; g.fillStyle = '#A77201'; g.fillRect(Math.round(q.x) - 2, Math.round(q.y) - 2, spin ? 4 : 2, 4); g.fillStyle = '#FFDD73'; g.fillRect(Math.round(q.x) - 1, Math.round(q.y) - 1, spin ? 2 : 1, 2); break; }
+    case 'fire': { const s = Math.round(5 * sz); g.fillStyle = '#FFAF01'; g.fillRect(Math.round(q.x) - s / 2, Math.round(q.y) - s / 2, s, s); g.fillStyle = '#FAFAF4'; g.fillRect(Math.round(q.x) - 1, Math.round(q.y) - 1, 2, 2); for (let i = 0; i < 3; i++) parts.push({ x: q.x - ux * i * 4, y: q.y + (Math.random() - 0.5) * 6, vx: -ux * 30, vy: -20, life: 260, c: ['#FFDD73', '#FF8204', '#E51300'][i], s: 3, g: -40 }); break; }
+    case 'slug': line(q.x - ux * 10, q.y - uy * 10, q.x, q.y, '#FAFAF4', 2); break;
+    case 'bullet': line(q.x - ux * 4, q.y - uy * 4, q.x, q.y, '#FFDD73', 1); break;
+    case 'rocket': { line(q.x - ux * 8, q.y - uy * 8, q.x, q.y, '#DCDCDE', 3); g.fillStyle = '#E51300'; g.fillRect(Math.round(q.x) - 1, Math.round(q.y) - 1, 3, 3); g.fillStyle = '#FF8204'; g.fillRect(Math.round(q.x - ux * 10), Math.round(q.y - uy * 10), 3, 3); break; }
+  }
+}
+function drawBeams() {
+  for (const b of beams) {
+    const k = (clock - b.t0) / b.dur;
+    if (b.kind === 'laser') { const th = k < 0.6 ? 3 : 1; line(b.x0, b.y0, b.x1, b.y1, b.col, th + 2); line(b.x0, b.y0 + 1, b.x1, b.y1 + 1, '#FAFAF4', th); }
+    else if (b.kind === 'warn') { if (Math.floor(clock / 60) % 2) { g.fillStyle = '#FAFAF4'; g.fillRect(b.x1 - 8, b.y1, 16, 1); g.fillRect(b.x1, b.y1 - 8, 1, 16); g.fillStyle = '#E51300'; g.fillRect(b.x1 - 9, GROUND - 2, 19, 2); } }
+    else if (b.kind === 'orbital') { const w = Math.max(2, Math.round((b.size || 1) * 12 * (1 - k))); g.fillStyle = '#FFDD73'; g.fillRect(b.x1 - w, 0, w * 2, GROUND); g.fillStyle = '#FAFAF4'; g.fillRect(b.x1 - Math.ceil(w / 2), 0, Math.ceil(w / 2) * 2, GROUND); }
+  }
+}
+function drawDefense() {
+  for (const s of shields) {
+    const k = (clock - s.t0) / s.dur; if (k > 0.7 && Math.floor(clock / 50) % 2) continue;
+    for (let dy = -22; dy <= 22; dy++) { const hw = Math.max(1, 5 - Math.floor(Math.abs(dy) / 5)); g.fillStyle = '#55B3FB'; g.fillRect(s.x - hw, s.y + dy, hw * 2, 1); g.fillStyle = '#FAFAF4'; g.fillRect(s.x - 1, s.y + dy, 2, 1); }
+  }
+  for (const w of walls) {
+    const k = (clock - w.t0) / w.dur, h = Math.round(Math.min(1, k * 6) * 52);
+    g.fillStyle = '#151524'; g.fillRect(w.x - 7, GROUND - h - 1, 14, h + 1);
+    g.fillStyle = '#8B8879'; g.fillRect(w.x - 6, GROUND - h, 12, h);
+    g.fillStyle = '#56566C'; for (let y = GROUND - h + 4; y < GROUND; y += 6) g.fillRect(w.x - 6, y, 12, 1);
+  }
+}
+function drawCrowd() {
+  const jump = clock < crowdJump;
+  for (let i = 0, x = 4; x < W; i++, x += 11) {
+    const bob = jump ? (Math.floor(clock / 90 + i) % 2) * 5 : (Math.floor(clock / 400 + i * 0.7) % 2);
+    const y = 254 - bob - (i % 3);
+    g.fillStyle = '#101013'; g.fillRect(x, y, 7, 7); g.fillRect(x - 2, y + 7, 11, 12);
+  }
+}
+function render() {
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  g.fillStyle = '#151524'; g.fillRect(0, 0, W, H);
+  let ox = 0, oy = 0;
+  if (!reduced && clock - shakeT0 < 220) { const k = 1 - (clock - shakeT0) / 220; ox = Math.round((Math.random() * 2 - 1) * shakeAmp * k); oy = Math.round((Math.random() * 2 - 1) * shakeAmp * k); }
+  g.setTransform(1, 0, 0, 1, ox, oy);
+  g.drawImage(bg, 0, 0);
+  for (let i = 0; i < reflections.length; i++) { const r = reflections[i]; if ((Math.floor(clock / 450) + i) % 4 === 0) continue; g.fillStyle = r.col; g.fillRect(r.x, r.y, r.len, 1); }
+  for (const k of ['A', 'B']) {
+    const F = FT[k]; if (F.gone) continue;
+    const bob = Math.floor(clock / 320 + (k === 'A' ? 0 : 1)) % 2;
+    const rec = clock - F.recoilAt < 120 ? -F.facing * 3 : 0;
+    drawMech(g, F.mech, F.pal, F.x + rec, GROUND - bob, F.facing, clock < F.flashUntil);
+  }
+  drawDefense(); drawBeams();
+  for (const p of projs) drawProj(p);
+  for (const p of parts) { g.fillStyle = p.c; g.fillRect(Math.round(p.x), Math.round(p.y), p.s, p.s); }
+  g.fillStyle = '#FAFAF4';
+  for (const w of winds) { const x = w.x + (clock - w.t0) * w.v / 1000; g.fillRect(Math.round(x), Math.round(w.y), Math.round(w.len), 1); }
+  drawCrowd();
+}
+const bars = { A: $('#hpA'), B: $('#hpB') }, nums = { A: $('#hpnA'), B: $('#hpnB') };
+function hud() {
+  for (const k of ['A', 'B']) {
+    bars[k].querySelector('.fill').style.width = hp[k] + '%';
+    bars[k].querySelector('.ghost').style.width = ghost[k] + '%';
+    bars[k].classList.toggle('low', hp[k] > 0 && hp[k] < 30);
+    nums[k].textContent = Math.round(hp[k]) + ' HP';
+  }
+}
+let last = performance.now();
+function frame(now) {
+  const real = Math.min(50, now - last); last = now;
+  let dt = 0;
+  if (playing && now >= freezeUntil) { dt = real * speed * (clock < slowUntil ? 0.25 : 1); clock += dt; }
+  runQueue(); update(dt); render(); hud();
+  requestAnimationFrame(frame);
+}
+
+// ---------------------------------------------------------------------------
+// Controls
+// ---------------------------------------------------------------------------
+function startOverlay() {
+  ov.innerHTML = `<div class="card interactive start"><h3 style="margin:0">FLOOR 1 / BOUT 1</h3>
+    <div class="tape" style="width:100%"><div class="f a"><b>${FIGHTERS.A.name}</b><small>#1 / TIER S</small></div><div class="vs">VS</div><div class="f b"><b>${FIGHTERS.B.name}</b><small>#8 / TIER B</small></div></div>
+    <button class="btn hot" id="bGo">Ring the bell</button>
+    <div class="foot">Bets locked. Match sealed. Fictional demo data.</div></div>`;
+  $('#bGo').onclick = play;
+}
+function play() {
+  if (ended || !started) { restart(); started = true; }
+  playing = true; $('#bPlay').textContent = 'Pause';
+}
+function restart() {
+  resetState(); fx.innerHTML = ''; ov.innerHTML = ''; $('#rlist').innerHTML = ''; $('#rempty').hidden = false;
+  $('#rnd').textContent = 'PRE-FIGHT'; $('#chips').innerHTML = '';
+  $('#capTag').textContent = 'LIVE'; $('#capTag').className = 'tag'; $('#capWpn').textContent = 'Floor 1 / Bout 1'; $('#capHead').textContent = 'Fighters entering the ring.'; $('#capHead').classList.remove('struck'); $('#capEv').innerHTML = ''; $('#capDmg').textContent = ''; $('#capParry').hidden = true;
+  for (const c of CUES) at(c.t, () => dispatch(c));
+}
+$('#bPlay').onclick = () => {
+  if (!started || ended) { play(); return; }
+  playing = !playing; $('#bPlay').textContent = playing ? 'Pause' : 'Resume';
+};
+$('#bRestart').onclick = () => { restart(); started = true; playing = true; $('#bPlay').textContent = 'Pause'; };
+for (const b of document.querySelectorAll('[data-speed]')) b.onclick = () => {
+  speed = +b.dataset.speed; for (const o of document.querySelectorAll('[data-speed]')) o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+};
+function setReduced(v) { reduced = v; document.body.classList.toggle('rm', v); $('#bMotion').setAttribute('aria-pressed', v ? 'true' : 'false'); }
+$('#bMotion').onclick = () => setReduced(!reduced);
+reduceMQ.addEventListener('change', e => setReduced(e.matches));
+setReduced(reduced);
+document.addEventListener('visibilitychange', () => { last = performance.now(); });
+
+// ---------------------------------------------------------------------------
+// THE TOWER
+// ---------------------------------------------------------------------------
+const IDEAS = {
+  1: { name: 'PermitPilot', tier: 'S', pal: 'orange', sprite: 7 },
+  2: { name: 'Seedbooks', tier: 'A', pal: 'green', sprite: 19 },
+  3: { name: 'MuniMind', tier: 'A', pal: 'red', sprite: 23 },
+  4: { name: 'ComputeCoop', tier: 'B', pal: 'steel', sprite: 31 },
+  5: { name: 'LeashLine', tier: 'B', pal: 'yellow', sprite: 5 },
+  6: { name: 'RentShield', tier: 'B', pal: 'rasp', sprite: 11 },
+  7: { name: 'BurritoDAO', tier: 'C', pal: 'tang', sprite: 13 },
+  8: { name: 'Fogcast', tier: 'B', pal: 'blue', sprite: 42 },
+};
+const MATCHES = {
+  'F1-1': { floor: 1, a: 1, b: 8, status: 'live' },
+  'F1-2': { floor: 1, a: 4, b: 5, status: 'final', winner: 5, how: 'DECISION', upset: true },
+  'F1-3': { floor: 1, a: 3, b: 6, status: 'betting' },
+  'F1-4': { floor: 1, a: 2, b: 7, status: 'scheduled' },
+  'F2-1': { floor: 2, a: null, b: 5, feeders: ['F1-1', 'F1-2'], status: 'scheduled' },
+  'F2-2': { floor: 2, a: null, b: null, feeders: ['F1-3', 'F1-4'], status: 'scheduled' },
+  'F3-1': { floor: 3, a: null, b: null, feeders: ['F2-1', 'F2-2'], status: 'scheduled' },
+};
+const FLOORS = [
+  { n: 3, title: 'Final', ids: ['F3-1'] },
+  { n: 2, title: 'Semis', ids: ['F2-1', 'F2-2'] },
+  { n: 1, title: 'Openers', ids: ['F1-1', 'F1-2', 'F1-3', 'F1-4'] },
+];
+const spriteCache = {};
+function spriteURL(seed) {
+  if (spriteCache[seed]) return spriteCache[seed];
+  const c = document.createElement('canvas'); c.width = 40; c.height = 40;
+  const x = c.getContext('2d'); x.fillStyle = '#F2F1E8'; x.fillRect(0, 0, 40, 40);
+  x.fillStyle = '#FFDD73'; x.fillRect(0, 26, 40, 4); x.fillStyle = '#FF8204'; x.fillRect(0, 30, 40, 4); x.fillStyle = '#FA500F'; x.fillRect(0, 34, 40, 6);
+  const I = IDEAS[seed]; drawMech(x, buildMech(I.sprite), PAL[I.pal], 21, 36, 1, false, 1);
+  return (spriteCache[seed] = c.toDataURL());
+}
+let betSecs = 180, climbPending = false;
+const fmt = s => String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+function frow(seed, m, slot) {
+  if (!seed) {
+    const f = m.feeders ? m.feeders[slot === 'a' ? 0 : 1] : '';
+    return `<div class="frow tbd" data-slot="${slot}"><span class="ph"></span><span class="fn">Winner of ${f}</span><span></span></div>`;
+  }
+  const I = IDEAS[seed], cls = m.status === 'final' ? (m.winner === seed ? 'win' : 'lose') : '';
+  return `<div class="frow ${cls}" data-seed="${seed}" data-slot="${slot}"><img alt="" src="${spriteURL(seed)}"><span class="fn">${I.name}</span><span class="sd">#${seed} ${I.tier}</span></div>`;
+}
+function mfoot(id, m) {
+  if (m.status === 'live') return `<span class="pill live">LIVE</span><span>Bets locked</span><button class="btn" data-watch>Watch</button>`;
+  if (m.status === 'final') return `<span class="pill final">FINAL / ${m.how}</span>${m.upset ? '<span class="pill upset">UPSET</span>' : ''}`;
+  if (m.status === 'betting') return betSecs > 0 ? `<span class="pill bet">BETTING OPEN</span><span id="cd">${fmt(betSecs)}</span>` : `<span class="pill">LOCKED</span>`;
+  return `<span class="pill">SCHEDULED</span>`;
+}
+function renderTower() {
+  const t = $('#tower');
+  t.innerHTML = `<svg class="wires" id="wires" aria-hidden="true"></svg><div class="belt"><b>THE GOLDEN GATE BELT</b><span>Champion: TBD</span></div>` +
+    FLOORS.map(F => `<div class="floor"><div class="rail"><b>Floor ${F.n}</b>${F.title} / ${F.ids.length} bout${F.ids.length > 1 ? 's' : ''}</div><div class="slots">${F.ids.map(id => {
+      const m = MATCHES[id];
+      return `<div class="mcard ${m.status === 'live' ? 'live' : ''}" data-id="${id}" tabindex="0" aria-label="${id}">${frow(m.a, m, 'a')}${frow(m.b, m, 'b')}<div class="mfoot"><span class="mono" style="font-size:10px">${id}</span>${mfoot(id, m)}</div></div>`;
+    }).join('')}</div></div>`).join('');
+  for (const b of t.querySelectorAll('[data-watch]')) b.onclick = () => showView('arena');
+  requestAnimationFrame(drawWires);
+}
+function drawWires() {
+  const t = $('#tower'), svg = $('#wires'); if (!svg || !t.offsetParent) return;
+  const tr = t.getBoundingClientRect(); let paths = '';
+  const css = getComputedStyle(document.documentElement);
+  const lit = css.getPropertyValue('--sun-4').trim(), dim = css.getPropertyValue('--line-2').trim();
+  for (const [id, m] of Object.entries(MATCHES)) {
+    if (!m.feeders) continue;
+    const pe = t.querySelector(`[data-id="${id}"]`).getBoundingClientRect();
+    m.feeders.forEach((fid, i) => {
+      const ce = t.querySelector(`[data-id="${fid}"]`).getBoundingClientRect();
+      const cx = Math.round(ce.left + ce.width / 2 - tr.left), cy = Math.round(ce.top - tr.top);
+      const px = Math.round(pe.left + pe.width * (i ? 0.7 : 0.3) - tr.left), py = Math.round(pe.bottom - tr.top);
+      const my = Math.round((cy + py) / 2);
+      const on = MATCHES[fid].status === 'final';
+      paths += `<path d="M${cx} ${cy} V${my} H${px} V${py}" fill="none" stroke="${on ? lit : dim}" stroke-width="${on ? 4 : 3}" stroke-linecap="square" shape-rendering="crispEdges"/>`;
+    });
+  }
+  const belt = t.querySelector('.belt').getBoundingClientRect(), fin = t.querySelector('[data-id="F3-1"]').getBoundingClientRect();
+  const bx = Math.round(belt.left + belt.width / 2 - tr.left);
+  paths += `<path d="M${bx} ${Math.round(fin.top - tr.top)} V${Math.round(belt.bottom - tr.top)}" stroke="${dim}" stroke-width="3" shape-rendering="crispEdges"/>`;
+  svg.innerHTML = paths;
+}
+addEventListener('resize', () => requestAnimationFrame(drawWires));
+
+function bracketAfterMatch() {
+  if (MATCHES['F1-1'].status === 'final') return;
+  Object.assign(MATCHES['F1-1'], { status: 'final', winner: 1, how: 'K.O.' });
+  climbPending = true;
+  if (!$('#view-tower').hidden) { renderTower(); climb(); }
+}
+function climb() {
+  if (!climbPending) return; climbPending = false;
+  const from = $('#tower [data-id="F1-1"] [data-seed="1"] img');
+  const to = $('#tower [data-id="F2-1"] [data-slot="a"]');
+  if (!from || !to) { MATCHES['F2-1'].a = 1; renderTower(); return; }
+  const a = from.getBoundingClientRect(), b = to.querySelector('.ph, img').getBoundingClientRect();
+  const hop = document.createElement('img'); hop.className = 'hopper'; hop.src = spriteURL(1); hop.alt = '';
+  hop.style.left = a.left + 'px'; hop.style.top = a.top + 'px'; document.body.appendChild(hop);
+  const dx = b.left - a.left, dy = b.top - a.top;
+  // three hops: land points at 0, 1/3, 2/3, 1 of the way, with an airborne peak between each
+  const kf = [];
+  for (let i = 0; i <= 6; i++) {
+    const f = i / 6, air = i % 2 ? 26 : 0;
+    kf.push({ transform: `translate(${dx * f}px, ${dy * f - air}px)` });
+  }
+  if (reduced) kf.splice(1, kf.length - 2);
+  hop.animate(kf, { duration: reduced ? 300 : 1200, easing: 'steps(14)', fill: 'forwards' }).onfinish = () => {
+    hop.remove(); MATCHES['F2-1'].a = 1; renderTower();
+    const row = $('#tower [data-id="F2-1"] [data-slot="a"]'); if (row) row.classList.add('arrive');
+  };
+}
+
+// bet slip: parimutuel with a house seed, per docs/06-betting-and-vc.md
+let wallet = 1000, pick = 'a', stake = 50, myBets = [];
+const POOL = { id: 'F1-3', a: 3, b: 6, w: { a: 74, b: 63 }, users: { a: 1240, b: 610 } };
+const pA = 1 / (1 + Math.pow(10, -(POOL.w.a - POOL.w.b) / 15));
+POOL.house = { a: Math.round(500 * pA), b: 500 - Math.round(500 * pA) };
+const onSide = s => POOL.house[s] + POOL.users[s];
+const total = () => onSide('a') + onSide('b');
+const odds = (s, add = 0) => (total() + add) / (onSide(s) + add);
+function renderSlip() {
+  const el = $('#slip'), A = IDEAS[POOL.a], B = IDEAS[POOL.b], locked = betSecs <= 0;
+  const est = Math.floor(stake * odds(pick, stake));
+  el.innerHTML = `<header><h3>Bet slip</h3><p>${POOL.id} / ${A.name} vs ${B.name} / ${locked ? 'Bell rang' : 'Bell in <span id="cd2">' + fmt(betSecs) + '</span>'}</p></header>
+  <div class="body">
+    ${locked ? '<div class="lockstamp">BETS LOCKED</div>' : `
+    <div class="pick">
+      <button aria-pressed="${pick === 'a'}" data-pick="a"><b>${A.name}</b><span>#${POOL.a} / ${odds('a').toFixed(2)}x</span></button>
+      <button aria-pressed="${pick === 'b'}" data-pick="b"><b>${B.name}</b><span>#${POOL.b} / ${odds('b').toFixed(2)}x</span></button>
+    </div>
+    <div class="stakes">${[10, 50, 100, 500].map(v => `<button class="btn" data-stake="${v}">${v}</button>`).join('')}<button class="btn" data-stake="max">Max</button></div>
+    <label class="stakein">Stake S$ <input id="stakeIn" type="number" min="10" step="1" value="${stake}" inputmode="numeric"></label>
+    <div class="est">Est. payout S$ ${est.toLocaleString()} if ${IDEAS[POOL[pick]].name} wins. Odds move until the bell.</div>
+    <p class="msg" id="betMsg"></p>
+    <button class="btn hot" id="bBet">Place bet</button>`}
+    <div class="est">Pool S$ ${total().toLocaleString()} incl. S$500 house seed split ${POOL.house.a}/${POOL.house.b} from weigh-in. Play money only.</div>
+    ${myBets.length ? `<div class="mybets"><b>Your bets</b>${myBets.map(b => `<div><span>${IDEAS[POOL[b.side]].name}</span><span>S$ ${b.stake}</span></div>`).join('')}</div>` : ''}
+  </div>`;
+  for (const b of el.querySelectorAll('[data-pick]')) b.onclick = () => { pick = b.dataset.pick; renderSlip(); };
+  for (const b of el.querySelectorAll('[data-stake]')) b.onclick = () => { stake = b.dataset.stake === 'max' ? wallet : +b.dataset.stake; renderSlip(); };
+  const si = $('#stakeIn'); if (si) si.onchange = () => { stake = Math.floor(+si.value || 0); renderSlip(); };
+  const bb = $('#bBet'); if (bb) bb.onclick = placeBet;
+}
+function placeBet() {
+  const msg = $('#betMsg');
+  if (betSecs <= 0) { msg.textContent = 'Bets are locked.'; return; }
+  if (!Number.isInteger(stake) || stake < 10) { msg.textContent = 'Minimum stake is S$10.'; return; }
+  if (stake > wallet) { msg.textContent = 'Not enough Seed Bucks.'; return; }
+  wallet -= stake; POOL.users[pick] += stake; myBets.push({ side: pick, stake });
+  $('#wallet').textContent = wallet.toLocaleString();
+  stake = Math.min(stake, wallet) || 10; renderSlip();
+}
+setInterval(() => {
+  if (betSecs <= 0) return;
+  betSecs--;
+  const a = $('#cd'), b = $('#cd2'); if (a) a.textContent = fmt(betSecs); if (b) b.textContent = fmt(betSecs);
+  if (betSecs === 0) { renderSlip(); if (!$('#view-tower').hidden) renderTower(); }
+}, 1000);
+
+// ---------------------------------------------------------------------------
+// Views
+// ---------------------------------------------------------------------------
+function showView(v) {
+  for (const t of document.querySelectorAll('.tab')) t.setAttribute('aria-selected', t.dataset.view === v ? 'true' : 'false');
+  $('#view-arena').hidden = v !== 'arena'; $('#view-tower').hidden = v !== 'tower';
+  if (v === 'tower') { renderTower(); renderSlip(); if (climbPending) setTimeout(climb, 350); }
+  scrollTo({ top: 0 });
+}
+for (const t of document.querySelectorAll('.tab')) t.onclick = () => showView(t.dataset.view);
+
+// boot
+resetState();
+startOverlay();
+requestAnimationFrame(frame);
+window.__fight = { state: () => ({ clock: Math.round(clock), hp: { ...hp }, playing, ended, cues: CUES.length, duration: CUES[CUES.length - 1].t }), speed: v => { speed = v; } };
+})();
+</script>
+</body>
+</html>
