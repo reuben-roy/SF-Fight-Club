@@ -1,0 +1,176 @@
+{
+  "id": "vc-default",
+  "version": "1.0.0",
+  "calibration": [
+    "5 is a typical idea pitched at an SF startup event.",
+    "7 is an idea a good seed fund would take a meeting on.",
+    "9 is rare: top few percent of funded seed-stage ideas.",
+    "10 is reserved for overwhelming evidence. Expect almost none.",
+    "Use the whole range. Two mediocre ideas can both get 4."
+  ],
+  "thresholds": {
+    "drawMargin": 1.5,
+    "koMargin": 10,
+    "decisionFloorHp": 12,
+    "suddenDeathFloorHp": 6,
+    "backfirePenalty": 1.5,
+    "backfireCap": 3,
+    "instabilityGap": 3,
+    "weighinTiebreakGap": 0.5
+  },
+  "criteria": [
+    {
+      "id": "problem",
+      "round": 1,
+      "name": "Problem severity and urgency",
+      "weight": 15,
+      "question": "How badly does a specific group need this solved, right now?",
+      "lookFor": ["a named persona", "how often the problem hits", "what it costs (time, money, risk)", "what they do today", "signs of active searching or spending"],
+      "anchors": [
+        { "range": [0, 2], "text": "Vitamin. No identifiable sufferer, or a mild inconvenience nobody acts on." },
+        { "range": [3, 4], "text": "Real but occasional or low stakes. People shrug and live with it." },
+        { "range": [5, 6], "text": "Recurring pain for a definable group. Some use clunky workarounds." },
+        { "range": [7, 8], "text": "Hair on fire for a specific persona. Budget exists, people search for fixes, workarounds are expensive." },
+        { "range": [9, 10], "text": "Existential or mandated: lost revenue, compliance deadlines, safety. Buyers would take a half-working product today." }
+      ],
+      "caps": [{ "id": "no_customer", "when": "No identifiable customer", "maxScore": 4 }]
+    },
+    {
+      "id": "market",
+      "round": 1,
+      "name": "Market size and growth",
+      "weight": 12,
+      "question": "How big is the market this can reach within five years, sized bottom-up, and is it growing?",
+      "lookFor": ["buyers x price x frequency", "a believable serviceable market, not just TAM", "growth rate", "source quality", "for local ideas, a credible expansion path"],
+      "anchors": [
+        { "range": [0, 2], "text": "Reachable market under about $50M, or impossible to size." },
+        { "range": [3, 4], "text": "Niche, $50M to $500M, flat." },
+        { "range": [5, 6], "text": "$500M to $2B, or smaller but growing above 25% a year." },
+        { "range": [7, 8], "text": "$2B to $10B with healthy growth and a credible bottom-up build." },
+        { "range": [9, 10], "text": "Above $10B, bottom-up math checks out, growing." }
+      ],
+      "caps": [
+        { "id": "top_down_only", "when": "Sizing is top-down only (\"1% of a $50B market\")", "maxScore": 5 },
+        { "id": "unsourced_numbers", "when": "Market numbers have no evidence ID and the reasoning is loose", "maxScore": 6 }
+      ]
+    },
+    {
+      "id": "wtp",
+      "round": 1,
+      "name": "Willingness to pay and business model",
+      "weight": 8,
+      "question": "Who pays, how much, and do the unit economics plausibly work?",
+      "lookFor": ["who the payer is", "pricing analogs", "gross margin", "LTV vs CAC plausibility", "expansion revenue"],
+      "anchors": [
+        { "range": [0, 2], "text": "Nobody obvious pays, or \"ads later\"." },
+        { "range": [3, 4], "text": "A payer exists but is price sensitive. Margins unclear." },
+        { "range": [5, 6], "text": "Clear payer with a pricing analog. Plausible margins." },
+        { "range": [7, 8], "text": "Payer has budget and precedent prices. Gross margin above 60% is plausible. LTV over CAC holds up." },
+        { "range": [9, 10], "text": "Customers already pay similar prices for worse alternatives. Strong margins. Expansion revenue built in." }
+      ],
+      "caps": [{ "id": "payer_unreached", "when": "The payer is not the user and there is no plan to reach the payer", "maxScore": 5 }]
+    },
+    {
+      "id": "differentiation",
+      "round": 2,
+      "name": "Differentiation vs alternatives",
+      "weight": 12,
+      "question": "Compared with what customers do today, including doing nothing, is this clearly better?",
+      "lookFor": ["direct competitors", "incumbents", "spreadsheets, interns, agencies and doing nothing", "the one dimension where it is much better"],
+      "anchors": [
+        { "range": [0, 2], "text": "Me-too in a crowded space." },
+        { "range": [3, 4], "text": "Cheaper or nicer than strong incumbents. Incremental." },
+        { "range": [5, 6], "text": "Meaningfully better on one dimension customers care about." },
+        { "range": [7, 8], "text": "10x better on a dimension that matters, for a segment incumbents serve badly." },
+        { "range": [9, 10], "text": "New category or no credible alternative, and the status quo is painful." }
+      ],
+      "caps": []
+    },
+    {
+      "id": "moat",
+      "round": 2,
+      "name": "Defensibility",
+      "weight": 10,
+      "question": "If this works, what stops a well-funded copycat in year three?",
+      "lookFor": ["network effects", "proprietary data", "switching costs", "scale economies", "brand", "licenses or regulation", "counter-positioning", "hard tech"],
+      "anchors": [
+        { "range": [0, 2], "text": "Nothing. Anyone can clone it in a weekend." },
+        { "range": [3, 4], "text": "Head start only." },
+        { "range": [5, 6], "text": "One plausible moat that builds over time." },
+        { "range": [7, 8], "text": "A compounding moat (data or network effects) with a clear path to it." },
+        { "range": [9, 10], "text": "Several reinforcing moats. Incumbents structurally can't follow." }
+      ],
+      "caps": [
+        { "id": "thin_wrapper", "when": "A thin wrapper on someone else's model with no data or workflow lock-in", "maxScore": 4 },
+        { "id": "platform_dependency", "when": "Lives inside one platform (app store, API, marketplace) with no mitigation", "maxScore": 5 }
+      ]
+    },
+    {
+      "id": "timing",
+      "round": 2,
+      "name": "Why now",
+      "weight": 10,
+      "question": "What changed recently that makes this possible or necessary, and why didn't it work five years ago?",
+      "lookFor": ["cost curves", "new capabilities", "regulation", "behavior shifts", "platform shifts", "signs the market is moving now"],
+      "anchors": [
+        { "range": [0, 2], "text": "No reason it couldn't have been built in 2010. Or too early: depends on things that don't exist yet." },
+        { "range": [3, 4], "text": "A vague trend (\"AI is big\")." },
+        { "range": [5, 6], "text": "A real enabling change, but one everyone has access to." },
+        { "range": [7, 8], "text": "A specific recent change (cost curve, regulation, behavior shift) with a visible window." },
+        { "range": [9, 10], "text": "A sharp, datable shift opens a window that will close, and the market is already moving." }
+      ],
+      "caps": []
+    },
+    {
+      "id": "gtm",
+      "round": 3,
+      "name": "Go-to-market",
+      "weight": 12,
+      "question": "How do the first 10 customers, then the first 1,000, find and buy this?",
+      "lookFor": ["named first customers or communities", "channel cost", "sales cycle length", "virality or built-in distribution"],
+      "anchors": [
+        { "range": [0, 2], "text": "\"It'll go viral.\" Build it and they will come." },
+        { "range": [3, 4], "text": "A channel is named but expensive or unproven. Long sales cycle with no entry point." },
+        { "range": [5, 6], "text": "A plausible channel and a specific first segment." },
+        { "range": [7, 8], "text": "Named first customers or communities, a cheap channel, a short sales cycle." },
+        { "range": [9, 10], "text": "Built-in distribution (virality, marketplace liquidity, existing channel access) with evidence." }
+      ],
+      "caps": []
+    },
+    {
+      "id": "feasibility",
+      "round": 3,
+      "name": "Feasibility and execution risk",
+      "weight": 11,
+      "question": "Can a small team ship a useful v1 in about six months, and what could kill it?",
+      "lookFor": ["technical risk", "regulatory and legal exposure", "capital intensity", "dependencies on other companies"],
+      "anchors": [
+        { "range": [0, 2], "text": "Needs a scientific breakthrough, illegal activity, or billions in capex." },
+        { "range": [3, 4], "text": "Major technical or regulatory risk with no plan." },
+        { "range": [5, 6], "text": "Buildable. Real but manageable risks." },
+        { "range": [7, 8], "text": "Clear build path. Risks named with mitigations." },
+        { "range": [9, 10], "text": "v1 ships in weeks with off-the-shelf parts. Low regulatory exposure." }
+      ],
+      "caps": [
+        { "id": "unproven_science", "when": "Requires unproven science", "maxScore": 2 },
+        { "id": "regulatory_showstopper", "when": "A regulatory showstopper with no plan", "maxScore": 3 }
+      ]
+    },
+    {
+      "id": "scale",
+      "round": 3,
+      "name": "Venture scale",
+      "weight": 10,
+      "question": "Beyond the first market, can this become a $1B+ company?",
+      "lookFor": ["expansion paths", "operating leverage", "margin structure", "a path to $100M ARR", "likely acquirers", "do not re-score market size"],
+      "anchors": [
+        { "range": [0, 2], "text": "Lifestyle business ceiling." },
+        { "range": [3, 4], "text": "Could reach $10M ARR. Hard to see past it." },
+        { "range": [5, 6], "text": "A path to $100M ARR through expansion." },
+        { "range": [7, 8], "text": "A credible $1B outcome with several expansion paths." },
+        { "range": [9, 10], "text": "Platform potential. Could define a $10B+ category." }
+      ],
+      "caps": []
+    }
+  ]
+}
