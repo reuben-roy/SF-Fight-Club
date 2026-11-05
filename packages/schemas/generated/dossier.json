@@ -1,0 +1,225 @@
+{
+  "type": "object",
+  "properties": {
+    "ideaId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sections": {
+      "type": "object",
+      "properties": {
+        "problemEvidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "Evidence ids supporting this claim."
+              },
+              "estimate": {
+                "type": "boolean",
+                "description": "True when no source backs the claim."
+              }
+            },
+            "required": [
+              "text",
+              "evidence",
+              "estimate"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "marketSizing": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "Evidence ids supporting this claim."
+              },
+              "estimate": {
+                "type": "boolean",
+                "description": "True when no source backs the claim."
+              }
+            },
+            "required": [
+              "text",
+              "evidence",
+              "estimate"
+            ],
+            "additionalProperties": false
+          },
+          "description": "Bottom-up sizing preferred."
+        },
+        "competitors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "direct",
+                  "indirect",
+                  "status_quo"
+                ]
+              },
+              "note": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "name",
+              "kind",
+              "note",
+              "evidence"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "pricingAnalogs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "Evidence ids supporting this claim."
+              },
+              "estimate": {
+                "type": "boolean",
+                "description": "True when no source backs the claim."
+              }
+            },
+            "required": [
+              "text",
+              "evidence",
+              "estimate"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "whyNowSignals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "Evidence ids supporting this claim."
+              },
+              "estimate": {
+                "type": "boolean",
+                "description": "True when no source backs the claim."
+              }
+            },
+            "required": [
+              "text",
+              "evidence",
+              "estimate"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "Evidence ids supporting this claim."
+              },
+              "estimate": {
+                "type": "boolean",
+                "description": "True when no source backs the claim."
+              }
+            },
+            "required": [
+              "text",
+              "evidence",
+              "estimate"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "problemEvidence",
+        "marketSizing",
+        "competitors",
+        "pricingAnalogs",
+        "whyNowSignals",
+        "risks"
+      ],
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "string",
+      "description": "At most 150 words. Shown to both fighters and the judges."
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Sections where nothing useful was found."
+    }
+  },
+  "required": [
+    "ideaId",
+    "sections",
+    "summary",
+    "gaps"
+  ],
+  "additionalProperties": false,
+  "title": "Dossier",
+  "description": "Neutral research dossier for one idea. Every claim cites evidence ids or is an estimate."
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@sf-fight-club/schemas",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Zod parsers and Mistral JSON Schema for SF Fight Club contracts.",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.test.json --noEmit",
+    "test": "pnpm typecheck && vitest run",
+    "generate": "tsx scripts/generate-json-schema.ts"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.0",
+    "ajv": "^8.17.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}
