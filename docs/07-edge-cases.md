@@ -59,7 +59,7 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 | FE-7 | Shot cites an evidence ID that doesn't exist | Confirmed fabrication. Backfire. | Decided |
 | FE-8 | Shot cites real evidence that says the opposite | Entailment check marks it `contradicted`. If it's a specific number, it's a fabrication. Otherwise the judge ignores the claim. | Decided |
 | FE-9 | A fighter gets fact-checked more than 3 times | Penalty caps at 3. The arena still shows each backfire, but with 0 damage after the third. | Decided |
-| FE-10 | Defense with `responds_to` pointing at a nonexistent shot | Treat as a pitch on the same criterion | Decided. [02 Rounds](02-fight-system.md#2-to-4-rounds) |
+| FE-10 | Defense with `respondsTo` pointing at a nonexistent shot | Treat as a pitch on the same criterion | Decided. [02 Rounds](02-fight-system.md#2-to-4-rounds) |
 | FE-11 | Judge returns a score outside 0 to 10 or a missing criterion | Schema failure, retry once | Decided |
 | FE-12 | Judge AB and BA flip the winner | Split decision, sudden death | Decided |
 | FE-13 | All nine criteria tie exactly | `Delta = 0`, sudden death. `lambda = 0`, so both stand at 100 and the final blow takes 100. | Decided |
@@ -67,7 +67,7 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 | FE-15 | Both ideas are terrible | Someone still wins. If both weighted totals are under 30, the banner says "PYRRHIC VICTORY". | Decided. [02 Outcome kinds](02-fight-system.md#outcome-kinds) |
 | FE-16 | Shot verdicts from the judge contradict criterion scores (lots of landed hits for the side that lost the criterion) | Fine by design. Criterion scores decide. Those hits render as GLANCING. | Decided |
 | FE-17 | A criterion has damage but no carrier shots | Judges' hammer cue carries it | Decided |
-| FE-18 | Idea text or a volley tries to talk to the judge | Judge ignores it and sets `injection_suspected`. Host console shows the flag. | Decided |
+| FE-18 | Idea text or a volley tries to talk to the judge | Judge ignores it and sets `injectionSuspected`. Host console shows the flag. | Decided |
 | FE-19 | Tournament budget runs out mid-floor | Worker refuses to start new matches. Running ones finish. Host raises the budget or stops. | Decided |
 | FE-20 | Worker crashes mid-match | Job lease expires. Another worker picks it up and resumes from the last completed step key. | Decided |
 | FE-21 | Two workers pick up the same match | `FOR UPDATE SKIP LOCKED` on jobs plus `unique (match_id, step_key)` on events. The second insert fails and that worker drops the job. | Decided |

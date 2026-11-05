@@ -1,0 +1,183 @@
+{
+  "type": "object",
+  "properties": {
+    "shots": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "pitch"
+              },
+              "criterion": {
+                "type": "string",
+                "enum": [
+                  "problem",
+                  "market",
+                  "wtp",
+                  "differentiation",
+                  "moat",
+                  "timing",
+                  "gtm",
+                  "feasibility",
+                  "scale"
+                ],
+                "description": "A criterion id. The orchestrator drops shots from other rounds."
+              },
+              "headline": {
+                "type": "string",
+                "description": "At most 12 words. Shown as the caption."
+              },
+              "claim": {
+                "type": "string",
+                "description": "At most 60 words. Shown in the receipt."
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "Evidence locker ids. Empty when the claim is an estimate."
+              },
+              "estimate": {
+                "type": "boolean",
+                "description": "True when the claim has no source."
+              }
+            },
+            "required": [
+              "type",
+              "criterion",
+              "headline",
+              "claim",
+              "evidence",
+              "estimate"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "attack"
+              },
+              "criterion": {
+                "type": "string",
+                "enum": [
+                  "problem",
+                  "market",
+                  "wtp",
+                  "differentiation",
+                  "moat",
+                  "timing",
+                  "gtm",
+                  "feasibility",
+                  "scale"
+                ],
+                "description": "A criterion id. The orchestrator drops shots from other rounds."
+              },
+              "headline": {
+                "type": "string",
+                "description": "At most 12 words. Shown as the caption."
+              },
+              "claim": {
+                "type": "string",
+                "description": "At most 60 words. Shown in the receipt."
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "Evidence locker ids. Empty when the claim is an estimate."
+              },
+              "estimate": {
+                "type": "boolean",
+                "description": "True when the claim has no source."
+              }
+            },
+            "required": [
+              "type",
+              "criterion",
+              "headline",
+              "claim",
+              "evidence",
+              "estimate"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "defense"
+              },
+              "criterion": {
+                "type": "string",
+                "enum": [
+                  "problem",
+                  "market",
+                  "wtp",
+                  "differentiation",
+                  "moat",
+                  "timing",
+                  "gtm",
+                  "feasibility",
+                  "scale"
+                ],
+                "description": "A criterion id. The orchestrator drops shots from other rounds."
+              },
+              "headline": {
+                "type": "string",
+                "description": "At most 12 words. Shown as the caption."
+              },
+              "claim": {
+                "type": "string",
+                "description": "At most 60 words. Shown in the receipt."
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "Evidence locker ids. Empty when the claim is an estimate."
+              },
+              "estimate": {
+                "type": "boolean",
+                "description": "True when the claim has no source."
+              },
+              "respondsTo": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Id of the opponent shot this defense answers."
+              }
+            },
+            "required": [
+              "type",
+              "criterion",
+              "headline",
+              "claim",
+              "evidence",
+              "estimate",
+              "respondsTo"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "shots"
+  ],
+  "additionalProperties": false,
+  "title": "Volley",
+  "description": "One fighter volley. Do not include shot ids, match id, or word counts. The orchestrator assigns those."
+}

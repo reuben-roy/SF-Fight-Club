@@ -110,10 +110,10 @@ Each round runs two volleys per fighter, written simultaneously.
 
 **Volley 2, counter.** Each fighter now sees the other's volley 1. It writes 2 to 4 shots, each one of:
 
-- `defense`: a response to a specific opponent shot from volley 1 (`responds_to` is required).
+- `defense`: a response to a specific opponent shot from volley 1 (`respondsTo` is required).
 - `attack` or `pitch`: pressing the case.
 
-Every shot names one criterion from the current round, lists evidence IDs it relies on, or sets `estimate: true` if it is reasoning without a source. See the schema in [schemas/contracts.ts](../schemas/contracts.ts). A shot that names a criterion from another round is dropped and logged. A `defense` whose `responds_to` does not name a real volley-1 shot is treated as a `pitch` on the same criterion. If a fighter argues the wrong idea or confuses the two sides, the judge scores the ideas, not the confusion. A validator checks that every shot names a criterion and a target, and logs a warning when it does not.
+Every shot names one criterion from the current round, lists evidence IDs it relies on, or sets `estimate: true` if it is reasoning without a source. See the schema in [schemas/contracts.ts](../schemas/contracts.ts). A shot that names a criterion from another round is dropped and logged. A `defense` whose `respondsTo` does not name a real volley-1 shot is treated as a `pitch` on the same criterion. If a fighter argues the wrong idea or confuses the two sides, the judge scores the ideas, not the confusion. A validator checks that every shot names a criterion and a target, and logs a warning when it does not.
 
 Simultaneous volleys remove first-mover and last-word advantages. The arena still alternates shots for drama, but nobody wrote in response to a shot they hadn't seen.
 

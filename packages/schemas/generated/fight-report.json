@@ -1,0 +1,99 @@
+{
+  "type": "object",
+  "properties": {
+    "headline": {
+      "type": "string",
+      "description": "At most 10 words, like a sports headline."
+    },
+    "whyTheyWon": {
+      "minItems": 3,
+      "maxItems": 3,
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Exactly 3 bullets, each tied to criteria."
+    },
+    "turningPoint": {
+      "type": "object",
+      "properties": {
+        "shotId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "criterion": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "problem",
+                "market",
+                "wtp",
+                "differentiation",
+                "moat",
+                "timing",
+                "gtm",
+                "feasibility",
+                "scale"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "shotId",
+        "criterion",
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "loserTakeaways": {
+      "minItems": 2,
+      "maxItems": 4,
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "announcerLines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cueRef": {
+            "type": "string",
+            "minLength": 1
+          },
+          "text": {
+            "type": "string",
+            "description": "At most 8 words."
+          }
+        },
+        "required": [
+          "cueRef",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "headline",
+    "whyTheyWon",
+    "turningPoint",
+    "loserTakeaways",
+    "announcerLines"
+  ],
+  "additionalProperties": false,
+  "title": "FightReport",
+  "description": "Post-fight report and announcer lines. Explains a decision that was already made."
+}

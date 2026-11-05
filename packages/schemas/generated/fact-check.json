@@ -1,0 +1,78 @@
+{
+  "type": "object",
+  "properties": {
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "shotId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "missingIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Cited ids that are not in the locker."
+          },
+          "perEvidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "evidenceId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "verdict": {
+                  "type": "string",
+                  "enum": [
+                    "supported",
+                    "partial",
+                    "unsupported",
+                    "contradicted"
+                  ]
+                },
+                "note": {
+                  "type": "string",
+                  "description": "Under 20 words."
+                }
+              },
+              "required": [
+                "evidenceId",
+                "verdict",
+                "note"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "numberContradicted": {
+            "type": "boolean",
+            "description": "True when a specific number in the claim conflicts with a cited snippet."
+          },
+          "fabricated": {
+            "type": "boolean",
+            "description": "True when missingIds is non-empty or numberContradicted is true."
+          }
+        },
+        "required": [
+          "shotId",
+          "missingIds",
+          "perEvidence",
+          "numberContradicted",
+          "fabricated"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "checks"
+  ],
+  "additionalProperties": false,
+  "title": "FactCheck",
+  "description": "Entailment checks for every shot in the volley, one entry in checks per shot."
+}

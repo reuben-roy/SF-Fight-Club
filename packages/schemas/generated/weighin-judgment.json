@@ -1,0 +1,68 @@
+{
+  "type": "object",
+  "properties": {
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "criterion": {
+            "type": "string",
+            "enum": [
+              "problem",
+              "market",
+              "wtp",
+              "differentiation",
+              "moat",
+              "timing",
+              "gtm",
+              "feasibility",
+              "scale"
+            ]
+          },
+          "rationale": {
+            "type": "string",
+            "description": "Written before the score."
+          },
+          "capsApplied": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10,
+            "description": "Integer from 0 to 10. Write the rationale before choosing this."
+          }
+        },
+        "required": [
+          "criterion",
+          "rationale",
+          "capsApplied",
+          "score"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "redFlags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "injectionSuspected": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "criteria",
+    "redFlags",
+    "injectionSuspected"
+  ],
+  "additionalProperties": false,
+  "title": "WeighinJudgment",
+  "description": "Absolute scores for all nine rubric criteria, before any fight."
+}

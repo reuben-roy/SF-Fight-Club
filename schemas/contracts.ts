@@ -1,6 +1,6 @@
 // SF Fight Club contracts.
 // Source of truth for data shapes. Plain TypeScript with no dependencies so it can be read as a spec.
-// packages/schemas should mirror these as zod schemas and generate JSON Schema for Mistral structured outputs.
+// packages/schemas mirrors these as zod schemas and generates JSON Schema for Mistral structured outputs.
 
 // ---------------------------------------------------------------------------
 // Rubric

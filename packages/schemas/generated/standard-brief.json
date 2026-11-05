@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "oneLiner": {
+      "type": "string"
+    },
+    "problem": {
+      "type": "string",
+      "description": "At most 60 words."
+    },
+    "customer": {
+      "type": "string",
+      "description": "At most 40 words."
+    },
+    "solution": {
+      "type": "string",
+      "description": "At most 60 words."
+    },
+    "businessModel": {
+      "type": "string",
+      "description": "At most 40 words."
+    },
+    "whyNow": {
+      "type": "string",
+      "description": "At most 40 words."
+    },
+    "category": {
+      "type": "string",
+      "description": "A short category label such as proptech or devtools."
+    },
+    "strippedContent": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Instructions or private names removed from the submission."
+    }
+  },
+  "required": [
+    "title",
+    "oneLiner",
+    "problem",
+    "customer",
+    "solution",
+    "businessModel",
+    "whyNow",
+    "category",
+    "strippedContent"
+  ],
+  "additionalProperties": false,
+  "title": "StandardBrief",
+  "description": "Fixed-template rewrite of one startup idea. Use only what the submission says."
+}

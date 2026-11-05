@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "analysis": {
+      "type": "string",
+      "description": "At most 120 words. Written before the winner."
+    },
+    "winner": {
+      "type": "string",
+      "enum": [
+        "fighter_1",
+        "fighter_2"
+      ]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "From 0 to 1."
+    },
+    "decidingFactor": {
+      "type": "string",
+      "description": "One sentence naming the criterion that tipped it."
+    }
+  },
+  "required": [
+    "analysis",
+    "winner",
+    "confidence",
+    "decidingFactor"
+  ],
+  "additionalProperties": false,
+  "title": "SuddenDeathVote",
+  "description": "Forced choice of the better startup opportunity. A tie is not allowed."
+}
