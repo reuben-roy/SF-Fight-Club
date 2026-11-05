@@ -6,7 +6,7 @@ A single-elimination tournament for San Francisco startup ideas, built at the Mi
 
 ## Status
 
-Design and groundwork. Shared contracts live in `packages/schemas`. Fight math lives in `packages/engine`. No app yet.
+Design and groundwork. Shared contracts live in `packages/schemas`. Fight math lives in `packages/engine`. `packages/orchestrator` replays canned model fixtures into a sealed match and a broadcast script, so the arena can be built without a live model API. No app yet.
 
 ## What's here
 
@@ -23,6 +23,7 @@ Design and groundwork. Shared contracts live in `packages/schemas`. Fight math l
 | [schemas/rubric.vc-default.json](schemas/rubric.vc-default.json) | The default rubric, machine-readable |
 | [packages/schemas](packages/schemas) | `@sf-fight-club/schemas`. Zod parsers for those contracts, plus committed JSON Schema for Mistral structured outputs. |
 | [packages/engine](packages/engine) | `@sf-fight-club/engine`. Pure bracket, scoring, HP, tiebreak, and director. No I/O. |
+| [packages/orchestrator](packages/orchestrator) | `@sf-fight-club/orchestrator`. Fake orchestrator. Replays committed JSON fixtures through the match pipeline into a compute log and director script. |
 | [prompts/](prompts/) | Prompt templates for every agent role |
 | [prototype/arena.html](prototype/arena.html) | Standalone visual prototype of the arena and the Tower. Open it in a browser. |
 

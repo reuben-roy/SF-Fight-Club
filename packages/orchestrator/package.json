@@ -1,0 +1,30 @@
+{
+  "name": "@sf-fight-club/orchestrator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Fake match orchestrator. Replays canned model outputs into a compute log and broadcast script. No network.",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.test.json --noEmit",
+    "test": "pnpm --filter @sf-fight-club/schemas build && pnpm --filter @sf-fight-club/engine build && pnpm typecheck && vitest run",
+    "generate:fixtures": "tsx scripts/generate-fixtures.ts"
+  },
+  "dependencies": {
+    "@sf-fight-club/engine": "workspace:*",
+    "@sf-fight-club/schemas": "workspace:*",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}
