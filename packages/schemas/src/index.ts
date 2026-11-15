@@ -64,6 +64,9 @@ export {
 } from "./submission.js";
 export type { Claim, Dossier, EvidenceItem, IdeaSubmission, StandardBrief } from "./submission.js";
 
+export { entrantProfileSchema } from "./profile.js";
+export type { EntrantProfile } from "./profile.js";
+
 export {
   shotModelOutputSchema,
   shotSchema,

@@ -6,6 +6,7 @@
   "scripts": {
     "build": "pnpm -r --if-present build",
     "test": "pnpm -r --if-present test",
-    "generate:schemas": "pnpm --filter @sf-fight-club/schemas generate"
+    "generate:schemas": "pnpm --filter @sf-fight-club/schemas generate",
+    "intake": "pnpm --filter @sf-fight-club/intake intake"
   }
 }

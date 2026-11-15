@@ -22,6 +22,7 @@ export type FidelityChecks = [
   Expect<Assignable<Schemas.StandardBrief, Contracts.StandardBrief>>,
   Expect<Assignable<Schemas.EvidenceItem, Contracts.EvidenceItem>>,
   Expect<Assignable<Schemas.Dossier, Contracts.Dossier>>,
+  Expect<Assignable<Schemas.EntrantProfile, Contracts.EntrantProfile>>,
   Expect<Assignable<Schemas.Claim, Contracts.Claim>>,
   Expect<Assignable<Schemas.Slot, Contracts.Slot>>,
   Expect<Assignable<Schemas.VolleyKind, Contracts.VolleyKind>>,

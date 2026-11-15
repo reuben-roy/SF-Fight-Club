@@ -1,0 +1,101 @@
+{
+  "entrantId": "permitpilot",
+  "company": {
+    "name": "PermitPilot",
+    "url": "https://permitpilot.example.com",
+    "tagline": "AI agent that files and chases SF building permits",
+    "logoUrl": "https://permitpilot.example.com/og.png"
+  },
+  "founders": [
+    {
+      "name": "Maya Okafor",
+      "role": "CEO",
+      "xHandle": "mayabuilds",
+      "hnUser": "mayab",
+      "followers": 700,
+      "hnKarma": 18
+    },
+    {
+      "name": "Dev Raman",
+      "role": "CTO",
+      "xHandle": "devraman",
+      "hnUser": "devraman",
+      "hnKarma": 12
+    }
+  ],
+  "posts": [
+    {
+      "source": "hn",
+      "url": "https://news.ycombinator.com/item?id=45120011",
+      "title": "Show HN: PermitPilot, an agent that files SF building permits",
+      "text": "Show HN: PermitPilot, an agent that files SF building permits\n\nWe file the paperwork and chase the city so contractors do not have to. Three pilot contractors, two permits pulled this month.",
+      "postedAt": "2026-11-04T16:00:00.000Z",
+      "metrics": {
+        "points": 60,
+        "comments": 2
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/mayabuilds/status/70000011",
+      "text": "PermitPilot pulled its second permit this week. Average wait time still measured in months, ours in days.",
+      "postedAt": "2026-11-03T15:00:00.000Z",
+      "metrics": {
+        "likes": 60,
+        "reposts": 25,
+        "replies": 20,
+        "views": 1500
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/mayabuilds/status/70000012",
+      "text": "Demo day for contractors this Friday. Bring your horror stories.",
+      "postedAt": "2026-11-01T15:00:00.000Z",
+      "metrics": {
+        "likes": 25,
+        "reposts": 12,
+        "replies": 8,
+        "views": 700
+      }
+    }
+  ],
+  "clout": {
+    "score": 57,
+    "tier": "B",
+    "x": 59,
+    "hn": 54
+  },
+  "sources": [
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/items/45120011",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/mayab",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/devraman",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/by/username/mayabuilds?user.fields=created_at,description,location,public_metrics,url,verified",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/90000011/tweets?max_results=20&exclude=retweets,replies&tweet.fields=author_id,created_at,public_metrics",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "web",
+      "url": "https://permitpilot.example.com/",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    }
+  ]
+}
