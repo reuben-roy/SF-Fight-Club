@@ -68,4 +68,9 @@ export type { JudgeCallInput, ResolveMatchInput, ResolveRoundInput, ResolvedMatc
 export { DIRECTOR_VERSION, direct } from "./director.js";
 export type { ComputeLog, DirectorFighter } from "./director.js";
 
+export { elementOf, moveFor, verdictLine } from "./moves.js";
+export type { ShotOutcome } from "./moves.js";
+
+export { buildOrgChart } from "./orgchart.js";
+
 export const ENGINE_VERSION = "1";
