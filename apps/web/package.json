@@ -9,6 +9,8 @@
     "build": "pnpm run typecheck && vite build",
     "preview": "vite preview --port 4173 --strictPort",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "demo:data": "tsx scripts/build-demo-data.ts",
+    "e2e": "playwright test",
     "test": "pnpm --filter @sf-fight-club/schemas build && pnpm --filter @sf-fight-club/engine build && pnpm run typecheck && vitest run",
     "screenshots": "pnpm --filter @sf-fight-club/schemas build && pnpm --filter @sf-fight-club/engine build && pnpm run build && tsx scripts/screenshots.ts"
   },
@@ -17,7 +19,8 @@
     "@sf-fight-club/schemas": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.9.6"
+    "react-router-dom": "^7.9.6",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",

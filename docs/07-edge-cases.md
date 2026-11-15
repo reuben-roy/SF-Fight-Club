@@ -149,3 +149,14 @@ A founder's profile photo becomes a 24x24 pixel portrait ([09 Battle revamp](09-
 | PT-5 | Photo is blank, or one flat colour | No portrait. | Decided. [portrait pipeline tests](../packages/portrait/test/portrait.test.ts) |
 | PT-6 | File is corrupt, truncated, or over the cap (8 MB, 4096 px a side) | No portrait. The decoder returns a reason, never throws. | Decided. [portrait decoder tests](../packages/portrait/test/portrait.test.ts) |
 | PT-7 | Host turns portraits off for an entrant | Portrait dropped from the profile, generated figure used. | Decided. [09 Decisions](09-battle-revamp.md#8-decisions) |
+
+## Web client
+
+The demo client has no server, so these are decided client-side. All four are covered by unit tests and the Playwright tournament walkthrough.
+
+| ID | Case | Expected behavior | Status |
+|---|---|---|---|
+| WB-1 | Reload mid-fight (match page, film room, any route) | Progress, wallet and bets reload from the versioned `localStorage` key. A live match resumes at its saved cue with a resume note; nothing replays from zero and no result leaks. | Decided. `apps/web/test/persistence.test.ts`, `apps/web/e2e/tournament.spec.ts` |
+| WB-2 | Match URL whose feeders have not completed | The match page shows "not on the card until its feeders complete" with a link back to the Tower. No fighters, odds or script render. | Decided. `apps/web/test/selectors.test.ts`, `apps/web/e2e/tournament.spec.ts` |
+| WB-3 | Corrupt or foreign `localStorage` payload (bad JSON, wrong version, negative wallet) | The store falls back to a fresh tournament at S$1000. The bad payload is discarded, never repaired. | Decided. `apps/web/test/persistence.test.ts` |
+| WB-4 | Bet placed after the bell (locked, live or complete match) | Rejected by the reducer. The bet slip disables its controls and says betting is closed. Bets lock before compute, as in the server lifecycle. | Decided. `apps/web/test/store.test.ts`, `apps/web/e2e/tournament.spec.ts` |

@@ -6,7 +6,7 @@ A single-elimination tournament for San Francisco startup ideas, built at the Mi
 
 ## Status
 
-Design and groundwork. Shared contracts live in `packages/schemas`. Fight math lives in `packages/engine`. `packages/intake` builds entrant profiles from public posts. `packages/orchestrator` replays a canned eight-entrant tournament into sealed matches and broadcast scripts, so the arena can be built without a live model API. `apps/web` is the Vite and React client: the shared art library, design tokens and route stubs are in place, and the screens land in phase 2.
+Design and groundwork. Shared contracts live in `packages/schemas`. Fight math lives in `packages/engine`. `packages/intake` builds entrant profiles from public posts. `packages/orchestrator` replays a canned eight-entrant tournament into sealed matches and broadcast scripts, so the arena can be built without a live model API. `apps/web` is the Vite and React client: the shared art library, design tokens, the playable demo tournament (home, Tower, match, film room), play-money betting and the committed `Arena` / `Tower` / `FighterCard` screens are in place.
 
 ## What's here
 
@@ -51,6 +51,21 @@ pnpm --filter @sf-fight-club/web screenshots
 ```
 
 Open `/dev/art` in the dev server for the art gallery. `screenshots` builds the app, starts the preview server and writes the gallery and stage PNGs to `apps/web/screenshots/art`.
+
+The demo tournament ships as a committed static bundle. Regenerate it after
+fixture or pipeline changes, then run the web unit tests and the end-to-end
+walkthrough:
+
+```bash
+pnpm --filter @sf-fight-club/web demo:data  # rebuild src/data/generated/demo.ts
+pnpm --filter @sf-fight-club/web test       # vitest: store, odds, sealing, drift
+pnpm --filter @sf-fight-club/web e2e        # playwright: full tournament walkthrough
+```
+
+`demo:data` runs `runDemoTournament` plus the eight demo intake profiles into
+`apps/web/src/data/generated/demo.ts`. The drift test
+(`apps/web/test/persistence.test.ts`) fails if the regenerated bundle no
+longer matches the section 7 results in [docs/09-battle-revamp.md](docs/09-battle-revamp.md).
 
 ## The one idea to keep in your head
 

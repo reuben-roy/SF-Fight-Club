@@ -1,13 +1,38 @@
-import type { ReactElement } from "react";
+/**
+ * Tower route entry: thin wiring from the store to the screens registry.
+ * The Tower screen itself lives in src/app/screens.tsx.
+ */
 
-import { PlaceholderPage } from "../styles/components.js";
+import { useState, type ReactElement } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function TowerScreen(): ReactElement {
+import { FighterCardScreen, TowerScreen } from "../app/screens.js";
+import { useAppStore } from "../data/index.js";
+import { selectFighterCard, selectTowerProps } from "../data/store.js";
+
+export default function TowerEntry(): ReactElement {
+  const { bundle, state } = useAppStore();
+  const navigate = useNavigate();
+  const [cardId, setCardId] = useState<string | null>(null);
+
+  const props = selectTowerProps(state, bundle, {
+    onOpenMatch: (matchId) => navigate(`/match/${matchId}`),
+    onOpenCard: (entrantId) => setCardId(entrantId),
+  });
+  const card = cardId ? selectFighterCard(state, bundle, cardId) : null;
+
   return (
-    <PlaceholderPage
-      kicker="The Tower"
-      title="THE ORG CHART"
-      body="Roots across the top, reports beneath, every acquisition on the way down. Tower task owns this screen."
-    />
+    <>
+      <h2>Tower</h2>
+      <TowerScreen {...props} />
+      {card ? (
+        <section aria-label="Selected fighter">
+          <button type="button" onClick={() => setCardId(null)}>
+            Close card
+          </button>
+          <FighterCardScreen {...card} />
+        </section>
+      ) : null}
+    </>
   );
 }
