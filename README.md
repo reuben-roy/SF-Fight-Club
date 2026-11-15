@@ -6,7 +6,7 @@ A single-elimination tournament for San Francisco startup ideas, built at the Mi
 
 ## Status
 
-Design and groundwork. Shared contracts live in `packages/schemas`. Fight math lives in `packages/engine`. `packages/orchestrator` replays canned model fixtures into a sealed match and a broadcast script, so the arena can be built without a live model API. No app yet.
+Design and groundwork. Shared contracts live in `packages/schemas`. Fight math lives in `packages/engine`. `packages/orchestrator` replays canned model fixtures into a sealed match and a broadcast script, so the arena can be built without a live model API. `apps/web` is the Vite and React client: the shared art library, design tokens and route stubs are in place, and the screens land in phase 2.
 
 ## What's here
 
@@ -24,6 +24,7 @@ Design and groundwork. Shared contracts live in `packages/schemas`. Fight math l
 | [packages/schemas](packages/schemas) | `@sf-fight-club/schemas`. Zod parsers for those contracts, plus committed JSON Schema for Mistral structured outputs. |
 | [packages/engine](packages/engine) | `@sf-fight-club/engine`. Pure bracket, scoring, HP, tiebreak, and director. No I/O. |
 | [packages/orchestrator](packages/orchestrator) | `@sf-fight-club/orchestrator`. Fake orchestrator. Replays committed JSON fixtures through the match pipeline into a compute log and director script. |
+| [apps/web](apps/web) | `@sf-fight-club/web`. Vite, React and TypeScript client. Procedural mascots, crew, skyline and weapon effects live in `src/art`; the gallery is at `/dev/art`. |
 | [prompts/](prompts/) | Prompt templates for every agent role |
 | [prototype/arena.html](prototype/arena.html) | Standalone visual prototype of the arena and the Tower. Open it in a browser. |
 
@@ -38,6 +39,16 @@ pnpm build
 ```
 
 `pnpm test` typechecks every package and runs its unit tests. `pnpm --filter @sf-fight-club/schemas generate` rewrites the committed JSON Schema in `packages/schemas/generated`.
+
+To run the web app:
+
+```bash
+pnpm --filter @sf-fight-club/web dev      # http://localhost:5173
+pnpm --filter @sf-fight-club/web build
+pnpm --filter @sf-fight-club/web screenshots
+```
+
+Open `/dev/art` in the dev server for the art gallery. `screenshots` builds the app, starts the preview server and writes the gallery and stage PNGs to `apps/web/screenshots/art`.
 
 ## The one idea to keep in your head
 
