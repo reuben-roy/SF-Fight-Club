@@ -199,8 +199,8 @@ export const broadcast: BroadcastScript = {
       id: "intro",
       kind: "intro",
       fighters: {
-        A: { name: "PermitPilot", seed: 1, tier: "A", spriteSeed: "11", corner: "left" },
-        B: { name: "Fogcast", seed: 2, tier: "B", spriteSeed: "22", corner: "right" },
+        A: { name: "PermitPilot", seed: 1, tier: "A", spriteSeed: "11", corner: "left", category: "proptech" },
+        B: { name: "Fogcast", seed: 2, tier: "B", spriteSeed: "22", corner: "right", category: "climate" },
       },
     },
     {
@@ -229,6 +229,11 @@ export const broadcast: BroadcastScript = {
       evidence: [{ id: "E1", status: "supported" }],
       damage: 12,
       hpAfter: { A: 100, B: 88 },
+      turn: 1,
+      volley: 1,
+      move: { name: "Hair on Fire", element: "market", criterion: "problem", type: "pitch" },
+      menu: [{ name: "Hair on Fire", element: "market", criterion: "problem", type: "pitch" }],
+      verdictLine: "It landed.",
     },
     {
       t: 900,

@@ -101,6 +101,20 @@ export type {
 } from "./judging.js";
 
 export {
+  moveElementSchema,
+  moveSchema,
+  fighterStatusSchema,
+} from "./battle.js";
+export type { FighterStatus, Move, MoveElement } from "./battle.js";
+
+export {
+  orgChartSchema,
+  orgNodeSchema,
+  orgTitleSchema,
+} from "./orgchart.js";
+export type { OrgChart, OrgNode, OrgTitle } from "./orgchart.js";
+
+export {
   broadcastScriptSchema,
   criterionResultSchema,
   cueSchema,

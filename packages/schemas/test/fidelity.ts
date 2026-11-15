@@ -51,5 +51,11 @@ export type FidelityChecks = [
   Expect<Assignable<Schemas.Weapon, Contracts.Weapon>>,
   Expect<Assignable<Schemas.Cue, Contracts.Cue>>,
   Expect<Assignable<Schemas.BroadcastScript, Contracts.BroadcastScript>>,
+  Expect<Assignable<Schemas.MoveElement, Contracts.MoveElement>>,
+  Expect<Assignable<Schemas.Move, Contracts.Move>>,
+  Expect<Assignable<Schemas.FighterStatus, Contracts.FighterStatus>>,
+  Expect<Assignable<Schemas.OrgTitle, Contracts.OrgTitle>>,
+  Expect<Assignable<Schemas.OrgNode, Contracts.OrgNode>>,
+  Expect<Assignable<Schemas.OrgChart, Contracts.OrgChart>>,
   Expect<Assignable<typeof Schemas.WEAPON_BY_CRITERION, typeof Contracts.WEAPON_BY_CRITERION>>,
 ];
