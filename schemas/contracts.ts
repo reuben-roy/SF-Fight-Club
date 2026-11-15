@@ -138,6 +138,33 @@ export interface Claim {
 }
 
 // ---------------------------------------------------------------------------
+// Entrant profile
+// ---------------------------------------------------------------------------
+
+export interface EntrantProfile {
+  entrantId: string;
+  company: { name: string; url?: string; tagline?: string; logoUrl?: string; location?: string };
+  founders: {
+    name: string;
+    role?: string;
+    xHandle?: string;
+    hnUser?: string;
+    followers?: number;
+    hnKarma?: number;
+  }[];
+  posts: {
+    source: "x" | "hn" | "web";
+    url: string;
+    title?: string;
+    text: string; // <= 1000 chars, untrusted input stored as data
+    postedAt?: string;
+    metrics: { likes?: number; reposts?: number; replies?: number; views?: number; points?: number; comments?: number };
+  }[];
+  clout: { score: number; tier: "S" | "A" | "B" | "C"; x: number; hn: number };
+  sources: { source: "x" | "hn" | "web"; url: string; retrievedAt: string }[];
+}
+
+// ---------------------------------------------------------------------------
 // Fighters and volleys
 // ---------------------------------------------------------------------------
 

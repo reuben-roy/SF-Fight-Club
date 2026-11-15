@@ -147,7 +147,9 @@ Rules for the art:
 
 ### Crew
 
-The people behind the idea stand behind their mascot as a crew of 1 to 4 small pixel figures (12x16), generated from each founder's handle. They are generated figures, never photos. They react: cheer on a hit, flinch on a backfire.
+The people behind the idea stand behind their mascot as a crew of 1 to 4 small pixel figures (12x16), generated from each founder's handle. They react: cheer on a hit, flinch on a backfire.
+
+A founder with a profile photo also gets a pixel portrait made from it (section 4). The portrait is the founder's face on the fighter card and in the crew roll call at walk-in, and a 10x10 reduction of it becomes the head of that founder's crew figure. A founder with no photo keeps the fully generated figure. We never show the photo itself.
 
 When a fighter wins, the loser's crew crosses the stage and joins the winner's side. In later matches the winner walks in with everyone it has absorbed. This is the org chart, visible in the arena.
 
@@ -246,6 +248,8 @@ export interface EntrantProfile {
     hnUser?: string;
     followers?: number;
     hnKarma?: number;
+    avatarUrl?: string;      // the source photo, kept for provenance, never rendered
+    portrait?: PixelPortrait;
   }[];
   posts: {
     source: "x" | "hn" | "web";
@@ -260,7 +264,7 @@ export interface EntrantProfile {
 }
 ```
 
-`posts` holds the launch posts and promo the entrant is known for. `clout.score` is a pure function of followers, karma and post engagement on a log scale, from 0 to 100.
+`posts` holds the entrant's own launch posts. They are where the idea details come from. The platform carries no advertising and has no ad support. `clout.score` is a pure function of followers, karma and post engagement on a log scale, from 0 to 100.
 
 Two outputs per entrant, kept apart:
 
@@ -268,6 +272,23 @@ Two outputs per entrant, kept apart:
 2. An `IdeaSubmission` draft built by `toSubmission(profile)`. This is the only thing that enters the existing brief pipeline. It must not contain a founder name or handle. A test asserts this on every fixture.
 
 Post text is untrusted input. It goes through the same moderation and injection screening as a typed submission. Intake does not interpret it.
+
+### Pixel portraits
+
+A new pure package, `packages/portrait`, turns a profile photo into pixel art in our style. Intake runs it once and stores the result in the profile, so the web app draws a portrait from data and never fetches a photo.
+
+```ts
+export interface PixelPortrait {
+  size: 24;            // square, 24x24
+  palette: string[];   // 2 to 8 hex colors
+  pixels: number[];    // size * size palette indices, row-major
+}
+```
+
+- Input is decoded RGBA plus width and height. JPEG and PNG decode through pure-JS decoders at the edge of the package. Anything else returns a "no portrait" result and the founder keeps a generated figure.
+- Steps: center-crop to a square, downsample to 24x24 with a box filter, lift contrast, quantize to at most 8 colors, optional ordered dithering. The same input always gives the same output.
+- The result has to read as a face at 24x24 and still look like it belongs next to the mascots. Hard pixels, no blur, a limited palette.
+- X is deferred until there is an API token. Until then the pipeline is exercised on sample images. When the X adapter is live, `avatarUrl` comes from the user's profile image field and nothing else changes.
 
 ### CLI
 
@@ -394,14 +415,16 @@ Results the tapes must produce. The engine decides the outcome from the scores, 
 
 Two upsets in seven matches is 29%, inside the 15% to 35% target.
 
-## 8. Open decisions
+## 8. Decisions
 
-Defaults are in place. A human should confirm them.
+Settled on November 15, 2026.
 
-1. **Does clout affect anything but looks?** Default no. Letting influence move seeds, scores or damage would break house rule 1, "only the idea fights", and the judge-blindness invariant.
-2. **X API access.** The adapter needs a paid bearer token. Until one exists, X data comes from fixtures or manual entry.
-3. **Real founder avatars.** Default generated pixel crew only. Showing real photos needs the entrant's consent.
-4. **Tower or bracket as the default tournament view.** Default the org chart, with a bracket toggle.
+1. **Only ideas fight.** Influence mechanics are deferred. Clout shows on cards and sets crowd size, and that is all. It never seeds, scores or reaches a prompt.
+2. **X comes later.** The adapter is built and tested on recorded responses. It goes live when there is a bearer token.
+3. **No ads.** The platform has no advertising and no ad support.
+4. **Founders are pixel figures.** Where a profile photo exists, intake makes a pixel portrait from it. The photo itself is never shown. The host can turn portraits off for an entrant, which falls back to the generated figure.
+
+Still open: whether the org chart or the classic bracket is the default tournament view. The default is the org chart with a bracket toggle.
 
 ## 9. Work split
 
@@ -415,6 +438,7 @@ Phase 1, in parallel:
 | Intake | `feat/intake` | Section 4: `packages/intake`, `EntrantProfile` contract and schema, CLI, fixtures for the eight demo entrants, tests. Updates docs 01, 04 and 07. |
 | Demo tournament | `feat/demo-tournament` | Section 7: five new tapes, a reskinned sudden-death final, a tournament runner in `packages/orchestrator`. |
 | Art | `feat/web-art` | Sections 2 and 5: `apps/web` scaffold, tokens, mascots, crew, icons, effects, sound, `/dev/art` gallery. Updates doc 05. |
+| Portrait | `feat/portrait` | Section 4, pixel portraits: `packages/portrait`, the `PixelPortrait` contract, sample images, a contact sheet. |
 
 Phase 2, in parallel, after phase 1 merges:
 

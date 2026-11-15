@@ -1,0 +1,1433 @@
+{
+  "steps": {
+    "scout/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "searchesRun": 2,
+            "evidence": [
+              {
+                "url": "https://example.com/scout-a",
+                "title": "Opposition file",
+                "snippet": "CurbBot needs council budgets that elections can freeze.",
+                "retrievedAt": "2026-11-05T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "scout/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "searchesRun": 2,
+            "evidence": [
+              {
+                "url": "https://example.com/scout-b",
+                "title": "Response file",
+                "snippet": "FlakeHunter sells into a shelf every platform already stocks.",
+                "retrievedAt": "2026-11-05T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Red builds teach teams apathy",
+                "claim": "Most developers admit merging past red they assumed were flakes.",
+                "evidence": [
+                  "E23"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "market",
+                "headline": "Curb budgets need councils",
+                "claim": "One election can freeze every survey contract.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E23",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "problem",
+                "headline": "Decrees do not buy software",
+                "claim": "A court order is not a purchase order.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r1.v1.B.s1"
+              },
+              {
+                "type": "pitch",
+                "criterion": "wtp",
+                "headline": "CI minutes already burn cash",
+                "claim": "Retries eat a visible slice of CI spend today.",
+                "evidence": [
+                  "E7"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E7",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Missing ramps bring lawsuits",
+                "claim": "Settlements price each missing audit far above a survey.",
+                "evidence": [
+                  "E26"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "market",
+                "headline": "CI tools crowd the shelf",
+                "claim": "Flake detection ships inside every platform now.",
+                "evidence": [
+                  "E25"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E26",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E25",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "market",
+                "headline": "Surveys are not shelfware",
+                "claim": "No platform photographs a curb.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r1.v1.A.s2"
+              },
+              {
+                "type": "attack",
+                "criterion": "wtp",
+                "headline": "Seats do not save minutes",
+                "claim": "Per-seat pricing ignores the actual savings.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "problem",
+                "comparison": "One order sees lawsuits dwarf apathy; the other calls both mid-tier pains.",
+                "fighter_1": {
+                  "rationale": "Recurring pain for a definable group. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Mandated need with buyers facing penalties. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "market",
+                "comparison": "A crowded shelf against a budgeted mandate; orders disagree on the gap.",
+                "fighter_1": {
+                  "rationale": "Niche tooling spend, flat. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Per-mile budgets with deadlines attached. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "wtp",
+                "comparison": "Both redirect money already spent; neither dominates.",
+                "fighter_1": {
+                  "rationale": "Plausible margins on saved compute. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Plausible margins on survey spend. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Real pain, softer than lawsuits."
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True of budgets, thinly tied."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Crowded shelf, sourced."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Fair pricing question."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "CurbBot edges the market round; one order calls it close."
+          }
+        }
+      ]
+    },
+    "r1/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "problem",
+                "comparison": "One order sees lawsuits dwarf apathy; the other calls both mid-tier pains.",
+                "fighter_1": {
+                  "rationale": "Mandated need with buyers facing penalties. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Recurring pain for a definable group. 5.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "market",
+                "comparison": "A crowded shelf against a budgeted mandate; orders disagree on the gap.",
+                "fighter_1": {
+                  "rationale": "Per-mile budgets with deadlines attached. 6.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Niche tooling spend, flat. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "wtp",
+                "comparison": "Both redirect money already spent; neither dominates.",
+                "fighter_1": {
+                  "rationale": "Plausible margins on survey spend. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Plausible margins on saved compute. 5.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Real pain, softer than lawsuits."
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True of budgets, thinly tied."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Crowded shelf, sourced."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Fair pricing question."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "CurbBot edges the market round; one order calls it close."
+          }
+        }
+      ]
+    },
+    "r2/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "differentiation",
+                "headline": "Quarantine is the product",
+                "claim": "Isolation plus repro data beats another dashboard.",
+                "evidence": [
+                  "E24"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "moat",
+                "headline": "Robots rust, software compounds",
+                "claim": "Every quarantine rule improves every customer.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E24",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "differentiation",
+                "headline": "A photo is not ten times",
+                "claim": "Clipboards with cameras already exist.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r2.v1.B.s1"
+              },
+              {
+                "type": "pitch",
+                "criterion": "moat",
+                "headline": "Quarantine rules travel",
+                "claim": "One team's flake pattern saves the next team.",
+                "evidence": [
+                  "E24"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E24",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "attack",
+                "criterion": "differentiation",
+                "headline": "Robot survey is ten times",
+                "claim": "A route grades in hours what crews take weeks to walk.",
+                "evidence": [
+                  "E25"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "pitch",
+                "criterion": "timing",
+                "headline": "Decree deadlines are binding",
+                "claim": "Courts set dates; cities must inventory now.",
+                "evidence": [
+                  "E8"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E25",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E8",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "moat",
+                "headline": "Rules are copyable configs",
+                "claim": "Quarantine playbooks leak with every job hop.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r2.v1.A.s2"
+              },
+              {
+                "type": "attack",
+                "criterion": "timing",
+                "headline": "CI waste is eternal",
+                "claim": "Flakes pained teams a decade ago too.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "differentiation",
+                "comparison": "A robot route against a config line; both beat today modestly.",
+                "fighter_1": {
+                  "rationale": "Meaningfully better on one dimension. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Ten times faster on the survey dimension. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "moat",
+                "comparison": "Both claim compounding; neither convinces fully.",
+                "fighter_1": {
+                  "rationale": "One plausible moat over time. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Head start with physical routes. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "timing",
+                "comparison": "Binding deadlines beat eternal waste.",
+                "fighter_1": {
+                  "rationale": "A real change everyone can use. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "A datable window that is already open. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Better, not ten times."
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.B.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Sourced speed gap."
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Weakens the why-now."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Robot speed against quarantine rules, nearly even."
+          }
+        }
+      ]
+    },
+    "r2/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "differentiation",
+                "comparison": "A robot route against a config line; both beat today modestly.",
+                "fighter_1": {
+                  "rationale": "Ten times faster on the survey dimension. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Meaningfully better on one dimension. 5.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "moat",
+                "comparison": "Both claim compounding; neither convinces fully.",
+                "fighter_1": {
+                  "rationale": "Head start with physical routes. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "One plausible moat over time. 5.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "timing",
+                "comparison": "Binding deadlines beat eternal waste.",
+                "fighter_1": {
+                  "rationale": "A datable window that is already open. 6.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "A real change everyone can use. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Better, not ten times."
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.B.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Sourced speed gap."
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Weakens the why-now."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Robot speed against quarantine rules, nearly even."
+          }
+        }
+      ]
+    },
+    "r3/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "gtm",
+                "headline": "Land in the CI config",
+                "claim": "One config line quarantines the whole suite.",
+                "evidence": [
+                  "E7"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "feasibility",
+                "headline": "Sidewalks fight robots",
+                "claim": "Rain, vandals, and permits stall every route.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E7",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "gtm",
+                "headline": "Mile contracts crawl too",
+                "claim": "Public procurement is slower than any config review.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r3.v1.B.s1"
+              },
+              {
+                "type": "pitch",
+                "criterion": "scale",
+                "headline": "Every suite flakes eventually",
+                "claim": "The pattern repeats in every large repo.",
+                "evidence": [
+                  "E23"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E23",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "gtm",
+                "headline": "Sell the mile, keep the monitor",
+                "claim": "Survey contracts convert to annual monitoring.",
+                "evidence": [
+                  "E26"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "feasibility",
+                "headline": "Quarantine needs no science",
+                "claim": "Detection is statistics, not research.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E26",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "feasibility",
+                "headline": "Routes already roll",
+                "claim": "The robot photographs real blocks today.",
+                "evidence": [
+                  "E25"
+                ],
+                "estimate": false,
+                "respondsTo": "r3.v1.A.s2"
+              },
+              {
+                "type": "pitch",
+                "criterion": "scale",
+                "headline": "Every sidewalk in America",
+                "claim": "Decrees stack city by city into a national map.",
+                "evidence": [
+                  "E26"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E25",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E26",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "gtm",
+                "comparison": "Mile contracts with monitoring beat a config line in a crowd.",
+                "fighter_1": {
+                  "rationale": "A plausible channel, crowded. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "A named buyer with a renewal path. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "feasibility",
+                "comparison": "Both ship; sidewalks and suites each add friction.",
+                "fighter_1": {
+                  "rationale": "Buildable with real risks. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Buildable with real risks. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "scale",
+                "comparison": "A national sidewalk map edges out seat-math caps.",
+                "fighter_1": {
+                  "rationale": "A path to $100M ARR through expansion. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Several expansion paths with the same payer. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Neat entry, crowded channel."
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Real friction, asserted."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True, capped by seat math."
+              },
+              {
+                "shotId": "r3.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Concedes buildability."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Expansion with a payer attached."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "The monitoring renewal tips a tight execution round."
+          }
+        }
+      ]
+    },
+    "r3/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "gtm",
+                "comparison": "Mile contracts with monitoring beat a config line in a crowd.",
+                "fighter_1": {
+                  "rationale": "A named buyer with a renewal path. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "A plausible channel, crowded. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "feasibility",
+                "comparison": "Both ship; sidewalks and suites each add friction.",
+                "fighter_1": {
+                  "rationale": "Buildable with real risks. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Buildable with real risks. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "scale",
+                "comparison": "A national sidewalk map edges out seat-math caps.",
+                "fighter_1": {
+                  "rationale": "Several expansion paths with the same payer. 6.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "A path to $100M ARR through expansion. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Neat entry, crowded channel."
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Real friction, asserted."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True, capped by seat math."
+              },
+              {
+                "shotId": "r3.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Concedes buildability."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Expansion with a payer attached."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "The monitoring renewal tips a tight execution round."
+          }
+        }
+      ]
+    },
+    "report": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "headline": "CurbBot upsets FlakeHunter",
+            "whyTheyWon": [
+              "Won problem, market, and differentiation on mandated money.",
+              "Won go-to-market on contracts that renew into monitoring.",
+              "FlakeHunter kept every round close but never led one."
+            ],
+            "turningPoint": {
+              "criterion": "gtm",
+              "text": "The monitoring renewal turned a contract into a stream."
+            },
+            "loserTakeaways": [
+              "Price against saved CI minutes, not seats.",
+              "Name the buyer who signs this quarter."
+            ],
+            "announcerLines": [
+              {
+                "cueRef": "intro",
+                "text": "CurbBot by majority decision. The lower seed takes it."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

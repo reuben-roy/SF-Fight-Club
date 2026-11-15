@@ -20,6 +20,10 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 | IN-12 | More submissions than slots | Waitlist in order. Host curates the final field. | Decided. [01 Core loop](01-product.md#core-loop) |
 | IN-13 | Fewer than 2 approved entrants at lock | Lock refused | Decided |
 | IN-14 | Idea withdrawn before lock | Removed, no effect | Decided |
+| IN-15 | X token unset during social intake | X adapter skipped with a warning. The profile builds from HN and the company site. | Decided. [09 section 4](09-battle-revamp.md#4-entrant-intake) |
+| IN-16 | An intake source fails (404, malformed, timeout) | That source becomes a warning, never a crash. The profile builds from what succeeded. | Decided. `packages/intake` adapter tests |
+| IN-17 | Post text contains instructions aimed at the agent | Stored as data, never interpreted. `toSubmission` passes it through and the normal injection screen still applies. | Decided. [09 section 4](09-battle-revamp.md#4-entrant-intake) |
+| IN-18 | Intake URL is not http or https | Rejected by the web adapter | Decided. `packages/intake` adapter tests |
 
 ## Research and weigh-in
 

@@ -1,0 +1,1433 @@
+{
+  "steps": {
+    "scout/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "searchesRun": 2,
+            "evidence": [
+              {
+                "url": "https://example.com/scout-a",
+                "title": "Opposition file",
+                "snippet": "CurbBot routes face weather, vandals, and procurement calendars.",
+                "retrievedAt": "2026-11-05T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "scout/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "searchesRun": 2,
+            "evidence": [
+              {
+                "url": "https://example.com/scout-b",
+                "title": "Response file",
+                "snippet": "Dermalens leans on one pilot; press the validation timeline.",
+                "retrievedAt": "2026-11-05T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Lesions wait months unseen",
+                "claim": "Queues pass two months while urgent cases sit.",
+                "evidence": [
+                  "E5"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "market",
+                "headline": "Surveys need council votes",
+                "claim": "Budgets freeze on election cycles.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E5",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "problem",
+                "headline": "Decrees are not patients",
+                "claim": "Courts do not feel pain.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r1.v1.B.s1"
+              },
+              {
+                "type": "pitch",
+                "criterion": "wtp",
+                "headline": "Screens already have prices",
+                "claim": "Per-screen fees cleared the pilot.",
+                "evidence": [
+                  "E19"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E19",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Settlements dwarf the survey",
+                "claim": "Settlements dwarf every survey quote.",
+                "evidence": [
+                  "E26"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "market",
+                "headline": "Triage caps at dermatology",
+                "claim": "One specialty cannot carry the multiple.",
+                "evidence": [
+                  "E25"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E26",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E25",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "market",
+                "headline": "Decrees stack city by city",
+                "claim": "Each settlement funds the next survey.",
+                "evidence": [
+                  "E26"
+                ],
+                "estimate": false,
+                "respondsTo": "r1.v1.A.s2"
+              },
+              {
+                "type": "attack",
+                "criterion": "wtp",
+                "headline": "Pilots are not procurement",
+                "claim": "Three clinics do not make a budget line.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E26",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "problem",
+                "comparison": "Lawsuits with penalties edge clinical queues.",
+                "fighter_1": {
+                  "rationale": "Recurring pain for a definable group. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Hair on fire with mandated spend. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              },
+              {
+                "criterion": "market",
+                "comparison": "Per-mile mandates beat a single specialty.",
+                "fighter_1": {
+                  "rationale": "Niche clinical spend, flat. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Budgeted surveys with growth. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "wtp",
+                "comparison": "Both redirect money already allocated.",
+                "fighter_1": {
+                  "rationale": "Plausible margins on screens. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Plausible margins on surveys. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Real harm, capped by triage limits."
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Decrees bind the budgets."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Priced, but capped."
+              },
+              {
+                "shotId": "r1.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Sourced ceiling."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Fair, not fatal."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "CurbBot takes the market round on mandated money."
+          }
+        }
+      ]
+    },
+    "r1/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "problem",
+                "comparison": "Lawsuits with penalties edge clinical queues.",
+                "fighter_1": {
+                  "rationale": "Hair on fire with mandated spend. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "Recurring pain for a definable group. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "market",
+                "comparison": "Per-mile mandates beat a single specialty.",
+                "fighter_1": {
+                  "rationale": "Budgeted surveys with growth. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Niche clinical spend, flat. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "wtp",
+                "comparison": "Both redirect money already allocated.",
+                "fighter_1": {
+                  "rationale": "Plausible margins on surveys. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Plausible margins on screens. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Real harm, capped by triage limits."
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Decrees bind the budgets."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Priced, but capped."
+              },
+              {
+                "shotId": "r1.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Sourced ceiling."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Fair, not fatal."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "CurbBot takes the market round on mandated money."
+          }
+        }
+      ]
+    },
+    "r2/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "differentiation",
+                "headline": "Urgency ranking saves visits",
+                "claim": "Ranking beats first-come queues.",
+                "evidence": [
+                  "E19"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "moat",
+                "headline": "Routes are just driving",
+                "claim": "Any fleet can photograph a curb.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E19",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "differentiation",
+                "headline": "Photos are not grades",
+                "claim": "A picture without a standard decides nothing.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r2.v1.B.s1"
+              },
+              {
+                "type": "attack",
+                "criterion": "timing",
+                "headline": "Decrees have no window",
+                "claim": "Courts renew pressure forever.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "differentiation",
+                "headline": "Grades beat clipboards",
+                "claim": "A scored ramp inventory never existed.",
+                "evidence": [
+                  "E25"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "pitch",
+                "criterion": "timing",
+                "headline": "Deadlines bind this year",
+                "claim": "Inventory dates fall inside this budget cycle.",
+                "evidence": [
+                  "E8"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E25",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E8",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "moat",
+                "headline": "Photos compound too",
+                "claim": "Every graded mile trains the next grader.",
+                "evidence": [
+                  "E25"
+                ],
+                "estimate": false,
+                "respondsTo": "r2.v1.A.s2"
+              },
+              {
+                "type": "attack",
+                "criterion": "moat",
+                "headline": "Models copy triage fast",
+                "claim": "Screening papers publish yearly.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E25",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "differentiation",
+                "comparison": "A first inventory beats a better queue.",
+                "fighter_1": {
+                  "rationale": "Meaningfully better on ranking. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Ten times faster than walking crews. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              },
+              {
+                "criterion": "moat",
+                "comparison": "Grading data and screening data both compound modestly.",
+                "fighter_1": {
+                  "rationale": "One plausible moat over time. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "One plausible moat over time. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "timing",
+                "comparison": "This year's deadlines beat an eternal queue.",
+                "fighter_1": {
+                  "rationale": "A real change everyone can use. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "A datable window already open. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Better, not ten times."
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Underrates the grading data."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Deadlines are the window."
+              },
+              {
+                "shotId": "r2.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Papers are not products."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Deadlines and first inventory keep the lead."
+          }
+        }
+      ]
+    },
+    "r2/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "differentiation",
+                "comparison": "A first inventory beats a better queue.",
+                "fighter_1": {
+                  "rationale": "Ten times faster than walking crews. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "Meaningfully better on ranking. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "moat",
+                "comparison": "Grading data and screening data both compound modestly.",
+                "fighter_1": {
+                  "rationale": "One plausible moat over time. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "One plausible moat over time. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "timing",
+                "comparison": "This year's deadlines beat an eternal queue.",
+                "fighter_1": {
+                  "rationale": "A datable window already open. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "A real change everyone can use. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Better, not ten times."
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Underrates the grading data."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Deadlines are the window."
+              },
+              {
+                "shotId": "r2.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Papers are not products."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Deadlines and first inventory keep the lead."
+          }
+        }
+      ]
+    },
+    "r3/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "scale",
+                "headline": "Ninety percent skip screening",
+                "claim": "A national backlog waits past the pilot.",
+                "evidence": [
+                  "E9"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "gtm",
+                "headline": "Miles need mayors",
+                "claim": "Robots wait on procurement calendars.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E9",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "gtm",
+                "headline": "Monitors renew themselves",
+                "claim": "Annual subscriptions beat re-bids.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r3.v1.B.s1"
+              },
+              {
+                "type": "pitch",
+                "criterion": "feasibility",
+                "headline": "Triage already screens",
+                "claim": "Real clinics grade real photos today.",
+                "evidence": [
+                  "E19"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E19",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "gtm",
+                "headline": "Surveys become monitoring",
+                "claim": "Each mile converts to an annual subscription.",
+                "evidence": [
+                  "E26"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "scale",
+                "headline": "Skin caps at one organ",
+                "claim": "No payer funds the whole body.",
+                "evidence": [
+                  "E8"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E26",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E8",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "scale",
+                "headline": "That backlog is not sourced",
+                "claim": "No locker item counts the unscreened.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r3.v1.A.s1"
+              },
+              {
+                "type": "attack",
+                "criterion": "feasibility",
+                "headline": "Validation takes years",
+                "claim": "Clinical proof slows every rollout.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "gtm",
+                "comparison": "Miles that renew beat clinics that pilot.",
+                "fighter_1": {
+                  "rationale": "A plausible channel, slow cycle. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "A named buyer with renewals. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              },
+              {
+                "criterion": "feasibility",
+                "comparison": "Screening today beats routes in the rain.",
+                "fighter_1": {
+                  "rationale": "Clear build path, shipping now. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "Buildable with weather risks. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "scale",
+                "comparison": "A national sidewalk map beats one specialty.",
+                "fighter_1": {
+                  "rationale": "Capped by the organ. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Several expansion paths, same payer. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Slow, but funded."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "glancing",
+                "impact": 0,
+                "note": "Concedes the renewal."
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Ceiling with a source."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "A tax, not a block."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "A fabricated backlog number blows up in Dermalens' face."
+          }
+        }
+      ]
+    },
+    "r3/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "gtm",
+                "comparison": "Miles that renew beat clinics that pilot.",
+                "fighter_1": {
+                  "rationale": "A named buyer with renewals. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "A plausible channel, slow cycle. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "feasibility",
+                "comparison": "Screening today beats routes in the rain.",
+                "fighter_1": {
+                  "rationale": "Buildable with weather risks. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Clear build path, shipping now. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              },
+              {
+                "criterion": "scale",
+                "comparison": "A national sidewalk map beats one specialty.",
+                "fighter_1": {
+                  "rationale": "Several expansion paths, same payer. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Capped by the organ. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Slow, but funded."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "glancing",
+                "impact": 0,
+                "note": "Concedes the renewal."
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Ceiling with a source."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "A tax, not a block."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "A fabricated backlog number blows up in Dermalens' face."
+          }
+        }
+      ]
+    },
+    "report": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "headline": "CurbBot stuns Dermalens",
+            "whyTheyWon": [
+              "Won problem, market, and timing on binding deadlines.",
+              "Won go-to-market on surveys that renew into monitoring.",
+              "Dermalens took a fabrication penalty on an unsourced backlog."
+            ],
+            "turningPoint": {
+              "criterion": "timing",
+              "text": "This year's inventory dates settled the urgency debate."
+            },
+            "loserTakeaways": [
+              "Cite a real source for the backlog.",
+              "Answer the renewal, not just the pilot."
+            ],
+            "announcerLines": [
+              {
+                "cueRef": "intro",
+                "text": "CurbBot by unanimous decision. The decree deadlines held up."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

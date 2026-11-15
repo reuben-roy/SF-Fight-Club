@@ -1,0 +1,1522 @@
+{
+  "steps": {
+    "scout/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "searchesRun": 2,
+            "evidence": [
+              {
+                "url": "https://example.com/scout-a",
+                "title": "Opposition file",
+                "snippet": "CurbBot leans on procurement calendars and fair weather.",
+                "retrievedAt": "2026-11-05T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "scout/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "searchesRun": 2,
+            "evidence": [
+              {
+                "url": "https://example.com/scout-b",
+                "title": "Response file",
+                "snippet": "PermitPilot leans on expediter goodwill and staffing gaps.",
+                "retrievedAt": "2026-11-05T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Packets stall real builds",
+                "claim": "Crews sit idle while packets crawl.",
+                "evidence": [
+                  "E1"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "market",
+                "headline": "Surveys need councils",
+                "claim": "Budgets move at election speed.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E1",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "problem",
+                "headline": "Pain is still pain",
+                "claim": "Lawsuits and layoffs both bleed.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r1.v1.B.s1"
+              },
+              {
+                "type": "pitch",
+                "criterion": "wtp",
+                "headline": "Chase fees prove budget",
+                "claim": "Expediters cash the same check.",
+                "evidence": [
+                  "E11"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E11",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Ramps block real people",
+                "claim": "Broken access strands riders daily.",
+                "evidence": [
+                  "E8"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "market",
+                "headline": "Permits are one desk",
+                "claim": "A single city starts narrow.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E8",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "market",
+                "headline": "Desks repeat everywhere",
+                "claim": "Every city queues the same forms.",
+                "evidence": [
+                  "E12"
+                ],
+                "estimate": false,
+                "respondsTo": "r1.v1.A.s2"
+              },
+              {
+                "type": "pitch",
+                "criterion": "wtp",
+                "headline": "Miles already have prices",
+                "claim": "Survey quotes sit in budgets.",
+                "evidence": [
+                  "E25"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E12",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E25",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "problem",
+                "comparison": "Mandated access against stalled livelihoods; neither outranks the other.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "market",
+                "comparison": "Both size bottom-up from real budgets; both start local.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "wtp",
+                "comparison": "Both redirect money already spent by named payers.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Sourced, matched."
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Priced, matched."
+              },
+              {
+                "shotId": "r1.v1.B.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Sourced, matched."
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Priced, matched."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Dead even: lawsuits against layoffs, budgets against budgets."
+          }
+        }
+      ]
+    },
+    "r1/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "problem",
+                "comparison": "Mandated access against stalled livelihoods; neither outranks the other.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "market",
+                "comparison": "Both size bottom-up from real budgets; both start local.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "wtp",
+                "comparison": "Both redirect money already spent by named payers.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Sourced, matched."
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Priced, matched."
+              },
+              {
+                "shotId": "r1.v1.B.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Sourced, matched."
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Priced, matched."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Dead even: lawsuits against layoffs, budgets against budgets."
+          }
+        }
+      ]
+    },
+    "r2/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "differentiation",
+                "headline": "Chase is the product",
+                "claim": "Follow-up beats another form.",
+                "evidence": [
+                  "E11"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "moat",
+                "headline": "Routes can be walked",
+                "claim": "Crews already grade by hand.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E11",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "differentiation",
+                "headline": "Photos are table stakes",
+                "claim": "Pictures alone decide nothing.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r2.v1.B.s1"
+              },
+              {
+                "type": "pitch",
+                "criterion": "timing",
+                "headline": "Desks empty this year",
+                "claim": "Shortages open the window now.",
+                "evidence": [
+                  "E12"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E12",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "differentiation",
+                "headline": "Grades never existed",
+                "claim": "No scored inventory came before.",
+                "evidence": [
+                  "E25"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "moat",
+                "headline": "Playbooks walk away",
+                "claim": "Filing know-how travels with staff.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E25",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "moat",
+                "headline": "Miles train graders",
+                "claim": "Each route sharpens the next.",
+                "evidence": [
+                  "E25"
+                ],
+                "estimate": false,
+                "respondsTo": "r2.v1.A.s2"
+              },
+              {
+                "type": "pitch",
+                "criterion": "timing",
+                "headline": "Deadlines bind now",
+                "claim": "Inventory dates hit this cycle.",
+                "evidence": [
+                  "E8"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E25",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E8",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "differentiation",
+                "comparison": "Each ten-times one dimension the other ignores.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "moat",
+                "comparison": "Each compounds data the other cannot easily copy.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "timing",
+                "comparison": "Both windows are datable and open right now.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Better, matched."
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Dated, matched."
+              },
+              {
+                "shotId": "r2.v1.B.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Better, matched."
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Dated, matched."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Dead even: first inventory against the follow-up."
+          }
+        }
+      ]
+    },
+    "r2/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "differentiation",
+                "comparison": "Each ten-times one dimension the other ignores.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "moat",
+                "comparison": "Each compounds data the other cannot easily copy.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "timing",
+                "comparison": "Both windows are datable and open right now.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Better, matched."
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Dated, matched."
+              },
+              {
+                "shotId": "r2.v1.B.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Better, matched."
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Dated, matched."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Dead even: first inventory against the follow-up."
+          }
+        }
+      ]
+    },
+    "r3/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "gtm",
+                "headline": "Expediters sell it first",
+                "claim": "The channel already charges today.",
+                "evidence": [
+                  "E11"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "scale",
+                "headline": "Maps cap at sidewalks",
+                "claim": "Concrete ends somewhere.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E11",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "gtm",
+                "headline": "Monitors still need mayors",
+                "claim": "Renewals ride procurement too.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r3.v1.B.s2"
+              },
+              {
+                "type": "pitch",
+                "criterion": "scale",
+                "headline": "Desks fill every city",
+                "claim": "Housing backlogs repeat nationwide.",
+                "evidence": [
+                  "E12"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E12",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "feasibility",
+                "headline": "Routes roll today",
+                "claim": "The robot photographs real blocks.",
+                "evidence": [
+                  "E25"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "gtm",
+                "headline": "Desks buy slowly",
+                "claim": "Governments deliberate for years.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E25",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "feasibility",
+                "headline": "Packets get rejected",
+                "claim": "One error burns weeks.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r3.v1.A.s1"
+              },
+              {
+                "type": "attack",
+                "criterion": "scale",
+                "headline": "Desks cap at housing",
+                "claim": "One department, one ceiling.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "gtm",
+                "comparison": "Both name a channel with a named first buyer.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "feasibility",
+                "comparison": "Both ship with off-the-shelf parts and named risks.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "scale",
+                "comparison": "Both plausibly grow past the first market; neither proves it.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Named, matched."
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Broad, matched."
+              },
+              {
+                "shotId": "r3.v1.B.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Shipping, matched."
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Dead even: renewals against expediters. The judges need more."
+          }
+        }
+      ]
+    },
+    "r3/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "gtm",
+                "comparison": "Both name a channel with a named first buyer.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "feasibility",
+                "comparison": "Both ship with off-the-shelf parts and named risks.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "scale",
+                "comparison": "Both plausibly grow past the first market; neither proves it.",
+                "fighter_1": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Named, matched."
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Broad, matched."
+              },
+              {
+                "shotId": "r3.v1.B.s1",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Shipping, matched."
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True and matched."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Dead even: renewals against expediters. The judges need more."
+          }
+        }
+      ]
+    },
+    "report": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "headline": "PermitPilot takes the belt in sudden death",
+            "whyTheyWon": [
+              "The scoreline was a draw across all nine criteria.",
+              "Three sudden-death votes picked the permit chase.",
+              "The cascade stopped at the judges, 3 to 1."
+            ],
+            "turningPoint": {
+              "text": "The closing volley tipped a tied card."
+            },
+            "loserTakeaways": [
+              "Separate the idea on one criterion.",
+              "Bring a sourced number next time."
+            ],
+            "announcerLines": [
+              {
+                "cueRef": "intro",
+                "text": "Sudden death. PermitPilot takes the belt, three votes to one."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sd/closing/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Permits bleed money today",
+                "claim": "Contractors already pay for the chase, and every desk repeats the backlog.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sd/closing/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "A map of every curb",
+                "claim": "Decrees stack city by city, and each mile renews into monitoring.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sd/judge/AB/1": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "analysis": "The permit chase names a buyer paying today for the exact work.",
+            "winner": "fighter_1",
+            "confidence": 0.7,
+            "decidingFactor": "Willingness to pay is concrete now."
+          }
+        }
+      ]
+    },
+    "sd/judge/BA/1": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "analysis": "The inventory deadline forces spend this cycle, not someday.",
+            "winner": "fighter_2",
+            "confidence": 0.7,
+            "decidingFactor": "Timing pressure is sharper."
+          }
+        }
+      ]
+    },
+    "sd/judge/AB/2": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "analysis": "Expediters prove the channel where robots still need mayors.",
+            "winner": "fighter_1",
+            "confidence": 0.7,
+            "decidingFactor": "Go-to-market is one step shorter."
+          }
+        }
+      ]
+    },
+    "sd/judge/BA/2": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "analysis": "A national map of desks beats a national map of curbs on payer count.",
+            "winner": "fighter_1",
+            "confidence": 0.7,
+            "decidingFactor": "Scale reaches more buyers."
+          }
+        }
+      ]
+    }
+  }
+}
