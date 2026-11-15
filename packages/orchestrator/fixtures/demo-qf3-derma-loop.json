@@ -1,0 +1,1433 @@
+{
+  "steps": {
+    "scout/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "searchesRun": 2,
+            "evidence": [
+              {
+                "url": "https://example.com/scout-a",
+                "title": "Opposition file",
+                "snippet": "LoopRoom has no payer and no channel beyond regulars.",
+                "retrievedAt": "2026-11-05T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "scout/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "searchesRun": 2,
+            "evidence": [
+              {
+                "url": "https://example.com/scout-b",
+                "title": "Response file",
+                "snippet": "Dermalens leans on one pilot; test the validation timeline.",
+                "retrievedAt": "2026-11-05T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Urgent lesions wait months unseen",
+                "claim": "Waitlists pass two months while urgent cases sit in queue.",
+                "evidence": [
+                  "E5"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "market",
+                "headline": "Voice rooms monetize like a hobby",
+                "claim": "Freemium moderation tools have no payer with budget.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E5",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "problem",
+                "headline": "Muted threads are not triage",
+                "claim": "A mute button never escalated a single lesion.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r1.v1.B.s1"
+              },
+              {
+                "type": "pitch",
+                "criterion": "wtp",
+                "headline": "Clinics already pay per screen",
+                "claim": "The pilot priced per-screen above included volume.",
+                "evidence": [
+                  "E19"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E19",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Threads never reach decisions",
+                "claim": "Neighbors stall for days in text.",
+                "evidence": [
+                  "E6"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "market",
+                "headline": "Skin AI is a crowded shelf",
+                "claim": "Every camera app claims triage now.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E6",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "problem",
+                "headline": "Anxiety is still suffering",
+                "claim": "Health scares in threads deserve better.",
+                "evidence": [
+                  "E6"
+                ],
+                "estimate": false,
+                "respondsTo": "r1.v1.A.s1"
+              },
+              {
+                "type": "attack",
+                "criterion": "wtp",
+                "headline": "Clinics will not pay startups",
+                "claim": "Procurement takes years.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E6",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "problem",
+                "comparison": "A clinical queue with harm against a chat annoyance.",
+                "fighter_1": {
+                  "rationale": "Hair on fire for a named persona with mandated need. 8.",
+                  "capsApplied": [],
+                  "score": 8
+                },
+                "fighter_2": {
+                  "rationale": "Real but occasional and low stakes. 4.",
+                  "capsApplied": [],
+                  "score": 4
+                }
+              },
+              {
+                "criterion": "market",
+                "comparison": "Clinics with budgets against rooms without a payer.",
+                "fighter_1": {
+                  "rationale": "A meeting-ready market with a bottom-up path. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "Niche and flat, sized by hope. 4.",
+                  "capsApplied": [],
+                  "score": 4
+                }
+              },
+              {
+                "criterion": "wtp",
+                "comparison": "Per-screen pricing in a pilot against freemium hope.",
+                "fighter_1": {
+                  "rationale": "Payer has budget and precedent prices. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "A payer exists but price sensitivity rules. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s1",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Annoyance, not a cost."
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "No competitor named."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "glancing",
+                "impact": 0,
+                "note": "Fair point, smaller stakes."
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Contradicted by the pilot."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Dermalens sweeps the market round on harm and budgets."
+          }
+        }
+      ]
+    },
+    "r1/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "problem",
+                "comparison": "A clinical queue with harm against a chat annoyance.",
+                "fighter_1": {
+                  "rationale": "Real but occasional and low stakes. 4.",
+                  "capsApplied": [],
+                  "score": 4
+                },
+                "fighter_2": {
+                  "rationale": "Hair on fire for a named persona with mandated need. 8.",
+                  "capsApplied": [],
+                  "score": 8
+                }
+              },
+              {
+                "criterion": "market",
+                "comparison": "Clinics with budgets against rooms without a payer.",
+                "fighter_1": {
+                  "rationale": "Niche and flat, sized by hope. 4.",
+                  "capsApplied": [],
+                  "score": 4
+                },
+                "fighter_2": {
+                  "rationale": "A meeting-ready market with a bottom-up path. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              },
+              {
+                "criterion": "wtp",
+                "comparison": "Per-screen pricing in a pilot against freemium hope.",
+                "fighter_1": {
+                  "rationale": "A payer exists but price sensitivity rules. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Payer has budget and precedent prices. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s1",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Annoyance, not a cost."
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "No competitor named."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "glancing",
+                "impact": 0,
+                "note": "Fair point, smaller stakes."
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Contradicted by the pilot."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Dermalens sweeps the market round on harm and budgets."
+          }
+        }
+      ]
+    },
+    "r2/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "differentiation",
+                "headline": "Triage ranks, chat only scrolls",
+                "claim": "Urgency ranking is the product, not a feature.",
+                "evidence": [
+                  "E19"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "moat",
+                "headline": "Clinic data compounds",
+                "claim": "Every screened photo sharpens the next rank.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E19",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "differentiation",
+                "headline": "Voice notes decide nothing",
+                "claim": "Notes pile up without urgency or ownership.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r2.v1.B.s1"
+              },
+              {
+                "type": "pitch",
+                "criterion": "timing",
+                "headline": "Cameras crossed the bar",
+                "claim": "Phone detail now meets screening standards.",
+                "evidence": [
+                  "E20"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E20",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "timing",
+                "headline": "Voice notes already won",
+                "claim": "Neighbors default to voice.",
+                "evidence": [
+                  "E22"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "differentiation",
+                "headline": "Triage is a phone feature",
+                "claim": "Apple will ship this in an update.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E22",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "differentiation",
+                "headline": "Ranking can be copied",
+                "claim": "Anyone can sort a queue.",
+                "evidence": [
+                  "E21"
+                ],
+                "estimate": false,
+                "respondsTo": "r2.v1.A.s1"
+              },
+              {
+                "type": "pitch",
+                "criterion": "timing",
+                "headline": "Evenings belong to voice",
+                "claim": "The pilot drew steady regulars.",
+                "evidence": [
+                  "E21"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E21",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E21",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "differentiation",
+                "comparison": "Urgency ranking against another room app.",
+                "fighter_1": {
+                  "rationale": "Ten times better on ranking for an underserved segment. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "Nicer, not different. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "moat",
+                "comparison": "Screening data compounds; room habits do not.",
+                "fighter_1": {
+                  "rationale": "One plausible moat that builds over time. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Head start only. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "timing",
+                "comparison": "Camera capability is datable; voice habits are background.",
+                "fighter_1": {
+                  "rationale": "A specific enabling shift with a window. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "A vague trend everyone cites. 4.",
+                  "capsApplied": [],
+                  "score": 4
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.B.s1",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "A habit, not a window."
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Platform claim with no evidence."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "glancing",
+                "impact": 0,
+                "note": "True and beside the point."
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 0,
+                "note": "Small base, honestly reported."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Compounding data beats a habit everyone already has."
+          }
+        }
+      ]
+    },
+    "r2/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "differentiation",
+                "comparison": "Urgency ranking against another room app.",
+                "fighter_1": {
+                  "rationale": "Nicer, not different. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Ten times better on ranking for an underserved segment. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              },
+              {
+                "criterion": "moat",
+                "comparison": "Screening data compounds; room habits do not.",
+                "fighter_1": {
+                  "rationale": "Head start only. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "One plausible moat that builds over time. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "timing",
+                "comparison": "Camera capability is datable; voice habits are background.",
+                "fighter_1": {
+                  "rationale": "A vague trend everyone cites. 4.",
+                  "capsApplied": [],
+                  "score": 4
+                },
+                "fighter_2": {
+                  "rationale": "A specific enabling shift with a window. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.B.s1",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "A habit, not a window."
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Platform claim with no evidence."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "glancing",
+                "impact": 0,
+                "note": "True and beside the point."
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 0,
+                "note": "Small base, honestly reported."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "Compounding data beats a habit everyone already has."
+          }
+        }
+      ]
+    },
+    "r3/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "gtm",
+                "headline": "Three clinics already screen",
+                "claim": "The pilot cut review time per referral in half.",
+                "evidence": [
+                  "E19"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "scale",
+                "headline": "Rooms cap at neighborhoods",
+                "claim": "No payer, no expansion, no acquirer.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E19",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "gtm",
+                "headline": "Regulars are not distribution",
+                "claim": "A steady crowd of thirty is not a channel.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r3.v1.B.s1"
+              },
+              {
+                "type": "pitch",
+                "criterion": "scale",
+                "headline": "Every clinic has a queue",
+                "claim": "Queues exist in every city with dermatology deserts.",
+                "evidence": [
+                  "E5"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E5",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "feasibility",
+                "headline": "Rooms ship in a weekend",
+                "claim": "Voice plus polls is off-the-shelf.",
+                "evidence": [
+                  "E21"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "gtm",
+                "headline": "Clinics buy nothing fast",
+                "claim": "Pilots die in procurement.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E21",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "feasibility",
+                "headline": "Approval takes years",
+                "claim": "Clinical validation will stall the rollout.",
+                "evidence": [
+                  "E21"
+                ],
+                "estimate": false,
+                "respondsTo": "r3.v1.A.s1"
+              },
+              {
+                "type": "attack",
+                "criterion": "scale",
+                "headline": "Triage caps at skin",
+                "claim": "One body part is not a platform.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E21",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "gtm",
+                "comparison": "Three screening clinics against thirty regulars.",
+                "fighter_1": {
+                  "rationale": "Named first customers and a short cycle. 8.",
+                  "capsApplied": [],
+                  "score": 8
+                },
+                "fighter_2": {
+                  "rationale": "No channel beyond regulars. 4.",
+                  "capsApplied": [],
+                  "score": 4
+                }
+              },
+              {
+                "criterion": "feasibility",
+                "comparison": "A shipped pilot against a weekend build nobody defends.",
+                "fighter_1": {
+                  "rationale": "Clear build path with mitigations. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "Buildable, but copyable in a weekend. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "scale",
+                "comparison": "Every queue in every desert city against every block chat.",
+                "fighter_1": {
+                  "rationale": "A credible $1B outcome with expansion paths. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "Hard to see past the neighborhood. 4.",
+                  "capsApplied": [],
+                  "score": 4
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s1",
+                "verdict": "glancing",
+                "impact": 0,
+                "note": "Easy to build, easy to copy."
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "The pilot already cleared it."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "glancing",
+                "impact": 0,
+                "note": "A real risk, overstated."
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Ignores the referral path."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "A shipped pilot ends it; the rooms never find a channel."
+          }
+        }
+      ]
+    },
+    "r3/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "gtm",
+                "comparison": "Three screening clinics against thirty regulars.",
+                "fighter_1": {
+                  "rationale": "No channel beyond regulars. 4.",
+                  "capsApplied": [],
+                  "score": 4
+                },
+                "fighter_2": {
+                  "rationale": "Named first customers and a short cycle. 8.",
+                  "capsApplied": [],
+                  "score": 8
+                }
+              },
+              {
+                "criterion": "feasibility",
+                "comparison": "A shipped pilot against a weekend build nobody defends.",
+                "fighter_1": {
+                  "rationale": "Buildable, but copyable in a weekend. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Clear build path with mitigations. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              },
+              {
+                "criterion": "scale",
+                "comparison": "Every queue in every desert city against every block chat.",
+                "fighter_1": {
+                  "rationale": "Hard to see past the neighborhood. 4.",
+                  "capsApplied": [],
+                  "score": 4
+                },
+                "fighter_2": {
+                  "rationale": "A credible $1B outcome with expansion paths. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s1",
+                "verdict": "glancing",
+                "impact": 0,
+                "note": "Easy to build, easy to copy."
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "The pilot already cleared it."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "glancing",
+                "impact": 0,
+                "note": "A real risk, overstated."
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Ignores the referral path."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "A shipped pilot ends it; the rooms never find a channel."
+          }
+        }
+      ]
+    },
+    "report": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "headline": "Dermalens blanks LoopRoom",
+            "whyTheyWon": [
+              "Won every criterion, most of them by three points or more.",
+              "Took no damage at all: a perfect defensive record.",
+              "The pilot receipts answered every procurement objection."
+            ],
+            "turningPoint": {
+              "criterion": "gtm",
+              "text": "Three screening clinics ended the distribution debate."
+            },
+            "loserTakeaways": [
+              "Name a payer with a budget.",
+              "Bring one number that is not about vibes."
+            ],
+            "announcerLines": [
+              {
+                "cueRef": "intro",
+                "text": "Dermalens by knockout. A perfect card, and it showed."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
