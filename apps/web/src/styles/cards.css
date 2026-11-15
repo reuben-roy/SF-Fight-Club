@@ -1,0 +1,376 @@
+/* Fighter cards: paper theme, trading-card proportions 5:7. */
+
+.card-page {
+  width: min(100% - 32px, var(--content-width));
+  margin: 0 auto;
+  padding: var(--space-5) 0 var(--space-7);
+  color: var(--ink);
+}
+
+.card-page__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  border-bottom: var(--border);
+  padding-bottom: 10px;
+  margin-bottom: var(--space-4);
+}
+
+.card-page__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--type-mono-11);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.card-page__title {
+  font-family: var(--font-pixel);
+  font-size: var(--type-40);
+  line-height: 0.95;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.fighter-card {
+  position: relative;
+  width: 100%;
+  max-width: 352px;
+  aspect-ratio: 5 / 7;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  box-shadow: var(--shadow-hard);
+  font-size: 12px;
+}
+
+.fighter-card__band {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  background: var(--ink);
+  color: var(--paper);
+  border-bottom: 4px solid var(--sun-2);
+  flex: none;
+}
+
+.fighter-card__seed {
+  font-family: var(--font-pixel);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.fighter-card__tier {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  border: 2px solid var(--paper);
+  background: var(--sun-2);
+  color: #151524;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.fighter-card__title {
+  margin-left: auto;
+  border-color: var(--paper);
+  font-size: 9px;
+}
+
+.fighter-card__art {
+  position: relative;
+  flex: none;
+  height: 96px;
+  display: grid;
+  place-items: end center;
+  border-bottom: 2px solid var(--ink);
+  overflow: hidden;
+  background: var(--stripe-bands);
+}
+
+.fighter-card__art canvas {
+  position: relative;
+  margin-bottom: 2px;
+}
+
+.fighter-card--dense .fighter-card__art {
+  height: 82px;
+}
+
+.fighter-card__category {
+  position: absolute;
+  left: 6px;
+  bottom: 4px;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(21, 21, 36, 0.88);
+  color: #fafaf4;
+  border: 1px solid #151524;
+  padding: 1px 5px;
+}
+
+.fighter-card__identity {
+  padding: 5px 9px 4px;
+  border-bottom: 1px solid var(--line);
+  flex: none;
+}
+
+.fighter-card__name {
+  font-family: var(--font-pixel);
+  font-size: 21px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.fighter-card__line {
+  margin-top: 2px;
+  font-size: 11px;
+  line-height: 1.25;
+  color: var(--ink-3);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.fighter-card__clout {
+  padding: 5px 9px;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 3px;
+  flex: none;
+}
+
+.fighter-card__clout .sfc-clout {
+  font-size: 9px;
+  grid-template-columns: auto 92px auto;
+}
+
+.fighter-card__note {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.03em;
+  color: var(--ink-3);
+}
+
+.fighter-card__headcount {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+
+.fighter-card__section {
+  padding: 4px 9px;
+  border-bottom: 1px solid var(--line);
+  flex: none;
+  overflow: hidden;
+}
+
+.fighter-card__posts {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.fighter-card__label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 3px;
+}
+
+.fighter-card__count {
+  border: 1px solid var(--line-2);
+  padding: 0 3px;
+  color: var(--ink-3);
+}
+
+.fighter-card__founders {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+}
+
+.fighter-card__founder {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.fighter-card__founder-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.fighter-card__founder-name {
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fighter-card__founder-name em {
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.fighter-card__founder-handles {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fighter-card__posts {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+}
+
+.fighter-card__post {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 5px;
+  align-items: start;
+}
+
+.fighter-card__source {
+  display: grid;
+  place-items: center;
+  height: 14px;
+  border: 1px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: var(--paper-2);
+}
+
+.fighter-card__source--hn {
+  background: var(--sun-4);
+  color: #fafaf4;
+  border-color: var(--sun-5);
+}
+
+.fighter-card__source--x {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.fighter-card__post-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.fighter-card__post-title {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.fighter-card__post-text {
+  font-size: 9px;
+  line-height: 1.2;
+  color: var(--ink-3);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.fighter-card__post-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fighter-card__metric {
+  color: var(--ink-3);
+}
+
+.fighter-card__post-link {
+  color: var(--ink);
+  text-decoration-thickness: 1px;
+}
+
+.fighter-card__post-link--off {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.fighter-card__more {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--muted);
+}
+
+.fighter-card__foot {
+  margin-top: auto;
+  padding: 4px 9px;
+  background: var(--paper-2);
+  border-top: 2px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  color: var(--ink-3);
+  flex: none;
+}
+
+@media (max-width: 700px) {
+  .card-page {
+    width: min(100% - 16px, var(--content-width));
+    padding-top: var(--space-3);
+  }
+
+  .card-page__title {
+    font-size: var(--type-28);
+  }
+
+  .fighter-card {
+    max-width: none;
+  }
+}

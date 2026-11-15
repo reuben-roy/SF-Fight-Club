@@ -1,0 +1,855 @@
+/* The Tower: org chart, VS links, floors rail and the bracket toggle. Night theme. */
+
+.tower {
+  width: 100%;
+  margin: 0;
+  padding: var(--space-5) clamp(14px, 3vw, 36px) var(--space-7);
+  background: var(--paper);
+  color: var(--ink);
+  border-top: 2px solid var(--line);
+  border-bottom: 2px solid var(--line);
+}
+
+.tower__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  border-bottom: var(--border);
+  padding-bottom: 10px;
+}
+
+.tower__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--type-mono-11);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+
+.tower__title {
+  font-family: var(--font-pixel);
+  font-size: var(--type-40);
+  line-height: 0.95;
+  margin-top: 2px;
+}
+
+.tower__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.tower__round {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  border: 1px solid var(--line-2);
+  padding: 3px 7px;
+}
+
+.tower__scrollhint {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--sun-1);
+  border: 1px dashed var(--sun-2);
+  padding: 2px 6px;
+}
+
+.tower__champion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+  border: 3px solid var(--sun-2);
+  background: #241f10;
+  color: #fafaf4;
+  padding: 8px 12px;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.tower__champion-crown {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 2px solid #fafaf4;
+  background: var(--sun-2);
+  color: #151524;
+  flex: none;
+}
+
+.tower__champion-kicker {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--sun-1);
+  border: 1px solid var(--sun-2);
+  padding: 1px 5px;
+}
+
+.tower__champion-name {
+  font-family: var(--font-pixel);
+  font-size: var(--type-28);
+  line-height: 1;
+}
+
+.tower__champion-stat {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--sun-1);
+}
+
+.tower__body {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  align-items: start;
+}
+
+/* Floors rail ------------------------------------------------------------- */
+
+.floors {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-right: 2px dashed var(--line-2);
+  padding-right: 10px;
+  min-height: 240px;
+}
+
+.floors__label,
+.floors__note {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.floors__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.floors__rung {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 3px 5px;
+  border-left: 4px solid transparent;
+  color: var(--ink-3);
+  opacity: 0.5;
+}
+
+.floors__rung--reached {
+  opacity: 0.86;
+  border-left-color: var(--line-2);
+}
+
+.floors__rung--current {
+  opacity: 1;
+  border-left-color: var(--sun-2);
+  background: #2a2415;
+  color: var(--sun-1);
+}
+
+.floors__name {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.floors__count {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  border: 1px solid currentColor;
+  padding: 0 3px;
+}
+
+/* Stage ------------------------------------------------------------------- */
+
+.tower__stage {
+  overflow: auto;
+  padding-bottom: 8px;
+  timeline-scope: none;
+  scrollbar-color: var(--line-2) transparent;
+  scrollbar-width: thin;
+}
+
+.tower__stage--scroll {
+  scroll-snap-type: x proximity;
+}
+
+.tower__canvas {
+  position: relative;
+  margin-inline: auto;
+  background-image:
+    linear-gradient(to right, rgba(250, 250, 244, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(250, 250, 244, 0.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.tower__wires {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tower__wire {
+  stroke: var(--line-2);
+  stroke-width: 2;
+  shape-rendering: crispEdges;
+}
+
+.tower__wire--fresh {
+  animation: tower-wire-draw 700ms steps(8, end) both;
+}
+
+@keyframes tower-wire-draw {
+  from {
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
+    opacity: 0.4;
+  }
+  to {
+    stroke-dasharray: 240;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* Tiles ------------------------------------------------------------------- */
+
+.tower-tile {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2px;
+  padding: 12px 7px 5px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--night-2);
+  color: var(--ink);
+  text-align: left;
+  box-shadow: 3px 3px 0 #000;
+  overflow: hidden;
+  scroll-snap-align: center;
+  z-index: 1;
+}
+
+.tower-tile:hover {
+  background: var(--night-3);
+}
+
+.tower-tile--root {
+  border-width: 3px;
+  background: linear-gradient(180deg, #2c2c40 0%, #242433 100%);
+  box-shadow: 5px 5px 0 #000;
+  z-index: 2;
+}
+
+.tower-tile--root .tower-tile__name {
+  font-size: 16px;
+}
+
+.tower-tile--acquired {
+  border-color: var(--line-2);
+  background: #1b1b2a;
+  color: var(--ink-3);
+  box-shadow: 2px 2px 0 #000;
+  opacity: 0.82;
+}
+
+.tower-tile--acquired .tower-tile__sprite,
+.tower-tile--acquired .tower-tile__name {
+  filter: grayscale(0.5) brightness(0.9);
+}
+
+.tower-tile--champion {
+  padding-bottom: 14px;
+  border-color: var(--sun-2);
+  background: linear-gradient(180deg, #33290f 0%, #241f10 100%);
+  box-shadow: 5px 5px 0 #000, 0 0 0 3px #241f10 inset;
+}
+
+.tower-tile__stripe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: var(--stripe-bands-x);
+}
+
+.tower-tile:not(.tower-tile--root) .tower-tile__stripe {
+  background: var(--line-2);
+  height: 2px;
+}
+
+.tower-tile--champion .tower-tile__stripe {
+  background: var(--stripe-bands-x);
+  height: 4px;
+}
+
+.tower-tile__sprite {
+  display: block;
+  line-height: 0;
+  flex: none;
+}
+
+.tower-tile__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  width: 100%;
+}
+
+.tower-tile__name {
+  font-family: var(--font-pixel);
+  font-size: 14px;
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tower-tile__meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.tower-tile__meta .sfc-title {
+  font-size: 8px;
+  border-width: 1px;
+  padding: 0 3px;
+}
+
+.tower-tile__clout {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+}
+
+.tower-tile__acquired {
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.05em;
+  color: #9a9ab0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tower-tile__walkover {
+  color: var(--sun-1);
+  border: 1px solid var(--sun-2);
+  padding: 0 2px;
+}
+
+.tower-tile__crown {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  background: var(--sun-2);
+  border: 2px solid #151524;
+}
+
+.tower-tile__belt {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 7px;
+  background: var(--stripe-bands-x);
+  border-top: 2px solid #151524;
+}
+
+.tower-tile__rankup {
+  position: absolute;
+  right: 3px;
+  bottom: 4px;
+  color: var(--sun-1);
+}
+
+.tower-tile__stamp {
+  position: absolute;
+  left: 50%;
+  top: 24px;
+  transform: translateX(-50%) rotate(-6deg) scale(0.82);
+  pointer-events: none;
+  background: rgba(21, 21, 36, 0.55);
+}
+
+.tower-tile__stamp .sfc-stamp {
+  font-size: 15px;
+  padding: 0 5px;
+  border-width: 2px;
+  color: var(--sun-1);
+}
+
+.tower-tile__title--flip {
+  animation: tower-title-flip 620ms steps(6, end) both;
+}
+
+@keyframes tower-title-flip {
+  0% {
+    transform: rotateX(90deg) scale(0.7);
+    opacity: 0;
+  }
+  60% {
+    transform: rotateX(0deg) scale(1.14);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(0deg) scale(1);
+  }
+}
+
+.tower-tile--compact {
+  padding: 10px 5px 4px;
+  gap: 4px;
+}
+
+.tower-tile--compact .tower-tile__name {
+  font-size: 10px;
+}
+
+.tower-tile--compact .sfc-title {
+  font-size: 7px;
+}
+
+.tower-tile--compact .tower-tile__acquired {
+  font-size: 6px;
+}
+
+/* VS link ----------------------------------------------------------------- */
+
+.tower-vs {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  z-index: 3;
+}
+
+.tower-vs__line {
+  position: absolute;
+  top: 13px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--line-2);
+}
+
+.tower-vs__badge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 28px;
+  height: 20px;
+  padding: 0 4px;
+  border: 2px solid var(--ink);
+  background: var(--sun-2);
+  color: #151524;
+  font-family: var(--font-pixel);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.tower-vs:hover .tower-vs__badge {
+  background: var(--sun-1);
+}
+
+.tower-vs__pill {
+  position: relative;
+  font-size: 7px;
+  padding: 0 3px;
+  letter-spacing: 0.04em;
+}
+
+.tower-vs--live .tower-vs__badge {
+  background: var(--sun-5);
+  color: #fafaf4;
+  animation: tower-live-pulse 1s steps(2, end) infinite;
+}
+
+@keyframes tower-live-pulse {
+  50% {
+    box-shadow: 0 0 0 3px rgba(229, 19, 0, 0.4);
+  }
+}
+
+/* Confetti ---------------------------------------------------------------- */
+
+.tower-confetti {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 4;
+  overflow: hidden;
+}
+
+.tower-confetti__bit {
+  position: absolute;
+  top: -12px;
+  width: 6px;
+  height: 10px;
+  animation: tower-confetti-fall 1100ms steps(12, end) both;
+}
+
+.tower-confetti--crowned .tower-confetti__bit {
+  width: 7px;
+  height: 12px;
+  animation-duration: 1500ms;
+}
+
+@keyframes tower-confetti-fall {
+  from {
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(150px) rotate(90deg);
+    opacity: 0;
+  }
+}
+
+/* Bracket toggle ---------------------------------------------------------- */
+
+.tower__bracket-wrap {
+  display: flex;
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+  border: 2px solid var(--line);
+  background: #1b1b2a;
+  overflow: auto;
+  max-height: min(74vh, 760px);
+}
+
+.bracket {
+  width: max-content;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bracket__belt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid var(--sun-2);
+  background: #241f10;
+  padding: 5px 10px;
+  margin-bottom: 6px;
+  color: var(--sun-1);
+}
+
+.bracket__belt-stripes {
+  width: 44px;
+  height: 10px;
+  background: var(--stripe-bands-x);
+  border: 1px solid #151524;
+}
+
+.bracket__belt-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+
+.bracket__belt-holder {
+  margin-left: auto;
+  font-family: var(--font-pixel);
+  font-size: 18px;
+  color: #fafaf4;
+}
+
+.bracket__block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bracket__round {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sun-1);
+}
+
+.bracket__round span {
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+}
+
+.bracket__row {
+  display: flex;
+  gap: 0;
+}
+
+.bracket__cell {
+  display: flex;
+  justify-content: center;
+  flex: none;
+}
+
+.bracket__card {
+  width: 214px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 2px solid var(--line-2);
+  background: #232333;
+  color: var(--ink);
+  padding: 5px 6px;
+  text-align: left;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.bracket__card:hover {
+  background: var(--night-3);
+}
+
+.bracket__card--live {
+  border-color: var(--sun-5);
+  animation: tower-live-pulse 1s steps(2, end) infinite;
+}
+
+.bracket__card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.bracket__slot {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+
+.bracket__side {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-left: 3px solid transparent;
+  padding: 1px 3px;
+}
+
+.bracket__seed {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--ink-3);
+  width: 20px;
+  flex: none;
+}
+
+.bracket__name {
+  font-family: var(--font-pixel);
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bracket__side--winner {
+  border-left-color: var(--sun-2);
+  background: #2a2415;
+}
+
+.bracket__side--out {
+  opacity: 0.45;
+}
+
+.bracket__win {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--sun-1);
+  border: 1px solid var(--sun-2);
+  padding: 0 3px;
+}
+
+.bracket__links {
+  display: flex;
+  height: 26px;
+}
+
+.bracket__link {
+  position: relative;
+  height: 100%;
+  flex: none;
+}
+
+.bracket__link::before {
+  content: "";
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 13px;
+  height: 2px;
+  background: var(--line-2);
+}
+
+.bracket__link-left,
+.bracket__link-right,
+.bracket__link-stem {
+  position: absolute;
+  width: 2px;
+  background: var(--line-2);
+}
+
+.bracket__link-left {
+  left: 25%;
+  top: 13px;
+  bottom: 0;
+}
+
+.bracket__link-right {
+  left: 75%;
+  top: 13px;
+  bottom: 0;
+}
+
+.bracket__link-stem {
+  left: 50%;
+  top: 0;
+  height: 14px;
+}
+
+/* Narrow screens ---------------------------------------------------------- */
+
+@media (max-width: 700px) {
+  .tower {
+    width: min(100% - 16px, var(--content-width));
+    padding-top: var(--space-3);
+  }
+
+  .tower__title {
+    font-size: var(--type-28);
+  }
+
+  .tower__body {
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .floors {
+    padding-right: 5px;
+    gap: 6px;
+  }
+
+  .floors__rung {
+    padding: 2px 2px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .floors__name {
+    font-size: 8px;
+  }
+
+  .floors__count {
+    font-size: 8px;
+  }
+
+  .tower__champion-stat {
+    margin-left: 0;
+  }
+}
+
+/* Dev harness ------------------------------------------------------------- */
+
+.tower-dev {
+  width: 100%;
+  margin: 0;
+  padding: var(--space-2) clamp(8px, 2vw, 24px) 0;
+  color: var(--ink);
+}
+
+.tower-dev__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  border: 2px solid var(--ink);
+  background: var(--paper-2);
+  padding: 7px 9px;
+  box-shadow: var(--shadow-hard-sm);
+}
+
+.tower-dev__label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.tower-dev__group {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.tower-dev__step,
+.tower-dev__opened {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+}
+
+.tower-dev__opened {
+  margin-left: auto;
+}
+
+.tower-dev__note {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--ink-3);
+}
