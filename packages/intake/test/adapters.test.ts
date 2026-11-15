@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { fetchHn } from "../src/hn.js";
 import type { FetchFn, NetworkDeps } from "../src/types.js";
 import { fetchWeb } from "../src/web.js";
-import { fetchX } from "../src/x.js";
+import { fetchX, largerAvatarUrl } from "../src/x.js";
 
 const now = () => "2026-11-05T19:05:00.000Z";
 const sleep = async () => {};
@@ -118,6 +118,53 @@ describe("fetchX", () => {
     });
     const result = await fetchX({ handle: "testuser" }, depsFor(fetch, "token"));
     expect(result.kind).toBe("failed");
+  });
+
+  it("returns the larger avatar variant from a recorded user response", async () => {
+    const urls: string[] = [];
+    const userWithPhoto = {
+      data: { profile_image_url: "https://pbs.twimg.com/profile_images/1/abc_normal.jpg" },
+    };
+    const fetch: FetchFn = async (url: string) => {
+      urls.push(url);
+      if (url.includes("user.fields=profile_image_url")) return jsonResponse(200, userWithPhoto);
+      if (url.includes("/tweets")) return jsonResponse(200, { data: [] });
+      return jsonResponse(200, xUser);
+    };
+    const result = await fetchX({ handle: "testuser" }, depsFor(fetch, "token"));
+    expect(result.kind).toBe("ok");
+    if (result.kind !== "ok") return;
+    expect(result.value.avatarUrl).toBe("https://pbs.twimg.com/profile_images/1/abc_400x400.jpg");
+    expect(urls.some((url) => url.includes("user.fields=profile_image_url"))).toBe(true);
+  });
+
+  it("leaves avatarUrl unset when the user has no profile photo", async () => {
+    const fetch: FetchFn = async (url: string) => {
+      if (url.includes("/tweets")) return jsonResponse(200, { data: [] });
+      return jsonResponse(200, xUser);
+    };
+    const result = await fetchX({ handle: "testuser" }, depsFor(fetch, "token"));
+    expect(result.kind).toBe("ok");
+    if (result.kind !== "ok") return;
+    expect(result.value.avatarUrl).toBeUndefined();
+  });
+});
+
+describe("largerAvatarUrl", () => {
+  it("swaps the small thumbnail suffix for the larger variant", () => {
+    expect(largerAvatarUrl("https://pbs.twimg.com/profile_images/1/abc_normal.jpg")).toBe(
+      "https://pbs.twimg.com/profile_images/1/abc_400x400.jpg",
+    );
+    expect(largerAvatarUrl("https://pbs.twimg.com/profile_images/1/abc_normal.jpeg")).toBe(
+      "https://pbs.twimg.com/profile_images/1/abc_400x400.jpeg",
+    );
+  });
+
+  it("passes anything else through unchanged", () => {
+    expect(largerAvatarUrl("https://example.com/photo.jpg")).toBe("https://example.com/photo.jpg");
+    expect(largerAvatarUrl("https://pbs.twimg.com/profile_images/1/abc_400x400.jpg")).toBe(
+      "https://pbs.twimg.com/profile_images/1/abc_400x400.jpg",
+    );
   });
 });
 

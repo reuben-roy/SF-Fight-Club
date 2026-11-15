@@ -6,6 +6,8 @@ export interface FetchResponse {
   status: number;
   headers: FetchHeaders;
   text(): Promise<string>;
+  /** Raw bytes for image downloads. Present in live and test doubles that serve binary. */
+  arrayBuffer?(): Promise<Uint8Array>;
 }
 
 export interface FetchOptions {

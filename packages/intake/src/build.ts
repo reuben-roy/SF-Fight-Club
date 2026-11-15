@@ -2,6 +2,8 @@ import { entrantProfileSchema, type EntrantProfile, type IdeaSubmission } from "
 
 import { scoreClout } from "./clout.js";
 import type { HnResult, HnValue } from "./hn.js";
+import { fetchPortrait, type AvatarFetchFn } from "./portrait.js";
+import type { SleepFn } from "./types.js";
 import type { WebResult } from "./web.js";
 import type { XResult } from "./x.js";
 
@@ -10,6 +12,8 @@ export interface FounderSeed {
   role?: string;
   xHandle?: string;
   hnUser?: string;
+  /** Host-supplied photo URL. Fetched through the same portrait pipeline as X avatars. */
+  avatarUrl?: string;
 }
 
 export interface CompanySeed {
@@ -27,6 +31,12 @@ export interface BuildInput {
   hn: HnResult | null;
   x: XResult | null;
   web: WebResult | null;
+}
+
+/** When present, avatars are downloaded and portraited. Omit it (demo fixtures do) and no founder gets portrait fields. */
+export interface PortraitHook {
+  fetch: AvatarFetchFn;
+  sleep: SleepFn;
 }
 
 export interface BuildOutput {
@@ -47,8 +57,10 @@ function xPosts(x: XResult | null): { text: string; metrics: { likes?: number; r
 /**
  * Merges adapter results into a validated EntrantProfile. A failed source
  * becomes a warning, never a crash; the profile is built from what succeeded.
+ * Portraits are best-effort: a founder whose avatar cannot be portraited keeps
+ * the generated figure and gains a warning, never an error.
  */
-export function buildProfile(input: BuildInput): BuildOutput {
+export async function buildProfile(input: BuildInput, portraits?: PortraitHook): Promise<BuildOutput> {
   const warnings: string[] = [];
 
   for (const [label, result] of [
@@ -66,13 +78,37 @@ export function buildProfile(input: BuildInput): BuildOutput {
   const x = input.x !== null && input.x.kind === "ok" ? input.x.value : null;
   const web = input.web !== null && input.web.kind === "ok" ? input.web.value : null;
 
-  const founders = input.founders.map((founder) => {
+  const avatarByFounder = input.founders.map((founder) => {
+    if (founder.avatarUrl !== undefined && founder.avatarUrl !== "") return founder.avatarUrl;
+    if (portraits === undefined || x?.avatarUrl === undefined) return undefined;
+    const handle = founder.xHandle?.replace(/^@/, "").toLowerCase();
+    if (handle !== undefined && handle !== "" && handle === x.handle.toLowerCase()) return x.avatarUrl;
+    return undefined;
+  });
+  const portraitByFounder = await Promise.all(
+    avatarByFounder.map((avatarUrl) =>
+      avatarUrl === undefined || portraits === undefined
+        ? Promise.resolve(null)
+        : fetchPortrait({ avatarUrl }, portraits),
+    ),
+  );
+
+  const founders = input.founders.map((founder, index) => {
     const handle = founder.xHandle?.replace(/^@/, "").toLowerCase();
     const followers =
       handle !== undefined && handle !== "" && x !== null && x.handle.toLowerCase() === handle
         ? x.followers
         : undefined;
     const hnKarma = founder.hnUser !== undefined && hn !== null ? hn.karmaByUser[founder.hnUser] : undefined;
+    const avatarUrl = avatarByFounder[index];
+    const rendered = portraitByFounder[index];
+    if (rendered !== null && rendered !== undefined && rendered.kind === "none") {
+      warnings.push(`portrait: no portrait for ${founder.name} (${rendered.reason}: ${rendered.detail})`);
+    }
+    const attached =
+      rendered !== null && rendered !== undefined && rendered.kind === "ok"
+        ? { portrait: rendered.portrait, portraitTraits: { ...rendered.traits } }
+        : {};
     return {
       name: founder.name,
       role: founder.role,
@@ -80,6 +116,8 @@ export function buildProfile(input: BuildInput): BuildOutput {
       hnUser: founder.hnUser,
       followers,
       hnKarma,
+      ...(avatarUrl === undefined ? {} : { avatarUrl }),
+      ...attached,
     };
   });
 

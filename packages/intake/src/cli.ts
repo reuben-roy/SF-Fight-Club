@@ -15,6 +15,7 @@ function usage(): string {
     "  intake --hn <item id or url> --x <handle> --url <site> --out <file>",
     "         [--id <entrant-id>] [--name <company>] [--tagline <text>]",
     "         [--founder <name[,xHandle[,hnUser[,role]]]>] (repeatable)",
+    "         [--avatar \"<founder name>=<url>\"] (repeatable) [--no-portraits]",
     "  intake --from-fixtures [--out-dir <dir>]",
     "",
     "Single mode builds one EntrantProfile from live APIs. Fixture mode",
@@ -50,6 +51,7 @@ interface FounderFlag {
   role?: string;
   xHandle?: string;
   hnUser?: string;
+  avatarUrl?: string;
 }
 
 function parseFounder(flag: string): FounderFlag {
@@ -69,6 +71,7 @@ function liveDeps(): NetworkDeps & { bearerToken?: string } {
       status: response.status,
       headers: { get: (name: string) => response.headers.get(name) },
       text: () => response.text(),
+      arrayBuffer: async () => new Uint8Array(await response.arrayBuffer()),
     };
   };
   return {
@@ -77,6 +80,14 @@ function liveDeps(): NetworkDeps & { bearerToken?: string } {
     sleep: (ms: number) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms)),
     bearerToken: process.env["X_BEARER_TOKEN"],
   };
+}
+
+function parseAvatarFlag(flag: string): { name: string; url: string } {
+  const equals = flag.indexOf("=");
+  if (equals === -1 || flag.slice(0, equals).trim() === "" || flag.slice(equals + 1).trim() === "") {
+    throw new Error(`--avatar needs "<founder name>=<url>": ${flag}`);
+  }
+  return { name: flag.slice(0, equals).trim(), url: flag.slice(equals + 1).trim() };
 }
 
 export async function run(argv: string[]): Promise<{ exitCode: number }> {
@@ -116,6 +127,9 @@ export async function run(argv: string[]): Promise<{ exitCode: number }> {
   const id = takeFlag(args, ["--id"]);
   const name = takeFlag(args, ["--name"]);
   const founderFlags = takeAll(args, ["--founder"]);
+  const avatarFlags = takeAll(args, ["--avatar"]);
+  const noPortraits = args.includes("--no-portraits");
+  if (noPortraits) args.splice(args.indexOf("--no-portraits"), 1);
   if (out === undefined) {
     console.error(usage());
     console.error("\n--out is required.");
@@ -130,6 +144,18 @@ export async function run(argv: string[]): Promise<{ exitCode: number }> {
   const entrantId = id ?? "entrant";
   const companyName = name ?? "Untitled entrant";
   const founders = founderFlags.map(parseFounder);
+  if (noPortraits && avatarFlags.length > 0) {
+    console.error("warning: --avatar is ignored with --no-portraits.");
+  }
+  for (const flag of avatarFlags) {
+    const { name: founderName, url: avatarUrl } = parseAvatarFlag(flag);
+    const founder = founders.find((candidate) => candidate.name.toLowerCase() === founderName.toLowerCase());
+    if (founder === undefined) {
+      console.error(`--avatar names an unknown founder: ${founderName}`);
+      return { exitCode: 2 };
+    }
+    founder.avatarUrl = avatarUrl;
+  }
   const deps = liveDeps();
 
   const hnResult =
@@ -150,14 +176,30 @@ export async function run(argv: string[]): Promise<{ exitCode: number }> {
         : null;
   const webResult = url !== undefined ? await fetchWeb({ url }, deps) : null;
 
-  const { profile, warnings } = buildProfile({
-    entrantId,
-    company: { name: companyName, url, tagline },
-    founders,
-    hn: hnResult,
-    x: xResult,
-    web: webResult,
-  });
+  const portraits = noPortraits
+    ? undefined
+    : {
+        fetch: async (avatarUrl: string) => {
+          const response = await fetch(avatarUrl);
+          return {
+            status: response.status,
+            headers: { get: (header: string) => response.headers.get(header) },
+            arrayBuffer: async () => new Uint8Array(await response.arrayBuffer()),
+          };
+        },
+        sleep: deps.sleep,
+      };
+  const { profile, warnings } = await buildProfile(
+    {
+      entrantId,
+      company: { name: companyName, url, tagline },
+      founders,
+      hn: hnResult,
+      x: xResult,
+      web: webResult,
+    },
+    portraits,
+  );
   for (const warning of warnings) console.error(`warning: ${warning}`);
 
   const path = resolve(out);

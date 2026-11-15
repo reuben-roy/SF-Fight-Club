@@ -17,6 +17,7 @@
     "intake": "tsx src/cli.ts"
   },
   "dependencies": {
+    "@sf-fight-club/portrait": "workspace:*",
     "@sf-fight-club/schemas": "workspace:*",
     "zod": "^4.6.7"
   },
