@@ -8,6 +8,7 @@
  * fixtures/parse.ts and never imports the orchestrator.
  */
 import { readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { buildHash, DEMO_ENTRANTS, DEMO_SEED, runDemoTournament } from "@sf-fight-club/orchestrator";
@@ -60,7 +61,7 @@ function loadProfile(entrantId: string): EntrantProfile {
   return entrantProfileSchema.parse(parsed);
 }
 
-function main(): void {
+export function buildTowerFixture(): FixtureDocument {
   const fighterBuild = build();
   const tournament = runDemoTournament({ at: AT, build: fighterBuild, rubric: loadVcDefaultRubric() });
 
@@ -95,8 +96,14 @@ function main(): void {
     matches,
   };
 
-  const out = new URL("./demo-tournament.json", import.meta.url);
-  writeFileSync(out, `${JSON.stringify(document, null, 2)}\n`);
+  return document;
 }
 
-main();
+function main(): void {
+  const out = new URL("./demo-tournament.json", import.meta.url);
+  writeFileSync(out, `${JSON.stringify(buildTowerFixture(), null, 2)}\n`);
+}
+
+if (process.argv[1] !== undefined && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
+  main();
+}

@@ -12,7 +12,7 @@ import { Button, Stamp } from "../styles/components.js";
 import { useAppStore } from "../data/index.js";
 import { selectFighterCard } from "../data/store.js";
 import { FighterCardDialog } from "./fighter-card-dialog.js";
-import { MascotFigure, Skyline } from "./visuals.js";
+import { MascotFigure, HeroStage } from "./visuals.js";
 
 const HOUSE_RULES = [
   "Every fighter is the same agent. Only the idea fights.",
@@ -39,7 +39,7 @@ export default function HomeScreen(): ReactElement {
   return (
     <div className="sfc-home">
       <section className="sfc-hero" data-theme="night" aria-label="SF Fight Club">
-        <Skyline />
+        <HeroStage />
         <div className="sfc-page sfc-hero__inner">
           <p className="sfc-kicker">A tournament of identical agents</p>
           <h1 className="sfc-hero__title">

@@ -82,6 +82,25 @@ export interface MatchPreFightProps {
   onPlaceBet: (entrantId: string, stake: number) => void;
 }
 
+export function statusLabel(status: MatchView["status"]): string {
+  switch (status) {
+    case "scheduled":
+      return "Scheduled";
+    case "betting_open":
+      return "Betting open";
+    case "locked":
+      return "Bets locked";
+    case "live":
+      return "Live";
+    case "complete":
+      return "Final";
+    default: {
+      const _exhaustive: never = status;
+      return _exhaustive;
+    }
+  }
+}
+
 export function MatchPreFight({
   view,
   a,
@@ -101,7 +120,7 @@ export function MatchPreFight({
       <div className="sfc-page sfc-match__inner">
         <div className="sfc-match__head">
           <p className="sfc-kicker">{roundLabel} · Tale of the tape</p>
-          <p className="sfc-status">Status: {view.status}</p>
+          <p className="sfc-status">Status: {statusLabel(view.status)}</p>
         </div>
 
         <div className="sfc-tale">
@@ -213,7 +232,10 @@ export function MatchResult({
   return (
     <section className="sfc-result" data-theme="night" aria-label="Result">
       <div className="sfc-page sfc-result__inner">
-        <p className="sfc-kicker">{roundLabel} · Result</p>
+        <div className="sfc-match__head">
+          <p className="sfc-kicker">{roundLabel} · Result</p>
+          <p className="sfc-status">Status: {statusLabel(view.status)}</p>
+        </div>
         <div className="sfc-result__banner">
           <Stamp tone={stamp.tone} size="lg">
             {stamp.label}

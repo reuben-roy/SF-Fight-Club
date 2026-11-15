@@ -116,7 +116,7 @@ export function OrgTile({
           spriteSeed={entrant.spriteSeed}
           category={entrant.category}
           corner={node.seed % 2 === 0 ? "right" : "left"}
-          size={compact ? 40 : placement.depth === 0 ? 64 : 52}
+          size={compact ? 46 : placement.depth === 0 ? 68 : 60}
           label={`${entrant.name} mascot`}
         />
       </span>

@@ -272,16 +272,15 @@
 }
 
 .tower-tile--acquired {
-  border-color: var(--line-2);
-  background: #1b1b2a;
-  color: var(--ink-3);
+  border-color: #4c4c68;
+  background: #26263a;
+  color: var(--ink-2);
   box-shadow: 2px 2px 0 #000;
-  opacity: 0.82;
 }
 
 .tower-tile--acquired .tower-tile__sprite,
 .tower-tile--acquired .tower-tile__name {
-  filter: grayscale(0.5) brightness(0.9);
+  filter: grayscale(0.15) brightness(1.15) contrast(1.05);
 }
 
 .tower-tile--champion {

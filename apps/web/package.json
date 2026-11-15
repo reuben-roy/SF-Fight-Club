@@ -9,7 +9,7 @@
     "build": "pnpm run build:deps && pnpm run typecheck && vite build",
     "preview": "vite preview --port 4173 --strictPort",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "demo:data": "tsx scripts/build-demo-data.ts",
+    "demo:data": "pnpm run build:deps && tsx scripts/build-demo-data.ts && tsx src/arena/fixtures/generate.ts && tsx src/tower/fixtures/generate.ts",
     "e2e": "playwright test",
     "test": "pnpm run build:deps && pnpm run typecheck && vitest run",
     "screenshots": "pnpm run build:deps && pnpm run build && tsx scripts/screenshots.ts",

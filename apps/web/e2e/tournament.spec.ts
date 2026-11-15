@@ -30,6 +30,7 @@ const HOUSE_RULES = [
 ] as const;
 
 test("full tournament: bets, bells, champion, film, reload", async ({ page }) => {
+  test.setTimeout(180_000);
   await page.goto("/?reset=1");
   await expect(page.getByRole("heading", { name: "SF FIGHT CLUB" })).toBeVisible();
   await expect(page.getByText("Wallet: S$1000")).toBeVisible();
@@ -49,7 +50,7 @@ test("full tournament: bets, bells, champion, film, reload", async ({ page }) =>
 
   // Open betting on the first opener and place a bet on PermitPilot.
   await page.goto("/match/demo-r0s0");
-  await expect(page.getByText("Status: betting_open")).toBeVisible();
+  await expect(page.getByText("Status: Betting open")).toBeVisible();
   const sideA = page.getByRole("radio", { name: /PermitPilot/ });
   await sideA.check();
   await page.getByRole("button", { name: "S$100", exact: true }).click();
@@ -57,16 +58,26 @@ test("full tournament: bets, bells, champion, film, reload", async ({ page }) =>
 
   // Ring the bell: betting locks.
   await page.getByRole("button", { name: "Ring the bell" }).click();
-  await expect(page.getByText("Status: locked")).toBeVisible();
+  await expect(page.getByText("Status: Bets locked")).toBeVisible();
   await expect(page.getByText("Betting is closed for this match.")).toBeVisible();
   await expect(page.getByRole("button", { name: /Place S\$/ })).toBeDisabled();
   await expect(page.getByRole("button", { name: "Open betting" })).toHaveCount(0);
   // Ring it again: the fight goes live.
   await page.getByRole("button", { name: "Ring the bell" }).click();
 
-  // Play through the script to the result.
-  await page.getByRole("button", { name: "Skip to result" }).click();
-  await expect(page.getByRole("heading", { name: "PermitPilot wins" })).toBeVisible();
+  // Play the opener on the real arena to the finish. Receipts start empty.
+  await expect(page.locator(".arena")).toBeVisible();
+  await expect(page.locator(".arena-receipt")).toHaveCount(0);
+  await page.getByRole("button", { name: "4x", exact: true }).click();
+  await expect(page.locator(".arena-deck").getByText(/used /).first()).toBeVisible({ timeout: 20_000 });
+  await expect.poll(async () => page.locator(".arena-receipt").count(), { timeout: 20_000 }).toBeGreaterThan(0);
+  const firstReceipts = await page.locator(".arena-receipt").count();
+  await expect.poll(async () => page.locator(".arena-receipt").count(), { timeout: 20_000 }).toBeGreaterThan(firstReceipts);
+  const firstHp = await page.locator(".arena-plate__hp").allTextContents();
+  await expect
+    .poll(async () => (await page.locator(".arena-plate__hp").allTextContents()).join("/"), { timeout: 30_000 })
+    .not.toBe(firstHp.join("/"));
+  await expect(page.getByRole("heading", { name: "PermitPilot wins" })).toBeVisible({ timeout: 90_000 });
   // Winner-backed bet pays out: the wallet moves off the post-stake 900.
   await expect(page.getByText("wallet S$900")).toHaveCount(0);
 
@@ -78,7 +89,7 @@ test("full tournament: bets, bells, champion, film, reload", async ({ page }) =>
   for (const id of MATCH_IDS.slice(1)) {
     await page.goto(`/match/${id}`);
     // Betting opens on arrival for available fights.
-    await expect(page.getByText(/Status: (scheduled|betting_open)/)).toBeVisible();
+    await expect(page.getByText(/Status: (Scheduled|Betting open)/)).toBeVisible();
     const lock = page.getByRole("button", { name: "Ring the bell (lock bets)" });
     await lock.waitFor();
     await lock.click();
@@ -107,4 +118,34 @@ test("full tournament: bets, bells, champion, film, reload", async ({ page }) =>
   await expect(page.getByRole("heading", { name: /PermitPilot v CurbBot/ })).toBeVisible();
   await page.goto("/");
   await expect(page.getByText("Tournament: 7 of 7 fights complete")).toBeVisible();
+});
+
+test("final: sudden death tally and the ACQUIRED moment", async ({ page }) => {
+  test.setTimeout(180_000);
+  await page.goto("/?reset=1");
+
+  for (const id of MATCH_IDS.slice(0, 6)) {
+    await page.goto(`/match/${id}`);
+    await expect(page.getByText(/Status: (Scheduled|Betting open)/)).toBeVisible();
+    await page.getByRole("button", { name: "Ring the bell (lock bets)" }).click();
+    await page.getByRole("button", { name: "Ring the bell (start the fight)" }).click();
+    await page.getByRole("button", { name: "Skip to result" }).click();
+  }
+
+  await page.goto("/match/demo-r2s0");
+  await expect(page.getByText("Status: Betting open")).toBeVisible();
+  await page.getByRole("button", { name: "Ring the bell (lock bets)" }).click();
+  await page.getByRole("button", { name: "Ring the bell (start the fight)" }).click();
+  await expect(page.locator(".arena")).toBeVisible();
+
+  await page.getByRole("button", { name: "2x", exact: true }).click();
+  const pips = page.locator(".arena-pip");
+  await expect(pips.last()).toBeVisible();
+  await pips.last().click();
+
+  await expect(page.locator(".arena-death")).toBeVisible({ timeout: 60_000 });
+  await expect(page.locator(".arena-death")).toContainText("SUDDEN DEATH");
+  await expect(page.locator(".arena-death__tally")).toBeVisible();
+  await expect(page.locator(".arena-winner__acquired")).toBeVisible({ timeout: 60_000 });
+  await expect(page.locator(".arena-winner__acquired")).toContainText("ACQUIRED");
 });
