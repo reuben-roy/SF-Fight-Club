@@ -330,6 +330,17 @@ export interface FightReport {
 }
 
 // ---------------------------------------------------------------------------
+// Pixel portrait
+// ---------------------------------------------------------------------------
+
+/** A founder's profile photo turned into indexed pixel art. The photo itself is never shown. */
+export interface PixelPortrait {
+  size: 24;            // square, 24x24
+  palette: string[];   // 2 to 8 hex colors
+  pixels: number[];    // size * size palette indices, row-major
+}
+
+// ---------------------------------------------------------------------------
 // Broadcast script (director output, consumed by the arena)
 // ---------------------------------------------------------------------------
 

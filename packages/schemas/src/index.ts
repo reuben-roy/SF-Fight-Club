@@ -134,6 +134,17 @@ export {
 } from "./mistral.js";
 export type { JsonSchema, MistralResponseFormat } from "./mistral.js";
 
+export {
+  MAX_PORTRAIT_COLORS,
+  MIN_PORTRAIT_COLORS,
+  PORTRAIT_PIXEL_COUNT,
+  PORTRAIT_SIZE,
+  pixelPortraitSchema,
+  portraitPaletteSchema,
+  portraitPixelsSchema,
+} from "./portrait.js";
+export type { PixelPortrait } from "./portrait.js";
+
 export { loadLlmJsonSchemas } from "./load-generated.js";
 
 export { generatedSchemaDir, repoRoot, vcDefaultRubricPath } from "./paths.js";
