@@ -12,7 +12,8 @@
     "demo:data": "tsx scripts/build-demo-data.ts",
     "e2e": "playwright test",
     "test": "pnpm --filter @sf-fight-club/schemas build && pnpm --filter @sf-fight-club/engine build && pnpm run typecheck && vitest run",
-    "screenshots": "pnpm --filter @sf-fight-club/schemas build && pnpm --filter @sf-fight-club/engine build && pnpm run build && tsx scripts/screenshots.ts"
+    "screenshots": "pnpm --filter @sf-fight-club/schemas build && pnpm --filter @sf-fight-club/engine build && pnpm run build && tsx scripts/screenshots.ts",
+    "screenshots:pages": "pnpm --filter @sf-fight-club/schemas build && pnpm --filter @sf-fight-club/engine build && pnpm run build && tsx scripts/screenshots-pages.ts"
   },
   "dependencies": {
     "@sf-fight-club/engine": "workspace:*",

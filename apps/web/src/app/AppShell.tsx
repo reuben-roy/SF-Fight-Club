@@ -1,13 +1,19 @@
 import { Suspense, useEffect, useRef, useState, type ReactElement } from "react";
 import { Link, NavLink, Outlet, createBrowserRouter, useLocation } from "react-router-dom";
 
+import { Icon } from "../art/icons.js";
 import { PlaceholderPage, StripeWipe, classNames } from "../styles/components.js";
 import { useAppState } from "../styles/app-state.js";
-import { AppStoreProvider } from "../data/index.js";
+import { AppStoreProvider, useAppStore } from "../data/index.js";
 import { ROUTES } from "../routes.js";
+
+function formatWallet(wallet: number): string {
+  return wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 function TopBar(): ReactElement {
   const { muted, setMuted, reducedMotion, setReducedMotion, sound } = useAppState();
+  const { state } = useAppStore();
 
   const toggleSound = (): void => {
     const next = !muted;
@@ -34,6 +40,10 @@ function TopBar(): ReactElement {
         </NavLink>
       </nav>
       <div className="sfc-topbar__spacer" />
+      <span className="sfc-wallet" aria-label={`Wallet balance: ${state.wallet} play dollars`}>
+        <Icon name="coin" size={14} />
+        <span aria-hidden="true">S$ {formatWallet(state.wallet)}</span>
+      </span>
       <div className="sfc-topbar__toggles">
         <button
           type="button"
@@ -72,20 +82,20 @@ function Shell(): ReactElement {
   }, [location.pathname]);
 
   return (
-    <div className="sfc-shell">
-      <TopBar />
-      <main id="main">
-        <Suspense fallback={<PlaceholderPage kicker="Loading" title="SF FIGHT CLUB" />}>
-          <AppStoreProvider>
+    <AppStoreProvider>
+      <div className="sfc-shell">
+        <TopBar />
+        <main id="main">
+          <Suspense fallback={<PlaceholderPage kicker="Loading" title="SF FIGHT CLUB" />}>
             <Outlet />
-          </AppStoreProvider>
-        </Suspense>
-      </main>
-      <footer className="sfc-footer">
-        Built at the Mistral AI hackathon / Fictional demo data / Play money only, no cash value
-      </footer>
-      <StripeWipe active={wipe} />
-    </div>
+          </Suspense>
+        </main>
+        <footer className="sfc-footer">
+          Built at the Mistral AI hackathon / Fictional demo data / Play money only, no cash value
+        </footer>
+        <StripeWipe active={wipe} />
+      </div>
+    </AppStoreProvider>
   );
 }
 

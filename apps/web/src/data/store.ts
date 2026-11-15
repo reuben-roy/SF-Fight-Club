@@ -25,7 +25,7 @@ import type { ArenaScreenProps, CrewMember } from "../arena/types.js";
 import { computePool, isValidStake, settleBets, STARTING_WALLET } from "../bets/odds.js";
 import type { FighterCardProps } from "../cards/types.js";
 import type { TowerEntrant, TowerMatch, TowerScreenProps } from "../tower/types.js";
-import type { BundleMatch, DemoBundle } from "./demo-bundle.js";
+import type { BundleMatch, DemoBundle, FilmData } from "./demo-bundle.js";
 
 export type AppMatchStatus = "scheduled" | "betting_open" | "locked" | "live" | "complete";
 
@@ -257,6 +257,27 @@ export function selectOrgCharts(state: AppState, bundle: DemoBundle): OrgCharts 
     }),
   });
   return { chart, previousChart };
+}
+
+/** Org chart with one match left out, for a result page's "before" title. */
+export function selectOrgChartBefore(
+  state: AppState,
+  bundle: DemoBundle,
+  matchId: string,
+): OrgChart {
+  const completed = state.completedOrder.filter((id) => id !== matchId);
+  const results = bundle.matches
+    .filter((m) => completed.includes(m.matchId))
+    .map((m) => ({
+      roundIndex: m.roundIndex,
+      slotIndex: m.slotIndex,
+      winnerId: m.winnerId,
+      status: "complete" as const,
+    }));
+  return buildOrgChart({
+    bracket: bundle.bracket,
+    resolutions: resolveBracket({ bracket: bundle.bracket, results }),
+  });
 }
 
 function findNode(roots: readonly OrgNode[], entrantId: string): OrgNode | null {
@@ -513,9 +534,12 @@ export interface FilmView {
   sealed: boolean;
   aName: string | null;
   bName: string | null;
+  corners: { left: "A" | "B"; right: "A" | "B" } | null;
   script: BroadcastScript | null;
   resolution: MatchResolution | null;
   report: FightReport | null;
+  /** Scorecard, shots, evidence locker and tiebreak. Sealed until complete. */
+  film: FilmData | null;
 }
 
 /** Film room: sealed until the match is complete. */
@@ -530,9 +554,11 @@ export function selectFilm(state: AppState, bundle: DemoBundle, matchId: string)
     sealed,
     aName: match.fighters.A.name,
     bName: match.fighters.B.name,
+    corners: match.corners,
     script: sealed ? null : match.script,
     resolution: sealed ? null : match.resolution,
     report: sealed ? null : match.report,
+    film: sealed ? null : match.film,
   };
 }
 

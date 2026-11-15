@@ -167,11 +167,8 @@ export function TowerScreen(props: TowerScreenProps): ReactElement {
   }
   const rounds = [...byRound.entries()].sort(([a], [b]) => a - b);
   const standings = flattenRoots(props.chart.roots);
-  const championId = props.chart.championId;
-  const championName = championId ? (props.entrants[championId]?.name ?? championId) : null;
   return (
     <section aria-label="Tower">
-      {championName ? <p>Champion: {championName}</p> : <p>Champion: TBD</p>}
       <h2>Standings</h2>
       <ul>
         {standings.map((node) => (

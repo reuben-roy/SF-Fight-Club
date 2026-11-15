@@ -1,4 +1,4 @@
-export { BetSlip, type BetSlipProps } from "./bet-slip.js";
+export { BetSlip, BetSettlement, type BetSlipProps, type BetSettlementProps, type SlipBet } from "./bet-slip.js";
 export { CHIP_VALUES, HOUSE_SEED_TOTAL, STARTING_WALLET } from "./odds.js";
 export {
   computePool,

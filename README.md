@@ -46,10 +46,11 @@ To run the web app:
 ```bash
 pnpm --filter @sf-fight-club/web dev      # http://localhost:5173
 pnpm --filter @sf-fight-club/web build
-pnpm --filter @sf-fight-club/web screenshots
+pnpm --filter @sf-fight-club/web screenshots        # art gallery and stage PNGs
+pnpm --filter @sf-fight-club/web screenshots:pages  # home, match, result, film, tower
 ```
 
-Open `/dev/art` in the dev server for the art gallery. `screenshots` builds the app, starts the preview server and writes the gallery and stage PNGs to `apps/web/screenshots/art`.
+Open `/dev/art` in the dev server for the art gallery. `screenshots` builds the app, starts the preview server and writes the gallery and stage PNGs to `apps/web/screenshots/art`. `screenshots:pages` drives a full tournament and writes the page review PNGs to `apps/web/screenshots/pages`.
 
 The demo tournament ships as a committed static bundle. Regenerate it after
 fixture or pipeline changes, then run the web unit tests and the end-to-end
