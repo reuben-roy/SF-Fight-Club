@@ -156,6 +156,7 @@ export {
   MIN_PORTRAIT_COLORS,
   PORTRAIT_PIXEL_COUNT,
   PORTRAIT_SIZE,
+  hexColorSchema,
   pixelPortraitSchema,
   portraitPaletteSchema,
   portraitPixelsSchema,

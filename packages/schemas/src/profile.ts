@@ -1,6 +1,7 @@
 import * as z from "zod";
 
 import { isoDateTimeSchema } from "./common.js";
+import { hexColorSchema, pixelPortraitSchema } from "./portrait.js";
 
 const companySchema = z.strictObject({
   name: z.string().min(1),
@@ -10,6 +11,15 @@ const companySchema = z.strictObject({
   location: z.string().optional(),
 });
 
+const portraitTraitsSchema = z
+  .strictObject({
+    skin: hexColorSchema,
+    skinShadow: hexColorSchema,
+    hair: hexColorSchema,
+    accent: hexColorSchema,
+  })
+  .meta({ title: "PortraitTraits", description: "Hex colors measured from the profile photo. The photo itself is never rendered." });
+
 const founderSchema = z.strictObject({
   name: z.string().min(1),
   role: z.string().optional(),
@@ -17,6 +27,9 @@ const founderSchema = z.strictObject({
   hnUser: z.string().min(1).optional(),
   followers: z.number().int().min(0).optional(),
   hnKarma: z.number().int().min(0).optional(),
+  avatarUrl: z.string().min(1).optional(),
+  portrait: pixelPortraitSchema.optional(),
+  portraitTraits: portraitTraitsSchema.optional(),
 });
 
 const postSourceSchema = z.enum(["x", "hn", "web"]);

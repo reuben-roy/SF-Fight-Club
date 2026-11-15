@@ -250,6 +250,7 @@ export interface EntrantProfile {
     hnKarma?: number;
     avatarUrl?: string;      // the source photo, kept for provenance, never rendered
     portrait?: PixelPortrait;
+    portraitTraits?: { skin: string; skinShadow: string; hair: string; accent: string };
   }[];
   posts: {
     source: "x" | "hn" | "web";
