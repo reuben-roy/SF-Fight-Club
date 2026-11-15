@@ -24,6 +24,7 @@ Design and groundwork. Shared contracts live in `packages/schemas`. Fight math l
 | [packages/schemas](packages/schemas) | `@sf-fight-club/schemas`. Zod parsers for those contracts, plus committed JSON Schema for Mistral structured outputs. |
 | [packages/engine](packages/engine) | `@sf-fight-club/engine`. Pure bracket, scoring, HP, tiebreak, and director. No I/O. |
 | [packages/orchestrator](packages/orchestrator) | `@sf-fight-club/orchestrator`. Fake orchestrator. Replays committed JSON fixtures through the match pipeline into a compute log and director script. |
+| [packages/portrait](packages/portrait) | `@sf-fight-club/portrait`. Profile photo to 24x24 pixel portrait: pure pipeline, pure-JS JPEG/PNG decoders at the edge. |
 | [prompts/](prompts/) | Prompt templates for every agent role |
 | [prototype/arena.html](prototype/arena.html) | Standalone visual prototype of the arena and the Tower. Open it in a browser. |
 

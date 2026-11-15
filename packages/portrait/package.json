@@ -1,0 +1,32 @@
+{
+  "name": "@sf-fight-club/portrait",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Profile photo to 24x24 pixel portrait. Pure core, pure-JS decoders at the edge.",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.test.json --noEmit",
+    "test": "pnpm --filter @sf-fight-club/schemas build && pnpm typecheck && vitest run",
+    "contact-sheet": "tsx scripts/contact-sheet.ts",
+    "golden": "tsx scripts/write-golden.ts"
+  },
+  "dependencies": {
+    "@sf-fight-club/schemas": "workspace:*",
+    "jpeg-js": "^0.4.4",
+    "pngjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.0",
+    "@types/pngjs": "^6.0.5",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}
