@@ -29,6 +29,12 @@ importers:
       '@playwright/test':
         specifier: ^1.57.0
         version: 1.65.1
+      '@sf-fight-club/intake':
+        specifier: workspace:*
+        version: link:../../packages/intake
+      '@sf-fight-club/orchestrator':
+        specifier: workspace:*
+        version: link:../../packages/orchestrator
       '@types/node':
         specifier: ^22.19.0
         version: 22.20.5
