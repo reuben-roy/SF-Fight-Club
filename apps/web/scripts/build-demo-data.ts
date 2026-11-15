@@ -14,16 +14,29 @@ import {
   DEMO_AT_DEFAULT,
   DEMO_SEED,
   runDemoTournament,
+  type DemoEntrant,
   type DemoMatchResult,
 } from "@sf-fight-club/orchestrator";
 import {
   entrantProfileSchema,
   loadVcDefaultRubric,
   type EntrantProfile,
+  type EvidenceItem,
   type FighterBuild,
+  type Shot,
+  type ShotFactCheck,
+  type ShotVerdict,
+  type VolleyKind,
 } from "@sf-fight-club/schemas";
 
-import { demoBundleSchema, type BundleMatch, type DemoBundle } from "../src/data/demo-bundle.js";
+import {
+  demoBundleSchema,
+  type BundleMatch,
+  type DemoBundle,
+  type FilmData,
+  type FilmRound,
+  type FilmShot,
+} from "../src/data/demo-bundle.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(HERE, "..", "..", "..");
@@ -86,7 +99,111 @@ function loadProfiles(): EntrantProfile[] {
   });
 }
 
-function toBundleMatch(match: DemoMatchResult): BundleMatch {
+function volleyNumberOf(kind: VolleyKind): 1 | 2 | 3 {
+  switch (kind) {
+    case "pitch_strike":
+      return 1;
+    case "counter":
+      return 2;
+    case "closing":
+      return 3;
+  }
+}
+
+function roundRank(round: FilmShot["round"]): number {
+  return round === "sudden_death" ? 3 : round - 1;
+}
+
+interface PendingShot {
+  order: number;
+  round: FilmShot["round"];
+  volley: 1 | 2 | 3;
+  fighter: "A" | "B";
+  shot: Shot;
+}
+
+/**
+ * Project the compute log into the film room's data: judge scorecards,
+ * every shot with its fact-check and verdict, the shared evidence locker,
+ * and the sudden-death tiebreak record.
+ */
+function toFilmData(match: DemoMatchResult, entrants: ReadonlyMap<string, DemoEntrant>): FilmData {
+  const rounds: FilmRound[] = [];
+  const verdicts = new Map<string, ShotVerdict>();
+  const checks = new Map<string, ShotFactCheck>();
+  const scouted: EvidenceItem[] = [];
+  const pending: PendingShot[] = [];
+  let order = 0;
+
+  for (const event of match.run.events) {
+    switch (event.type) {
+      case "round.resolved":
+        rounds.push({ round: event.resolution.round, criteria: event.resolution.criteria });
+        for (const verdict of event.resolution.shotVerdicts) verdicts.set(verdict.shotId, verdict);
+        break;
+      case "factcheck.completed":
+        for (const check of event.checks) checks.set(check.shotId, check);
+        break;
+      case "scouting.completed":
+        scouted.push(...event.evidence);
+        break;
+      case "volley.submitted":
+        for (const shot of event.volley.shots) {
+          pending.push({
+            order: order++,
+            round: event.volley.round,
+            volley: volleyNumberOf(event.volley.kind),
+            fighter: event.volley.fighter,
+            shot,
+          });
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  rounds.sort((left, right) => left.round - right.round);
+  if (rounds.length !== 3) throw new Error(`${match.matchId} logged ${rounds.length} resolved rounds`);
+
+  pending.sort(
+    (left, right) =>
+      roundRank(left.round) - roundRank(right.round) ||
+      left.volley - right.volley ||
+      left.fighter.localeCompare(right.fighter) ||
+      left.order - right.order,
+  );
+
+  const shots: FilmShot[] = pending.map((entry) => ({
+    id: entry.shot.id,
+    round: entry.round,
+    volley: entry.volley,
+    fighter: entry.fighter,
+    type: entry.shot.type,
+    criterion: entry.shot.criterion,
+    headline: entry.shot.headline,
+    claim: entry.shot.claim,
+    evidence: entry.shot.evidence,
+    estimate: entry.shot.estimate,
+    ...(entry.shot.respondsTo === undefined ? {} : { respondsTo: entry.shot.respondsTo }),
+    factCheck: checks.get(entry.shot.id) ?? null,
+    verdict: verdicts.get(entry.shot.id) ?? null,
+  }));
+
+  const dossier = [entrants.get(match.entrantA), entrants.get(match.entrantB)].flatMap((entrant) =>
+    entrant ? entrant.dossierEvidence : [],
+  );
+  const seen = new Set<string>();
+  const evidence = [...dossier, ...scouted].filter((item) => {
+    if (seen.has(item.id)) return false;
+    seen.add(item.id);
+    return true;
+  });
+
+  return { rounds, shots, evidence, tiebreak: match.run.resolution?.tiebreak ?? [] };
+}
+
+function toBundleMatch(match: DemoMatchResult, entrants: ReadonlyMap<string, DemoEntrant>): BundleMatch {
   const resolution = match.run.resolution;
   const script = match.run.script;
   if (resolution === null) throw new Error(`${match.matchId} resolved without a resolution`);
@@ -107,6 +224,7 @@ function toBundleMatch(match: DemoMatchResult): BundleMatch {
     script,
     resolution,
     report: reportEvent.report,
+    film: toFilmData(match, entrants),
   };
 }
 
@@ -114,6 +232,7 @@ function main(): void {
   const tournament = runDemoTournament({ at: DEMO_AT_DEFAULT, build: demoBuild(), rubric: loadVcDefaultRubric() });
   const profiles = loadProfiles();
   const byId = new Map(profiles.map((profile) => [profile.entrantId, profile]));
+  const entrantsById = new Map(tournament.entrants.map((entrant) => [entrant.id, entrant]));
 
   const bundle: DemoBundle = {
     version: 1,
@@ -137,7 +256,7 @@ function main(): void {
       };
     }),
     profiles: Object.fromEntries(profiles.map((profile) => [profile.entrantId, profile])),
-    matches: tournament.matches.map(toBundleMatch),
+    matches: tournament.matches.map((match) => toBundleMatch(match, entrantsById)),
   };
 
   // The one parse: anything the runner or fixtures change shape on fails here.

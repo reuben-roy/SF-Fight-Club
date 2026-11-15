@@ -37,9 +37,11 @@ Remainders from flooring are burned.
 **House seed.** An empty pool shows nonsense odds, and the first bettor on the favorite would get almost nothing back. So every match market opens with S$500 of house money split by a prior from the weigh-in:
 
 ```
-p_A = 1 / (1 + 10 ^ (-(W_A - W_B) / 15))     W = weigh-in total, 0 to 100
+p_A = clamp(1 / (1 + 10 ^ (-(W_A - W_B) / 15)), 0.15, 0.85)     W = weigh-in total, 0 to 100
 house on A = round(500 * p_A), house on B = 500 - house on A
 ```
+
+The clamp keeps a heavy favorite opening near 1.18x. Without it a 1 v 8 seed gap opens at 1.00x, and a winning bet on the favorite pays back only the stake.
 
 The house seed is in `P` and `P_i` but belongs to no one. When it sits on the winning side, its share of the payout is burned. When it sits on the losing side, it gets paid out to winners. Over a tournament this adds a little money to the economy. That's fine for play money.
 

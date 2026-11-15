@@ -2,10 +2,18 @@ import * as z from "zod";
 
 import {
   broadcastScriptSchema,
+  criterionIdSchema,
+  criterionResultSchema,
   entrantProfileSchema,
+  evidenceItemSchema,
   fightReportSchema,
   isoDateTimeSchema,
   matchResolutionSchema,
+  roundNumberSchema,
+  shotFactCheckSchema,
+  shotTypeSchema,
+  shotVerdictSchema,
+  tiebreakRecordSchema,
 } from "@sf-fight-club/schemas";
 
 /**
@@ -75,6 +83,41 @@ const publicFighterSchema = z.strictObject({
   category: z.string().min(1),
 });
 
+/**
+ * Film-room data, projected from the match compute log. Rounds carry the
+ * judge's criterion results; shots carry the argument, its evidence, the
+ * fact-check and the judge's verdict; the locker lists every source both
+ * fighters could cite. Nothing here is authored for the web app.
+ */
+export const filmRoundSchema = z.strictObject({
+  round: roundNumberSchema,
+  criteria: z.array(criterionResultSchema).length(3),
+});
+
+export const filmShotSchema = z.strictObject({
+  id: z.string().min(1),
+  round: z.union([roundNumberSchema, z.literal("sudden_death")]),
+  /** 1 pitch strike, 2 counter, 3 sudden-death closing. */
+  volley: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  fighter: slotSchema,
+  type: shotTypeSchema,
+  criterion: criterionIdSchema,
+  headline: z.string(),
+  claim: z.string(),
+  evidence: z.array(z.string()),
+  estimate: z.boolean(),
+  respondsTo: z.string().min(1).optional(),
+  factCheck: shotFactCheckSchema.nullable(),
+  verdict: shotVerdictSchema.nullable(),
+});
+
+export const filmDataSchema = z.strictObject({
+  rounds: z.array(filmRoundSchema).length(3),
+  shots: z.array(filmShotSchema),
+  evidence: z.array(evidenceItemSchema),
+  tiebreak: z.array(tiebreakRecordSchema),
+});
+
 const bundleMatchSchema = z.strictObject({
   roundIndex: z.number().int().nonnegative(),
   slotIndex: z.number().int().nonnegative(),
@@ -87,6 +130,7 @@ const bundleMatchSchema = z.strictObject({
   script: broadcastScriptSchema,
   resolution: matchResolutionSchema,
   report: fightReportSchema,
+  film: filmDataSchema,
 });
 
 export const demoBundleSchema = z.strictObject({
@@ -103,3 +147,6 @@ export const demoBundleSchema = z.strictObject({
 export type DemoBundle = z.infer<typeof demoBundleSchema>;
 export type BundleMatch = DemoBundle["matches"][number];
 export type BundleEntrant = DemoBundle["entrants"][number];
+export type FilmData = z.infer<typeof filmDataSchema>;
+export type FilmRound = z.infer<typeof filmRoundSchema>;
+export type FilmShot = z.infer<typeof filmShotSchema>;

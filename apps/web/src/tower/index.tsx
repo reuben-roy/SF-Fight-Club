@@ -1,14 +1,16 @@
 /**
- * Tower route entry: thin wiring from the store to the screens registry.
- * The Tower screen itself lives in src/app/screens.tsx.
+ * Tower route entry: thin wiring from the store to the tower screen. The
+ * screen owns the org chart, bracket view, champion banner and confetti; this
+ * entry only supplies store props and the fighter-card dialog.
  */
 
 import { useState, type ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { FighterCardScreen, TowerScreen } from "../app/screens.js";
+import { FighterCardDialog } from "../app/fighter-card-dialog.js";
 import { useAppStore } from "../data/index.js";
 import { selectFighterCard, selectTowerProps } from "../data/store.js";
+import { TowerScreen } from "../tower/TowerScreen.js";
 
 export default function TowerEntry(): ReactElement {
   const { bundle, state } = useAppStore();
@@ -22,17 +24,9 @@ export default function TowerEntry(): ReactElement {
   const card = cardId ? selectFighterCard(state, bundle, cardId) : null;
 
   return (
-    <>
-      <h2>Tower</h2>
+    <div className="sfc-tower-page">
       <TowerScreen {...props} />
-      {card ? (
-        <section aria-label="Selected fighter">
-          <button type="button" onClick={() => setCardId(null)}>
-            Close card
-          </button>
-          <FighterCardScreen {...card} />
-        </section>
-      ) : null}
-    </>
+      {card ? <FighterCardDialog card={card} onClose={() => setCardId(null)} /> : null}
+    </div>
   );
 }
