@@ -16,6 +16,7 @@ import {
   weaponSchema,
   impactSchema,
 } from "./common.js";
+import { fighterStatusSchema, moveSchema } from "./battle.js";
 import {
   fightReportSchema,
   roundJudgmentSchema,
@@ -226,6 +227,7 @@ const fighterIntroSchema = z.strictObject({
   tier: z.string(),
   spriteSeed: z.string(),
   corner: z.enum(["left", "right"]),
+  category: z.string(),
 });
 
 const hpAfterSchema = z.strictObject({ A: z.number(), B: z.number() });
@@ -277,10 +279,16 @@ export const cueSchema = z.discriminatedUnion("kind", [
       .strictObject({
         defenseShotId: z.string().min(1),
         headline: z.string(),
+        move: moveSchema,
       })
       .optional(),
     damage: z.number(),
     hpAfter: hpAfterSchema,
+    turn: z.number().int().positive(),
+    volley: z.union([z.literal(1), z.literal(2)]),
+    move: moveSchema,
+    menu: z.array(moveSchema).min(1),
+    verdictLine: z.string().min(1),
   }),
   cue("hammer", {
     target: slotSchema,
@@ -288,6 +296,11 @@ export const cueSchema = z.discriminatedUnion("kind", [
     reason: z.string(),
     damage: z.number(),
     hpAfter: hpAfterSchema,
+  }),
+  cue("status", {
+    target: slotSchema,
+    status: fighterStatusSchema,
+    on: z.boolean(),
   }),
   cue("scorecard", {
     round: roundNumberSchema,

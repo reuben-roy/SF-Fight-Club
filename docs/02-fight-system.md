@@ -282,9 +282,51 @@ Shots that carry no damage still animate:
 
 Defenses are written in volley 2 but answer volley 1 shots. The director plays the shield at the moment the attack it answers arrives, with the defense text as the subtitle. Volley 2 then plays only attacks and pitches. It reads better and stays true to the content.
 
+### Turn presentation
+
+Every shot cue is one turn. Turns count 1 to N across the whole match in airing order. One turn takes at least 3600 ms at 1x speed. A shot cue carries its turn number, its volley (1 or 2), its move, the menu of moves for the shooter's volley, and a verdict line.
+
+Moves come from a fixed table in the engine. The move name is set by the shot's criterion and type. The element is the round: market for round 1, moat for round 2, execution for round 3.
+
+| Criterion | Pitch | Attack | Defense |
+|---|---|---|---|
+| problem | Hair on Fire | Nice to Have | Pain Receipt |
+| market | Bottom-Up TAM | Niche Trap | Adjacent Market |
+| wtp | Signed LOI | Free Alternative | Budget Line |
+| differentiation | Ten Times Better | Feature Not Product | Side by Side |
+| moat | Compounding Data | Weekend Clone | Switching Cost |
+| timing | Why Now | Too Early | Tailwind |
+| gtm | First Hundred | CAC Spiral | Channel Lock |
+| feasibility | Shipped Demo | Science Project | Proof of Build |
+| scale | Platform Play | Lifestyle Business | Second Act |
+
+The menu lists the moves the fighter wrote for that volley, in shot order. It always includes the move that is playing. A defense plays as a parry on the shot it answers, and it still shows in the volley 2 menu.
+
+Verdict lines, by cue outcome:
+
+| Outcome | Line |
+|---|---|
+| `crit` | "DIRECT HIT. The judges bought all of it." |
+| `hit` | "It landed." |
+| `partial` | "Partly landed." |
+| `parried` | "{target} answered with {DEFENSE MOVE}." |
+| `glancing` | "Fair point. {target} still wins {criterion}." |
+| `whiff` | "The judges did not move." |
+| `backfire` | "FACT-CHECKED. It blew up in {actor}'s hands." |
+
+Three cosmetic statuses ride beside the health bars:
+
+| Status | Starts when | Ends when |
+|---|---|---|
+| `momentum` | A fighter deals damage on two of its turns in a row without taking damage in between | It takes damage or the round ends |
+| `exposed` | A fighter is fact-checked | End of match |
+| `last_stand` | A fighter's display HP is 25 or lower and it is still standing | End of match |
+
+Turns, moves, menus, verdict lines and statuses are presentation. They change no damage number. A test replays every shot and hammer cue and checks the `hpAfter` chain is the same with status cues removed.
+
 ### Cue ordering
 
-Per round: round title card, volley 1 shots alternating A and B in shot order, volley 2 shots alternating, then judges' hammer cues, then the round scorecard (criterion by criterion, AB and BA scores). After round 3: outcome banner, sudden death if any, finisher, winner pose, climb animation.
+Per round: round title card, volley 1 shots alternating A and B in shot order, volley 2 shots alternating, then judges' hammer cues, then the round scorecard (criterion by criterion, AB and BA scores). After round 3: outcome banner, sudden death if any, finisher, winner pose, climb animation. Status cues air right after the cue that starts or ends them and take no extra clock time.
 
 Shot timing and weapon choice are in [05-ui.md](05-ui.md#arena-choreography).
 
@@ -297,6 +339,18 @@ Shot timing and weapon choice are in [05-ui.md](05-ui.md#arena-choreography).
 - Disqualifying a fighter who already won a `complete` match gives their next opponent a walkover. Those completed results stand, and bets on them stay settled.
 - No re-seeding between rounds.
 - Rounds air in order. A match can only compute once both of its feeder matches are `complete` (or `sealed`, if the host wants to precompute a whole row).
+
+### Org chart
+
+The Tower is an org chart. Beat a company and it reports to you with its whole sub-org.
+
+- Every entrant starts as the head of its own company.
+- When a match completes, the loser becomes a direct report of the winner. The loser keeps its own reports, so whole sub-orgs move together. The newest report lists first.
+- Titles come from a fixed ladder: Intern, Associate, Manager, Director, VP, President, CEO. A tournament with `k` rounds uses the top `k + 1` rungs. Each advance moves a fighter up one rung. A fighter that loses keeps the title it held.
+- A bye advances a fighter one rung and adds no report.
+- A walkover advances the winner. The absent entrant is listed as its report, marked `WALKOVER`, and keeps its own reports.
+- Headcount is the size of a fighter's subtree, itself included.
+- Only `complete` matches change the chart. A sealed, computing or airing match reads the same as an unplayed one. A final decided by walkover names no champion; the chart waits for a final completed by fight.
 
 ## Cost and time budget per match
 

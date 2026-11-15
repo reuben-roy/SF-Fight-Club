@@ -46,6 +46,7 @@ export interface FighterInput {
   seed: number;
   tier: string;
   spriteSeed: string;
+  category: string;
   ideaId: string;
   weighinTotal: number;
   brief: StandardBrief;
@@ -57,6 +58,7 @@ export interface PublicFighter {
   seed: number;
   tier: string;
   spriteSeed: string;
+  category: string;
 }
 
 /**

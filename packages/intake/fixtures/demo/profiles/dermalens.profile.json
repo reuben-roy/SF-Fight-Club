@@ -1,0 +1,101 @@
+{
+  "entrantId": "dermalens",
+  "company": {
+    "name": "Dermalens",
+    "url": "https://dermalens.example.com",
+    "tagline": "Skin-check triage from phone photos for clinics",
+    "logoUrl": "https://dermalens.example.com/og.png"
+  },
+  "founders": [
+    {
+      "name": "Ines Vidal",
+      "role": "CEO",
+      "xHandle": "inesvidal",
+      "hnUser": "inesv",
+      "followers": 5500,
+      "hnKarma": 220
+    },
+    {
+      "name": "Tom Achterberg",
+      "role": "CTO",
+      "xHandle": "tomach",
+      "hnUser": "tomach",
+      "hnKarma": 60
+    }
+  ],
+  "posts": [
+    {
+      "source": "hn",
+      "url": "https://news.ycombinator.com/item?id=45120012",
+      "title": "Show HN: Dermalens, phone-photo triage for skin clinics",
+      "text": "Show HN: Dermalens, phone-photo triage for skin clinics\n\nClinics drown in rash photos. We sort the urgent from the routine before the dermatologist opens the inbox.",
+      "postedAt": "2026-11-04T15:00:00.000Z",
+      "metrics": {
+        "points": 180,
+        "comments": 2
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/inesvidal/status/70000021",
+      "text": "Our triage model cut the median photo review queue from 6 days to 9 hours across four pilot clinics.",
+      "postedAt": "2026-11-03T14:00:00.000Z",
+      "metrics": {
+        "likes": 335,
+        "reposts": 110,
+        "replies": 95,
+        "views": 9000
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/inesvidal/status/70000022",
+      "text": "Launching our second clinic cohort next month. Two spots left.",
+      "postedAt": "2026-11-01T14:00:00.000Z",
+      "metrics": {
+        "likes": 205,
+        "reposts": 85,
+        "replies": 65,
+        "views": 5200
+      }
+    }
+  ],
+  "clout": {
+    "score": 75,
+    "tier": "A",
+    "x": 76,
+    "hn": 74
+  },
+  "sources": [
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/items/45120012",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/inesv",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/tomach",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/by/username/inesvidal?user.fields=created_at,description,location,public_metrics,url,verified",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/90000012/tweets?max_results=20&exclude=retweets,replies&tweet.fields=author_id,created_at,public_metrics",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "web",
+      "url": "https://dermalens.example.com/",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    }
+  ]
+}
