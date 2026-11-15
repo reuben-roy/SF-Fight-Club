@@ -310,32 +310,24 @@ function foundersOf(profile: EntrantProfile, entrantId: string): CrewMember[] {
 }
 
 /**
- * A fighter's crew: their own founders plus the crews of everyone they beat,
- * transitively. The champion absorbs the whole field.
+ * A fighter's own founders plus the founders of every entrant in its org
+ * subtree. It reads the chart, which only knows complete matches, so a crew
+ * never reveals a result that has not aired.
  */
-export function crewOf(bundle: DemoBundle, entrantId: string): CrewMember[] {
-  const beaten = new Map<string, string>();
-  for (const match of bundle.matches) {
-    const loser = match.winnerId === match.entrantA ? match.entrantB : match.entrantA;
-    beaten.set(loser, match.winnerId);
-  }
-  const absorbed = new Set<string>([entrantId]);
-  let changed = true;
-  while (changed) {
-    changed = false;
-    for (const [loser, winner] of beaten) {
-      if (absorbed.has(winner) && !absorbed.has(loser)) {
-        absorbed.add(loser);
-        changed = true;
-      }
-    }
-  }
+export function crewOf(input: { bundle: DemoBundle; chart: OrgChart; entrantId: string }): CrewMember[] {
+  const { bundle, chart, entrantId } = input;
+  const ids: string[] = [];
+  const collect = (node: OrgNode): void => {
+    ids.push(node.entrantId);
+    for (const report of node.reports) collect(report);
+  };
+  const node = findNode(chart.roots, entrantId);
+  if (node) collect(node);
+  else ids.push(entrantId);
   const crew: CrewMember[] = [];
-  for (const entrant of bundle.entrants) {
-    if (!absorbed.has(entrant.id)) continue;
-    const profile = bundle.profiles[entrant.id];
-    if (!profile) continue;
-    crew.push(...foundersOf(profile, entrant.id));
+  for (const id of ids) {
+    const profile = bundle.profiles[id];
+    if (profile) crew.push(...foundersOf(profile, id));
   }
   return crew;
 }
@@ -418,7 +410,7 @@ export function selectArena(state: AppState, bundle: DemoBundle, matchId: string
       category: publicFighter.category,
       title: titleOf(chart, entrantId),
       clout: entrant?.cloutScore ?? 0,
-      crew: crewOf(bundle, entrantId),
+      crew: crewOf({ bundle, chart, entrantId }),
     };
   };
   return {

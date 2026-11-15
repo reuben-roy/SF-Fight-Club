@@ -5,6 +5,7 @@ import { DEMO_BUNDLE } from "../src/data/generated/demo.js";
 import {
   bundleMatchById,
   crewOf,
+  selectArena,
   initialAppState,
   isAvailable,
   reduceAppState,
@@ -219,8 +220,18 @@ describe("org chart over complete matches", () => {
 });
 
 describe("crewOf", () => {
-  it("gathers every founder the champion absorbed", () => {
-    const crew = crewOf(bundle, "permitpilot");
+  function playEverything(): AppState {
+    let state = openers();
+    for (const match of bundle.matches) {
+      state = reduceAppState(state, { type: "open_betting", matchId: match.matchId }, bundle);
+      state = playMatch(state, match.matchId);
+    }
+    return state;
+  }
+
+  it("gathers every founder the champion absorbed once the final is complete", () => {
+    const { chart } = selectOrgCharts(playEverything(), bundle);
+    const crew = crewOf({ bundle, chart, entrantId: "permitpilot" });
     const handles = new Set(crew.map((member) => member.handle));
     for (const profile of Object.values(bundle.profiles)) {
       for (const founder of profile.founders) {
@@ -230,9 +241,30 @@ describe("crewOf", () => {
     expect(crew.length).toBe(14);
   });
 
-  it("starts with just the entrant's own founders", () => {
-    const crew = crewOf(bundle, "fogcast");
-    expect(crew).toHaveLength(2);
-    expect(new Set(crew.map((member) => member.from))).toEqual(new Set(["fogcast"]));
+  it("starts with just the entrant's own founders, whatever the bundle knows", () => {
+    const { chart } = selectOrgCharts(openers(), bundle);
+    for (const entrant of bundle.entrants) {
+      const crew = crewOf({ bundle, chart, entrantId: entrant.id });
+      expect(new Set(crew.map((member) => member.from)), entrant.id).toEqual(new Set([entrant.id]));
+    }
+  });
+
+  it("gives the live opener's fighters only their own founders in the arena", () => {
+    let state = reduceAppState(openers(), { type: "ring_bell", matchId: quarterId(0) }, bundle);
+    state = reduceAppState(state, { type: "ring_bell", matchId: quarterId(0) }, bundle);
+    const view = selectArena(state, bundle, quarterId(0));
+    expect(view.sealed).toBe(false);
+    for (const fighter of Object.values(view.props?.fighters ?? {})) {
+      expect(new Set(fighter.crew.map((member) => member.from)), fighter.entrantId).toEqual(
+        new Set([fighter.entrantId]),
+      );
+    }
+  });
+
+  it("grows only by matches that are complete", () => {
+    const state = playMatch(openers(), quarterId(0));
+    const { chart } = selectOrgCharts(state, bundle);
+    const crew = crewOf({ bundle, chart, entrantId: "permitpilot" });
+    expect(new Set(crew.map((member) => member.from))).toEqual(new Set(["permitpilot", "fogcast"]));
   });
 });
