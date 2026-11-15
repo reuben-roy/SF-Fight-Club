@@ -149,7 +149,7 @@ Rules for the art:
 
 The people behind the idea stand behind their mascot as a crew of 1 to 4 small pixel figures (12x16), generated from each founder's handle. They react: cheer on a hit, flinch on a backfire.
 
-A founder with a profile photo also gets a pixel portrait made from it (section 4). The portrait is the founder's face on the fighter card and in the crew roll call at walk-in, and a 10x10 reduction of it becomes the head of that founder's crew figure. A founder with no photo keeps the fully generated figure. We never show the photo itself.
+A founder with a profile photo also gets a pixel portrait made from it (section 4). The portrait is the founder's face on the fighter card and in the crew roll call at walk-in. The skin, hair and clothing colors taken from it paint the head of that founder's crew figure. A founder with no photo keeps the fully generated figure. We never show the photo itself.
 
 When a fighter wins, the loser's crew crosses the stage and joins the winner's side. In later matches the winner walks in with everyone it has absorbed. This is the org chart, visible in the arena.
 
@@ -279,15 +279,15 @@ A new pure package, `packages/portrait`, turns a profile photo into pixel art in
 
 ```ts
 export interface PixelPortrait {
-  size: 24;            // square, 24x24
-  palette: string[];   // 2 to 8 hex colors
+  size: 32;            // square, 32x32
+  palette: string[];   // 2 to 12 hex colors
   pixels: number[];    // size * size palette indices, row-major
 }
 ```
 
 - Input is decoded RGBA plus width and height. JPEG and PNG decode through pure-JS decoders at the edge of the package. Anything else returns a "no portrait" result and the founder keeps a generated figure.
-- Steps: center-crop to a square, downsample to 24x24 with a box filter, lift contrast, quantize to at most 8 colors, optional ordered dithering. The same input always gives the same output.
-- The result has to read as a face at 24x24 and still look like it belongs next to the mascots. Hard pixels, no blur, a limited palette.
+- Steps: frame the face, downsample to 32x32 by area averaging in linear light, a mild tone stretch, quantize to at most 12 colors. The same input always gives the same output. The portrait is a faithful quantization of that downsample. Cleanup steps must not move it far from the downsample, and must never lighten or darken a person's skin.
+- The result has to read as a face at 32x32 and still look like it belongs next to the mascots. Hard pixels, no blur, a limited palette.
 - X is deferred until there is an API token. Until then the pipeline is exercised on sample images. When the X adapter is live, `avatarUrl` comes from the user's profile image field and nothing else changes.
 
 ### CLI
