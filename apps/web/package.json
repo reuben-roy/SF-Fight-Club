@@ -28,6 +28,7 @@
     "@playwright/test": "^1.57.0",
     "@sf-fight-club/intake": "workspace:*",
     "@sf-fight-club/orchestrator": "workspace:*",
+    "@sf-fight-club/portrait": "workspace:*",
     "@types/node": "^22.19.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",

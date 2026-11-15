@@ -23,7 +23,7 @@ Design and groundwork. Shared contracts live in `packages/schemas`. Fight math l
 | [schemas/rubric.vc-default.json](schemas/rubric.vc-default.json) | The default rubric, machine-readable |
 | [packages/schemas](packages/schemas) | `@sf-fight-club/schemas`. Zod parsers for those contracts, plus committed JSON Schema for Mistral structured outputs. |
 | [packages/engine](packages/engine) | `@sf-fight-club/engine`. Pure bracket, scoring, HP, tiebreak, and director. No I/O. |
-| [packages/intake](packages/intake) | `@sf-fight-club/intake`. Entrant intake from HN, X and company sites into `EntrantProfile`, plus the founder-free `IdeaSubmission` draft. Committed demo profiles for the eight fictional entrants. |
+| [packages/intake](packages/intake) | `@sf-fight-club/intake`. Entrant intake from HN, X and company sites into `EntrantProfile`, plus the founder-free `IdeaSubmission` draft. Committed demo profiles for the eight fictional entrants. Single-entrant mode takes `--avatar "<name>=<url>"` (repeatable) and `--no-portraits` to skip portraits. |
 | [packages/orchestrator](packages/orchestrator) | `@sf-fight-club/orchestrator`. Fake orchestrator. Replays committed JSON fixtures through the match pipeline into a compute log and director script. Ships a canned eight-entrant demo tournament via `runDemoTournament`. |
 | [apps/web](apps/web) | `@sf-fight-club/web`. Vite, React and TypeScript client. Procedural mascots, crew, skyline and weapon effects live in `src/art`; the gallery is at `/dev/art`. |
 | [packages/portrait](packages/portrait) | `@sf-fight-club/portrait`. Profile photo to 24x24 pixel portrait: pure pipeline, pure-JS JPEG/PNG decoders at the edge. |

@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 
 import type { EntrantProfile } from "@sf-fight-club/schemas";
+import { PortraitCanvas } from "../art/portrait.js";
 import { CrewCanvas, MascotCanvas } from "../art/sprites.js";
 import { MASCOT_CLASS_INFO, classForCategory } from "../art/palette.js";
 import { CloutMeter, TitleBadge, classNames } from "../styles/components.js";
@@ -121,11 +122,20 @@ export function FighterCard({
         <ul className="fighter-card__founders">
           {profile.founders.map((founder) => (
             <li className="fighter-card__founder" key={`${founder.name}-${founderHandle(founder)}`}>
-              <CrewCanvas
-                handle={founderHandle(founder)}
-                size={dense ? 18 : 20}
-                label={`Generated crew figure for ${founder.name}`}
-              />
+              {founder.portrait !== undefined ? (
+                <PortraitCanvas
+                  portrait={founder.portrait}
+                  size={dense ? 52 : 64}
+                  label={founder.name}
+                  className="fighter-card__portrait"
+                />
+              ) : (
+                <CrewCanvas
+                  handle={founderHandle(founder)}
+                  size={dense ? 18 : 20}
+                  label={`Generated crew figure for ${founder.name}`}
+                />
+              )}
               <span className="fighter-card__founder-text">
                 <span className="fighter-card__founder-name">
                   {founder.name}
