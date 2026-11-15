@@ -1,0 +1,1417 @@
+{
+  "steps": {
+    "scout/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "searchesRun": 2,
+            "evidence": [
+              {
+                "url": "https://example.com/scout-a",
+                "title": "Opposition file",
+                "snippet": "PaperRoute leans on one neighborhood and an unbuilt rider fleet.",
+                "retrievedAt": "2026-11-05T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "scout/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "searchesRun": 2,
+            "evidence": [
+              {
+                "url": "https://example.com/scout-b",
+                "title": "Response file",
+                "snippet": "TabClear depends on register vendors who have ignored startups before.",
+                "retrievedAt": "2026-11-05T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Walkout tabs bleed bars dry",
+                "claim": "Bars lose full tabs nightly and burn staff hours closing them out.",
+                "evidence": [
+                  "E3"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "market",
+                "headline": "Dispatch fights over one zip code",
+                "claim": "Three apps already split the same few commercial strips.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E3",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "problem",
+                "headline": "Cold fries are a luxury problem",
+                "claim": "A lukewarm order stings; an unpaid hundred-dollar tab kills.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r1.v1.B.s1"
+              },
+              {
+                "type": "pitch",
+                "criterion": "wtp",
+                "headline": "Bars already pay processors",
+                "claim": "The register statement proves the budget TabClear redirects.",
+                "evidence": [
+                  "E15"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E15",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "problem",
+                "headline": "Cold fries kill repeat orders",
+                "claim": "Late food is the complaint shops hear every single night.",
+                "evidence": [
+                  "E4"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "market",
+                "headline": "One street is not a market",
+                "claim": "A handful of bars cannot carry a venture outcome.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E4",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "market",
+                "headline": "Three strips run our routes",
+                "claim": "The pilot already batches across three commercial corridors.",
+                "evidence": [
+                  "E18"
+                ],
+                "estimate": false,
+                "respondsTo": "r1.v1.A.s2"
+              },
+              {
+                "type": "attack",
+                "criterion": "wtp",
+                "headline": "Bartenders will not push apps",
+                "claim": "Staff ignore anything that slows a rush.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r1.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E18",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r1/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "problem",
+                "comparison": "TabClear names a nightly loss with a sourced number; PaperRoute's pain is real but smaller.",
+                "fighter_1": {
+                  "rationale": "Hair on fire for a named persona with budget on the line. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "Recurring irritation, not an existential cost. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "market",
+                "comparison": "TabClear sizes from registers outward; PaperRoute leans on one neighborhood.",
+                "fighter_1": {
+                  "rationale": "Credible expansion path past the first strip. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Niche geography, flat story. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "wtp",
+                "comparison": "One side redirects money already spent; the other splits new fees.",
+                "fighter_1": {
+                  "rationale": "Payer has precedent prices on the statement. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "Payer exists but the split is unproven. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Real pain, smaller stakes."
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "No bottom-up math offered."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Plausible friction, no evidence."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "TabClear takes the market round on a sourced, expensive pain."
+          }
+        }
+      ]
+    },
+    "r1/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "problem",
+                "comparison": "TabClear names a nightly loss with a sourced number; PaperRoute's pain is real but smaller.",
+                "fighter_1": {
+                  "rationale": "Recurring irritation, not an existential cost. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Hair on fire for a named persona with budget on the line. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              },
+              {
+                "criterion": "market",
+                "comparison": "TabClear sizes from registers outward; PaperRoute leans on one neighborhood.",
+                "fighter_1": {
+                  "rationale": "Niche geography, flat story. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Credible expansion path past the first strip. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "wtp",
+                "comparison": "One side redirects money already spent; the other splits new fees.",
+                "fighter_1": {
+                  "rationale": "Payer exists but the split is unproven. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Payer has precedent prices on the statement. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r1.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r1.v1.B.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Real pain, smaller stakes."
+              },
+              {
+                "shotId": "r1.v1.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "No bottom-up math offered."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r1.v2.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Plausible friction, no evidence."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "TabClear takes the market round on a sourced, expensive pain."
+          }
+        }
+      ]
+    },
+    "r2/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "differentiation",
+                "headline": "One tap beats the card stack",
+                "claim": "Splitting a group tab takes seconds, not a register queue.",
+                "evidence": [
+                  "E16"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "pitch",
+                "criterion": "moat",
+                "headline": "Ledger history locks venues in",
+                "claim": "Years of tab data make switching registers painful.",
+                "evidence": [
+                  "E16"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E16",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E16",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "timing",
+                "headline": "Subsidies do not sell software",
+                "claim": "Cheap bikes help riders, not a dispatch app's moat.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r2.v1.B.s1"
+              },
+              {
+                "type": "attack",
+                "criterion": "differentiation",
+                "headline": "Riders already multi-app",
+                "claim": "Batching loses when every courier runs three apps.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "timing",
+                "headline": "E-bike subsidies just landed",
+                "claim": "Fleet costs dropped this year, and shops already batch informally.",
+                "evidence": [
+                  "E17"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "differentiation",
+                "headline": "Tabs are a processor feature",
+                "claim": "Registers will add settlement before startups scale.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E17",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "differentiation",
+                "headline": "Heat-aware batching is the product",
+                "claim": "Nobody else routes around oven times and hills.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r2.v1.A.s1"
+              },
+              {
+                "type": "attack",
+                "criterion": "moat",
+                "headline": "Ledger data is portable",
+                "claim": "Export laws let venues take history anywhere.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r2.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r2/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "differentiation",
+                "comparison": "Both meaningfully improve on today, neither ten-times the other.",
+                "fighter_1": {
+                  "rationale": "Better on one dimension customers care about. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Better on one dimension customers care about. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "moat",
+                "comparison": "Ledger history compounds; batching know-how travels with riders.",
+                "fighter_1": {
+                  "rationale": "One plausible moat that builds over time. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Head start only. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "timing",
+                "comparison": "Subsidies are a datable shift for fleets, not for settlement.",
+                "fighter_1": {
+                  "rationale": "A real change, but one everyone can use. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "A specific cost shift with a visible window. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Better, but both sides improve on today."
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True of the market, not of this product."
+              },
+              {
+                "shotId": "r2.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Assertion without a source."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "No evidence for the lock-in break."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "A split moat round: ledger lock-in against subsidy timing."
+          }
+        }
+      ]
+    },
+    "r2/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "differentiation",
+                "comparison": "Both meaningfully improve on today, neither ten-times the other.",
+                "fighter_1": {
+                  "rationale": "Better on one dimension customers care about. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Better on one dimension customers care about. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "moat",
+                "comparison": "Ledger history compounds; batching know-how travels with riders.",
+                "fighter_1": {
+                  "rationale": "Head start only. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "One plausible moat that builds over time. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "timing",
+                "comparison": "Subsidies are a datable shift for fleets, not for settlement.",
+                "fighter_1": {
+                  "rationale": "A specific cost shift with a visible window. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "A real change, but one everyone can use. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r2.v1.A.s1",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Better, but both sides improve on today."
+              },
+              {
+                "shotId": "r2.v1.A.s2",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True of the market, not of this product."
+              },
+              {
+                "shotId": "r2.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r2.v1.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Assertion without a source."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r2.v2.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "No evidence for the lock-in break."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "A split moat round: ledger lock-in against subsidy timing."
+          }
+        }
+      ]
+    },
+    "r3/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "gtm",
+                "headline": "Launch with twenty register partners",
+                "claim": "The pilot bars already settle tabs through the product.",
+                "evidence": [
+                  "E16"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "feasibility",
+                "headline": "Bikes break, batteries die",
+                "claim": "Hardware fleets miss SLAs every winter.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v1/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E16",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "gtm",
+                "headline": "Riders still need recruiting",
+                "claim": "Twenty bars mean nothing without couriers on corners.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r3.v1.B.s2"
+              },
+              {
+                "type": "pitch",
+                "criterion": "scale",
+                "headline": "Every checkout counter needs this",
+                "claim": "Tabs, tables, and group bills exist in every city.",
+                "evidence": [
+                  "E15"
+                ],
+                "estimate": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v2/A": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v2.A.s1",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E15",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "pitch",
+                "criterion": "feasibility",
+                "headline": "Phones and bikes ship today",
+                "claim": "No permits, no hardware build, just an app and a fleet deal.",
+                "evidence": [
+                  "E18"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "gtm",
+                "headline": "Registers gate every bar",
+                "claim": "Two vendors own the counter and ignore startups.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v1/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v1.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E18",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "shots": [
+              {
+                "type": "defense",
+                "criterion": "feasibility",
+                "headline": "Software breaks too",
+                "claim": "Register outages kill Friday nights just as fast.",
+                "evidence": [
+                  "E18"
+                ],
+                "estimate": false,
+                "respondsTo": "r3.v1.A.s2"
+              },
+              {
+                "type": "attack",
+                "criterion": "scale",
+                "headline": "Settlement caps at nightlife",
+                "claim": "There is no second act past bars.",
+                "evidence": [],
+                "estimate": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/fc/v2/B": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "checks": [
+              {
+                "shotId": "r3.v2.B.s1",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E18",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "r3/judge/AB": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "gtm",
+                "comparison": "Named pilot bars beat an unnamed rider fleet.",
+                "fighter_1": {
+                  "rationale": "Named first customers and a cheap channel. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                },
+                "fighter_2": {
+                  "rationale": "A channel named but unproven. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "feasibility",
+                "comparison": "An app plus a fleet is buildable, but winter SLAs are a named risk.",
+                "fighter_1": {
+                  "rationale": "Buildable with real risks. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Clear build path with off-the-shelf parts. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              },
+              {
+                "criterion": "scale",
+                "comparison": "Counters everywhere beat corridors somewhere.",
+                "fighter_1": {
+                  "rationale": "A path to $100M ARR through expansion. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Past the first corridors the story thins. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Real risk, thinly argued."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Credible expansion, lightly sourced."
+              },
+              {
+                "shotId": "r3.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "A real gate, asserted not shown."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Ignores the counter expansion."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "TabClear's register beachhead beats a fleet that still needs recruiting."
+          }
+        }
+      ]
+    },
+    "r3/judge/BA": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "criteria": [
+              {
+                "criterion": "gtm",
+                "comparison": "Named pilot bars beat an unnamed rider fleet.",
+                "fighter_1": {
+                  "rationale": "A channel named but unproven. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "Named first customers and a cheap channel. 7.",
+                  "capsApplied": [],
+                  "score": 7
+                }
+              },
+              {
+                "criterion": "feasibility",
+                "comparison": "An app plus a fleet is buildable, but winter SLAs are a named risk.",
+                "fighter_1": {
+                  "rationale": "Clear build path with off-the-shelf parts. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                },
+                "fighter_2": {
+                  "rationale": "Buildable with real risks. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                }
+              },
+              {
+                "criterion": "scale",
+                "comparison": "Counters everywhere beat corridors somewhere.",
+                "fighter_1": {
+                  "rationale": "Past the first corridors the story thins. 5.",
+                  "capsApplied": [],
+                  "score": 5
+                },
+                "fighter_2": {
+                  "rationale": "A path to $100M ARR through expansion. 6.",
+                  "capsApplied": [],
+                  "score": 6
+                }
+              }
+            ],
+            "shots": [
+              {
+                "shotId": "r3.v1.A.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.A.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Real risk, thinly argued."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.A.s2",
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Credible expansion, lightly sourced."
+              },
+              {
+                "shotId": "r3.v1.B.s1",
+                "verdict": "landed",
+                "impact": 2,
+                "note": "Scored from the claim."
+              },
+              {
+                "shotId": "r3.v1.B.s2",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "A real gate, asserted not shown."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "parried",
+                "impact": 1,
+                "note": "The answer stands."
+              },
+              {
+                "shotId": "r3.v2.B.s2",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Ignores the counter expansion."
+              }
+            ],
+            "injectionSuspected": false,
+            "roundSummary": "TabClear's register beachhead beats a fleet that still needs recruiting."
+          }
+        }
+      ]
+    },
+    "report": {
+      "attempts": [
+        {
+          "kind": "output",
+          "output": {
+            "headline": "TabClear settles PaperRoute",
+            "whyTheyWon": [
+              "Won problem, market, and willingness to pay with sourced numbers.",
+              "Won go-to-market and venture scale on named pilot bars.",
+              "PaperRoute's best rounds were not enough to close the gap."
+            ],
+            "turningPoint": {
+              "criterion": "gtm",
+              "text": "The twenty-bar pilot made distribution concrete."
+            },
+            "loserTakeaways": [
+              "Name the first riders, not just the first shops.",
+              "Source the market size past one neighborhood."
+            ],
+            "announcerLines": [
+              {
+                "cueRef": "intro",
+                "text": "TabClear by decision. The receipts are on the board."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
