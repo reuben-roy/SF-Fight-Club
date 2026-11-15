@@ -62,6 +62,29 @@ describe("sealing", () => {
     expect(film?.script?.cues.length).toBeGreaterThan(0);
   });
 
+  it("keeps every film-room field sealed until the match is complete", () => {
+    const matchId = openerId(0);
+    const scheduled = selectFilm(initialAppState(bundle), bundle, matchId);
+    expect(scheduled?.film).toBeNull();
+    expect(scheduled?.resolution).toBeNull();
+    expect(scheduled?.report).toBeNull();
+
+    let state = reduceAppState(initialAppState(bundle), { type: "ring_bell", matchId }, bundle);
+    expect(selectFilm(state, bundle, matchId)?.film).toBeNull();
+
+    state = reduceAppState(state, { type: "ring_bell", matchId }, bundle);
+    const live = selectFilm(state, bundle, matchId);
+    expect(live?.sealed).toBe(true);
+    expect(live?.film).toBeNull();
+    expect(live?.script).toBeNull();
+
+    state = reduceAppState(state, { type: "finish", matchId }, bundle);
+    const open = selectFilm(state, bundle, matchId);
+    expect(open?.film?.rounds).toHaveLength(3);
+    expect(open?.film?.shots.length).toBeGreaterThan(0);
+    expect(open?.film?.evidence.length).toBeGreaterThan(0);
+  });
+
   it("never leaks an unplayed winner through the tower", () => {
     const props = selectTowerProps(initialAppState(bundle), bundle, { onOpenMatch: noop, onOpenCard: noop });
     expect(props.chart.championId).toBeNull();
@@ -105,6 +128,37 @@ describe("selectTowerProps", () => {
     expect(semi?.a).toBe("permitpilot");
     expect(semi?.b).toBe("tabclear");
     expect(props.previousChart).toBeDefined();
+  });
+});
+
+describe("film-room data", () => {
+  it("gives every demo match nine criterion rows and one row per logged shot", () => {
+    for (const match of bundle.matches) {
+      const criteria = match.film.rounds.flatMap((round) => round.criteria);
+      expect(criteria).toHaveLength(9);
+      expect(new Set(criteria.map((row) => row.criterion)).size).toBe(9);
+      expect(match.film.rounds.map((round) => round.round)).toEqual([1, 2, 3]);
+      expect(match.film.shots.length).toBeGreaterThan(0);
+      expect(new Set(match.film.shots.map((shot) => shot.id)).size).toBe(match.film.shots.length);
+      const locker = new Set(match.film.evidence.map((item) => item.id));
+      for (const shot of match.film.shots) {
+        for (const cited of shot.evidence) {
+          const missing = shot.factCheck?.missingIds.includes(cited) ?? false;
+          if (!missing) expect(locker.has(cited)).toBe(true);
+        }
+      }
+    }
+  });
+
+  it("records the sudden-death tiebreak for the final", () => {
+    const final = bundle.matches.find((match) => match.roundIndex === 2);
+    if (!final) throw new Error("no final");
+    expect(final.film.tiebreak).toHaveLength(1);
+    const [record] = final.film.tiebreak;
+    expect(record?.strategy).toBe("sudden_death_judge");
+    if (record?.strategy !== "sudden_death_judge") throw new Error("no sudden-death record");
+    expect(record.votes).toHaveLength(4);
+    expect(record.result).toBe("A");
   });
 });
 

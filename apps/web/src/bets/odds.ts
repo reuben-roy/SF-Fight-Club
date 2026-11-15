@@ -23,9 +23,17 @@ export interface HouseSplit {
   b: number;
 }
 
-/** Deterministic house seed of S$500, split by the weigh-in prior. */
+export const HOUSE_PRIOR_MIN = 0.15;
+export const HOUSE_PRIOR_MAX = 0.85;
+
+/**
+ * Deterministic house seed of S$500, split by the weigh-in prior. The prior is
+ * clamped so a heavy favorite still opens near 1.18x. Unclamped, a 1 v 8 seed
+ * gap opens at 1.00x and a winning bet pays nothing.
+ */
 export function houseSplit(wA: number, wB: number, total: number = HOUSE_SEED_TOTAL): HouseSplit {
-  const a = Math.round(total * weighInPrior(wA, wB));
+  const prior = Math.min(HOUSE_PRIOR_MAX, Math.max(HOUSE_PRIOR_MIN, weighInPrior(wA, wB)));
+  const a = Math.round(total * prior);
   return { a, b: total - a };
 }
 
