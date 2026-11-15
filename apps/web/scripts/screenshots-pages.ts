@@ -164,8 +164,8 @@ async function main(): Promise<void> {
     await shoot(page, "result-sudden-death-1280", true);
 
     await page.goto(`${baseUrl}/tower`, { waitUntil: "load" });
-    await page.getByText("Champion: PermitPilot").waitFor();
-    await wait(450);
+    await page.getByTestId("tower-champion").waitFor();
+    await wait(900);
     await top(page);
     await shoot(page, "champion-1280", true);
 

@@ -5,15 +5,16 @@
   "type": "module",
   "description": "SF Fight Club web app: arena, Tower, cards, film room, art library.",
   "scripts": {
-    "dev": "pnpm --filter @sf-fight-club/schemas build && pnpm --filter @sf-fight-club/engine build && vite",
-    "build": "pnpm run typecheck && vite build",
+    "dev": "pnpm run build:deps && vite",
+    "build": "pnpm run build:deps && pnpm run typecheck && vite build",
     "preview": "vite preview --port 4173 --strictPort",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "demo:data": "tsx scripts/build-demo-data.ts",
     "e2e": "playwright test",
-    "test": "pnpm --filter @sf-fight-club/schemas build && pnpm --filter @sf-fight-club/engine build && pnpm run typecheck && vitest run",
-    "screenshots": "pnpm --filter @sf-fight-club/schemas build && pnpm --filter @sf-fight-club/engine build && pnpm run build && tsx scripts/screenshots.ts",
-    "screenshots:pages": "pnpm --filter @sf-fight-club/schemas build && pnpm --filter @sf-fight-club/engine build && pnpm run build && tsx scripts/screenshots-pages.ts"
+    "test": "pnpm run build:deps && pnpm run typecheck && vitest run",
+    "screenshots": "pnpm run build:deps && pnpm run build && tsx scripts/screenshots.ts",
+    "screenshots:pages": "pnpm run build:deps && pnpm run build && tsx scripts/screenshots-pages.ts",
+    "build:deps": "pnpm --filter \"@sf-fight-club/web^...\" build"
   },
   "dependencies": {
     "@sf-fight-club/engine": "workspace:*",

@@ -44,8 +44,8 @@ test("full tournament: bets, bells, champion, film, reload", async ({ page }) =>
 
   // Tower shows no winner before any match is played.
   await page.goto("/tower");
-  await expect(page.getByText("Champion: TBD")).toBeVisible();
-  await expect(page.getByText("CEO headcount")).toHaveCount(0);
+  await expect(page.getByText("THE ORG CHART")).toBeVisible();
+  await expect(page.getByTestId("tower-champion")).toHaveCount(0);
 
   // Open betting on the first opener and place a bet on PermitPilot.
   await page.goto("/match/demo-r0s0");
@@ -88,8 +88,8 @@ test("full tournament: bets, bells, champion, film, reload", async ({ page }) =>
 
   // Champion crowned on tower and home.
   await page.goto("/tower");
-  await expect(page.getByText("Champion: PermitPilot")).toBeVisible();
-  await expect(page.getByText("CEO headcount 8 alive")).toBeVisible();
+  await expect(page.getByTestId("tower-champion")).toContainText("PermitPilot");
+  await expect(page.getByTestId("tower-champion")).toContainText("CEO / RUNS A COMPANY OF 8");
   await page.goto("/");
   await expect(page.getByText("Tournament: 7 of 7 fights complete")).toBeVisible();
   await expect(page.getByText("Champion: PermitPilot")).toBeVisible();

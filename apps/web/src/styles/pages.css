@@ -333,44 +333,16 @@
   background: var(--paper);
   color: var(--ink);
   box-shadow: var(--shadow-hard-lg);
-  padding: var(--space-5);
 }
 
-.sfc-dialog__close {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
-}
-
-.sfc-dialog article h2 {
-  padding-right: 110px;
-  font-family: var(--font-pixel);
-  font-size: var(--type-28);
-  text-transform: uppercase;
-}
-
-.sfc-dialog article dl {
-  display: grid;
-  grid-template-columns: 96px minmax(0, 1fr);
-  gap: 6px var(--space-3);
-  margin: var(--space-4) 0;
-}
-
-.sfc-dialog article dt {
-  font-family: var(--font-mono);
-  font-size: var(--type-mono-11);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-}
-
-.sfc-dialog article dd {
-  margin: 0;
-}
-
-.sfc-dialog article ul {
-  margin: 0;
-  padding-left: var(--space-5);
+.sfc-dialog__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: var(--border);
+  background: var(--paper-2);
 }
 
 /* Tale of the tape -------------------------------------------------------- */
@@ -1449,122 +1421,10 @@
 
 /* Tower ------------------------------------------------------------------- */
 
-.sfc-tower {
+.sfc-tower-page {
   min-height: 100%;
-  background: var(--paper);
-  color: var(--ink);
-}
-
-.sfc-tower__inner {
-  padding-top: var(--space-6);
-  padding-bottom: var(--space-8);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-}
-
-.sfc-tower__title {
-  font-family: var(--font-pixel);
-  font-size: clamp(40px, 7vw, 72px);
-  text-transform: uppercase;
-  line-height: 0.9;
-}
-
-.sfc-tower__banner {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-4) var(--space-5);
-  border: var(--border);
-  background: var(--paper-2);
-  box-shadow: var(--shadow-hard);
-  overflow: hidden;
-}
-
-.sfc-tower__banner p {
-  font-family: var(--font-pixel);
-  font-size: var(--type-28);
-  text-transform: uppercase;
-}
-
-.sfc-tower__banner--empty p {
-  color: var(--muted);
-}
-
-.sfc-tower__screen {
-  padding: var(--space-4);
-  border: var(--border);
-  background: var(--paper);
-  box-shadow: var(--shadow-hard);
-}
-
-.sfc-tower__screen > section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.sfc-tower__screen h2 {
-  font-family: var(--font-pixel);
-  font-size: var(--type-28);
-  text-transform: uppercase;
-  margin-top: var(--space-2);
-}
-
-.sfc-tower__screen h3 {
-  font-family: var(--font-mono);
-  font-size: var(--type-mono-11);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  margin-top: var(--space-2);
-}
-
-.sfc-tower__screen ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: var(--space-2);
-}
-
-.sfc-tower__screen li {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 10px;
-  border: var(--border);
-  background: var(--paper-2);
-  font-family: var(--font-mono);
-  font-size: var(--type-mono-11);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.sfc-tower__screen button {
-  border: var(--border);
-  background: var(--paper);
-  padding: 6px 9px;
-  font-family: var(--font-mono);
-  font-size: var(--type-mono-11);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  box-shadow: 2px 2px 0 var(--shadow-color);
-  text-align: left;
-}
-
-.sfc-tower__screen button:hover {
-  background: var(--sun-1);
-  color: #151524;
-}
-
-.sfc-tower__screen button:active {
-  transform: translate(2px, 2px);
-  box-shadow: none;
+  background: var(--night);
+  color: #fafaf4;
 }
 
 /* Wallet ------------------------------------------------------------------ */

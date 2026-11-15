@@ -6,9 +6,9 @@
 
 import { useEffect, useRef, type ReactElement } from "react";
 
+import { FighterCard } from "../cards/FighterCard.js";
 import type { FighterCardProps } from "../cards/types.js";
 import { classNames } from "../styles/components.js";
-import { FighterCardScreen } from "./screens.js";
 
 const FOCUSABLE = "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])";
 
@@ -69,15 +69,18 @@ export function FighterCardDialog({ card, onClose }: FighterCardDialogProps): Re
         aria-modal="true"
         aria-label={`Fighter card for ${card.entrant.name}`}
       >
-        <button
-          ref={closeRef}
-          type="button"
-          className={classNames("sfc-btn", "sfc-btn--sm", "sfc-dialog__close")}
-          onClick={onClose}
-        >
-          Close card
-        </button>
-        <FighterCardScreen {...card} />
+        <div className="sfc-dialog__bar">
+          <span className="sfc-kicker">Fighter card</span>
+          <button
+            ref={closeRef}
+            type="button"
+            className={classNames("sfc-btn", "sfc-btn--sm")}
+            onClick={onClose}
+          >
+            Close card
+          </button>
+        </div>
+        <FighterCard {...card} />
       </div>
     </div>
   );
