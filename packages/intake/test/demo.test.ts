@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+
 import { describe, expect, it } from "vitest";
 
 import { entrantProfileSchema } from "../../schemas/src/index.js";
@@ -51,13 +53,24 @@ describe("demo entrants", () => {
     }
   });
 
+  it("matches the committed profiles, so the fixtures cannot drift from the code", async () => {
+    for (const id of DEMO_IDS) {
+      const { profile } = await fetchDemoEntrant(id);
+      const committed: unknown = JSON.parse(
+        await readFile(new URL(`../fixtures/demo/profiles/${id}.profile.json`, import.meta.url), "utf8"),
+      );
+      expect(JSON.parse(JSON.stringify(profile)), id).toEqual(committed);
+    }
+  });
+
   it("produces a founder-free submission draft for every entrant", async () => {
     for (const id of DEMO_IDS) {
       const { profile } = await fetchDemoEntrant(id);
       const { submission } = toSubmission(profile);
       const haystack = `${submission.title}\n${submission.oneLiner}\n${submission.description}`;
       for (const founder of getDemoEntrant(id).founders) {
-        expect(haystack).not.toMatch(new RegExp(founder.name.split(/\s+/)[0] ?? "", "i"));
+        const first = founder.name.split(/\s+/)[0] ?? "";
+        expect(haystack).not.toMatch(new RegExp(`(?<![\\p{L}\\p{N}_])${first}(?![\\p{L}\\p{N}_])`, "iu"));
       }
     }
   });

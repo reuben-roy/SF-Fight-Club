@@ -112,7 +112,6 @@ export function buildProfile(input: BuildInput): BuildOutput {
     logoUrl: input.company.logoUrl ?? web?.logoUrl,
     location: input.company.location,
   };
-  if (company.url === undefined && web !== null) company.url = undefined;
 
   const followers = founders.reduce((sum, founder) => sum + (founder.followers ?? 0), 0);
   const hnKarma = founders.reduce((sum, founder) => sum + (founder.hnKarma ?? 0), 0);
@@ -179,7 +178,8 @@ export function toSubmission(profile: EntrantProfile): SubmissionDraft {
   const scrub = (text: string): string => {
     let out = text;
     for (const token of tokens) {
-      const pattern = new RegExp(escapeRegExp(token), "gi");
+      // Whole tokens only. A bare substring match turns "developers" into "elopers" for a founder named Dev.
+      const pattern = new RegExp(`(?<![\\p{L}\\p{N}_])${escapeRegExp(token)}(?![\\p{L}\\p{N}_])`, "giu");
       if (pattern.test(out)) {
         if (!stripped.includes(token)) stripped.push(token);
         out = out.replace(pattern, "");

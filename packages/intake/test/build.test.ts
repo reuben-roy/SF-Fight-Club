@@ -15,6 +15,11 @@ function profileWithText(text: string): EntrantProfile {
   };
 }
 
+function mentions(haystack: string, token: string): boolean {
+  const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(?<![\\p{L}\\p{N}_])${escaped}(?![\\p{L}\\p{N}_])`, "iu").test(haystack);
+}
+
 describe("buildProfile", () => {
   it("is a pure function of adapter results: a failed source becomes a warning, not a crash", async () => {
     const { profile, warnings } = await fetchDemoEntrant("permitpilot");
@@ -38,7 +43,7 @@ describe("toSubmission", () => {
         expect(haystack, `${entrant.entrantId} leaks ${founder.name}`).not.toContain(founder.name.toLowerCase());
         for (const part of founder.name.split(/\s+/)) {
           if (part.length >= 3) {
-            expect(haystack, `${entrant.entrantId} leaks ${part}`).not.toContain(part.toLowerCase());
+            expect(mentions(haystack, part), `${entrant.entrantId} leaks ${part}`).toBe(false);
           }
         }
         expect(haystack, `${entrant.entrantId} leaks ${founder.xHandle}`).not.toContain(founder.xHandle.toLowerCase());
@@ -58,6 +63,17 @@ describe("toSubmission", () => {
         }
       }
     }
+  });
+
+  it("strips whole names only and leaves words that contain a name alone", () => {
+    const profile = profileWithText("Ada built this for developers who adapt fast. Thanks, Ada Lovelace (@adalove).");
+    profile.founders = [{ name: "Ada Lovelace", xHandle: "@adalove" }, { name: "Dev Raman" }];
+    const { submission, stripped } = toSubmission(profile);
+    expect(submission.description).toContain("developers");
+    expect(submission.description).toContain("adapt");
+    expect(mentions(submission.description, "Ada")).toBe(false);
+    expect(mentions(submission.description, "adalove")).toBe(false);
+    expect(stripped).toContain("Ada Lovelace");
   });
 
   it("caps title at 60, one-liner at 140 and description at 1500 chars", () => {
