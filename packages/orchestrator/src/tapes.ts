@@ -7,6 +7,7 @@ import {
   type RoundNumber,
   type ShotModelOutput,
   type ShotVerdict,
+  type ShotVerdictKind,
   type Slot,
   type SuddenDeathVote,
 } from "@sf-fight-club/schemas";
@@ -69,9 +70,17 @@ export function withStep(tape: FixtureTape, key: string, attempts: readonly Fixt
   };
 }
 
+interface ShotVerdictOverride {
+  verdict: ShotVerdictKind;
+  impact: ShotVerdict["impact"];
+  note?: string;
+}
+
 interface SidePlan {
   v1: ShotModelOutput[];
   v2: ShotModelOutput[];
+  /** Per-shot judge overrides keyed by volley and 1-based shot, e.g. `v1.s2`. */
+  verdicts?: Readonly<Record<string, ShotVerdictOverride>>;
 }
 
 function tapeFromPlans(
@@ -99,17 +108,19 @@ function tapeFromPlans(
     for (const slot of ["A", "B"] as const) {
       for (const volley of [1, 2] as const) {
         const shots = plans[round][slot][volley === 1 ? "v1" : "v2"];
+        const overrides = plans[round][slot].verdicts;
         steps[stepKey.volley(round, volley, slot)] = output({ shots });
         const ids = shots.map((_, index) => `${volleyScope(round, volley, slot)}.s${index + 1}`);
         steps[stepKey.factcheck(round, volley, slot)] = output(factChecks(ids, shots));
         ids.forEach((id, index) => {
           const shot = shots[index];
           if (!shot) return;
+          const override = overrides?.[`v${volley}.s${index + 1}`];
           verdicts.push({
             shotId: id,
-            verdict: shot.type === "defense" ? "glancing" : "landed",
-            impact: shot.type === "defense" ? 1 : 2,
-            note: "Scored from the claim.",
+            verdict: override?.verdict ?? (shot.type === "defense" ? "glancing" : "landed"),
+            impact: override?.impact ?? (shot.type === "defense" ? 1 : 2),
+            note: override?.note ?? "Scored from the claim.",
           });
         });
       }
@@ -133,6 +144,10 @@ function permitPlans(): Record<RoundNumber, Record<Slot, SidePlan>> {
           defense("problem", "Patios still open", "The marine layer is an inconvenience.", "r1.v1.B.s1"),
           pitch("wtp", "Contractors already pay", "Expediters charge for the same chase."),
         ],
+        verdicts: {
+          "v1.s1": { verdict: "landed", impact: 3, note: "The backlog is dated and specific." },
+          "v1.s2": { verdict: "parried", impact: 2, note: "Forecasts can be bought per venue." },
+        },
       },
       B: {
         v1: [
@@ -142,7 +157,13 @@ function permitPlans(): Record<RoundNumber, Record<Slot, SidePlan>> {
         v2: [
           defense("problem", "Delays are normal", "Months-long permits are the baseline.", "r1.v1.A.s1"),
           attack("wtp", "Software budget is thin", "Contractors will not add another subscription."),
+          defense("market", "Weather spend hides in ops budgets", "Outdoor venues bury forecasts inside operations, not a line item.", "r1.v1.A.s2"),
         ],
+        verdicts: {
+          "v1.s1": { verdict: "parried", impact: 2, note: "The sidewalk clears, but covers already exist." },
+          "v1.s2": { verdict: "glancing", impact: 1, note: "One city still needs a permit desk." },
+          "v2.s2": { verdict: "glancing", impact: 1, note: "The budget objection is real but small." },
+        },
       },
     },
     2: {
@@ -155,6 +176,10 @@ function permitPlans(): Record<RoundNumber, Record<Slot, SidePlan>> {
           defense("differentiation", "Follow-up is the product", "A data feed does not chase an inspector.", "r2.v1.B.s1"),
           pitch("timing", "Staffing shortage", "Departments are short, so software has a window."),
         ],
+        verdicts: {
+          "v1.s1": { verdict: "glancing", impact: 1, note: "Chasing is real, but not yet a wedge." },
+          "v1.s2": { verdict: "whiff", impact: 0, note: "Permit history exports more easily than claimed." },
+        },
       },
       B: {
         v1: [
@@ -165,6 +190,10 @@ function permitPlans(): Record<RoundNumber, Record<Slot, SidePlan>> {
           defense("differentiation", "Public data is enough", "The forecast is the product, not a side feature.", "r2.v1.A.s1"),
           pitch("moat", "Station network", "Owned sensors are a physical moat."),
         ],
+        verdicts: {
+          "v1.s2": { verdict: "glancing", impact: 1, note: "Cheap sensors help, but commitments stay short." },
+          "v2.s2": { verdict: "glancing", impact: 1, note: "A station network is a thin moat." },
+        },
       },
     },
     3: {
@@ -177,6 +206,10 @@ function permitPlans(): Record<RoundNumber, Record<Slot, SidePlan>> {
           defense("gtm", "That stat is not sourced", "No locker item says forty percent.", "r3.v1.B.s1"),
           attack("feasibility", "Hardware is slow", "A sensor network takes years to install."),
         ],
+        verdicts: {
+          "v1.s1": { verdict: "landed", impact: 3, note: "The expediter channel is named and already paying." },
+          "v2.s2": { verdict: "whiff", impact: 0, note: "Public data shortens the install." },
+        },
       },
       B: {
         v1: [
@@ -187,6 +220,9 @@ function permitPlans(): Record<RoundNumber, Record<Slot, SidePlan>> {
           defense("gtm", "Expediters are the incumbent", "Selling through them is a long cycle.", "r3.v1.A.s1"),
           pitch("scale", "Every outdoor block", "Patios exist in every coastal city."),
         ],
+        verdicts: {
+          "v2.s2": { verdict: "whiff", impact: 0, note: "Coastal patios are a narrow slice." },
+        },
       },
     },
   };

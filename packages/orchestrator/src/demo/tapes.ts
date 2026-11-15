@@ -882,7 +882,7 @@ export function finalTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("problem", "Packets stall real builds", "Crews sit idle while packets crawl.", { evidence: ["E1"], impact: 3 }),
             a("market", "Surveys need councils", "Budgets move at election speed.", { estimate: true, verdict: "glancing", impact: 1, note: "True and matched." }),
-            a("wtp", "Chase fees fund the product", "Expediters already charge for the follow-up.", { estimate: true, verdict: "glancing", impact: 1, note: "Charged today, priced opaquely." }),
+            a("wtp", "Chase fees fund the product", "Expediters already charge for the follow-up.", { estimate: true, verdict: "partial", impact: 1, note: "Charged today, priced opaquely." }),
           ],
           v2: [
             d("problem", "Pain is still pain", "Lawsuits and layoffs both bleed.", "r1.v1.B.s1", { verdict: "landed", note: "PermitPilot absorbs the access pain." }),

@@ -223,6 +223,15 @@
                 "claim": "Contractors will not add another subscription.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "defense",
+                "criterion": "market",
+                "headline": "Weather spend hides in ops budgets",
+                "claim": "Outdoor venues bury forecasts inside operations, not a line item.",
+                "evidence": [],
+                "estimate": true,
+                "respondsTo": "r1.v1.A.s2"
               }
             ]
           }
@@ -244,6 +253,13 @@
               },
               {
                 "shotId": "r1.v2.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v2.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -307,14 +323,14 @@
               {
                 "shotId": "r1.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "impact": 3,
+                "note": "The backlog is dated and specific."
               },
               {
                 "shotId": "r1.v1.A.s2",
-                "verdict": "landed",
+                "verdict": "parried",
                 "impact": 2,
-                "note": "Scored from the claim."
+                "note": "Forecasts can be bought per venue."
               },
               {
                 "shotId": "r1.v2.A.s1",
@@ -330,15 +346,15 @@
               },
               {
                 "shotId": "r1.v1.B.s1",
-                "verdict": "landed",
+                "verdict": "parried",
                 "impact": 2,
-                "note": "Scored from the claim."
+                "note": "The sidewalk clears, but covers already exist."
               },
               {
                 "shotId": "r1.v1.B.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "One city still needs a permit desk."
               },
               {
                 "shotId": "r1.v2.B.s1",
@@ -348,8 +364,14 @@
               },
               {
                 "shotId": "r1.v2.B.s2",
-                "verdict": "landed",
-                "impact": 2,
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "The budget objection is real but small."
+              },
+              {
+                "shotId": "r1.v2.B.s3",
+                "verdict": "glancing",
+                "impact": 1,
                 "note": "Scored from the claim."
               }
             ],
@@ -412,14 +434,14 @@
               {
                 "shotId": "r1.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "impact": 3,
+                "note": "The backlog is dated and specific."
               },
               {
                 "shotId": "r1.v1.A.s2",
-                "verdict": "landed",
+                "verdict": "parried",
                 "impact": 2,
-                "note": "Scored from the claim."
+                "note": "Forecasts can be bought per venue."
               },
               {
                 "shotId": "r1.v2.A.s1",
@@ -435,15 +457,15 @@
               },
               {
                 "shotId": "r1.v1.B.s1",
-                "verdict": "landed",
+                "verdict": "parried",
                 "impact": 2,
-                "note": "Scored from the claim."
+                "note": "The sidewalk clears, but covers already exist."
               },
               {
                 "shotId": "r1.v1.B.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "One city still needs a permit desk."
               },
               {
                 "shotId": "r1.v2.B.s1",
@@ -453,8 +475,14 @@
               },
               {
                 "shotId": "r1.v2.B.s2",
-                "verdict": "landed",
-                "impact": 2,
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "The budget objection is real but small."
+              },
+              {
+                "shotId": "r1.v2.B.s3",
+                "verdict": "glancing",
+                "impact": 1,
                 "note": "Scored from the claim."
               }
             ],
@@ -726,15 +754,15 @@
             "shots": [
               {
                 "shotId": "r2.v1.A.s1",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Chasing is real, but not yet a wedge."
               },
               {
                 "shotId": "r2.v1.A.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Permit history exports more easily than claimed."
               },
               {
                 "shotId": "r2.v2.A.s1",
@@ -756,9 +784,9 @@
               },
               {
                 "shotId": "r2.v1.B.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Cheap sensors help, but commitments stay short."
               },
               {
                 "shotId": "r2.v2.B.s1",
@@ -768,9 +796,9 @@
               },
               {
                 "shotId": "r2.v2.B.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "A station network is a thin moat."
               }
             ],
             "injectionSuspected": false,
@@ -831,15 +859,15 @@
             "shots": [
               {
                 "shotId": "r2.v1.A.s1",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Chasing is real, but not yet a wedge."
               },
               {
                 "shotId": "r2.v1.A.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Permit history exports more easily than claimed."
               },
               {
                 "shotId": "r2.v2.A.s1",
@@ -861,9 +889,9 @@
               },
               {
                 "shotId": "r2.v1.B.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Cheap sensors help, but commitments stay short."
               },
               {
                 "shotId": "r2.v2.B.s1",
@@ -873,9 +901,9 @@
               },
               {
                 "shotId": "r2.v2.B.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "A station network is a thin moat."
               }
             ],
             "injectionSuspected": false,
@@ -1163,8 +1191,8 @@
               {
                 "shotId": "r3.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "impact": 3,
+                "note": "The expediter channel is named and already paying."
               },
               {
                 "shotId": "r3.v1.A.s2",
@@ -1180,9 +1208,9 @@
               },
               {
                 "shotId": "r3.v2.A.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Public data shortens the install."
               },
               {
                 "shotId": "r3.v1.B.s1",
@@ -1204,9 +1232,9 @@
               },
               {
                 "shotId": "r3.v2.B.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Coastal patios are a narrow slice."
               }
             ],
             "injectionSuspected": false,
@@ -1268,8 +1296,8 @@
               {
                 "shotId": "r3.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "impact": 3,
+                "note": "The expediter channel is named and already paying."
               },
               {
                 "shotId": "r3.v1.A.s2",
@@ -1285,9 +1313,9 @@
               },
               {
                 "shotId": "r3.v2.A.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Public data shortens the install."
               },
               {
                 "shotId": "r3.v1.B.s1",
@@ -1309,9 +1337,9 @@
               },
               {
                 "shotId": "r3.v2.B.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Coastal patios are a narrow slice."
               }
             ],
             "injectionSuspected": false,
