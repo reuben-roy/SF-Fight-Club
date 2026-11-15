@@ -14,6 +14,7 @@
     "test": "pnpm run build:deps && pnpm run typecheck && vitest run",
     "screenshots": "pnpm run build:deps && pnpm run build && tsx scripts/screenshots.ts",
     "screenshots:pages": "pnpm run build:deps && pnpm run build && tsx scripts/screenshots-pages.ts",
+    "screenshots:arena": "pnpm run build:deps && pnpm run build && tsx scripts/screenshots-arena.ts",
     "build:deps": "pnpm --filter \"@sf-fight-club/web^...\" build"
   },
   "dependencies": {

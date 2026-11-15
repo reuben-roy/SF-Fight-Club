@@ -1,7 +1,69 @@
 import type { ReactElement } from "react";
 
-import { PlaceholderPage } from "../styles/components.js";
+import { Button } from "../styles/components.js";
+import { ArenaScreen } from "./ArenaScreen.js";
+import { DEMO_BUILD_HASH, DEMO_MATCHES } from "./fixtures/index.js";
+import { HARNESS_MATCHES, REEL_MATCH } from "./reel.js";
 
-export default function ArenaDevScreen(): ReactElement {
-  return <PlaceholderPage kicker="Dev route" title="ARENA HARNESS" body="Arena task renders the battle here from fixture data." />;
+const CARRIED_PARAMS = ["turn", "at", "t", "paused", "speed"] as const;
+
+/** A moment survives a fixture change; the match itself does not. */
+function hrefFor(matchId: string): string {
+  const current = new URLSearchParams(window.location.search);
+  const next = new URLSearchParams({ match: matchId });
+  for (const key of CARRIED_PARAMS) {
+    const value = current.get(key);
+    if (value !== null) next.set(key, value);
+  }
+  return `/dev/arena?${next.toString()}`;
+}
+
+export default function ArenaDevRoute(): ReactElement {
+  const first = DEMO_MATCHES[0];
+  if (!first) throw new Error("The demo fixture library is empty");
+  const requested = new URLSearchParams(window.location.search).get("match");
+  const index = Math.max(
+    0,
+    HARNESS_MATCHES.findIndex((candidate) => candidate.matchId === requested),
+  );
+  const match = HARNESS_MATCHES[index] ?? first;
+  const previous = HARNESS_MATCHES[(index - 1 + HARNESS_MATCHES.length) % HARNESS_MATCHES.length] ?? first;
+  const next = HARNESS_MATCHES[(index + 1) % HARNESS_MATCHES.length] ?? first;
+  const synthetic = match.matchId === REEL_MATCH.matchId;
+
+  return (
+    <div className="arena-dev">
+      <div className="arena-dev__bar">
+        <div className="arena-dev__id">
+          <span className="arena-dev__title">ARENA HARNESS</span>
+          <span className="arena-dev__hash">BUILD {DEMO_BUILD_HASH.slice(0, 12)}</span>
+          <span className="arena-dev__now">
+            {match.label} · {match.fighters[match.winner].name} wins by {match.outcome}
+            {synthetic ? " · synthetic" : ""}
+          </span>
+        </div>
+        <div className="arena-dev__nav">
+          <Button size="sm" variant="ghost" onClick={() => window.location.assign(hrefFor(previous.matchId))}>
+            PREV
+          </Button>
+          <select
+            className="arena-dev__select"
+            aria-label="Demo match"
+            value={match.matchId}
+            onChange={(event) => window.location.assign(hrefFor(event.target.value))}
+          >
+            {HARNESS_MATCHES.map((option) => (
+              <option key={option.matchId} value={option.matchId}>
+                {option.label} · {option.outcome}
+              </option>
+            ))}
+          </select>
+          <Button size="sm" variant="ghost" onClick={() => window.location.assign(hrefFor(next.matchId))}>
+            NEXT
+          </Button>
+        </div>
+      </div>
+      <ArenaScreen key={match.matchId} script={match.script} fighters={match.fighters} autoplay />
+    </div>
+  );
 }
