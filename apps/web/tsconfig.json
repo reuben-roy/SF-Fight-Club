@@ -4,6 +4,7 @@
     "noEmit": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
+    "resolveJsonModule": true,
     "types": ["vite/client", "node"]
   },
   "include": ["src", "test", "scripts", "vite.config.ts", "vitest.config.ts"]
