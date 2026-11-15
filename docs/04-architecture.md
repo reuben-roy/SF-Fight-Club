@@ -199,6 +199,16 @@ GET   /api/leaderboard
 
 The SSE stream starts with a `snapshot` event: everything needed to render the state at the current broadcast time (HP, round, last cue). Then it streams cues. On reconnect, the client sends `Last-Event-ID` and gets the cues it missed. The arena applies missed cues instantly without animation, then resumes live.
 
+## Demo web client
+
+The committed demo client (`apps/web`) stands in for the Next.js app above: Vite plus React, no backend, no network. It plays the same tournament end to end on a static bundle so the screens, betting and sealing can be built and tested without a model API.
+
+- **Static bundle.** `pnpm --filter @sf-fight-club/web demo:data` runs `runDemoTournament` plus the eight committed demo intake profiles and writes the parsed, schema-validated result to `apps/web/src/data/generated/demo.ts` (entrant profiles, per-match fighters, corners, broadcast scripts, resolutions, reports, bracket and org chart). The drift test fails if a regenerated bundle no longer matches the section 7 results in [09-battle-revamp.md](09-battle-revamp.md#7-demo-tournament).
+- **Arena renderer.** A 2D canvas stage (480x270) replays the committed broadcast script cue by cue at 1x, 2x or 4x, with play, pause and step controls. Like the server renderer, it never decides anything: the script is the truth.
+- **Client state mirrors the server statuses.** A pure reducer in `src/data/store.ts` moves each match through `scheduled`, `betting_open`, `locked`, `live` and `complete`. Betting opens and locks exactly as the lifecycle in [06-betting-and-vc.md](06-betting-and-vc.md#lifecycle) requires: bets are rejected once the bell rings, and results settle only at `complete`.
+- **Sealing without a server.** Selectors are the client's RLS. `winner_id`, `outcome`, the broadcast script and the fight report reach components only through selectors that return them for `live` / `complete` matches and withhold them otherwise — the same rule the API section above applies to `GET /bracket`, `GET /matches/:id` and `GET /trace`. The full bundle sits in the module, but no unplayed winner renders in the DOM; the Playwright walkthrough asserts that.
+- **Persistence.** Progress, wallet and bets persist in `localStorage` under a versioned, zod-validated key. Corrupt or foreign payloads fall back to a fresh tournament. `?reset=1` starts over.
+
 ## Determinism and replays
 
 - `match_seed` is fixed at lock and logged. Every random choice (sprite seed, random judge order for the third call, presentation jitter) derives from it.
