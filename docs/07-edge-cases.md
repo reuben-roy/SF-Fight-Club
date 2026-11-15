@@ -135,3 +135,14 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 | FA-3 | Position effects in the arena (left corner always the higher seed) | Corner assignment comes from `match_seed`, not seed number | Decided. [02 Fighter build](02-fight-system.md#the-fighter-build) |
 | FA-4 | Judge model favors some industries | Measure per-category win rates over tournaments on the host console. Never retune mid-tournament. Not fixable per match. | Decided. [03 Judging the judge](03-evals.md#judging-the-judge), [04 Observability](04-architecture.md#observability) |
 | FA-5 | Upset rate drifts outside 15% to 35% | Host console warns. Tune before the next tournament, never mid-tournament. | Decided |
+
+## Web client
+
+The demo client has no server, so these are decided client-side. All four are covered by unit tests and the Playwright tournament walkthrough.
+
+| ID | Case | Expected behavior | Status |
+|---|---|---|---|
+| WB-1 | Reload mid-fight (match page, film room, any route) | Progress, wallet and bets reload from the versioned `localStorage` key. A live match resumes at its saved cue with a resume note; nothing replays from zero and no result leaks. | Decided. `apps/web/test/persistence.test.ts`, `apps/web/e2e/tournament.spec.ts` |
+| WB-2 | Match URL whose feeders have not completed | The match page shows "not on the card until its feeders complete" with a link back to the Tower. No fighters, odds or script render. | Decided. `apps/web/test/selectors.test.ts`, `apps/web/e2e/tournament.spec.ts` |
+| WB-3 | Corrupt or foreign `localStorage` payload (bad JSON, wrong version, negative wallet) | The store falls back to a fresh tournament at S$1000. The bad payload is discarded, never repaired. | Decided. `apps/web/test/persistence.test.ts` |
+| WB-4 | Bet placed after the bell (locked, live or complete match) | Rejected by the reducer. The bet slip disables its controls and says betting is closed. Bets lock before compute, as in the server lifecycle. | Decided. `apps/web/test/store.test.ts`, `apps/web/e2e/tournament.spec.ts` |
