@@ -1,0 +1,132 @@
+/* Design tokens. Palette and shapes from docs/05-ui.md, additions from docs/09-battle-revamp.md section 5. */
+
+:root {
+  /* paper (Mistral cream scale) */
+  --paper: #fafaf4;
+  --paper-2: #f2f1e8;
+  --line: #e4e2d6;
+  --line-2: #bfbcac;
+  --muted: #8b8879;
+
+  /* ink (Mistral navy scale) */
+  --ink: #151524;
+  --ink-2: #242433;
+  --ink-3: #56566c;
+
+  /* sunset ramp, light to dark */
+  --sun-1: #ffdd73;
+  --sun-2: #ffaf01;
+  --sun-3: #ff8204;
+  --sun-4: #fa500f;
+  --sun-5: #e51300;
+  --sun-6: #c4001d;
+
+  /* corners */
+  --red: #fa500f;
+  --blue: #0082e6;
+  --blue-light: #55b3fb;
+  --blue-dark: #044298;
+
+  --good: #44ba82;
+
+  /* elements: market is sun, moat is stone, execution is red */
+  --el-market: var(--sun-2);
+  --el-market-ink: #151524;
+  --el-market-soft: #7a5200;
+  --el-moat: #56566c;
+  --el-moat-ink: #fafaf4;
+  --el-moat-soft: #e4e2d6;
+  --el-execution: var(--sun-5);
+  --el-execution-ink: #fafaf4;
+  --el-execution-soft: #ffb8ae;
+
+  /* materials shared by mascots and UI */
+  --night: #151524;
+  --night-2: #242433;
+  --night-3: #343446;
+  --night-4: #56566c;
+
+  --font-pixel: "Pixelify Sans", "Space Mono", ui-monospace, monospace;
+  --font-mono: "Space Mono", ui-monospace, Menlo, monospace;
+  --font-body: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --type-64: 64px;
+  --type-40: 40px;
+  --type-28: 28px;
+  --type-20: 20px;
+  --type-mono-13: 13px;
+  --type-mono-11: 11px;
+  --type-body-17: 17px;
+  --type-body-15: 15px;
+
+  --shadow-color: var(--ink);
+  --shadow-hard: 4px 4px 0 var(--shadow-color);
+  --shadow-hard-sm: 3px 3px 0 var(--shadow-color);
+  --shadow-hard-lg: 6px 6px 0 var(--shadow-color);
+  --border: 2px solid var(--ink);
+  --border-thick: 3px solid var(--ink);
+  --radius: 0;
+
+  --stripe-bands: linear-gradient(
+    to bottom,
+    var(--sun-1) 0 20%,
+    var(--sun-2) 20% 40%,
+    var(--sun-3) 40% 60%,
+    var(--sun-4) 60% 80%,
+    var(--sun-5) 80% 100%
+  );
+  --stripe-bands-x: linear-gradient(
+    to right,
+    var(--sun-1) 0 20%,
+    var(--sun-2) 20% 40%,
+    var(--sun-3) 40% 60%,
+    var(--sun-4) 60% 80%,
+    var(--sun-5) 80% 100%
+  );
+
+  /* motion: everything moves in whole pixels, never in smooth curves */
+  --steps-2: steps(2, end);
+  --steps-3: steps(3, end);
+  --steps-4: steps(4, end);
+  --steps-6: steps(6, end);
+  --steps-8: steps(8, end);
+  --steps-10: steps(10, end);
+  --steps-14: steps(14, end);
+  --t-fast: 120ms;
+  --t-ui: 220ms;
+  --t-slow: 480ms;
+  --t-wipe: 620ms;
+  --wipe-band-delay: 55ms;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  --content-width: 1320px;
+  color-scheme: light;
+}
+
+[data-theme="night"] {
+  --paper: #151524;
+  --paper-2: #242433;
+  --line: #343446;
+  --line-2: #56566c;
+  --muted: #b8b8cc;
+  --ink: #fafaf4;
+  --ink-2: #f2f1e8;
+  --ink-3: #b8b8cc;
+  --el-moat: #8fa3b8;
+  --el-moat-ink: #151524;
+  --el-moat-soft: #343446;
+  --shadow-color: #000000;
+  color-scheme: dark;
+}
+
+[data-theme="paper"] {
+  color-scheme: light;
+}
