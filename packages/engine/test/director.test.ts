@@ -79,8 +79,8 @@ function logFrom(rounds: readonly RoundResolution[], result: ResolvedMatch, extr
     events,
     rubric: preset,
     fighters: {
-      A: { name: "PermitPilot", seed: 8, tier: "B", spriteSeed: "pp" },
-      B: { name: "Fogcast", seed: 1, tier: "A", spriteSeed: "fg" },
+      A: { name: "PermitPilot", seed: 8, tier: "B", spriteSeed: "pp", category: "proptech" },
+      B: { name: "Fogcast", seed: 1, tier: "A", spriteSeed: "fg", category: "climate" },
     },
   };
 }

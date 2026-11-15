@@ -1,0 +1,101 @@
+{
+  "entrantId": "fogcast",
+  "company": {
+    "name": "Fogcast",
+    "url": "https://fogcast.example.com",
+    "tagline": "Microclimate forecasts for SF outdoor businesses",
+    "logoUrl": "https://fogcast.example.com/og.png"
+  },
+  "founders": [
+    {
+      "name": "Ana Sorensen",
+      "role": "CEO",
+      "xHandle": "anasorensen",
+      "hnUser": "anaso",
+      "followers": 500,
+      "hnKarma": 12
+    },
+    {
+      "name": "Bo Lindqvist",
+      "role": "CTO",
+      "xHandle": "bolind",
+      "hnUser": "bolind",
+      "hnKarma": 8
+    }
+  ],
+  "posts": [
+    {
+      "source": "hn",
+      "url": "https://news.ycombinator.com/item?id=45120018",
+      "title": "Show HN: Fogcast, block-level fog forecasts for SF venues",
+      "text": "Show HN: Fogcast, block-level fog forecasts for SF venues\n\nThe park can be sunny while the ballpark drowns. We forecast per block so outdoor businesses plan the day.",
+      "postedAt": "2026-11-04T09:00:00.000Z",
+      "metrics": {
+        "points": 40,
+        "comments": 2
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/anasorensen/status/70000081",
+      "text": "Called the 2pm burn-off on the west side to the minute. Venues noticed.",
+      "postedAt": "2026-11-03T08:00:00.000Z",
+      "metrics": {
+        "likes": 32,
+        "reposts": 14,
+        "replies": 10,
+        "views": 900
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/anasorensen/status/70000082",
+      "text": "Three new venues signed for the winter season.",
+      "postedAt": "2026-11-01T08:00:00.000Z",
+      "metrics": {
+        "likes": 14,
+        "reposts": 6,
+        "replies": 4,
+        "views": 350
+      }
+    }
+  ],
+  "clout": {
+    "score": 53,
+    "tier": "B",
+    "x": 55,
+    "hn": 51
+  },
+  "sources": [
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/items/45120018",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/anaso",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/bolind",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/by/username/anasorensen?user.fields=created_at,description,location,public_metrics,url,verified",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/90000018/tweets?max_results=20&exclude=retweets,replies&tweet.fields=author_id,created_at,public_metrics",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "web",
+      "url": "https://fogcast.example.com/",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    }
+  ]
+}

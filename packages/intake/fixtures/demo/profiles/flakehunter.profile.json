@@ -1,0 +1,89 @@
+{
+  "entrantId": "flakehunter",
+  "company": {
+    "name": "FlakeHunter",
+    "url": "https://flakehunter.example.com",
+    "tagline": "Finds and quarantines flaky tests in CI",
+    "logoUrl": "https://flakehunter.example.com/og.png"
+  },
+  "founders": [
+    {
+      "name": "Priya Nandakumar",
+      "role": "Founder",
+      "xHandle": "priyaships",
+      "hnUser": "priya",
+      "followers": 900,
+      "hnKarma": 35
+    }
+  ],
+  "posts": [
+    {
+      "source": "hn",
+      "url": "https://news.ycombinator.com/item?id=45120013",
+      "title": "Show HN: FlakeHunter quarantines flaky CI tests automatically",
+      "text": "Show HN: FlakeHunter quarantines flaky CI tests automatically\n\nIt watches your suite, learns which tests flake, and quarantines them with a ticket instead of a red build.",
+      "postedAt": "2026-11-04T14:00:00.000Z",
+      "metrics": {
+        "points": 50,
+        "comments": 2
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/priyaships/status/70000031",
+      "text": "FlakeHunter quarantined 41 flaky tests across 6 repos this week, with a ticket for each one.",
+      "postedAt": "2026-11-03T13:00:00.000Z",
+      "metrics": {
+        "likes": 50,
+        "reposts": 20,
+        "replies": 15,
+        "views": 1200
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/priyaships/status/70000032",
+      "text": "New: quarantine policies per team, so the mobile suite stops paging the backend folks.",
+      "postedAt": "2026-11-01T13:00:00.000Z",
+      "metrics": {
+        "likes": 20,
+        "reposts": 10,
+        "replies": 5,
+        "views": 400
+      }
+    }
+  ],
+  "clout": {
+    "score": 58,
+    "tier": "B",
+    "x": 60,
+    "hn": 55
+  },
+  "sources": [
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/items/45120013",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/priya",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/by/username/priyaships?user.fields=created_at,description,location,public_metrics,url,verified",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/90000013/tweets?max_results=20&exclude=retweets,replies&tweet.fields=author_id,created_at,public_metrics",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "web",
+      "url": "https://flakehunter.example.com/",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    }
+  ]
+}

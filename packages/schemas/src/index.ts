@@ -64,6 +64,9 @@ export {
 } from "./submission.js";
 export type { Claim, Dossier, EvidenceItem, IdeaSubmission, StandardBrief } from "./submission.js";
 
+export { entrantProfileSchema } from "./profile.js";
+export type { EntrantProfile } from "./profile.js";
+
 export {
   shotModelOutputSchema,
   shotSchema,
@@ -99,6 +102,20 @@ export type {
   SuddenDeathVote,
   WeighinJudgment,
 } from "./judging.js";
+
+export {
+  moveElementSchema,
+  moveSchema,
+  fighterStatusSchema,
+} from "./battle.js";
+export type { FighterStatus, Move, MoveElement } from "./battle.js";
+
+export {
+  orgChartSchema,
+  orgNodeSchema,
+  orgTitleSchema,
+} from "./orgchart.js";
+export type { OrgChart, OrgNode, OrgTitle } from "./orgchart.js";
 
 export {
   broadcastScriptSchema,

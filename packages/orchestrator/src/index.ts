@@ -1,3 +1,15 @@
+export { DEMO_ENTRANTS, makeFighterInput } from "./demo/entrants.js";
+export type { DemoEntrant } from "./demo/entrants.js";
+export { DEMO_AT_DEFAULT, DEMO_SEED, runDemoTournament } from "./demo/runner.js";
+export type { DemoMatchResult, DemoTournament, RunDemoTournamentInput } from "./demo/runner.js";
+export {
+  dermaVsCurbTape,
+  dermaVsLoopTape,
+  finalTape,
+  flakeVsCurbTape,
+  permitVsTabTape,
+  tabVsPaperTape,
+} from "./demo/tapes.js";
 export { OrchestratorError } from "./errors.js";
 export { mergeFactChecks } from "./factcheck.js";
 export { createFixturePlayer, parseFixtureTape } from "./fixtures.js";

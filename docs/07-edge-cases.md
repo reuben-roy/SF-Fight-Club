@@ -20,6 +20,10 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 | IN-12 | More submissions than slots | Waitlist in order. Host curates the final field. | Decided. [01 Core loop](01-product.md#core-loop) |
 | IN-13 | Fewer than 2 approved entrants at lock | Lock refused | Decided |
 | IN-14 | Idea withdrawn before lock | Removed, no effect | Decided |
+| IN-15 | X token unset during social intake | X adapter skipped with a warning. The profile builds from HN and the company site. | Decided. [09 section 4](09-battle-revamp.md#4-entrant-intake) |
+| IN-16 | An intake source fails (404, malformed, timeout) | That source becomes a warning, never a crash. The profile builds from what succeeded. | Decided. `packages/intake` adapter tests |
+| IN-17 | Post text contains instructions aimed at the agent | Stored as data, never interpreted. `toSubmission` passes it through and the normal injection screen still applies. | Decided. [09 section 4](09-battle-revamp.md#4-entrant-intake) |
+| IN-18 | Intake URL is not http or https | Rejected by the web adapter | Decided. `packages/intake` adapter tests |
 
 ## Research and weigh-in
 
@@ -45,6 +49,9 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 | BR-6 | Disqualification of a past winner (rule breach discovered) | Their next opponent gets a walkover. Past results stand. Bets on past matches stay settled. | Decided. [02 Brackets](02-fight-system.md#brackets) |
 | BR-7 | Both feeder matches of a slot failed | Slot waits. Host retries feeders. | Decided |
 | BR-8 | Host wants to precompute a whole floor | Allowed. Matches compute once both feeders are sealed. Betting on the next floor can't open until feeders complete, since fighters aren't public yet. | Decided |
+| BR-9 | Bye in the org chart | The fighter advances one rung and gains no report. | Decided. [02 Org chart](02-fight-system.md#org-chart), `orgchart.test.ts` |
+| BR-10 | Walkover in the org chart | The winner advances one rung. The absent entrant is listed as its report, marked `WALKOVER`, and keeps its own reports. | Decided. [02 Org chart](02-fight-system.md#org-chart), `orgchart.test.ts` |
+| BR-11 | Final decided by walkover | No champion is named. The chart waits for a final completed by fight. | Decided. [02 Org chart](02-fight-system.md#org-chart) |
 
 ## Fight engine
 
@@ -87,6 +94,11 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 | BC-8 | Slow device | Low-power mode drops particles | Decided |
 | BC-9 | Director bug found after a match aired | Bump the director version and re-direct from the compute log. Results don't change. | Decided |
 | BC-10 | Replay of a completed match | Full script, scrubbing allowed, speed 1x, 2x, 4x | Decided |
+| BC-11 | A volley has no shots | It contributes no turns and no menus. Turns still count 1 to N with no gaps. | Decided. [02 Turn presentation](02-fight-system.md#turn-presentation), `director-turns.test.ts` |
+| BC-12 | Momentum starts on the last shot of a round | Both cues air: the on cue after the shot, then the off cue at the round end. | Decided. `director-turns.test.ts` |
+| BC-13 | A fabricated defense never plays as a shot | Its backfire cue names the real defense move and uses its volley for the menu. | Decided. [02 Turn presentation](02-fight-system.md#turn-presentation), `director-turns.test.ts` |
+| BC-14 | A backfire names a shot found in no volley | The cue falls back to a plain attack move on `problem` in volley 1, with a menu of one. | Decided. `director-turns.test.ts` |
+| BC-15 | One cue starts two statuses, or would start and end one | Two statuses may start on the same cue (a backfire can expose a fighter and drop it to last stand). One status never starts and ends on the same cue: ending takes damage, which a dealing turn never takes. | Decided. `director-turns.test.ts` |
 
 ## Betting
 

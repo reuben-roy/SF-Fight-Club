@@ -1,0 +1,125 @@
+{
+  "entrantId": "curbbot",
+  "company": {
+    "name": "CurbBot",
+    "url": "https://curbbot.example.com",
+    "tagline": "Sidewalk robot that audits curb ramps for the city",
+    "logoUrl": "https://curbbot.example.com/og.png"
+  },
+  "founders": [
+    {
+      "name": "Lena Brandt",
+      "role": "CEO",
+      "xHandle": "lenabrandt",
+      "hnUser": "lenab",
+      "followers": 42000,
+      "hnKarma": 400
+    },
+    {
+      "name": "Oscar Mbeki",
+      "role": "CTO",
+      "xHandle": "oscarmbeki",
+      "hnUser": "ombeki",
+      "hnKarma": 300
+    },
+    {
+      "name": "Wei Zhou",
+      "role": "Hardware",
+      "xHandle": "weizhou_sf",
+      "hnUser": "weizhou",
+      "hnKarma": 200
+    }
+  ],
+  "posts": [
+    {
+      "source": "hn",
+      "url": "https://news.ycombinator.com/item?id=45120016",
+      "title": "Show HN: CurbBot maps every broken curb ramp in the city",
+      "text": "Show HN: CurbBot maps every broken curb ramp in the city\n\nOur sidewalk robot rolled 400 miles and flagged 2,300 ramps that fail the city spec. The public map is live.",
+      "postedAt": "2026-11-04T11:00:00.000Z",
+      "metrics": {
+        "points": 700,
+        "comments": 3
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/lenabrandt/status/70000061",
+      "text": "400 miles rolled, 2,300 broken ramps mapped. The city accessibility report writes itself now.",
+      "postedAt": "2026-11-03T10:00:00.000Z",
+      "metrics": {
+        "likes": 2500,
+        "reposts": 900,
+        "replies": 1200,
+        "views": 48000
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/lenabrandt/status/70000062",
+      "text": "CurbBot passed its rain test. Puddles mapped, dignity intact.",
+      "postedAt": "2026-11-02T10:00:00.000Z",
+      "metrics": {
+        "likes": 1800,
+        "reposts": 600,
+        "replies": 800,
+        "views": 31000
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/lenabrandt/status/70000063",
+      "text": "Open-sourcing our curb-ramp spec checker next week.",
+      "postedAt": "2026-11-01T10:00:00.000Z",
+      "metrics": {
+        "likes": 1200,
+        "reposts": 400,
+        "replies": 600,
+        "views": 22000
+      }
+    }
+  ],
+  "clout": {
+    "score": 91,
+    "tier": "S",
+    "x": 94,
+    "hn": 85
+  },
+  "sources": [
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/items/45120016",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/lenab",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/ombeki",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/weizhou",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/by/username/lenabrandt?user.fields=created_at,description,location,public_metrics,url,verified",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/90000016/tweets?max_results=20&exclude=retweets,replies&tweet.fields=author_id,created_at,public_metrics",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "web",
+      "url": "https://curbbot.example.com/",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    }
+  ]
+}
