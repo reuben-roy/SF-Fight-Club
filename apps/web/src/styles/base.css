@@ -1,0 +1,156 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--paper);
+}
+
+body {
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--type-body-15);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--sun-3);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+img,
+canvas,
+svg {
+  display: block;
+}
+
+::selection {
+  background: var(--sun-2);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--sun-3);
+  outline-offset: 2px;
+}
+
+.sfc-pixel {
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.sfc-mono {
+  font-family: var(--font-mono);
+  font-size: var(--type-mono-11);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sfc-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.sfc-stripes {
+  background: var(--stripe-bands);
+}
+
+.sfc-stripes-x {
+  background: var(--stripe-bands-x);
+}
+
+.sfc-page {
+  width: min(100% - 32px, var(--content-width));
+  margin: 0 auto;
+  padding: var(--space-5) 0 var(--space-7);
+}
+
+.sfc-stack {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.sfc-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+[data-reduced-motion="true"] *,
+[data-reduced-motion="true"] *::before,
+[data-reduced-motion="true"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+@media (max-width: 700px) {
+  .sfc-page {
+    width: min(100% - 20px, var(--content-width));
+    padding-top: var(--space-3);
+  }
+}

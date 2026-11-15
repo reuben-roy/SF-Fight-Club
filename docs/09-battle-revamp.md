@@ -344,7 +344,11 @@ Each phase 2 task owns its directories and does not edit the others.
 | `apps/web/src/tower/**`, `src/cards/**` | Tower task |
 | `apps/web/src/app/**`, `src/data/**`, `src/film/**`, `src/bets/**`, `scripts/**` | App task |
 
-The scaffold registers one lazy route per directory, each pointing at an `index.tsx` stub. Phase 2 tasks replace the stub and never edit the route registry.
+The scaffold registers one lazy route per directory, each pointing at an `index.tsx` stub. Nobody edits the route registry.
+
+Two exceptions to the table. `src/arena/index.tsx` and `src/tower/index.tsx` are the route entries for `/match/:matchId` and `/tower`. The App task owns those two files and points them at its pages. The Arena and Tower tasks export `ArenaScreen`, `TowerScreen` and `FighterCard` from other files and leave the two entries alone. The prop types below are committed in `src/arena/types.ts`, `src/tower/types.ts` and `src/cards/types.ts`, and no phase 2 task changes them.
+
+The App task builds its pages against a small `src/app/screens.tsx` registry of placeholder screens with the same props. Phase 3 swaps in the real ones.
 
 ### Component props
 
