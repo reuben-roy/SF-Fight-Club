@@ -1,0 +1,101 @@
+{
+  "entrantId": "tabclear",
+  "company": {
+    "name": "TabClear",
+    "url": "https://tabclear.example.com",
+    "tagline": "Instant bill settlement for bars and group tabs",
+    "logoUrl": "https://tabclear.example.com/og.png"
+  },
+  "founders": [
+    {
+      "name": "Jonah Eze",
+      "role": "CEO",
+      "xHandle": "jonaheze",
+      "hnUser": "jeze",
+      "followers": 5200,
+      "hnKarma": 100
+    },
+    {
+      "name": "Clara Whitfield",
+      "role": "COO",
+      "xHandle": "clarawhit",
+      "hnUser": "whitfield",
+      "hnKarma": 60
+    }
+  ],
+  "posts": [
+    {
+      "source": "hn",
+      "url": "https://news.ycombinator.com/item?id=45120014",
+      "title": "Show HN: TabClear settles bar tabs without the card pile",
+      "text": "Show HN: TabClear settles bar tabs without the card pile\n\nBuilt by Jonah Eze and Clara Whitfield after one too many lost cards: one tap opens a tab, the bill splits itself, everyone leaves happy.",
+      "postedAt": "2026-11-04T13:00:00.000Z",
+      "metrics": {
+        "points": 100,
+        "comments": 2
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/jonaheze/status/70000041",
+      "text": "Twelve bars, zero lost cards, four thousand tabs settled. On to the East Bay.",
+      "postedAt": "2026-11-03T12:00:00.000Z",
+      "metrics": {
+        "likes": 150,
+        "reposts": 55,
+        "replies": 45,
+        "views": 4000
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/jonaheze/status/70000042",
+      "text": "Group tabs now split themselves, tips included.",
+      "postedAt": "2026-11-01T12:00:00.000Z",
+      "metrics": {
+        "likes": 90,
+        "reposts": 35,
+        "replies": 25,
+        "views": 2200
+      }
+    }
+  ],
+  "clout": {
+    "score": 72,
+    "tier": "A",
+    "x": 75,
+    "hn": 69
+  },
+  "sources": [
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/items/45120014",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/jeze",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/whitfield",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/by/username/jonaheze?user.fields=created_at,description,location,public_metrics,url,verified",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/90000014/tweets?max_results=20&exclude=retweets,replies&tweet.fields=author_id,created_at,public_metrics",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "web",
+      "url": "https://tabclear.example.com/",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    }
+  ]
+}

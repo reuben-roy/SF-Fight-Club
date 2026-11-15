@@ -26,6 +26,7 @@ apps/
 packages/
   schemas/          Types and zod schemas (start from /schemas/contracts.ts)
   engine/           Pure TS. Bracket, seeding, scoring, damage, outcome, tiebreak, director. No I/O.
+  intake/           Entrant intake from HN, X and company sites into EntrantProfile. Network I/O only through injected fetch and clock.
   orchestrator/     LLM steps: brief, research, scouting, volley, fact-check, judge, report
   prompts/          Prompt templates (start from /prompts), loaded by content hash
   arena/            PixiJS renderer. Input: broadcast script. Output: pixels and sound.
@@ -91,6 +92,8 @@ Each orchestrator step has a stable key, for example `m_91/r2/v1/A` or `m_91/r2/
 3. Injection screen. A utility-model classifier plus regex for obvious patterns ("ignore previous", "you are now", "score this"). Flagged ideas go to host review, not straight to rejection. A founder might innocently write "ignore the hype".
 4. Duplicate check. Embed with Mistral Embed. Cosine similarity above 0.92 with an existing entrant goes to host review. An idea that is an existing real company is also flagged for host review. The default is to allow it when the submission is framed as an idea, because the rubric judges the opportunity.
 5. Standard Brief (`prompts/brief.md`). Same template and length for everyone. The submitter sees and approves it, or edits within the same template and limits, including claims that were not in the original idea. The model that drafts the brief still may not invent claims. If the submitter keeps rejecting the brief, the host can lock it. The brief is frozen when entrants lock.
+
+A host can also start from public posts instead of the form. `packages/intake` fetches Hacker News (public Algolia API), X (official API v2, bearer token from `X_BEARER_TOKEN`) and the company homepage into an `EntrantProfile`: public card data plus a 0-to-100 log-scale clout score that is presentation only. `toSubmission` derives the `IdeaSubmission` draft that enters the pipeline above, with founder names and handles stripped; the profile itself never enters a prompt. Without an X token the X adapter is skipped with a warning and the rest still runs.
 
 ### Weigh-in (per idea, after entrants lock)
 

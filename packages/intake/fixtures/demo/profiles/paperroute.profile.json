@@ -1,0 +1,89 @@
+{
+  "entrantId": "paperroute",
+  "company": {
+    "name": "PaperRoute",
+    "url": "https://paperroute.example.com",
+    "tagline": "E-bike courier dispatch for neighborhood shops",
+    "logoUrl": "https://paperroute.example.com/og.png"
+  },
+  "founders": [
+    {
+      "name": "Sam Tanaka",
+      "role": "Founder",
+      "xHandle": "samtanaka",
+      "hnUser": "samt",
+      "followers": 45,
+      "hnKarma": 1
+    }
+  ],
+  "posts": [
+    {
+      "source": "hn",
+      "url": "https://news.ycombinator.com/item?id=45120015",
+      "title": "Show HN: PaperRoute, e-bike dispatch for corner shops",
+      "text": "Show HN: PaperRoute, e-bike dispatch for corner shops\n\nA shared courier pool for the shops on one street. Four stores, six bikes, same-day everything.",
+      "postedAt": "2026-11-04T12:00:00.000Z",
+      "metrics": {
+        "points": 3,
+        "comments": 1
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/samtanaka/status/70000051",
+      "text": "Fourth shop joined the courier pool today.",
+      "postedAt": "2026-11-03T11:00:00.000Z",
+      "metrics": {
+        "likes": 6,
+        "reposts": 2,
+        "replies": 2,
+        "views": 120
+      }
+    },
+    {
+      "source": "x",
+      "url": "https://x.com/samtanaka/status/70000052",
+      "text": "Rainy-day dispatch held up. Six bikes, zero late parcels.",
+      "postedAt": "2026-11-01T11:00:00.000Z",
+      "metrics": {
+        "likes": 1,
+        "reposts": 1,
+        "replies": 0,
+        "views": 40
+      }
+    }
+  ],
+  "clout": {
+    "score": 31,
+    "tier": "C",
+    "x": 35,
+    "hn": 24
+  },
+  "sources": [
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/items/45120015",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "hn",
+      "url": "https://hn.algolia.com/api/v1/users/samt",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/by/username/samtanaka?user.fields=created_at,description,location,public_metrics,url,verified",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "x",
+      "url": "https://api.x.com/2/users/90000015/tweets?max_results=20&exclude=retweets,replies&tweet.fields=author_id,created_at,public_metrics",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    },
+    {
+      "source": "web",
+      "url": "https://paperroute.example.com/",
+      "retrievedAt": "2026-11-05T19:05:00.000Z"
+    }
+  ]
+}
