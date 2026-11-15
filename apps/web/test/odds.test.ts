@@ -31,6 +31,14 @@ describe("houseSplit", () => {
     expect(even.a + even.b).toBe(HOUSE_SEED_TOTAL);
     expect(even.a).toBe(250);
   });
+
+  it("clamps the prior so a heavy favorite still pays on a win", () => {
+    expect(houseSplit(78.5, 44)).toEqual({ a: 425, b: 75 });
+    expect(houseSplit(44, 78.5)).toEqual({ a: 75, b: 425 });
+    const pool = computePool(100, 0, 78.5, 44);
+    expect(pool.oddsA).toBeGreaterThan(1.1);
+    expect(pool.oddsB).toBeLessThan(10);
+  });
 });
 
 describe("computePool", () => {
