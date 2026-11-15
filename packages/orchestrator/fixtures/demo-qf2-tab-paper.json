@@ -59,6 +59,14 @@
                 "claim": "Three apps already split the same few commercial strips.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "problem",
+                "headline": "Tabs walk out nightly",
+                "claim": "Unsettled tabs leave with the crowd.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -86,6 +94,13 @@
               },
               {
                 "shotId": "r1.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -180,6 +195,14 @@
                 "claim": "A handful of bars cannot carry a venture outcome.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "wtp",
+                "headline": "Tabs already have rails",
+                "claim": "Card networks settle every bar tab.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -207,6 +230,13 @@
               },
               {
                 "shotId": "r1.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -331,7 +361,7 @@
               {
                 "shotId": "r1.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -341,10 +371,16 @@
                 "note": "Scored from the claim."
               },
               {
+                "shotId": "r1.v1.A.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Restates the opener."
+              },
+              {
                 "shotId": "r1.v2.A.s1",
-                "verdict": "glancing",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "TabClear swats the sympathy play aside."
               },
               {
                 "shotId": "r1.v2.A.s2",
@@ -363,6 +399,12 @@
                 "verdict": "whiff",
                 "impact": 0,
                 "note": "No bottom-up math offered."
+              },
+              {
+                "shotId": "r1.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Rails exist; the pitch is the product."
               },
               {
                 "shotId": "r1.v2.B.s1",
@@ -436,7 +478,7 @@
               {
                 "shotId": "r1.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -446,10 +488,16 @@
                 "note": "Scored from the claim."
               },
               {
+                "shotId": "r1.v1.A.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Restates the opener."
+              },
+              {
                 "shotId": "r1.v2.A.s1",
-                "verdict": "glancing",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "TabClear swats the sympathy play aside."
               },
               {
                 "shotId": "r1.v2.A.s2",
@@ -468,6 +516,12 @@
                 "verdict": "whiff",
                 "impact": 0,
                 "note": "No bottom-up math offered."
+              },
+              {
+                "shotId": "r1.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Rails exist; the pitch is the product."
               },
               {
                 "shotId": "r1.v2.B.s1",
@@ -513,6 +567,14 @@
                   "E16"
                 ],
                 "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "timing",
+                "headline": "Subsidy lines favor incumbents",
+                "claim": "Rebate paperwork rewards fleets already operating.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -548,6 +610,13 @@
                     "note": "The snippet agrees."
                   }
                 ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.A.s3",
+                "missingIds": [],
+                "perEvidence": [],
                 "numberContradicted": false,
                 "fabricated": false
               }
@@ -632,6 +701,14 @@
                 "claim": "Registers will add settlement before startups scale.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "moat",
+                "headline": "Switching takes an afternoon",
+                "claim": "Export tools move ledger history in hours.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -659,6 +736,13 @@
               },
               {
                 "shotId": "r2.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -780,9 +864,15 @@
               },
               {
                 "shotId": "r2.v1.A.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Plausible lock-in, thinly sourced."
+              },
+              {
+                "shotId": "r2.v1.A.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True, but helps both sides."
               },
               {
                 "shotId": "r2.v2.A.s1",
@@ -809,10 +899,16 @@
                 "note": "Assertion without a source."
               },
               {
+                "shotId": "r2.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "No venue confirmed the export."
+              },
+              {
                 "shotId": "r2.v2.B.s1",
-                "verdict": "parried",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "PaperRoute blocks the multi-app jab."
               },
               {
                 "shotId": "r2.v2.B.s2",
@@ -885,9 +981,15 @@
               },
               {
                 "shotId": "r2.v1.A.s2",
-                "verdict": "landed",
-                "impact": 2,
-                "note": "Scored from the claim."
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Plausible lock-in, thinly sourced."
+              },
+              {
+                "shotId": "r2.v1.A.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True, but helps both sides."
               },
               {
                 "shotId": "r2.v2.A.s1",
@@ -914,10 +1016,16 @@
                 "note": "Assertion without a source."
               },
               {
+                "shotId": "r2.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "No venue confirmed the export."
+              },
+              {
                 "shotId": "r2.v2.B.s1",
-                "verdict": "parried",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "PaperRoute blocks the multi-app jab."
               },
               {
                 "shotId": "r2.v2.B.s2",
@@ -955,6 +1063,14 @@
                 "claim": "Hardware fleets miss SLAs every winter.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "scale",
+                "headline": "Groups split every bill",
+                "claim": "Shared tabs multiply the counter.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -982,6 +1098,13 @@
               },
               {
                 "shotId": "r3.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -1076,6 +1199,14 @@
                 "claim": "Two vendors own the counter and ignore startups.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "scale",
+                "headline": "Counters belong to incumbents",
+                "claim": "Register vendors will ship settlement themselves.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -1103,6 +1234,13 @@
               },
               {
                 "shotId": "r3.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -1227,7 +1365,7 @@
               {
                 "shotId": "r3.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -1237,10 +1375,16 @@
                 "note": "Real risk, thinly argued."
               },
               {
-                "shotId": "r3.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r3.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "True of groups, thinly tied."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "PaperRoute checks the launch hype."
               },
               {
                 "shotId": "r3.v2.A.s2",
@@ -1261,10 +1405,16 @@
                 "note": "A real gate, asserted not shown."
               },
               {
+                "shotId": "r3.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Assertion without a source."
+              },
+              {
                 "shotId": "r3.v2.B.s1",
-                "verdict": "parried",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "PaperRoute answers the hardware scare."
               },
               {
                 "shotId": "r3.v2.B.s2",
@@ -1332,7 +1482,7 @@
               {
                 "shotId": "r3.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -1342,10 +1492,16 @@
                 "note": "Real risk, thinly argued."
               },
               {
-                "shotId": "r3.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r3.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "True of groups, thinly tied."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "PaperRoute checks the launch hype."
               },
               {
                 "shotId": "r3.v2.A.s2",
@@ -1366,10 +1522,16 @@
                 "note": "A real gate, asserted not shown."
               },
               {
+                "shotId": "r3.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Assertion without a source."
+              },
+              {
                 "shotId": "r3.v2.B.s1",
-                "verdict": "parried",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "PaperRoute answers the hardware scare."
               },
               {
                 "shotId": "r3.v2.B.s2",

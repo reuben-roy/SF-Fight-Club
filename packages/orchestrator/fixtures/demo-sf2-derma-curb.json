@@ -59,6 +59,14 @@
                 "claim": "Budgets freeze on election cycles.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "wtp",
+                "headline": "Waitlists ration care",
+                "claim": "Two-month queues turn away the urgent.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -86,6 +94,13 @@
               },
               {
                 "shotId": "r1.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -182,6 +197,14 @@
                   "E25"
                 ],
                 "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "wtp",
+                "headline": "Fines fund the survey",
+                "claim": "Penalty budgets dwarf pilot budgets.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -217,6 +240,13 @@
                     "note": "The snippet agrees."
                   }
                 ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.B.s3",
+                "missingIds": [],
+                "perEvidence": [],
                 "numberContradicted": false,
                 "fabricated": false
               }
@@ -349,6 +379,12 @@
                 "note": "Decrees bind the budgets."
               },
               {
+                "shotId": "r1.v1.A.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Harm without a payer."
+              },
+              {
                 "shotId": "r1.v2.A.s1",
                 "verdict": "parried",
                 "impact": 1,
@@ -363,7 +399,7 @@
               {
                 "shotId": "r1.v1.B.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -373,10 +409,16 @@
                 "note": "Sourced ceiling."
               },
               {
-                "shotId": "r1.v2.B.s1",
-                "verdict": "parried",
+                "shotId": "r1.v1.B.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Mandates move money."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "CurbBot answers the council-vote jab."
               },
               {
                 "shotId": "r1.v2.B.s2",
@@ -454,6 +496,12 @@
                 "note": "Decrees bind the budgets."
               },
               {
+                "shotId": "r1.v1.A.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Harm without a payer."
+              },
+              {
                 "shotId": "r1.v2.A.s1",
                 "verdict": "parried",
                 "impact": 1,
@@ -468,7 +516,7 @@
               {
                 "shotId": "r1.v1.B.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -478,10 +526,16 @@
                 "note": "Sourced ceiling."
               },
               {
-                "shotId": "r1.v2.B.s1",
-                "verdict": "parried",
+                "shotId": "r1.v1.B.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Mandates move money."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "CurbBot answers the council-vote jab."
               },
               {
                 "shotId": "r1.v2.B.s2",
@@ -519,6 +573,14 @@
                 "claim": "Any fleet can photograph a curb.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "timing",
+                "headline": "Queues grow every winter",
+                "claim": "Respiratory season swells the backlog.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -546,6 +608,13 @@
               },
               {
                 "shotId": "r2.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -634,6 +703,14 @@
                   "E8"
                 ],
                 "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "moat",
+                "headline": "Depot data compounds",
+                "claim": "Every route refines the next bid.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -669,6 +746,13 @@
                     "note": "The snippet agrees."
                   }
                 ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.B.s3",
+                "missingIds": [],
+                "perEvidence": [],
                 "numberContradicted": false,
                 "fabricated": false
               }
@@ -801,6 +885,12 @@
                 "note": "Underrates the grading data."
               },
               {
+                "shotId": "r2.v1.A.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Seasonal, not structural."
+              },
+              {
                 "shotId": "r2.v2.A.s1",
                 "verdict": "parried",
                 "impact": 1,
@@ -821,14 +911,20 @@
               {
                 "shotId": "r2.v1.B.s2",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
+                "shotId": "r2.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Compounding asserted again."
+              },
+              {
                 "shotId": "r2.v2.B.s1",
-                "verdict": "parried",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "CurbBot defends the grading data."
               },
               {
                 "shotId": "r2.v2.B.s2",
@@ -906,6 +1002,12 @@
                 "note": "Underrates the grading data."
               },
               {
+                "shotId": "r2.v1.A.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Seasonal, not structural."
+              },
+              {
                 "shotId": "r2.v2.A.s1",
                 "verdict": "parried",
                 "impact": 1,
@@ -926,14 +1028,20 @@
               {
                 "shotId": "r2.v1.B.s2",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
+                "shotId": "r2.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Compounding asserted again."
+              },
+              {
                 "shotId": "r2.v2.B.s1",
-                "verdict": "parried",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "CurbBot defends the grading data."
               },
               {
                 "shotId": "r2.v2.B.s2",
@@ -971,6 +1079,14 @@
                 "claim": "Robots wait on procurement calendars.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "feasibility",
+                "headline": "Phones are the clinic",
+                "claim": "Every pocket holds the screening device.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -998,6 +1114,13 @@
               },
               {
                 "shotId": "r3.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -1094,6 +1217,14 @@
                   "E8"
                 ],
                 "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "feasibility",
+                "headline": "Clinics distrust vendors",
+                "claim": "Pilots die in committee review.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -1129,6 +1260,13 @@
                     "note": "The snippet agrees."
                   }
                 ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.B.s3",
+                "missingIds": [],
+                "perEvidence": [],
                 "numberContradicted": false,
                 "fabricated": false
               }
@@ -1253,6 +1391,12 @@
                 "note": "Slow, but funded."
               },
               {
+                "shotId": "r3.v1.A.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Hardware is ready; workflow is not."
+              },
+              {
                 "shotId": "r3.v2.A.s1",
                 "verdict": "glancing",
                 "impact": 0,
@@ -1277,10 +1421,16 @@
                 "note": "Ceiling with a source."
               },
               {
+                "shotId": "r3.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Fear without a filing."
+              },
+              {
                 "shotId": "r3.v2.B.s1",
-                "verdict": "parried",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "CurbBot calls out the unsourced backlog."
               },
               {
                 "shotId": "r3.v2.B.s2",
@@ -1358,6 +1508,12 @@
                 "note": "Slow, but funded."
               },
               {
+                "shotId": "r3.v1.A.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Hardware is ready; workflow is not."
+              },
+              {
                 "shotId": "r3.v2.A.s1",
                 "verdict": "glancing",
                 "impact": 0,
@@ -1382,10 +1538,16 @@
                 "note": "Ceiling with a source."
               },
               {
+                "shotId": "r3.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Fear without a filing."
+              },
+              {
                 "shotId": "r3.v2.B.s1",
-                "verdict": "parried",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "CurbBot calls out the unsourced backlog."
               },
               {
                 "shotId": "r3.v2.B.s2",

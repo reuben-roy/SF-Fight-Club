@@ -3,7 +3,6 @@ import type { ReactElement } from "react";
 import { Button } from "../styles/components.js";
 import { ArenaScreen } from "./ArenaScreen.js";
 import { DEMO_BUILD_HASH, DEMO_MATCHES } from "./fixtures/index.js";
-import { HARNESS_MATCHES, REEL_MATCH } from "./reel.js";
 
 const CARRIED_PARAMS = ["turn", "at", "t", "paused", "speed"] as const;
 
@@ -24,12 +23,11 @@ export default function ArenaDevRoute(): ReactElement {
   const requested = new URLSearchParams(window.location.search).get("match");
   const index = Math.max(
     0,
-    HARNESS_MATCHES.findIndex((candidate) => candidate.matchId === requested),
+    DEMO_MATCHES.findIndex((candidate) => candidate.matchId === requested),
   );
-  const match = HARNESS_MATCHES[index] ?? first;
-  const previous = HARNESS_MATCHES[(index - 1 + HARNESS_MATCHES.length) % HARNESS_MATCHES.length] ?? first;
-  const next = HARNESS_MATCHES[(index + 1) % HARNESS_MATCHES.length] ?? first;
-  const synthetic = match.matchId === REEL_MATCH.matchId;
+  const match = DEMO_MATCHES[index] ?? first;
+  const previous = DEMO_MATCHES[(index - 1 + DEMO_MATCHES.length) % DEMO_MATCHES.length] ?? first;
+  const next = DEMO_MATCHES[(index + 1) % DEMO_MATCHES.length] ?? first;
 
   return (
     <div className="arena-dev">
@@ -39,7 +37,6 @@ export default function ArenaDevRoute(): ReactElement {
           <span className="arena-dev__hash">BUILD {DEMO_BUILD_HASH.slice(0, 12)}</span>
           <span className="arena-dev__now">
             {match.label} · {match.fighters[match.winner].name} wins by {match.outcome}
-            {synthetic ? " · synthetic" : ""}
           </span>
         </div>
         <div className="arena-dev__nav">
@@ -52,7 +49,7 @@ export default function ArenaDevRoute(): ReactElement {
             value={match.matchId}
             onChange={(event) => window.location.assign(hrefFor(event.target.value))}
           >
-            {HARNESS_MATCHES.map((option) => (
+            {DEMO_MATCHES.map((option) => (
               <option key={option.matchId} value={option.matchId}>
                 {option.label} · {option.outcome}
               </option>

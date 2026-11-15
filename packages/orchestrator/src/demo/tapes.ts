@@ -5,20 +5,6 @@ import { buildDemoTape } from "./builder.js";
 
 type Scores = Record<CriterionId, DemoScore>;
 
-function even(value: number): Scores {
-  return {
-    problem: { A: value, B: value },
-    market: { A: value, B: value },
-    wtp: { A: value, B: value },
-    differentiation: { A: value, B: value },
-    moat: { A: value, B: value },
-    timing: { A: value, B: value },
-    gtm: { A: value, B: value },
-    feasibility: { A: value, B: value },
-    scale: { A: value, B: value },
-  };
-}
-
 function p(
   criterion: CriterionId,
   headline: string,
@@ -83,11 +69,12 @@ export function tabVsPaperTape(): ReturnType<typeof buildDemoTape> {
       {
         A: {
           v1: [
-            p("problem", "Walkout tabs bleed bars dry", "Bars lose full tabs nightly and burn staff hours closing them out.", { evidence: ["E3"] }),
+            p("problem", "Walkout tabs bleed bars dry", "Bars lose full tabs nightly and burn staff hours closing them out.", { evidence: ["E3"], impact: 3 }),
             a("market", "Dispatch fights over one zip code", "Three apps already split the same few commercial strips.", { estimate: true, verdict: "partial" }),
+            a("problem", "Tabs walk out nightly", "Unsettled tabs leave with the crowd.", { estimate: true, verdict: "whiff", impact: 0, note: "Restates the opener." }),
           ],
           v2: [
-            d("problem", "Cold fries are a luxury problem", "A lukewarm order stings; an unpaid hundred-dollar tab kills.", "r1.v1.B.s1", { verdict: "glancing" }),
+            d("problem", "Cold fries are a luxury problem", "A lukewarm order stings; an unpaid hundred-dollar tab kills.", "r1.v1.B.s1", { verdict: "landed", note: "TabClear swats the sympathy play aside." }),
             p("wtp", "Bars already pay processors", "The register statement proves the budget TabClear redirects.", { evidence: ["E15"] }),
           ],
         },
@@ -95,6 +82,7 @@ export function tabVsPaperTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("problem", "Cold fries kill repeat orders", "Late food is the complaint shops hear every single night.", { evidence: ["E4"], verdict: "glancing", impact: 1, note: "Real pain, smaller stakes." }),
             a("market", "One street is not a market", "A handful of bars cannot carry a venture outcome.", { estimate: true, verdict: "whiff", impact: 0, note: "No bottom-up math offered." }),
+            a("wtp", "Tabs already have rails", "Card networks settle every bar tab.", { estimate: true, verdict: "whiff", impact: 0, note: "Rails exist; the pitch is the product." }),
           ],
           v2: [
             d("market", "Three strips run our routes", "The pilot already batches across three commercial corridors.", "r1.v1.A.s2", { evidence: ["E18"], verdict: "parried" }),
@@ -106,7 +94,8 @@ export function tabVsPaperTape(): ReturnType<typeof buildDemoTape> {
         A: {
           v1: [
             p("differentiation", "One tap beats the card stack", "Splitting a group tab takes seconds, not a register queue.", { evidence: ["E16"], verdict: "glancing", impact: 1, note: "Better, but both sides improve on today." }),
-            p("moat", "Ledger history locks venues in", "Years of tab data make switching registers painful.", { evidence: ["E16"] }),
+            p("moat", "Ledger history locks venues in", "Years of tab data make switching registers painful.", { evidence: ["E16"], verdict: "glancing", impact: 1, note: "Plausible lock-in, thinly sourced." }),
+            a("timing", "Subsidy lines favor incumbents", "Rebate paperwork rewards fleets already operating.", { estimate: true, verdict: "glancing", impact: 1, note: "True, but helps both sides." }),
           ],
           v2: [
             d("timing", "Subsidies do not sell software", "Cheap bikes help riders, not a dispatch app's moat.", "r2.v1.B.s1", { verdict: "parried" }),
@@ -117,9 +106,10 @@ export function tabVsPaperTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("timing", "E-bike subsidies just landed", "Fleet costs dropped this year, and shops already batch informally.", { evidence: ["E17"] }),
             a("differentiation", "Tabs are a processor feature", "Registers will add settlement before startups scale.", { estimate: true, verdict: "whiff", impact: 0, note: "Assertion without a source." }),
+            a("moat", "Switching takes an afternoon", "Export tools move ledger history in hours.", { estimate: true, verdict: "whiff", impact: 0, note: "No venue confirmed the export." }),
           ],
           v2: [
-            d("differentiation", "Heat-aware batching is the product", "Nobody else routes around oven times and hills.", "r2.v1.A.s1", { verdict: "parried" }),
+            d("differentiation", "Heat-aware batching is the product", "Nobody else routes around oven times and hills.", "r2.v1.A.s1", { verdict: "landed", note: "PaperRoute blocks the multi-app jab." }),
             a("moat", "Ledger data is portable", "Export laws let venues take history anywhere.", { estimate: true, verdict: "whiff", impact: 0, note: "No evidence for the lock-in break." }),
           ],
         },
@@ -127,11 +117,12 @@ export function tabVsPaperTape(): ReturnType<typeof buildDemoTape> {
       {
         A: {
           v1: [
-            p("gtm", "Launch with twenty register partners", "The pilot bars already settle tabs through the product.", { evidence: ["E16"] }),
+            p("gtm", "Launch with twenty register partners", "The pilot bars already settle tabs through the product.", { evidence: ["E16"], impact: 3 }),
             a("feasibility", "Bikes break, batteries die", "Hardware fleets miss SLAs every winter.", { estimate: true, verdict: "glancing", impact: 1, note: "Real risk, thinly argued." }),
+            a("scale", "Groups split every bill", "Shared tabs multiply the counter.", { estimate: true, verdict: "glancing", impact: 1, note: "True of groups, thinly tied." }),
           ],
           v2: [
-            d("gtm", "Riders still need recruiting", "Twenty bars mean nothing without couriers on corners.", "r3.v1.B.s2", { verdict: "parried" }),
+            d("gtm", "Riders still need recruiting", "Twenty bars mean nothing without couriers on corners.", "r3.v1.B.s2", { verdict: "landed", note: "PaperRoute checks the launch hype." }),
             p("scale", "Every checkout counter needs this", "Tabs, tables, and group bills exist in every city.", { evidence: ["E15"], verdict: "partial", impact: 2, note: "Credible expansion, lightly sourced." }),
           ],
         },
@@ -139,9 +130,10 @@ export function tabVsPaperTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("feasibility", "Phones and bikes ship today", "No permits, no hardware build, just an app and a fleet deal.", { evidence: ["E18"] }),
             a("gtm", "Registers gate every bar", "Two vendors own the counter and ignore startups.", { estimate: true, verdict: "glancing", impact: 1, note: "A real gate, asserted not shown." }),
+            a("scale", "Counters belong to incumbents", "Register vendors will ship settlement themselves.", { estimate: true, verdict: "whiff", impact: 0, note: "Assertion without a source." }),
           ],
           v2: [
-            d("feasibility", "Software breaks too", "Register outages kill Friday nights just as fast.", "r3.v1.A.s2", { evidence: ["E18"], verdict: "parried" }),
+            d("feasibility", "Software breaks too", "Register outages kill Friday nights just as fast.", "r3.v1.A.s2", { evidence: ["E18"], verdict: "landed", note: "PaperRoute answers the hardware scare." }),
             a("scale", "Settlement caps at nightlife", "There is no second act past bars.", { estimate: true, verdict: "whiff", impact: 0, note: "Ignores the counter expansion." }),
           ],
         },
@@ -237,11 +229,12 @@ export function dermaVsLoopTape(): ReturnType<typeof buildDemoTape> {
       {
         A: {
           v1: [
-            p("problem", "Urgent lesions wait months unseen", "Waitlists pass two months while urgent cases sit in queue.", { evidence: ["E5"] }),
+            p("problem", "Urgent lesions wait months unseen", "Waitlists pass two months while urgent cases sit in queue.", { evidence: ["E5"], impact: 3 }),
             a("market", "Voice rooms monetize like a hobby", "Freemium moderation tools have no payer with budget.", { estimate: true, verdict: "partial" }),
+            a("wtp", "Triage bills per screen", "Urgency ranking fits existing billing codes.", { estimate: true, verdict: "glancing", impact: 1, note: "Billing fit asserted, not shown." }),
           ],
           v2: [
-            d("problem", "Muted threads are not triage", "A mute button never escalated a single lesion.", "r1.v1.B.s1", { verdict: "parried" }),
+            d("problem", "Muted threads are not triage", "A mute button never escalated a single lesion.", "r1.v1.B.s1", { verdict: "landed", note: "Dermalens swats the thread talk aside." }),
             p("wtp", "Clinics already pay per screen", "The pilot priced per-screen above included volume.", { evidence: ["E19"] }),
           ],
         },
@@ -249,6 +242,7 @@ export function dermaVsLoopTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("problem", "Threads never reach decisions", "Neighbors stall for days in text.", { evidence: ["E6"], verdict: "whiff", impact: 0, note: "Annoyance, not a cost." }),
             a("market", "Skin AI is a crowded shelf", "Every camera app claims triage now.", { estimate: true, verdict: "whiff", impact: 0, note: "No competitor named." }),
+            a("market", "Clinics buy no software", "Waiting rooms run on paper and habit.", { estimate: true, verdict: "whiff", impact: 0, note: "No buyer interviewed." }),
           ],
           v2: [
             d("problem", "Anxiety is still suffering", "Health scares in threads deserve better.", "r1.v1.A.s1", { evidence: ["E6"], verdict: "glancing", impact: 0, note: "Fair point, smaller stakes." }),
@@ -261,9 +255,10 @@ export function dermaVsLoopTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("differentiation", "Triage ranks, chat only scrolls", "Urgency ranking is the product, not a feature.", { evidence: ["E19"] }),
             a("moat", "Clinic data compounds", "Every screened photo sharpens the next rank.", { estimate: true, verdict: "partial" }),
+            a("moat", "Rank data compounds", "Each resolved case sharpens the next rank.", { estimate: true, verdict: "glancing", impact: 1, note: "Compounding asserted, not measured." }),
           ],
           v2: [
-            d("differentiation", "Voice notes decide nothing", "Notes pile up without urgency or ownership.", "r2.v1.B.s1", { verdict: "parried" }),
+            d("differentiation", "Voice notes decide nothing", "Notes pile up without urgency or ownership.", "r2.v1.B.s1", { verdict: "landed", note: "Dermalens mutes the voice-note defense." }),
             p("timing", "Cameras crossed the bar", "Phone detail now meets screening standards.", { evidence: ["E20"] }),
           ],
         },
@@ -271,6 +266,7 @@ export function dermaVsLoopTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("timing", "Voice notes already won", "Neighbors default to voice.", { evidence: ["E22"], verdict: "whiff", impact: 0, note: "A habit, not a window." }),
             a("differentiation", "Triage is a phone feature", "Apple will ship this in an update.", { estimate: true, verdict: "whiff", impact: 0, note: "Platform claim with no evidence." }),
+            a("differentiation", "Sorting is not triage", "A ranked list is not a clinical decision.", { estimate: true, verdict: "whiff", impact: 0, note: "Concedes the ranking works." }),
           ],
           v2: [
             d("differentiation", "Ranking can be copied", "Anyone can sort a queue.", "r2.v1.A.s1", { evidence: ["E21"], verdict: "glancing", impact: 0, note: "True and beside the point." }),
@@ -281,11 +277,12 @@ export function dermaVsLoopTape(): ReturnType<typeof buildDemoTape> {
       {
         A: {
           v1: [
-            p("gtm", "Three clinics already screen", "The pilot cut review time per referral in half.", { evidence: ["E19"] }),
+            p("gtm", "Three clinics already screen", "The pilot cut review time per referral in half.", { evidence: ["E19"], impact: 3 }),
             a("scale", "Rooms cap at neighborhoods", "No payer, no expansion, no acquirer.", { estimate: true, verdict: "partial" }),
+            a("feasibility", "Pilot cleared the board", "Ethics review passed on first submission.", { estimate: true, verdict: "glancing", impact: 1, note: "One board, not every board." }),
           ],
           v2: [
-            d("gtm", "Regulars are not distribution", "A steady crowd of thirty is not a channel.", "r3.v1.B.s1", { verdict: "parried" }),
+            d("gtm", "Regulars are not distribution", "A steady crowd of thirty is not a channel.", "r3.v1.B.s1", { verdict: "landed", note: "Dermalens dismisses the regulars claim." }),
             p("scale", "Every clinic has a queue", "Queues exist in every city with dermatology deserts.", { evidence: ["E5"], verdict: "partial" }),
           ],
         },
@@ -293,6 +290,7 @@ export function dermaVsLoopTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("feasibility", "Rooms ship in a weekend", "Voice plus polls is off-the-shelf.", { evidence: ["E21"], verdict: "glancing", impact: 0, note: "Easy to build, easy to copy." }),
             a("gtm", "Clinics buy nothing fast", "Pilots die in procurement.", { estimate: true, verdict: "whiff", impact: 0, note: "The pilot already cleared it." }),
+            a("feasibility", "Regulators slow everything", "Clinical claims invite a long review.", { estimate: true, verdict: "whiff", impact: 0, note: "Fear without a filing." }),
           ],
           v2: [
             d("feasibility", "Approval takes years", "Clinical validation will stall the rollout.", "r3.v1.A.s1", { evidence: ["E21"], verdict: "glancing", impact: 0, note: "A real risk, overstated." }),
@@ -404,6 +402,7 @@ export function flakeVsCurbTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("problem", "Red builds teach teams apathy", "Most developers admit merging past red they assumed were flakes.", { evidence: ["E23"], verdict: "glancing", impact: 1, note: "Real pain, softer than lawsuits." }),
             a("market", "Curb budgets need councils", "One election can freeze every survey contract.", { estimate: true, verdict: "glancing", impact: 1, note: "True of budgets, thinly tied." }),
+            a("wtp", "Retries burn real money", "Failed runs bill by the minute.", { estimate: true, verdict: "whiff", impact: 0, note: "Plausible, unmeasured." }),
           ],
           v2: [
             d("problem", "Decrees do not buy software", "A court order is not a purchase order.", "r1.v1.B.s1", { verdict: "parried" }),
@@ -412,11 +411,12 @@ export function flakeVsCurbTape(): ReturnType<typeof buildDemoTape> {
         },
         B: {
           v1: [
-            p("problem", "Missing ramps bring lawsuits", "Settlements price each missing audit far above a survey.", { evidence: ["E26"] }),
+            p("problem", "Missing ramps bring lawsuits", "Settlements price each missing audit far above a survey.", { evidence: ["E26"], impact: 3 }),
             a("market", "CI tools crowd the shelf", "Flake detection ships inside every platform now.", { evidence: ["E25"], verdict: "partial", impact: 2, note: "Crowded shelf, sourced." }),
+            a("problem", "Decrees name dollar amounts", "Noncompliance fines scale per missing ramp.", { estimate: true, verdict: "glancing", impact: 1, note: "Fines exist; amounts vary." }),
           ],
           v2: [
-            d("market", "Surveys are not shelfware", "No platform photographs a curb.", "r1.v1.A.s2", { verdict: "parried" }),
+            d("market", "Surveys are not shelfware", "No platform photographs a curb.", "r1.v1.A.s2", { evidence: ["E25"], verdict: "landed", note: "CurbBot blocks the shelfware jab." }),
             a("wtp", "Seats do not save minutes", "Per-seat pricing ignores the actual savings.", { estimate: true, verdict: "glancing", impact: 1, note: "Fair pricing question." }),
           ],
         },
@@ -426,6 +426,7 @@ export function flakeVsCurbTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("differentiation", "Quarantine is the product", "Isolation plus repro data beats another dashboard.", { evidence: ["E24"], verdict: "glancing", impact: 1, note: "Better, not ten times." }),
             a("moat", "Robots rust, software compounds", "Every quarantine rule improves every customer.", { estimate: true, verdict: "partial" }),
+            a("timing", "Flakes block every release", "Red builds gate Friday deploys.", { estimate: true, verdict: "glancing", impact: 1, note: "True of cadence, not of buying." }),
           ],
           v2: [
             d("differentiation", "A photo is not ten times", "Clipboards with cameras already exist.", "r2.v1.B.s1", { verdict: "parried" }),
@@ -436,9 +437,10 @@ export function flakeVsCurbTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             a("differentiation", "Robot survey is ten times", "A route grades in hours what crews take weeks to walk.", { evidence: ["E25"], verdict: "partial", impact: 2, note: "Sourced speed gap." }),
             p("timing", "Decree deadlines are binding", "Courts set dates; cities must inventory now.", { evidence: ["E8"] }),
+            a("moat", "Mile maps compound", "Each surveyed block sharpens the next estimate.", { estimate: true, verdict: "whiff", impact: 0, note: "Compounding asserted, not measured." }),
           ],
           v2: [
-            d("moat", "Rules are copyable configs", "Quarantine playbooks leak with every job hop.", "r2.v1.A.s2", { verdict: "parried" }),
+            d("moat", "Rules are copyable configs", "Quarantine playbooks leak with every job hop.", "r2.v1.A.s2", { verdict: "landed", note: "CurbBot answers the compounding claim." }),
             a("timing", "CI waste is eternal", "Flakes pained teams a decade ago too.", { estimate: true, verdict: "glancing", impact: 1, note: "Weakens the why-now." }),
           ],
         },
@@ -448,6 +450,7 @@ export function flakeVsCurbTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("gtm", "Land in the CI config", "One config line quarantines the whole suite.", { evidence: ["E7"], verdict: "glancing", impact: 1, note: "Neat entry, crowded channel." }),
             a("feasibility", "Sidewalks fight robots", "Rain, vandals, and permits stall every route.", { estimate: true, verdict: "glancing", impact: 1, note: "Real friction, asserted." }),
+            a("scale", "Monorepos multiply flakes", "One repo can bleed a thousand suites.", { estimate: true, verdict: "whiff", impact: 0, note: "Scales the pain, not the budget." }),
           ],
           v2: [
             d("gtm", "Mile contracts crawl too", "Public procurement is slower than any config review.", "r3.v1.B.s1", { verdict: "parried" }),
@@ -456,11 +459,12 @@ export function flakeVsCurbTape(): ReturnType<typeof buildDemoTape> {
         },
         B: {
           v1: [
-            p("gtm", "Sell the mile, keep the monitor", "Survey contracts convert to annual monitoring.", { evidence: ["E26"] }),
+            p("gtm", "Sell the mile, keep the monitor", "Survey contracts convert to annual monitoring.", { evidence: ["E26"], impact: 3 }),
             a("feasibility", "Quarantine needs no science", "Detection is statistics, not research.", { estimate: true, verdict: "glancing", impact: 1, note: "Concedes buildability." }),
+            a("scale", "Counties copy the decree", "Each ruling cites the last survey.", { estimate: true, verdict: "glancing", impact: 1, note: "Precedent helps, slowly." }),
           ],
           v2: [
-            d("feasibility", "Routes already roll", "The robot photographs real blocks today.", "r3.v1.A.s2", { evidence: ["E25"], verdict: "parried" }),
+            d("feasibility", "Routes already roll", "The robot photographs real blocks today.", "r3.v1.A.s2", { evidence: ["E25"], verdict: "landed", note: "CurbBot proves the routes run." }),
             p("scale", "Every sidewalk in America", "Decrees stack city by city into a national map.", { evidence: ["E26"], verdict: "partial", impact: 2, note: "Expansion with a payer attached." }),
           ],
         },
@@ -558,6 +562,7 @@ export function permitVsTabTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("problem", "Permits stall real builds", "Contractors wait months while crews sit idle.", { evidence: ["E1"], verdict: "glancing", impact: 1, note: "True, but tonight's pain is louder." }),
             a("market", "Bars are one street", "Nightlife cannot carry a venture outcome.", { estimate: true, verdict: "whiff", impact: 0, note: "Dismisses a real market." }),
+            a("wtp", "Stalled crews bill anyway", "Idle contractors charge for waiting weeks.", { estimate: true, verdict: "glancing", impact: 1, note: "Waiting has a price." }),
           ],
           v2: [
             d("problem", "Walkouts still get paid", "Most tabs settle; stalled builds kill projects.", "r1.v1.B.s1", { evidence: ["E1"], verdict: "glancing", impact: 0, note: "Answered, not rebutted." }),
@@ -568,9 +573,10 @@ export function permitVsTabTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("problem", "Friday night pays tonight", "Walkouts and slow closes bleed cash every weekend.", { evidence: ["E3"] }),
             a("market", "Permits are one city", "A single desk is a narrow beachhead.", { evidence: ["E15"], verdict: "partial", impact: 2, note: "Narrow today, sourced." }),
+            a("wtp", "Tabs pay for themselves", "Tonight's revenue funds the product.", { estimate: true, verdict: "glancing", impact: 1, note: "Tonight pays; tomorrow is thin." }),
           ],
           v2: [
-            d("market", "Registers are everywhere", "Every city has bars with the same rush.", "r1.v1.A.s2", { evidence: ["E16"], verdict: "parried" }),
+            d("market", "Registers are everywhere", "Every city has bars with the same rush.", "r1.v1.A.s2", { evidence: ["E16"], verdict: "landed", note: "TabClear's reach answers the one-street jab." }),
             p("wtp", "Processors proved the cut", "Bars already surrender a cut of every tab.", { evidence: ["E15"] }),
           ],
         },
@@ -578,11 +584,12 @@ export function permitVsTabTape(): ReturnType<typeof buildDemoTape> {
       {
         A: {
           v1: [
-            p("differentiation", "We file, then we chase", "The product does the follow-up, not just the form.", { evidence: ["E11"] }),
+            p("differentiation", "We file, then we chase", "The product does the follow-up, not just the form.", { evidence: ["E11"], impact: 3 }),
             a("moat", "Permit history compounds", "Every filing trains the next chase.", { estimate: true, verdict: "partial" }),
+            a("timing", "Hiring freeze opens desks", "Unfilled reviewer posts stall every queue.", { estimate: true, verdict: "glancing", impact: 1, note: "Empty chairs, full inboxes." }),
           ],
           v2: [
-            d("differentiation", "Settlement is a feature", "Registers add tabs before startups scale.", "r2.v1.B.s1", { verdict: "parried" }),
+            d("differentiation", "Settlement is a feature", "Registers add tabs before startups scale.", "r2.v1.B.s1", { verdict: "landed", note: "PermitPilot blocks the feature framing." }),
             p("timing", "Desks are empty now", "Reviewer shortages open the window this year.", { evidence: ["E12"] }),
           ],
         },
@@ -590,6 +597,7 @@ export function permitVsTabTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("differentiation", "Settlement at the table", "Nobody splits a group tab in seconds today.", { evidence: ["E16"], verdict: "glancing", impact: 1, note: "Better, not ten times." }),
             a("moat", "Chase playbooks leak", "Expediters carry the know-how door to door.", { estimate: true, verdict: "whiff", impact: 0, note: "Asserts away the data moat." }),
+            a("timing", "Nightlife never closes", "Weekends refill the demand curve.", { estimate: true, verdict: "whiff", impact: 0, note: "Demand is not a window." }),
           ],
           v2: [
             d("moat", "Ledger exports exist", "Venues can take history anywhere.", "r2.v1.A.s2", { estimate: true, verdict: "glancing", impact: 0, note: "Heard, not proven." }),
@@ -600,11 +608,12 @@ export function permitVsTabTape(): ReturnType<typeof buildDemoTape> {
       {
         A: {
           v1: [
-            p("gtm", "Sell where fees already flow", "Sell to the shops that already charge for permits.", { evidence: ["E11"] }),
+            p("gtm", "Sell where fees already flow", "Sell to the shops that already charge for permits.", { evidence: ["E11"], impact: 3 }),
             p("scale", "Every city has a desk", "The backlog is not unique to San Francisco.", { evidence: ["E12"], verdict: "partial", impact: 2, note: "Expansion with receipts." }),
+            a("feasibility", "Paperwork needs no hardware", "Forms and follow-ups ship as software.", { estimate: true, verdict: "glancing", impact: 1, note: "Software margins, paper cuts." }),
           ],
           v2: [
-            d("gtm", "Registers gatekeep bars", "Two vendors own the counter.", "r3.v1.B.s2", { estimate: true, verdict: "parried" }),
+            d("gtm", "Registers gatekeep bars", "Two vendors own the counter.", "r3.v1.B.s2", { estimate: true, verdict: "landed", note: "PermitPilot answers the glacial-pace jab." }),
             a("feasibility", "Hardware needs no permits", "Software files; robots wait on routes.", { estimate: true, verdict: "partial", impact: 2, note: "Build path is clearer." }),
           ],
         },
@@ -612,6 +621,7 @@ export function permitVsTabTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("feasibility", "Settlement ships now", "Tabs settle through live registers today.", { evidence: ["E16"], verdict: "glancing", impact: 1, note: "Shipped, but capped." }),
             a("gtm", "Desks sell to nobody", "Governments buy software at glacial pace.", { estimate: true, verdict: "whiff", impact: 0, note: "Expediters are the buyer." }),
+            a("scale", "Counters cap the city", "Settlement ends where nightlife ends.", { estimate: true, verdict: "whiff", impact: 0, note: "Ignores every other desk." }),
           ],
           v2: [
             d("feasibility", "Filings get rejected", "One bad packet burns weeks.", "r3.v1.A.s1", { evidence: ["E16"], verdict: "glancing", impact: 0, note: "A risk, not a verdict." }),
@@ -712,6 +722,7 @@ export function dermaVsCurbTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("problem", "Lesions wait months unseen", "Queues pass two months while urgent cases sit.", { evidence: ["E5"], verdict: "glancing", impact: 1, note: "Real harm, capped by triage limits." }),
             a("market", "Surveys need council votes", "Budgets freeze on election cycles.", { estimate: true, verdict: "whiff", impact: 0, note: "Decrees bind the budgets." }),
+            a("wtp", "Waitlists ration care", "Two-month queues turn away the urgent.", { estimate: true, verdict: "whiff", impact: 0, note: "Harm without a payer." }),
           ],
           v2: [
             d("problem", "Decrees are not patients", "Courts do not feel pain.", "r1.v1.B.s1", { verdict: "parried" }),
@@ -720,11 +731,12 @@ export function dermaVsCurbTape(): ReturnType<typeof buildDemoTape> {
         },
         B: {
           v1: [
-            p("problem", "Settlements dwarf the survey", "Settlements dwarf every survey quote.", { evidence: ["E26"] }),
+            p("problem", "Settlements dwarf the survey", "Settlements dwarf every survey quote.", { evidence: ["E26"], impact: 3 }),
             a("market", "Triage caps at dermatology", "One specialty cannot carry the multiple.", { evidence: ["E25"], verdict: "partial", impact: 2, note: "Sourced ceiling." }),
+            a("wtp", "Fines fund the survey", "Penalty budgets dwarf pilot budgets.", { estimate: true, verdict: "glancing", impact: 1, note: "Mandates move money." }),
           ],
           v2: [
-            d("market", "Decrees stack city by city", "Each settlement funds the next survey.", "r1.v1.A.s2", { evidence: ["E26"], verdict: "parried" }),
+            d("market", "Decrees stack city by city", "Each settlement funds the next survey.", "r1.v1.A.s2", { evidence: ["E26"], verdict: "landed", note: "CurbBot answers the council-vote jab." }),
             a("wtp", "Pilots are not procurement", "Three clinics do not make a budget line.", { estimate: true, verdict: "glancing", impact: 1, note: "Fair, not fatal." }),
           ],
         },
@@ -734,6 +746,7 @@ export function dermaVsCurbTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("differentiation", "Urgency ranking saves visits", "Ranking beats first-come queues.", { evidence: ["E19"], verdict: "glancing", impact: 1, note: "Better, not ten times." }),
             a("moat", "Routes are just driving", "Any fleet can photograph a curb.", { estimate: true, verdict: "glancing", impact: 1, note: "Underrates the grading data." }),
+            a("timing", "Queues grow every winter", "Respiratory season swells the backlog.", { estimate: true, verdict: "glancing", impact: 1, note: "Seasonal, not structural." }),
           ],
           v2: [
             d("differentiation", "Photos are not grades", "A picture without a standard decides nothing.", "r2.v1.B.s1", { verdict: "parried" }),
@@ -743,10 +756,11 @@ export function dermaVsCurbTape(): ReturnType<typeof buildDemoTape> {
         B: {
           v1: [
             p("differentiation", "Grades beat clipboards", "A scored ramp inventory never existed.", { evidence: ["E25"] }),
-            p("timing", "Deadlines bind this year", "Inventory dates fall inside this budget cycle.", { evidence: ["E8"] }),
+            p("timing", "Deadlines bind this year", "Inventory dates fall inside this budget cycle.", { evidence: ["E8"], impact: 3 }),
+            a("moat", "Depot data compounds", "Every route refines the next bid.", { estimate: true, verdict: "whiff", impact: 0, note: "Compounding asserted again." }),
           ],
           v2: [
-            d("moat", "Photos compound too", "Every graded mile trains the next grader.", "r2.v1.A.s2", { evidence: ["E25"], verdict: "parried" }),
+            d("moat", "Photos compound too", "Every graded mile trains the next grader.", "r2.v1.A.s2", { evidence: ["E25"], verdict: "landed", note: "CurbBot defends the grading data." }),
             a("moat", "Models copy triage fast", "Screening papers publish yearly.", { estimate: true, verdict: "glancing", impact: 1, note: "Papers are not products." }),
           ],
         },
@@ -756,6 +770,7 @@ export function dermaVsCurbTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("scale", "Ninety percent skip screening", "A national backlog waits past the pilot.", { evidence: ["E9"], verdict: "landed", impact: 2, note: "Scored from the claim." }),
             a("gtm", "Miles need mayors", "Robots wait on procurement calendars.", { estimate: true, verdict: "glancing", impact: 1, note: "Slow, but funded." }),
+            a("feasibility", "Phones are the clinic", "Every pocket holds the screening device.", { estimate: true, verdict: "glancing", impact: 1, note: "Hardware is ready; workflow is not." }),
           ],
           v2: [
             d("gtm", "Monitors renew themselves", "Annual subscriptions beat re-bids.", "r3.v1.B.s1", { estimate: true, verdict: "glancing", impact: 0, note: "Concedes the renewal." }),
@@ -766,9 +781,10 @@ export function dermaVsCurbTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("gtm", "Surveys become monitoring", "Each mile converts to an annual subscription.", { evidence: ["E26"] }),
             a("scale", "Skin caps at one organ", "No payer funds the whole body.", { evidence: ["E8"], verdict: "partial", impact: 2, note: "Ceiling with a source." }),
+            a("feasibility", "Clinics distrust vendors", "Pilots die in committee review.", { estimate: true, verdict: "whiff", impact: 0, note: "Fear without a filing." }),
           ],
           v2: [
-            d("scale", "That backlog is not sourced", "No locker item counts the unscreened.", "r3.v1.A.s1", { verdict: "parried" }),
+            d("scale", "That backlog is not sourced", "No locker item counts the unscreened.", "r3.v1.A.s1", { verdict: "landed", note: "CurbBot calls out the unsourced backlog." }),
             a("feasibility", "Validation takes years", "Clinical proof slows every rollout.", { estimate: true, verdict: "glancing", impact: 1, note: "A tax, not a block." }),
           ],
         },
@@ -848,29 +864,36 @@ export function dermaVsCurbTape(): ReturnType<typeof buildDemoTape> {
 
 /** Final: PermitPilot (A, seed 1) over CurbBot (B, seed 6). SUDDEN_DEATH, 3 to 1. */
 export function finalTape(): ReturnType<typeof buildDemoTape> {
-  const scores: Scores = even(5);
-  const tied = (line: string): { comparison: string; A: string; B: string } => ({
-    comparison: line,
-    A: "Typical of an SF pitch, honestly argued. 5.",
-    B: "Typical of an SF pitch, honestly argued. 5.",
-  });
+  const scores: Scores = {
+    problem: { A: 7, B: 6 },
+    market: { A: 5, B: 7 },
+    wtp: { A: 8, B: 6 },
+    differentiation: { A: 5, B: 8 },
+    moat: { A: 7, B: 5 },
+    timing: { A: 5, B: 7 },
+    gtm: { A: 8, B: 6 },
+    feasibility: { A: 6, B: 7 },
+    scale: { A: 7, B: 5 },
+  };
   return buildDemoTape({
     plans: rounds(
       {
         A: {
           v1: [
-            p("problem", "Packets stall real builds", "Crews sit idle while packets crawl.", { evidence: ["E1"], verdict: "partial", impact: 2, note: "Sourced, matched." }),
+            p("problem", "Packets stall real builds", "Crews sit idle while packets crawl.", { evidence: ["E1"], impact: 3 }),
             a("market", "Surveys need councils", "Budgets move at election speed.", { estimate: true, verdict: "glancing", impact: 1, note: "True and matched." }),
+            a("wtp", "Chase fees fund the product", "Expediters already charge for the follow-up.", { estimate: true, verdict: "glancing", impact: 1, note: "Charged today, priced opaquely." }),
           ],
           v2: [
-            d("problem", "Pain is still pain", "Lawsuits and layoffs both bleed.", "r1.v1.B.s1", { verdict: "parried" }),
+            d("problem", "Pain is still pain", "Lawsuits and layoffs both bleed.", "r1.v1.B.s1", { verdict: "landed", note: "PermitPilot absorbs the access pain." }),
             p("wtp", "Chase fees prove budget", "Expediters cash the same check.", { evidence: ["E11"], verdict: "partial", impact: 2, note: "Priced, matched." }),
           ],
         },
         B: {
           v1: [
             p("problem", "Ramps block real people", "Broken access strands riders daily.", { evidence: ["E8"], verdict: "partial", impact: 2, note: "Sourced, matched." }),
-            a("market", "Permits are one desk", "A single city starts narrow.", { estimate: true, verdict: "glancing", impact: 1, note: "True and matched." }),
+            a("market", "Permits are one desk", "A single city starts narrow.", { evidence: ["E26"], verdict: "partial", impact: 2, note: "Narrow today, sourced." }),
+            a("problem", "Fines price the pain", "Each missing ramp risks a settlement.", { estimate: true, verdict: "whiff", impact: 0, note: "Priced by courts, not buyers." }),
           ],
           v2: [
             d("market", "Desks repeat everywhere", "Every city queues the same forms.", "r1.v1.A.s2", { evidence: ["E12"], verdict: "parried" }),
@@ -883,6 +906,7 @@ export function finalTape(): ReturnType<typeof buildDemoTape> {
           v1: [
             p("differentiation", "Chase is the product", "Follow-up beats another form.", { evidence: ["E11"], verdict: "partial", impact: 2, note: "Better, matched." }),
             a("moat", "Routes can be walked", "Crews already grade by hand.", { estimate: true, verdict: "glancing", impact: 1, note: "True and matched." }),
+            a("timing", "Backlogs peak this year", "Retirement wave empties the desks.", { estimate: true, verdict: "glancing", impact: 1, note: "Dated, thinly sourced." }),
           ],
           v2: [
             d("differentiation", "Photos are table stakes", "Pictures alone decide nothing.", "r2.v1.B.s1", { verdict: "parried" }),
@@ -891,11 +915,12 @@ export function finalTape(): ReturnType<typeof buildDemoTape> {
         },
         B: {
           v1: [
-            p("differentiation", "Grades never existed", "No scored inventory came before.", { evidence: ["E25"], verdict: "partial", impact: 2, note: "Better, matched." }),
+            p("differentiation", "Grades never existed", "No scored inventory came before.", { evidence: ["E25"], impact: 3 }),
             a("moat", "Playbooks walk away", "Filing know-how travels with staff.", { estimate: true, verdict: "glancing", impact: 1, note: "True and matched." }),
+            a("timing", "Decrees renew yearly", "Each deadline spawns the next audit.", { estimate: true, verdict: "glancing", impact: 1, note: "Renewed, not new." }),
           ],
           v2: [
-            d("moat", "Miles train graders", "Each route sharpens the next.", "r2.v1.A.s2", { evidence: ["E25"], verdict: "parried" }),
+            d("moat", "Miles train graders", "Each route sharpens the next.", "r2.v1.A.s2", { evidence: ["E25"], verdict: "landed", note: "CurbBot answers the walking-crews jab." }),
             p("timing", "Deadlines bind now", "Inventory dates hit this cycle.", { evidence: ["E8"], verdict: "partial", impact: 2, note: "Dated, matched." }),
           ],
         },
@@ -903,18 +928,20 @@ export function finalTape(): ReturnType<typeof buildDemoTape> {
       {
         A: {
           v1: [
-            p("gtm", "Expediters sell it first", "The channel already charges today.", { evidence: ["E11"], verdict: "partial", impact: 2, note: "Named, matched." }),
+            p("gtm", "Expediters sell it first", "The channel already charges today.", { evidence: ["E11"], impact: 3 }),
             a("scale", "Maps cap at sidewalks", "Concrete ends somewhere.", { estimate: true, verdict: "glancing", impact: 1, note: "True and matched." }),
+            a("feasibility", "Forms ship as software", "No hardware stands between filing and done.", { estimate: true, verdict: "whiff", impact: 0, note: "Software, except the waiting." }),
           ],
           v2: [
-            d("gtm", "Monitors still need mayors", "Renewals ride procurement too.", "r3.v1.B.s2", { estimate: true, verdict: "parried" }),
+            d("gtm", "Monitors still need mayors", "Renewals ride procurement too.", "r3.v1.B.s2", { estimate: true, verdict: "landed", note: "PermitPilot checks the slow-desk jab." }),
             p("scale", "Desks fill every city", "Housing backlogs repeat nationwide.", { evidence: ["E12"], verdict: "partial", impact: 2, note: "Broad, matched." }),
           ],
         },
         B: {
           v1: [
-            p("feasibility", "Routes roll today", "The robot photographs real blocks.", { evidence: ["E25"], verdict: "partial", impact: 2, note: "Shipping, matched." }),
+            p("feasibility", "Routes roll today", "The robot photographs real blocks.", { evidence: ["E25"], impact: 3 }),
             a("gtm", "Desks buy slowly", "Governments deliberate for years.", { estimate: true, verdict: "glancing", impact: 1, note: "True and matched." }),
+            a("scale", "Maps sell twice over", "Survey once, monitor forever.", { estimate: true, verdict: "glancing", impact: 1, note: "Renewal priced, delivery assumed." }),
           ],
           v2: [
             d("feasibility", "Packets get rejected", "One error burns weeks.", "r3.v1.A.s1", { estimate: true, verdict: "parried" }),
@@ -926,30 +953,66 @@ export function finalTape(): ReturnType<typeof buildDemoTape> {
     scoresAB: scores,
     scoresBA: scores,
     rationales: {
-      problem: tied("Mandated access against stalled livelihoods; neither outranks the other."),
-      market: tied("Both size bottom-up from real budgets; both start local."),
-      wtp: tied("Both redirect money already spent by named payers."),
-      differentiation: tied("Each ten-times one dimension the other ignores."),
-      moat: tied("Each compounds data the other cannot easily copy."),
-      timing: tied("Both windows are datable and open right now."),
-      gtm: tied("Both name a channel with a named first buyer."),
-      feasibility: tied("Both ship with off-the-shelf parts and named risks."),
-      scale: tied("Both plausibly grow past the first market; neither proves it."),
+      problem: {
+        comparison: "A stalled build costs crews; a missing ramp costs settlements. The permit pain prices higher today.",
+        A: "Crews idle for months with budget on the line. 7.",
+        B: "Mandated access with real harm. 6.",
+      },
+      market: {
+        comparison: "Per-mile mandates beat one city's desks.",
+        A: "Credible path, narrower today. 5.",
+        B: "Budgeted surveys with growth. 7.",
+      },
+      wtp: {
+        comparison: "Chase fees today beat survey quotes tomorrow.",
+        A: "Payer has budget and precedent prices. 8.",
+        B: "Plausible margins on survey spend. 6.",
+      },
+      differentiation: {
+        comparison: "A first inventory beats a better form.",
+        A: "Meaningfully better on the chase. 5.",
+        B: "Ten times faster than walking crews. 8.",
+      },
+      moat: {
+        comparison: "Filing history compounds; grading data starts over each city.",
+        A: "A compounding moat with a path to it. 7.",
+        B: "One plausible moat at best. 5.",
+      },
+      timing: {
+        comparison: "Binding inventory dates beat a demographic drift.",
+        A: "A real shift, slow to convert. 5.",
+        B: "A specific enabling shift with a window. 7.",
+      },
+      gtm: {
+        comparison: "Expediters who charge today beat robots that need mayors.",
+        A: "Named first customers and a cheap channel. 8.",
+        B: "A plausible channel with a gate. 6.",
+      },
+      feasibility: {
+        comparison: "Shipping robots beat shipping forms by a step.",
+        A: "Buildable with real risks. 6.",
+        B: "Clear build path with hardware live. 7.",
+      },
+      scale: {
+        comparison: "Every desk in every city beats every curb.",
+        A: "A path past the first market. 7.",
+        B: "Several paths, one organ at a time. 5.",
+      },
     },
     roundSummaries: {
-      1: "Dead even: lawsuits against layoffs, budgets against budgets.",
-      2: "Dead even: first inventory against the follow-up.",
-      3: "Dead even: renewals against expediters. The judges need more.",
+      1: "PermitPilot takes the opener on priced chase fees against a narrower market.",
+      2: "CurbBot answers with the first inventory and binding deadlines.",
+      3: "PermitPilot retakes it on expediters and every-city desks. The judges need more.",
     },
     report: {
       headline: "PermitPilot takes the belt in sudden death",
       whyTheyWon: [
-        "The scoreline was a draw across all nine criteria.",
-        "Three sudden-death votes picked the permit chase.",
-        "The cascade stopped at the judges, 3 to 1.",
+        "Won problem, willingness to pay, moat, go-to-market, and scale.",
+        "Lost market, differentiation, timing, and feasibility by wider margins.",
+        "Less than half a point separated the damage totals; the closings broke it.",
       ],
-      turningPoint: { text: "The closing volley tipped a tied card." },
-      loserTakeaways: ["Separate the idea on one criterion.", "Bring a sourced number next time."],
+      turningPoint: { criterion: "gtm", text: "The expediter channel closed the gap in the final round." },
+      loserTakeaways: ["Win one more criterion in the final round.", "Bring a sourced number for the backlog."],
       announcer: "Sudden death. PermitPilot takes the belt, three votes to one.",
     },
     scout: {
