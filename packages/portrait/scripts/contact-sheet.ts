@@ -4,14 +4,16 @@ import { fileURLToPath } from "node:url";
 
 import { PNG } from "pngjs";
 
+import { rgbToHex, srgbToOklab } from "../src/color.js";
 import { decodeImage } from "../src/decode.js";
-import { resolveTightCrop } from "../src/frame.js";
 import { spans } from "../src/image.js";
 import { portraitMetrics } from "../src/metrics.js";
 import { pixelatePortrait } from "../src/pixelate.js";
 import { paintGrid } from "../src/png.js";
-import { portraitTraits, traitHead } from "../src/traits.js";
-import type { RgbaImage } from "../src/types.js";
+import { portraitReference } from "../src/reference.js";
+import { measureSkin, portraitTraits, traitHead } from "../src/traits.js";
+import type { PixelPortrait } from "@sf-fight-club/schemas";
+import type { PortraitGrid, PortraitReference, RgbaImage } from "../src/types.js";
 
 const SAMPLES_DIR = fileURLToPath(new URL("../fixtures/samples/", import.meta.url));
 const OUTPUT = fileURLToPath(new URL("../fixtures/contact-sheet.png", import.meta.url));
@@ -26,6 +28,7 @@ const MARGIN = 10;
 const ROW_HEIGHT = 104;
 const LABEL_WIDTH = 22;
 const PHOTO = 96;
+const PORTRAIT = 96;
 const HEAD = 80;
 const SWATCH = 22;
 const GAP = 8;
@@ -208,6 +211,41 @@ function percent(value: number): string {
   return `${(value * 100).toFixed(1)}%`;
 }
 
+function referenceGrid(reference: PortraitReference): PortraitGrid {
+  const palette: string[] = [];
+  const pixels: number[] = [];
+  for (let cell = 0; cell < reference.size * reference.size; cell += 1) {
+    palette.push(
+      rgbToHex([
+        Math.round(reference.rgb[cell * 3] ?? 0),
+        Math.round(reference.rgb[cell * 3 + 1] ?? 0),
+        Math.round(reference.rgb[cell * 3 + 2] ?? 0),
+      ]),
+    );
+    pixels.push(cell);
+  }
+  return { size: reference.size, palette, pixels };
+}
+
+function fidelity(portrait: PixelPortrait, reference: PortraitReference): { mean: number; over: number } {
+  let sum = 0;
+  let far = 0;
+  for (let cell = 0; cell < portrait.pixels.length; cell += 1) {
+    const hex = portrait.palette[portrait.pixels[cell] ?? 0] ?? "#000000";
+    const [r, g, b] = hexToRgb(hex);
+    const shown = srgbToOklab([r, g, b]);
+    const source = srgbToOklab([
+      reference.rgb[cell * 3] ?? 0,
+      reference.rgb[cell * 3 + 1] ?? 0,
+      reference.rgb[cell * 3 + 2] ?? 0,
+    ]);
+    const distance = Math.hypot(shown.L - source.L, shown.a - source.a, shown.b - source.b);
+    sum += distance;
+    if (distance > 0.15) far += 1;
+  }
+  return { mean: sum / portrait.pixels.length, over: far / portrait.pixels.length };
+}
+
 async function sampleFiles(): Promise<string[]> {
   const entries = await readdir(SAMPLES_DIR);
   return entries.filter((name) => /\.(jpe?g|png)$/i.test(name)).sort();
@@ -217,18 +255,32 @@ async function main(): Promise<void> {
   const files = await sampleFiles();
   const rows = files.length;
   const width =
-    MARGIN + LABEL_WIDTH + PHOTO + GAP + PHOTO + GAP + PHOTO + GAP + HEAD + GAP + 4 * SWATCH + MARGIN;
+    MARGIN +
+    LABEL_WIDTH +
+    PHOTO +
+    GAP +
+    PHOTO +
+    GAP +
+    PORTRAIT +
+    GAP +
+    PORTRAIT +
+    GAP +
+    HEAD +
+    GAP +
+    4 * SWATCH +
+    MARGIN;
   const height = MARGIN * 2 + rows * ROW_HEIGHT;
   const sheet = canvas(width, height);
 
   const photoX = MARGIN + LABEL_WIDTH;
   const cropX = photoX + PHOTO + GAP;
-  const portraitX = cropX + PHOTO + GAP;
-  const headX = portraitX + PHOTO + GAP;
+  const referenceX = cropX + PHOTO + GAP;
+  const portraitX = referenceX + PHOTO + GAP;
+  const headX = portraitX + PORTRAIT + GAP;
   const swatchX = headX + HEAD + GAP;
 
   process.stdout.write(
-    "sample        speckle  minPx  bgParts  bgLeak  subject  colors  skin     shadow   hair     accent\n",
+    "sample           fidelity  over   skinL  traitL  colors  speckle\n",
   );
 
   for (const [index, file] of files.entries()) {
@@ -242,18 +294,21 @@ async function main(): Promise<void> {
 
     blit(sheet, containThumb(image, PHOTO), photoX, top + 2);
 
-    const crop = resolveTightCrop(image);
-    if (crop === null) throw new Error(`${file}: crop failed`);
-    blit(sheet, cropThumb(image, crop, PHOTO), cropX, top + 2);
+    const reference = portraitReference(image);
+    if (reference === null) throw new Error(`${file}: crop failed`);
+    blit(sheet, cropThumb(image, reference.crop, PHOTO), cropX, top + 2);
+    blit(sheet, paintGrid(referenceGrid(reference), 3), referenceX, top + 2);
 
     const result = pixelatePortrait(image);
     if (result.kind !== "ok") throw new Error(`${file}: ${result.reason}`);
     const portrait = result.portrait;
     const metrics = portraitMetrics(portrait);
-    const traits = portraitTraits(portrait);
+    const skin = measureSkin(reference);
+    const traits = portraitTraits(reference);
+    const traitSkin = srgbToOklab(hexToRgb(traits.skin));
 
-    blit(sheet, paintGrid({ size: portrait.size, palette: [...portrait.palette], pixels: [...portrait.pixels] }, 4), portraitX, top + 2);
-    blit(sheet, paintGrid(traitHead(traits, 10, portrait.palette[metrics.backgroundIndex ?? 0] ?? "#1b1b28"), 8), headX, top + 10);
+    blit(sheet, paintGrid(portrait, 3), portraitX, top + 2);
+    blit(sheet, paintGrid(traitHead(traits), 8), headX, top + 10);
 
     for (const [entry, hex] of portrait.palette.entries()) {
       const column = entry % 4;
@@ -264,19 +319,16 @@ async function main(): Promise<void> {
       fill(sheet, swatchX, top + 2, SWATCH - 1, SWATCH - 1, MISSING);
     }
 
+    const score = fidelity(portrait, reference);
     process.stdout.write(
       [
-        file.padEnd(13),
-        percent(metrics.speckleRatio).padStart(7),
-        String(metrics.paletteMinCoverage).padStart(6),
-        String(metrics.backgroundComponents).padStart(8),
-        String(metrics.backgroundLeaks).padStart(7),
-        percent(metrics.subjectShare).padStart(8),
+        file.padEnd(15),
+        score.mean.toFixed(4).padStart(8),
+        percent(score.over).padStart(6),
+        skin.L.toFixed(3).padStart(7),
+        traitSkin.L.toFixed(3).padStart(7),
         String(portrait.palette.length).padStart(7),
-        traits.skin,
-        traits.skinShadow,
-        traits.hair,
-        traits.accent,
+        percent(metrics.speckleRatio).padStart(8),
       ].join("  ") + "\n",
     );
   }

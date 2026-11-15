@@ -1,57 +1,25 @@
 import type { PixelPortrait } from "@sf-fight-club/schemas";
 
-import {
-  containBackground,
-  despeckle,
-  outlineSubject,
-  pruneRareEntries,
-  pushBackgroundApart,
-  removeSmallComponents,
-  settleBackground,
-} from "./clean.js";
+import { despeckle, outlineSubject } from "./clean.js";
 import { nearestLabIndex, rgbToHex, srgbToOklab, type Rgb } from "./color.js";
-import { toneMap, toneSpread } from "./enhance.js";
 import { flattenBackground } from "./flatten.js";
-import { resolveTightCrop } from "./frame.js";
-import { downsample, transparentShare } from "./image.js";
-import { portraitMetrics } from "./metrics.js";
-import { MIN_ENTRY_CELLS, quantize } from "./quantize.js";
-import type { PixelateInput, PortraitNoneReason, PortraitResult } from "./types.js";
+import { transparentShare } from "./image.js";
+import { quantize } from "./quantize.js";
+import { portraitReference } from "./reference.js";
+import { stretchTone } from "./tone.js";
+import {
+  PORTRAIT_SIZE,
+  type PixelateInput,
+  type PortraitNoneReason,
+  type PortraitResult,
+} from "./types.js";
 
-export const PORTRAIT_SIZE = 24;
 const MAX_SOURCE_SIDE = 8192;
 const MAX_TRANSPARENT_SHARE = 0.6;
 const MIN_TONE_SPREAD = 10;
-const MAX_PALETTE = 8;
+const MAX_PALETTE = 12;
 const MIN_PALETTE = 2;
-/** Mean OKLab chroma below which the photo has no usable colour and gets a narrower tone band. */
-const MONO_CHROMA = 0.012;
-/** OKLab distance within which a colour still counts as the backdrop. */
 const BACKGROUND_TOLERANCE = 0.035;
-/** Subject share the framing aims for; a head at 70-80% of the width covers this much area. */
-const MIN_SUBJECT_SHARE = 0.45;
-const MAX_SUBJECT_SHARE = 0.9;
-/** Crop scales tried in order: as framed, then tighter, then looser. */
-const FRAMING_SCALES = [1, 0.86, 0.74, 1.15];
-
-const COLOR_TONES = {
-  lowPercentile: 0.02,
-  highPercentile: 0.98,
-  minRange: 0.03,
-  outputLow: 0.13,
-  outputHigh: 0.92,
-  gain: 1.3,
-} as const;
-
-/** Black and white keeps its midtones: the old per-channel stretch crushed it to two values. */
-const MONO_TONES = {
-  lowPercentile: 0.02,
-  highPercentile: 0.98,
-  minRange: 0.03,
-  outputLow: 0.2,
-  outputHigh: 0.86,
-  gain: 1.15,
-} as const;
 
 function fail(reason: PortraitNoneReason): PortraitResult {
   return { kind: "none", reason };
@@ -78,10 +46,21 @@ function validate(input: PixelateInput): PortraitNoneReason | null {
   return null;
 }
 
+function spreadOf(rgb: Float64Array): number {
+  let min = 255;
+  let max = 0;
+  for (let index = 0; index < rgb.length; index += 1) {
+    const value = rgb[index] ?? 0;
+    if (value < min) min = value;
+    if (value > max) max = value;
+  }
+  return max - min;
+}
+
 /** Drop unused and duplicate entries so the stored palette is exactly what the pixels use. */
 function compact(palette: readonly Rgb[], indices: readonly number[]): PixelPortrait | null {
   const used = new Set(indices);
-  const order = [...used].sort((a, b) => a - b);
+  const order = [...used].sort((left, right) => left - right);
   const hexes: string[] = [];
   const remap = new Map<number, number>();
   for (const index of order) {
@@ -100,132 +79,96 @@ function compact(palette: readonly Rgb[], indices: readonly number[]): PixelPort
   return { size: PORTRAIT_SIZE, palette: hexes, pixels };
 }
 
-function backgroundIndexOf(palette: readonly Rgb[], background: Rgb | null): number | null {
-  if (background === null) return null;
-  return nearestLabIndex(palette.map((entry) => srgbToOklab(entry)), srgbToOklab(background));
+function borderPaletteIndex(
+  palette: readonly Rgb[],
+  indices: readonly number[],
+  size: number,
+): number | null {
+  const tally = new Map<number, number>();
+  for (let cell = 0; cell < indices.length; cell += 1) {
+    const x = cell % size;
+    const y = (cell - x) / size;
+    if (x !== 0 && y !== 0 && x !== size - 1 && y !== size - 1) continue;
+    const index = indices[cell] ?? 0;
+    tally.set(index, (tally.get(index) ?? 0) + 1);
+  }
+  let best: number | null = null;
+  let bestCount = 0;
+  for (const [index, count] of tally) {
+    if (count > bestCount || (count === bestCount && best !== null && index < best)) {
+      best = index;
+      bestCount = count;
+    }
+  }
+  return best !== null && palette[best] !== undefined ? best : null;
 }
 
 /**
- * Turn a decoded RGBA image into a 24x24 indexed portrait.
+ * Turn a decoded RGBA image into a 32x32 indexed portrait.
  *
  * Pure and deterministic: no clock, no randomness, no I/O. The same bytes always
- * give the same portrait. Anything that cannot make a recognisable face returns
- * `kind: "none"` and the founder keeps a generated figure.
- *
- * Order matters. Crop to the head, average down once, move tone in OKLab,
- * flatten the wall, quantise, and only then clean the 24x24 grid. Sharpening the
- * 24x24 image (the old pipeline) is what turned skin into static: there is no
- * detail left at that size to sharpen, only noise to amplify.
+ * give the same portrait. The pipeline after framing is deliberately short:
+ * area-average downsample, a mild monotonic lightness stretch, and k-means in
+ * OKLab. Every extra cleanup step moves the result further from the photo.
  */
-function renderPortrait(input: PixelateInput, cropScale: number): PortraitResult {
-  const crop = resolveTightCrop(input, input.options?.crop, cropScale);
-  if (crop === null) return fail("invalid_input");
-  if (transparentShare(input, crop) > MAX_TRANSPARENT_SHARE) return fail("transparent");
-
-  const grid = downsample(input, crop, PORTRAIT_SIZE);
-  const covered = grid.coverage.reduce((sum, value) => sum + value, 0) / grid.coverage.length;
-  if (covered < 1 - MAX_TRANSPARENT_SHARE) return fail("transparent");
-  if (toneSpread(grid.rgb) < MIN_TONE_SPREAD) return fail("empty");
-
-  const wide = toneMap({ rgb: grid.rgb, size: PORTRAIT_SIZE, ...COLOR_TONES });
-  const toned =
-    wide.chroma < MONO_CHROMA
-      ? toneMap({ rgb: grid.rgb, size: PORTRAIT_SIZE, ...MONO_TONES })
-      : wide;
+function renderPortrait(input: PixelateInput): PortraitResult {
+  const reference = portraitReference(input);
+  if (reference === null) return fail("invalid_input");
+  if (transparentShare(input, reference.crop) > MAX_TRANSPARENT_SHARE) {
+    return fail("transparent");
+  }
+  if (spreadOf(reference.rgb) < MIN_TONE_SPREAD) return fail("empty");
 
   const flattened =
-    input.options?.flattenBackground ?? true
-      ? flattenBackground({ rgb: toned.rgb, size: PORTRAIT_SIZE, tolerance: BACKGROUND_TOLERANCE })
-      : { rgb: toned.rgb, background: null };
+    input.options?.flattenBackground === true
+      ? flattenBackground({
+          rgb: reference.rgb,
+          size: PORTRAIT_SIZE,
+          tolerance: BACKGROUND_TOLERANCE,
+        })
+      : { rgb: reference.rgb, background: null };
 
+  const tone = stretchTone(flattened.rgb, PORTRAIT_SIZE);
   const quantized = quantize({
-    rgb: flattened.rgb,
+    rgb: tone.rgb,
     size: PORTRAIT_SIZE,
     paletteSize: input.options?.paletteSize ?? MAX_PALETTE,
-    dither: input.options?.dither ?? false,
   });
   if (quantized.palette.length < MIN_PALETTE) return fail("empty");
 
-  const settled = settleBackground({
+  const cleaned = despeckle({
     palette: quantized.palette,
     indices: quantized.indices,
     size: PORTRAIT_SIZE,
-    tolerance: BACKGROUND_TOLERANCE,
   });
-  const settledIndex =
-    settled === null
-      ? backgroundIndexOf(quantized.palette, flattened.background)
-      : settled.backgroundIndex;
-  let indices = settled === null ? quantized.indices : settled.indices;
-  const palette = pushBackgroundApart({
-    palette: quantized.palette,
-    indices,
-    backgroundIndex: settledIndex,
-  });
-  const backgroundIndex = settledIndex;
-  const cleanInput = { palette, size: PORTRAIT_SIZE, backgroundIndex };
-  indices = despeckle({ ...cleanInput, indices });
-  indices = removeSmallComponents({ ...cleanInput, indices });
-  indices = containBackground({ ...cleanInput, indices });
-  indices = despeckle({ ...cleanInput, indices });
-  indices = containBackground({ ...cleanInput, indices });
 
-  const pruned = pruneRareEntries({
-    palette,
-    indices,
-    minCells: MIN_ENTRY_CELLS,
-    track: backgroundIndex ?? undefined,
-  });
-  const prunedBackground = pruned.tracked;
-  const prunedInput = {
-    palette: pruned.palette,
-    size: PORTRAIT_SIZE,
-    backgroundIndex: prunedBackground,
-  };
-  let cleaned = despeckle({ ...prunedInput, indices: pruned.indices });
-  cleaned = containBackground({ ...prunedInput, indices: cleaned });
-  const outlined =
-    (input.options?.outline ?? false) && prunedBackground !== null
-      ? outlineSubject({ ...prunedInput, indices: cleaned })
-      : cleaned;
+  let indices = cleaned;
+  if (input.options?.outline === true) {
+    const backgroundIndex =
+      flattened.background === null
+        ? borderPaletteIndex(quantized.palette, cleaned, PORTRAIT_SIZE)
+        : nearestLabIndex(
+            quantized.palette.map((entry) => srgbToOklab(entry)),
+            srgbToOklab(flattened.background),
+          );
+    indices = outlineSubject({
+      palette: quantized.palette,
+      indices: cleaned,
+      size: PORTRAIT_SIZE,
+      backgroundIndex,
+    });
+  }
 
-  const portrait = compact(pruned.palette, outlined);
+  const portrait = compact(quantized.palette, indices);
   if (portrait === null) return fail("empty");
   return { kind: "ok", portrait };
 }
 
-function offTarget(share: number): number {
-  if (share < MIN_SUBJECT_SHARE) return MIN_SUBJECT_SHARE - share;
-  if (share > MAX_SUBJECT_SHARE) return share - MAX_SUBJECT_SHARE;
-  return 0;
-}
-
-/**
- * A single face-width ratio cannot frame every photo: the skin region of a
- * tightly cropped face and of a full bust are the same fraction of the frame but
- * want different crops. So the crop is tried at a few scales and the first one
- * whose subject fills the frame within the accepted band wins, which is the
- * property the reviewer actually asked for.
- */
 export function pixelatePortrait(input: PixelateInput): PortraitResult {
   const invalid = validate(input);
   if (invalid !== null) return fail(invalid);
   if (input.width < PORTRAIT_SIZE || input.height < PORTRAIT_SIZE) return fail("too_small");
-
-  const first = renderPortrait(input, FRAMING_SCALES[0] ?? 1);
-  if (first.kind !== "ok") return first;
-
-  let best = first;
-  let bestScore = offTarget(portraitMetrics(first.portrait).subjectShare);
-  for (const scale of FRAMING_SCALES.slice(1)) {
-    if (bestScore === 0) break;
-    const next = renderPortrait(input, scale);
-    if (next.kind !== "ok") continue;
-    const score = offTarget(portraitMetrics(next.portrait).subjectShare);
-    if (score < bestScore) {
-      best = next;
-      bestScore = score;
-    }
-  }
-  return best;
+  return renderPortrait(input);
 }
+
+export { PORTRAIT_SIZE };

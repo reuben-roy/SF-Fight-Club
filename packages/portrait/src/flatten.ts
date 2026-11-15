@@ -82,7 +82,7 @@ function flood(rgb: Float64Array, size: number, reference: Rgb): number[] {
 /**
  * Flood a near-uniform background to one colour, starting from the frame edge.
  *
- * Portraits are shot against a wall, a studio sweep or the sky; at 24x24 that
+ * Portraits are shot against a wall, a studio sweep or the sky; at 32x32 that
  * becomes speckle that steals palette entries from the face. Only the region
  * connected to the border within tolerance is touched, so a busy scene keeps
  * its colour, and a skin-toned border (a tight face crop) is left alone.

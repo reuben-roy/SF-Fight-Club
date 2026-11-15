@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Profile photo to 24x24 pixel portrait. Pure core, pure-JS decoders at the edge.",
+  "description": "Profile photo to 32x32 pixel portrait. Pure core, pure-JS decoders at the edge.",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

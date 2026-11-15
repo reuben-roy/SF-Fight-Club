@@ -1,9 +1,9 @@
 import * as z from "zod";
 
-export const PORTRAIT_SIZE = 24;
+export const PORTRAIT_SIZE = 32;
 export const PORTRAIT_PIXEL_COUNT = PORTRAIT_SIZE * PORTRAIT_SIZE;
 export const MIN_PORTRAIT_COLORS = 2;
-export const MAX_PORTRAIT_COLORS = 8;
+export const MAX_PORTRAIT_COLORS = 12;
 
 const hexColorSchema = z
   .string()
@@ -23,7 +23,7 @@ export const portraitPixelsSchema = z
   .length(PORTRAIT_PIXEL_COUNT);
 
 /**
- * A 24x24 indexed pixel portrait. `pixels` is row-major and every entry is an
+ * A 32x32 indexed pixel portrait. `pixels` is row-major and every entry is an
  * index into `palette`. Produced by `@sf-fight-club/portrait`; the source photo
  * is never rendered.
  */

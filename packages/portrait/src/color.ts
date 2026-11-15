@@ -78,12 +78,13 @@ export function oklabToSrgb(lab: Lab): Rgb {
   ];
 }
 
-export const LIGHTNESS_WEIGHT = 2.2;
+export const LIGHTNESS_WEIGHT = 1.3;
 
 /**
- * Squared OKLab distance, with lightness weighted up. Two tones that differ only
- * in lightness are far more distinguishable at 24x24 than two that differ only
- * in hue, so the palette should spend its entries on lightness.
+ * Squared OKLab distance, with lightness weighted slightly up. Two tones that
+ * differ only in lightness are more distinguishable at 32x32 than two that
+ * differ only in hue, but weighting too much spends the palette on lightness
+ * and drops the warm shadow that makes skin read as skin.
  */
 export function labDistanceSq(x: Lab, y: Lab): number {
   const dl = x.L - y.L;

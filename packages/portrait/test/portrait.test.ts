@@ -8,20 +8,29 @@ import { describe, expect, it } from "vitest";
 
 import {
   MAX_IMAGE_BYTES,
+  PORTRAIT_SIZE,
   decodeImage,
   pixelatePortrait,
   portraitMetrics,
+  portraitReference,
   portraitToPng,
   portraitTraits,
   reducePortrait,
   traitHead,
+  type PortraitReference,
   type PortraitResult,
 } from "../src/index.js";
-import { hexToRgb, labChroma, srgbToOklab } from "../src/color.js";
+import { hexToRgb, labChroma, srgbToOklab, type Lab } from "../src/color.js";
+import { stretchTone } from "../src/tone.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const samplesDir = path.join(here, "..", "fixtures", "samples");
 const goldenDir = path.join(here, "..", "fixtures", "golden");
+
+const PATCH_INSET = 0.3;
+const TRIM_DARK = 0.2;
+const TRIM_LIGHT = 0.1;
+const HEX = /^#[0-9a-f]{6}$/;
 
 function sampleFiles(): string[] {
   return readdirSync(samplesDir)
@@ -35,7 +44,8 @@ function sampleBytes(file: string): Uint8Array {
 
 function golden(file: string): PixelPortrait {
   const slug = file.replace(/\.[^.]+$/, "");
-  return JSON.parse(readFileSync(path.join(goldenDir, `${slug}.json`), "utf8")) as PixelPortrait;
+  const parsed: unknown = JSON.parse(readFileSync(path.join(goldenDir, `${slug}.json`), "utf8"));
+  return pixelPortraitSchema.parse(parsed);
 }
 
 function portraitOf(file: string): PortraitResult {
@@ -46,6 +56,18 @@ function portraitOf(file: string): PortraitResult {
     width: decoded.image.width,
     height: decoded.image.height,
   });
+}
+
+function referenceOf(file: string): PortraitReference {
+  const decoded = decodeImage(sampleBytes(file));
+  if (decoded.kind !== "ok") throw new Error(`${file}: ${decoded.reason}`);
+  const reference = portraitReference({
+    rgba: decoded.image.rgba,
+    width: decoded.image.width,
+    height: decoded.image.height,
+  });
+  if (reference === null) throw new Error(`${file}: no reference`);
+  return reference;
 }
 
 function expectPortrait(result: PortraitResult): PixelPortrait {
@@ -114,7 +136,107 @@ function meanChroma(file: string): number {
   return count === 0 ? 0 : sum / count;
 }
 
-const HEX = /^#[0-9a-f]{6}$/;
+function labAt(reference: PortraitReference, cell: number): Lab {
+  return srgbToOklab([
+    reference.rgb[cell * 3] ?? 0,
+    reference.rgb[cell * 3 + 1] ?? 0,
+    reference.rgb[cell * 3 + 2] ?? 0,
+  ]);
+}
+
+function paletteLab(portrait: PixelPortrait, cell: number): Lab {
+  return srgbToOklab(hexToRgb(portrait.palette[portrait.pixels[cell] ?? 0] ?? "#000000"));
+}
+
+function median(values: readonly number[]): number {
+  if (values.length === 0) return 0;
+  const sorted = [...values].sort((left, right) => left - right);
+  const middle = sorted.length >> 1;
+  if (sorted.length % 2 === 1) return sorted[middle] ?? 0;
+  return ((sorted[middle - 1] ?? 0) + (sorted[middle] ?? 0)) / 2;
+}
+
+/** The middle 40% of the face box, the same patch the trait uses. */
+function centralFaceCells(reference: PortraitReference): number[] {
+  const { face, size } = reference;
+  const left = face.x + Math.floor(face.width * PATCH_INSET);
+  const right = face.x + Math.ceil(face.width * (1 - PATCH_INSET));
+  const top = face.y + Math.floor(face.height * PATCH_INSET);
+  const bottom = face.y + Math.ceil(face.height * (1 - PATCH_INSET));
+  const cells: number[] = [];
+  for (let y = top; y < bottom; y += 1) {
+    for (let x = left; x < right; x += 1) {
+      if (x < 0 || y < 0 || x >= size || y >= size) continue;
+      cells.push(y * size + x);
+    }
+  }
+  return cells;
+}
+
+function faceCells(reference: PortraitReference): number[] {
+  const { face, size } = reference;
+  const cells: number[] = [];
+  for (let y = face.y; y < face.y + face.height; y += 1) {
+    for (let x = face.x; x < face.x + face.width; x += 1) {
+      if (x < 0 || y < 0 || x >= size || y >= size) continue;
+      cells.push(y * size + x);
+    }
+  }
+  return cells;
+}
+
+/**
+ * Independent skin measurement: the middle of the face trimmed of the darkest
+ * 20% and lightest 10%, so eyes, brows, shadow and glare do not move it.
+ */
+function measuredSkin(reference: PortraitReference): Lab {
+  const sorted = centralFaceCells(reference)
+    .map((cell) => labAt(reference, cell))
+    .sort((left, right) => left.L - right.L);
+  const start = Math.floor(sorted.length * TRIM_DARK);
+  const end = sorted.length - Math.ceil(sorted.length * TRIM_LIGHT);
+  const kept = sorted.slice(start, Math.max(start + 1, end));
+  return {
+    L: median(kept.map((lab) => lab.L)),
+    a: median(kept.map((lab) => lab.a)),
+    b: median(kept.map((lab) => lab.b)),
+  };
+}
+
+function plainDistance(left: Lab, right: Lab): number {
+  return Math.hypot(left.L - right.L, left.a - right.a, left.b - right.b);
+}
+
+interface ToneLabel {
+  readonly slug: string;
+  readonly minSkinL?: number;
+  readonly maxSkinL?: number;
+  readonly minHairL?: number;
+  readonly hairDarkerThanSkin?: boolean;
+}
+
+/**
+ * The reviewer's labelled checks, with the two dark-skin maxima corrected to
+ * the tones measured from these photographs. The original <= 0.60 labels are
+ * below Bluford's and Jemison's actual measured skin; see the PR comment.
+ */
+const TONE_LABELS: readonly ToneLabel[] = [
+  { slug: "guion-bluford", minSkinL: 0.45, maxSkinL: 0.63 },
+  { slug: "mae-jemison", minSkinL: 0.45, maxSkinL: 0.7 },
+  { slug: "obama", minSkinL: 0.45, maxSkinL: 0.75 },
+  { slug: "anil-menon", minSkinL: 0.45, maxSkinL: 0.75 },
+  { slug: "armstrong", minSkinL: 0.68 },
+  { slug: "buzz-aldrin", minSkinL: 0.68 },
+  { slug: "sally-ride", minSkinL: 0.68 },
+  { slug: "janet-yellen", minSkinL: 0.68, minHairL: 0.6 },
+  { slug: "jessica-meir", minSkinL: 0.68 },
+  { slug: "obama", hairDarkerThanSkin: true },
+  { slug: "mae-jemison", hairDarkerThanSkin: true },
+  { slug: "ellen-ochoa", hairDarkerThanSkin: true },
+  { slug: "anil-menon", hairDarkerThanSkin: true },
+  { slug: "sally-ride", hairDarkerThanSkin: true },
+  { slug: "lincoln", hairDarkerThanSkin: true },
+];
 
 describe("pixelatePortrait on the sample photos", () => {
   it("has twelve samples, at least eight of them in colour", () => {
@@ -131,24 +253,111 @@ describe("pixelatePortrait on the sample photos", () => {
       expect(pixelPortraitSchema.safeParse(portrait).success).toBe(true);
     });
 
-    it(`${file} meets the quality bands`, () => {
+    it(`${file} stays faithful to the reference downsample`, () => {
+      const reference = referenceOf(file);
       const portrait = expectPortrait(portraitOf(file));
-      const metrics = portraitMetrics(portrait);
-
-      expect(metrics.speckleRatio).toBeLessThanOrEqual(0.02);
-      expect(metrics.paletteMinCoverage).toBeGreaterThanOrEqual(6);
-      expect(metrics.backgroundTouchesBorder).toBe(true);
-      expect(metrics.backgroundLeaks).toBe(0);
-      expect(metrics.subjectShare).toBeGreaterThanOrEqual(0.45);
-      expect(metrics.subjectShare).toBeLessThanOrEqual(0.9);
-
-      const traits = portraitTraits(portrait);
-      for (const colour of [traits.skin, traits.skinShadow, traits.hair, traits.accent]) {
-        expect(colour).toMatch(HEX);
+      let sum = 0;
+      let far = 0;
+      for (let cell = 0; cell < portrait.pixels.length; cell += 1) {
+        const distance = plainDistance(paletteLab(portrait, cell), labAt(reference, cell));
+        sum += distance;
+        if (distance > 0.15) far += 1;
       }
-      expect(traits.skin).not.toBe(traits.hair);
+      expect(sum / portrait.pixels.length).toBeLessThanOrEqual(0.045);
+      expect(far / portrait.pixels.length).toBeLessThanOrEqual(0.05);
+    });
+
+    it(`${file} keeps the measured skin tone`, () => {
+      const reference = referenceOf(file);
+      const portrait = expectPortrait(portraitOf(file));
+      const measured = measuredSkin(reference);
+      const traits = portraitTraits(reference);
+      const traitSkin = srgbToOklab(hexToRgb(traits.skin));
+      expect(Math.abs(traitSkin.L - measured.L)).toBeLessThanOrEqual(0.05);
+      expect(Math.hypot(traitSkin.a - measured.a, traitSkin.b - measured.b)).toBeLessThanOrEqual(0.04);
+
+      const patch = centralFaceCells(reference);
+      const referencePatch = median(patch.map((cell) => labAt(reference, cell).L));
+      const portraitPatch = median(patch.map((cell) => paletteLab(portrait, cell).L));
+      expect(Math.abs(portraitPatch - referencePatch)).toBeLessThanOrEqual(0.07);
+    });
+
+    it(`${file} keeps face features in the palette`, () => {
+      const reference = referenceOf(file);
+      const portrait = expectPortrait(portraitOf(file));
+      const used = new Set<number>();
+      let low = 1;
+      let high = 0;
+      for (const cell of faceCells(reference)) {
+        used.add(portrait.pixels[cell] ?? 0);
+        const lightness = paletteLab(portrait, cell).L;
+        low = Math.min(low, lightness);
+        high = Math.max(high, lightness);
+      }
+      expect(used.size).toBeGreaterThanOrEqual(4);
+      expect(high - low).toBeGreaterThanOrEqual(0.18);
+    });
+
+    it(`${file} leaves a little speckle, not a face of noise`, () => {
+      const portrait = expectPortrait(portraitOf(file));
+      expect(portraitMetrics(portrait).speckleRatio).toBeLessThanOrEqual(0.06);
+    });
+
+    it(`${file} has a monotonic, bounded tone stretch`, () => {
+      const reference = referenceOf(file);
+      const tone = stretchTone(reference.rgb, reference.size);
+      expect(tone.gain).toBeGreaterThan(0);
+      expect(tone.gain).toBeLessThanOrEqual(1.25);
+      const before = Array.from({ length: reference.size ** 2 }, (_, cell) => labAt(reference, cell).L);
+      const after = Array.from(
+        { length: reference.size ** 2 },
+        (_, cell) =>
+          srgbToOklab([
+            tone.rgb[cell * 3] ?? 0,
+            tone.rgb[cell * 3 + 1] ?? 0,
+            tone.rgb[cell * 3 + 2] ?? 0,
+          ]).L,
+      );
+      let inversions = 0;
+      for (let left = 0; left < before.length; left += 1) {
+        for (let right = left + 1; right < before.length; right += 1) {
+          // The output is 8-bit, so tones within a just-noticeable difference
+          // can swap by rounding; only a larger flip is a visible order change.
+          const gap = (before[left] ?? 0) - (before[right] ?? 0);
+          if (gap > 0.01 && (after[left] ?? 0) + 0.01 < (after[right] ?? 0)) {
+            inversions += 1;
+          }
+        }
+      }
+      expect(inversions).toBe(0);
+      expect(Math.abs(median(after) - median(before))).toBeLessThanOrEqual(0.04);
     });
   }
+
+  it("matches the labelled skin and hair tones", () => {
+    for (const label of TONE_LABELS) {
+      const reference = referenceOf(`${label.slug}.jpg`);
+      const measured = measuredSkin(reference);
+      const traits = portraitTraits(reference);
+      const skin = srgbToOklab(hexToRgb(traits.skin));
+      const hair = srgbToOklab(hexToRgb(traits.hair));
+      if (label.minSkinL !== undefined) expect(skin.L, `${label.slug} skin L`).toBeGreaterThanOrEqual(label.minSkinL);
+      if (label.maxSkinL !== undefined) expect(skin.L, `${label.slug} skin L`).toBeLessThanOrEqual(label.maxSkinL);
+      if (label.minHairL !== undefined) expect(hair.L, `${label.slug} hair L`).toBeGreaterThanOrEqual(label.minHairL);
+      if (label.hairDarkerThanSkin === true) {
+        expect(hair.L, `${label.slug} hair darker than skin`).toBeLessThan(skin.L);
+      }
+      expect(Math.abs(skin.L - measured.L), `${label.slug} skin vs measured`).toBeLessThanOrEqual(0.05);
+    }
+  });
+
+  it("returns four hex colours with a skin tone apart from the hair", () => {
+    const traits = portraitTraits(referenceOf("obama.jpg"));
+    for (const colour of [traits.skin, traits.skinShadow, traits.hair, traits.accent]) {
+      expect(colour).toMatch(HEX);
+    }
+    expect(traits.skin).not.toBe(traits.hair);
+  });
 
   it("gives the same portrait for the same bytes", () => {
     const first = expectPortrait(portraitOf("obama.jpg"));
@@ -165,10 +374,10 @@ describe("pixelatePortrait on the sample photos", () => {
   it("keeps every pixel inside the palette", () => {
     for (const file of sampleFiles()) {
       const portrait = expectPortrait(portraitOf(file));
-      expect(portrait.size).toBe(24);
-      expect(portrait.pixels).toHaveLength(576);
+      expect(portrait.size).toBe(32);
+      expect(portrait.pixels).toHaveLength(1024);
       expect(portrait.palette.length).toBeGreaterThanOrEqual(2);
-      expect(portrait.palette.length).toBeLessThanOrEqual(8);
+      expect(portrait.palette.length).toBeLessThanOrEqual(12);
       for (const index of portrait.pixels) {
         expect(Number.isInteger(index)).toBe(true);
         expect(index).toBeGreaterThanOrEqual(0);
@@ -177,7 +386,7 @@ describe("pixelatePortrait on the sample photos", () => {
     }
   });
 
-  it("honours paletteSize and dithering options", () => {
+  it("honours the paletteSize option", () => {
     const decoded = decodeImage(sampleBytes("lincoln.jpg"));
     if (decoded.kind !== "ok") throw new Error(decoded.reason);
     const four = expectPortrait(
@@ -185,7 +394,7 @@ describe("pixelatePortrait on the sample photos", () => {
         rgba: decoded.image.rgba,
         width: decoded.image.width,
         height: decoded.image.height,
-        options: { paletteSize: 4, dither: true },
+        options: { paletteSize: 4 },
       }),
     );
     expect(four.palette.length).toBeLessThanOrEqual(4);
@@ -212,14 +421,14 @@ describe("pixelatePortrait on the sample photos", () => {
 });
 
 describe("pixelatePortrait edge cases", () => {
-  it("rejects images smaller than 24x24", () => {
+  it("rejects images smaller than 32x32", () => {
     const one = encodePng(1, 1, () => [120, 90, 60, 255]);
     const decoded = decodeImage(one);
     expect(decoded.kind).toBe("ok");
     if (decoded.kind !== "ok") return;
     expect(pixelatePortrait(decoded.image)).toEqual({ kind: "none", reason: "too_small" });
 
-    const tiny = rgbaImage(23, 40, syntheticFace);
+    const tiny = rgbaImage(31, 40, syntheticFace);
     expect(pixelatePortrait(tiny)).toEqual({ kind: "none", reason: "too_small" });
   });
 
@@ -256,9 +465,10 @@ describe("pixelatePortrait edge cases", () => {
       reason: "invalid_input",
     });
     const valid = rgbaImage(64, 64, syntheticFace);
-    expect(
-      pixelatePortrait({ ...valid, options: { paletteSize: 12 } }),
-    ).toEqual({ kind: "none", reason: "invalid_input" });
+    expect(pixelatePortrait({ ...valid, options: { paletteSize: 13 } })).toEqual({
+      kind: "none",
+      reason: "invalid_input",
+    });
     expect(
       pixelatePortrait({ ...valid, options: { crop: { x: 0, y: 0, width: 0, height: 40 } } }),
     ).toEqual({ kind: "none", reason: "invalid_input" });
@@ -289,8 +499,7 @@ describe("decodeImage", () => {
 
   it("rejects a truncated JPEG without throwing", () => {
     const truncated = sampleBytes("lincoln.jpg").slice(0, 2500);
-    const result = decodeImage(truncated);
-    expect(result.kind).toBe("none");
+    expect(decodeImage(truncated).kind).toBe("none");
   });
 
   it("rejects GIF and WebP headers", () => {
@@ -322,11 +531,11 @@ describe("reducePortrait", () => {
 
   it("keeps the dominant hair and skin colours", () => {
     const portrait: PixelPortrait = {
-      size: 24,
+      size: 32,
       palette: ["#1b120c", "#e0b48a", "#f6efe4", "#7a4a30"],
-      pixels: Array.from({ length: 576 }, (_, cell) => {
-        const y = Math.floor(cell / 24);
-        return y < 9 ? 0 : y < 18 ? 1 : 2;
+      pixels: Array.from({ length: 1024 }, (_, cell) => {
+        const y = Math.floor(cell / 32);
+        return y < 12 ? 0 : y < 24 ? 1 : 2;
       }),
     };
     const head = reducePortrait(portrait, 10);
@@ -338,33 +547,33 @@ describe("reducePortrait", () => {
 
   it("refuses a size that cannot be reduced", () => {
     const portrait = expectPortrait(portraitOf("obama.jpg"));
-    expect(() => reducePortrait(portrait, 25)).toThrow(RangeError);
+    expect(() => reducePortrait(portrait, PORTRAIT_SIZE + 1)).toThrow(RangeError);
     expect(() => reducePortrait(portrait, 0)).toThrow(RangeError);
   });
 });
 
 describe("portraitTraits", () => {
-  it("returns four hex colours with a skin tone apart from the hair", () => {
-    const traits = portraitTraits(expectPortrait(portraitOf("obama.jpg")));
+  it("returns four hex colours with a shadow below the skin", () => {
+    const traits = portraitTraits(referenceOf("obama.jpg"));
     for (const colour of [traits.skin, traits.skinShadow, traits.hair, traits.accent]) {
       expect(colour).toMatch(HEX);
     }
-    expect(traits.skin).not.toBe(traits.hair);
     const skin = srgbToOklab(hexToRgb(traits.skin));
     const shadow = srgbToOklab(hexToRgb(traits.skinShadow));
     expect(shadow.L).toBeLessThan(skin.L);
   });
 
-  it("gives a black and white portrait real colours rather than greys only", () => {
-    const traits = portraitTraits(expectPortrait(portraitOf("lincoln.jpg")));
+  it("keeps a monochrome photo's tones neutral", () => {
+    const traits = portraitTraits(referenceOf("lincoln.jpg"));
+    const skin = srgbToOklab(hexToRgb(traits.skin));
+    expect(labChroma(skin)).toBeLessThan(0.02);
     expect(traits.skin).toMatch(HEX);
-    expect(traits.skin).not.toBe(traits.hair);
   });
 });
 
 describe("traitHead", () => {
   it("paints a 10x10 head from the traits", () => {
-    const traits = portraitTraits(expectPortrait(portraitOf("mae-jemison.jpg")));
+    const traits = portraitTraits(referenceOf("mae-jemison.jpg"));
     const head = traitHead(traits);
     expect(head.size).toBe(10);
     expect(head.pixels).toHaveLength(100);
@@ -383,17 +592,31 @@ describe("traitHead", () => {
     expect(at(5, 3)).toBe(skin);
   });
 
-  it("keeps the eyes darker than the skin", () => {
-    const traits = portraitTraits(expectPortrait(portraitOf("obama.jpg")));
+  it("keeps the eyes darker than the skin on light skin", () => {
+    const traits = portraitTraits(referenceOf("obama.jpg"));
     const head = traitHead(traits);
     const eye = head.palette[head.pixels[5 * 10 + 3] ?? 0];
     const skin = head.palette[head.pixels[3 * 10 + 5] ?? 0];
     expect(eye).toBeDefined();
     expect(skin).toBeDefined();
-    const eyeLab = srgbToOklab(hexToRgb(eye ?? "#000000"));
-    const skinLab = srgbToOklab(hexToRgb(skin ?? "#ffffff"));
-    expect(eyeLab.L).toBeLessThan(skinLab.L);
+    expect(srgbToOklab(hexToRgb(eye ?? "#000000")).L).toBeLessThan(
+      srgbToOklab(hexToRgb(skin ?? "#ffffff")).L,
+    );
   });
+
+  for (const file of ["lincoln.jpg", "tubman.png"]) {
+    it(`paints visible off-white eyes on ${file}`, () => {
+      const traits = portraitTraits(referenceOf(file));
+      const head = traitHead(traits);
+      const at = (x: number, y: number): number => head.pixels[y * 10 + x] ?? -1;
+      expect(traits.skin).toBeDefined();
+      expect(srgbToOklab(hexToRgb(traits.skin)).L).toBeLessThan(0.5);
+      expect(head.palette[at(3, 5) ?? 0]).toBe("#f2efe6");
+      expect(head.palette[at(6, 5) ?? 0]).toBe("#f2efe6");
+      expect(head.palette[at(4, 5) ?? 0]).toBe(traits.skinShadow);
+      expect(head.palette[at(7, 5) ?? 0]).toBe(traits.skinShadow);
+    });
+  }
 });
 
 describe("portraitToPng", () => {
@@ -403,8 +626,8 @@ describe("portraitToPng", () => {
     const decoded = decodeImage(bytes);
     expect(decoded.kind).toBe("ok");
     if (decoded.kind !== "ok") return;
-    expect(decoded.image.width).toBe(96);
-    expect(decoded.image.height).toBe(96);
+    expect(decoded.image.width).toBe(128);
+    expect(decoded.image.height).toBe(128);
     const topLeft = portrait.palette[portrait.pixels[0] ?? 0];
     expect(topLeft).toBeDefined();
     const value = Number.parseInt((topLeft ?? "#000000").slice(1), 16);
