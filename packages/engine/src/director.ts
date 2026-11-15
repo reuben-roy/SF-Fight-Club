@@ -6,8 +6,10 @@ import {
   type CriterionId,
   type CriterionResult,
   type Cue,
+  type FighterStatus,
   type MatchEvent,
   type MatchResolution,
+  type Move,
   type RoundNumber,
   type RoundResolution,
   type Rubric,
@@ -20,16 +22,17 @@ import {
 
 import { EngineError } from "./errors.js";
 import { largestRemainder } from "./hp.js";
+import { moveFor, verdictLine } from "./moves.js";
 import { planBackfires } from "./scoring.js";
 import { distributeDamage, type CarrierShot } from "./shots.js";
 
 /** Bump this when cue timing or ordering changes. Results do not. */
-export const DIRECTOR_VERSION = "1";
+export const DIRECTOR_VERSION = "2";
 
 const HOLD = {
   intro: 2000,
   title: 1500,
-  shot: 2200,
+  shot: 3600,
   hammer: 2200,
   scorecard: 4000,
   outcome: 2000,
@@ -43,6 +46,7 @@ export interface DirectorFighter {
   seed: number;
   tier: string;
   spriteSeed: string;
+  category: string;
 }
 
 /**
@@ -56,6 +60,13 @@ export interface ComputeLog {
   rubric: Rubric;
 }
 
+interface StatusMeta {
+  kind: "shot" | "hammer" | "none";
+  shooter?: Slot;
+  fabricated?: boolean;
+  target?: Slot;
+}
+
 interface Draft {
   id: string;
   hurt: Slot | null;
@@ -64,14 +75,19 @@ interface Draft {
   criterion?: CriterionId;
   countsAsCriterionHp: boolean;
   hold: number;
-  create: (ctx: { damage: number; hpAfter: { A: number; B: number }; t: number }) => Cue;
+  /** Shot cues are turns and consume a 1-based turn number in airing order. */
+  isTurn: boolean;
+  status: StatusMeta;
+  create: (ctx: { damage: number; hpAfter: { A: number; B: number }; t: number; turn: number }) => Cue;
 }
 
 /**
  * Pure director. `script = direct(computeLog, directorVersion, presentationSeed)`.
- * Version 1 timing is the caption clock, so the presentation seed does not move
+ * Version 2 timing is the turn clock, so the presentation seed does not move
  * cues. Replays with the same log and version return the same script.
  * Animation never picks the winner: the winner cue copies `match.resolved`.
+ * Turns, moves, menus, verdict lines and statuses are presentation. They never
+ * change a damage number.
  *
  * Volleys are assumed cleaned (see `cleanRoundShots`). Out-of-round shots and
  * broken defenses are rewritten before they are stored on the log.
@@ -104,6 +120,7 @@ export function direct(log: ComputeLog, directorVersion: string, presentationSee
       volleys,
       checks,
       lambda,
+      names: { A: log.fighters.A.name, B: log.fighters.B.name },
       backfireHits: backfire.hits.filter((hit) => hit.round === round.round),
     }),
   );
@@ -111,8 +128,75 @@ export function direct(log: ComputeLog, directorVersion: string, presentationSee
 
   const cues: Cue[] = [];
   let t = 0;
+  let turn = 0;
+  let statusSeq = 0;
   const hp = { A: 100, B: 100 };
   const seen = new Set<string>();
+  const statusOf: Record<Slot, { momentum: boolean; lastTurnDealt: boolean; tookDamageSince: boolean; exposed: boolean; lastStand: boolean }> = {
+    A: { momentum: false, lastTurnDealt: false, tookDamageSince: false, exposed: false, lastStand: false },
+    B: { momentum: false, lastTurnDealt: false, tookDamageSince: false, exposed: false, lastStand: false },
+  };
+
+  const emitStatus = (input: { target: Slot; status: FighterStatus; on: boolean }) => {
+    statusSeq += 1;
+    const id = `status-${statusSeq}`;
+    if (seen.has(id)) throw new EngineError("duplicate_cue", `duplicate cue id ${id}`);
+    seen.add(id);
+    cues.push({ kind: "status", id, t, target: input.target, status: input.status, on: input.on });
+  };
+
+  const trackStatuses = (draft: Draft, hpAfter: { A: number; B: number }) => {
+    const hurtTookDamage = draft.hurt !== null && draft.damage > 0;
+    if (draft.status.kind === "shot" && draft.status.shooter) {
+      const shooter = draft.status.shooter;
+      const target = other(shooter);
+      const dealt = hurtTookDamage && draft.hurt !== shooter;
+      const took = hurtTookDamage && draft.hurt === shooter;
+      if (draft.status.fabricated && !statusOf[shooter].exposed) {
+        statusOf[shooter].exposed = true;
+        emitStatus({ target: shooter, status: "exposed", on: true });
+      }
+      if (dealt) {
+        if (!statusOf[target].tookDamageSince) {
+          statusOf[target].tookDamageSince = true;
+        }
+        if (statusOf[target].momentum) {
+          statusOf[target].momentum = false;
+          emitStatus({ target, status: "momentum", on: false });
+        }
+        if (statusOf[shooter].lastTurnDealt && !statusOf[shooter].tookDamageSince && !statusOf[shooter].momentum) {
+          statusOf[shooter].momentum = true;
+          emitStatus({ target: shooter, status: "momentum", on: true });
+        }
+        statusOf[shooter].lastTurnDealt = true;
+        statusOf[shooter].tookDamageSince = false;
+      } else {
+        statusOf[shooter].lastTurnDealt = false;
+        if (took) {
+          statusOf[shooter].tookDamageSince = true;
+          if (statusOf[shooter].momentum) {
+            statusOf[shooter].momentum = false;
+            emitStatus({ target: shooter, status: "momentum", on: false });
+          }
+        }
+      }
+    } else if (draft.status.kind === "hammer" && draft.status.target) {
+      const target = draft.status.target;
+      if (hurtTookDamage) {
+        statusOf[target].tookDamageSince = true;
+        if (statusOf[target].momentum) {
+          statusOf[target].momentum = false;
+          emitStatus({ target, status: "momentum", on: false });
+        }
+      }
+    }
+    for (const fighter of ["A", "B"] as const) {
+      if (!statusOf[fighter].lastStand && hpAfter[fighter] <= 25 && hpAfter[fighter] > 0) {
+        statusOf[fighter].lastStand = true;
+        emitStatus({ target: fighter, status: "last_stand", on: true });
+      }
+    }
+  };
 
   const push = (draft: Draft) => {
     if (seen.has(draft.id)) throw new EngineError("duplicate_cue", `duplicate cue id ${draft.id}`);
@@ -120,14 +204,26 @@ export function direct(log: ComputeLog, directorVersion: string, presentationSee
     if (draft.hurt && draft.damage !== 0) {
       hp[draft.hurt] -= draft.damage;
     }
-    cues.push(draft.create({ damage: draft.damage, hpAfter: { A: hp.A, B: hp.B }, t }));
+    if (draft.isTurn) turn += 1;
+    cues.push(draft.create({ damage: draft.damage, hpAfter: { A: hp.A, B: hp.B }, t, turn }));
     t += draft.hold;
+    if (draft.status.kind !== "none") {
+      trackStatuses(draft, { A: hp.A, B: hp.B });
+    }
   };
 
   push(introDraft(log, lock.corners));
   for (const round of roundDrafts) {
     push(titleDraft(round.resolution, log.rubric));
     for (const draft of round.drafts) push(draft);
+    for (const fighter of ["A", "B"] as const) {
+      if (statusOf[fighter].momentum) {
+        statusOf[fighter].momentum = false;
+        emitStatus({ target: fighter, status: "momentum", on: false });
+      }
+      statusOf[fighter].lastTurnDealt = false;
+      statusOf[fighter].tookDamageSince = false;
+    }
     const target = resolution.hpAfterRound;
     const index = round.resolution.round - 1;
     if (hp.A !== target.A[index] || hp.B !== target.B[index]) {
@@ -151,6 +247,8 @@ export function direct(log: ComputeLog, directorVersion: string, presentationSee
     damage: 0,
     countsAsCriterionHp: false,
     hold: HOLD.finisher,
+    isTurn: false,
+    status: { kind: "none" },
     create: ({ t: at }) => ({
       kind: "finisher",
       id: "finisher",
@@ -167,6 +265,8 @@ export function direct(log: ComputeLog, directorVersion: string, presentationSee
     damage: 0,
     countsAsCriterionHp: false,
     hold: HOLD.winner,
+    isTurn: false,
+    status: { kind: "none" },
     create: ({ t: at }) => ({
       kind: "winner",
       id: "winner",
@@ -195,17 +295,22 @@ function roundDraftsFor(input: {
   volleys: Map<string, Volley>;
   checks: Map<string, ShotFactCheck[]>;
   lambda: number;
+  names: Record<Slot, string>;
   backfireHits: { fighter: Slot; shotId: string; points: number }[];
 }): { resolution: RoundResolution; drafts: Draft[] } {
   const round = input.round.round;
+  const volley1A = input.volleys.get(`${round}:pitch_strike:A`);
+  const volley1B = input.volleys.get(`${round}:pitch_strike:B`);
+  const volley2A = input.volleys.get(`${round}:counter:A`);
+  const volley2B = input.volleys.get(`${round}:counter:B`);
   const volley1 = interleave(
     offensiveShots(input.volleys, round, "pitch_strike", "A"),
     offensiveShots(input.volleys, round, "pitch_strike", "B"),
-  );
+  ).map((entry) => ({ ...entry, volley: 1 as const }));
   const volley2 = interleave(
     offensiveShots(input.volleys, round, "counter", "A"),
     offensiveShots(input.volleys, round, "counter", "B"),
-  );
+  ).map((entry) => ({ ...entry, volley: 2 as const }));
   const defenses = [
     ...defensesFrom(input.volleys, round, "A"),
     ...defensesFrom(input.volleys, round, "B"),
@@ -246,6 +351,9 @@ function roundDraftsFor(input: {
     shotDraft({
       entry,
       round,
+      volley: entry.volley,
+      menu: menuFor(entry.volley === 1 ? (entry.shooter === "A" ? volley1A : volley1B) : entry.shooter === "A" ? volley2A : volley2B),
+      names: input.names,
       verdicts,
       defenses,
       checks,
@@ -259,7 +367,7 @@ function roundDraftsFor(input: {
   const seenShots = new Set(playableShots.map((entry) => entry.shot.id));
   const missingBackfires = input.backfireHits
     .filter((hit) => !seenShots.has(hit.shotId))
-    .map((hit) => missingBackfireDraft(round, hit, input.lambda));
+    .map((hit) => missingBackfireDraft({ round, hit, lambda: input.lambda, volleys: input.volleys, names: input.names }));
 
   const ordered = placeDrafts(shotDrafts, drafts, missingBackfires);
   return { resolution: input.round, drafts: ordered };
@@ -272,6 +380,9 @@ function placeDrafts(shots: Draft[], hammers: Draft[], missing: Draft[]): Draft[
 function shotDraft(input: {
   entry: { shot: Shot; shooter: Slot };
   round: RoundNumber;
+  volley: 1 | 2;
+  menu: Move[];
+  names: Record<Slot, string>;
   verdicts: Map<string, ShotVerdict>;
   defenses: { shot: Shot; shooter: Slot }[];
   checks: ShotFactCheck[];
@@ -290,6 +401,8 @@ function shotDraft(input: {
   const floatHp = fabricated ? backfireHp : carrierHp;
   const chips = evidenceChips(input.entry.shot, input.checks, fabricated);
   const supported = chips.some((chip) => chip.status === "supported");
+  const move = moveFor({ criterion: input.entry.shot.criterion, type: input.entry.shot.type });
+  const menu = input.menu.length > 0 ? input.menu : [move];
   return {
     id: `r${input.round}.shot.${input.entry.shot.id}`,
     hurt: floatHp > 0 ? hurt : null,
@@ -298,59 +411,97 @@ function shotDraft(input: {
     criterion: input.share?.criterion,
     countsAsCriterionHp: !fabricated && carrierHp > 0,
     hold: HOLD.shot,
-    create: ({ damage, hpAfter, t }) => ({
-      kind: "shot",
-      id: `r${input.round}.shot.${input.entry.shot.id}`,
-      t,
-      shooter: input.entry.shooter,
-      shotId: input.entry.shot.id,
-      criterion: input.entry.shot.criterion,
-      weapon: WEAPON_BY_CRITERION[input.entry.shot.criterion],
-      impact: verdict?.impact ?? 0,
-      outcome: shotVisual({
+    isTurn: true,
+    status: { kind: "shot", shooter: input.entry.shooter, fabricated },
+    create: ({ damage, hpAfter, t, turn }) => {
+      const outcome = shotVisual({
         fabricated,
         neutralized,
         verdict: verdict?.verdict,
         impact: verdict?.impact ?? 0,
         damage,
         supported,
-      }),
-      headline: input.entry.shot.headline,
-      evidence: chips,
-      ...(parry ? { parry } : {}),
-      damage,
-      hpAfter,
-    }),
+      });
+      const defenseMove = parry ? parry.move.name : moveFor({ criterion: input.entry.shot.criterion, type: "defense" }).name;
+      return {
+        kind: "shot",
+        id: `r${input.round}.shot.${input.entry.shot.id}`,
+        t,
+        shooter: input.entry.shooter,
+        shotId: input.entry.shot.id,
+        criterion: input.entry.shot.criterion,
+        weapon: WEAPON_BY_CRITERION[input.entry.shot.criterion],
+        impact: verdict?.impact ?? 0,
+        outcome,
+        headline: input.entry.shot.headline,
+        evidence: chips,
+        ...(parry ? { parry } : {}),
+        damage,
+        hpAfter,
+        turn,
+        volley: input.volley,
+        move,
+        menu,
+        verdictLine: verdictLine({
+          outcome,
+          actor: input.names[input.entry.shooter] ?? input.entry.shooter,
+          target: input.names[other(input.entry.shooter)] ?? other(input.entry.shooter),
+          criterion: input.entry.shot.criterion,
+          defenseMove,
+        }),
+      };
+    },
   };
 }
 
-function missingBackfireDraft(
-  round: RoundNumber,
-  hit: { fighter: Slot; shotId: string; points: number },
-  lambda: number,
-): Draft {
-  const floatHp = hit.points * lambda;
+function missingBackfireDraft(input: {
+  round: RoundNumber;
+  hit: { fighter: Slot; shotId: string; points: number };
+  lambda: number;
+  volleys: Map<string, Volley>;
+  names: Record<Slot, string>;
+}): Draft {
+  const floatHp = input.hit.points * input.lambda;
+  const found = findShotVolley(input.volleys, input.hit.shotId);
+  const criterion: CriterionId = found ? found.shot.criterion : "problem";
+  const type = found ? found.shot.type : "attack";
+  const volley: 1 | 2 = found ? (found.kind === "counter" ? 2 : 1) : 1;
+  const move = moveFor({ criterion, type });
+  const menu = found ? menuFor(found.volley) : [move];
   return {
-    id: `r${round}.shot.${hit.shotId}`,
-    hurt: floatHp > 0 ? hit.fighter : null,
+    id: `r${input.round}.shot.${input.hit.shotId}`,
+    hurt: floatHp > 0 ? input.hit.fighter : null,
     floatHp,
     damage: 0,
     countsAsCriterionHp: false,
     hold: HOLD.shot,
-    create: ({ damage, hpAfter, t }) => ({
+    isTurn: true,
+    status: { kind: "shot", shooter: input.hit.fighter, fabricated: true },
+    create: ({ damage, hpAfter, t, turn }) => ({
       kind: "shot",
-      id: `r${round}.shot.${hit.shotId}`,
+      id: `r${input.round}.shot.${input.hit.shotId}`,
       t,
-      shooter: hit.fighter,
-      shotId: hit.shotId,
-      criterion: "problem",
-      weapon: "flame_lance",
+      shooter: input.hit.fighter,
+      shotId: input.hit.shotId,
+      criterion,
+      weapon: WEAPON_BY_CRITERION[criterion],
       impact: 0,
       outcome: "backfire",
-      headline: "Fact-checked",
+      headline: found ? found.shot.headline : "Fact-checked",
       evidence: [],
       damage,
       hpAfter,
+      turn,
+      volley,
+      move,
+      menu,
+      verdictLine: verdictLine({
+        outcome: "backfire",
+        actor: input.names[input.hit.fighter] ?? input.hit.fighter,
+        target: input.names[other(input.hit.fighter)] ?? other(input.hit.fighter),
+        criterion,
+        defenseMove: "",
+      }),
     }),
   };
 }
@@ -364,6 +515,8 @@ function hammerDraft(round: RoundNumber, target: Slot, criterion: CriterionId, f
     criterion,
     countsAsCriterionHp: true,
     hold: HOLD.hammer,
+    isTurn: false,
+    status: { kind: "none" },
     create: ({ damage, hpAfter, t }) => ({
       kind: "hammer",
       id: `r${round}.hammer.${criterion}.${target}`,
@@ -386,6 +539,8 @@ function titleDraft(round: RoundResolution, rubric: Rubric): Draft {
     damage: 0,
     countsAsCriterionHp: false,
     hold: HOLD.title,
+    isTurn: false,
+    status: { kind: "none" },
     create: ({ t }) => ({
       kind: "round_title",
       id: `r${round.round}.title`,
@@ -408,6 +563,8 @@ function scorecardDraft(round: RoundResolution, drafts: readonly Draft[]): Draft
     damage: 0,
     countsAsCriterionHp: false,
     hold: HOLD.scorecard,
+    isTurn: false,
+    status: { kind: "none" },
     create: ({ t }) => ({
       kind: "scorecard",
       id: `r${round.round}.scorecard`,
@@ -434,6 +591,8 @@ function outcomeDraft(resolution: MatchResolution): Draft {
     damage: 0,
     countsAsCriterionHp: false,
     hold: HOLD.outcome,
+    isTurn: false,
+    status: { kind: "none" },
     create: ({ t }) => ({
       kind: "outcome",
       id: "outcome",
@@ -464,6 +623,8 @@ function suddenDeathDraft(log: ComputeLog, resolution: MatchResolution): Draft {
     damage: 0,
     countsAsCriterionHp: false,
     hold: HOLD.suddenDeath,
+    isTurn: false,
+    status: { kind: "none" },
     create: ({ t }) => ({
       kind: "sudden_death",
       id: "sudden-death",
@@ -486,6 +647,8 @@ function introDraft(log: ComputeLog, corners: { left: Slot; right: Slot }): Draf
     damage: 0,
     countsAsCriterionHp: false,
     hold: HOLD.intro,
+    isTurn: false,
+    status: { kind: "none" },
     create: ({ t }) => ({
       kind: "intro",
       id: "intro",
@@ -552,14 +715,18 @@ function parryFor(
   attack: Shot,
   defenses: readonly { shot: Shot }[],
   verdicts: Map<string, ShotVerdict>,
-): { defenseShotId: string; headline: string } | undefined {
+): { defenseShotId: string; headline: string; move: Move } | undefined {
   const attackParried = verdicts.get(attack.id)?.verdict === "parried";
   const defense = defenses.find((entry) => {
     if (entry.shot.respondsTo !== attack.id) return false;
     return attackParried || verdicts.get(entry.shot.id)?.verdict === "landed";
   });
   if (!defense) return undefined;
-  return { defenseShotId: defense.shot.id, headline: defense.shot.headline };
+  return {
+    defenseShotId: defense.shot.id,
+    headline: defense.shot.headline,
+    move: moveFor({ criterion: defense.shot.criterion, type: "defense" }),
+  };
 }
 
 function carrierShots(
@@ -610,6 +777,23 @@ function offensiveShots(
   return (volley?.shots ?? [])
     .filter((shot) => shot.type === "pitch" || shot.type === "attack")
     .map((shot) => ({ shot, shooter: fighter }));
+}
+
+/** The shooter's moves in one volley, in shot order. Defenses play as parries but still appear on the volley 2 menu. */
+function menuFor(volley: Volley | undefined): Move[] {
+  return (volley?.shots ?? []).map((shot) => moveFor({ criterion: shot.criterion, type: shot.type }));
+}
+
+/** Finds a fabricated shot that never plays (usually a defense) so its backfire cue can name the real move. */
+function findShotVolley(
+  volleys: ReadonlyMap<string, Volley>,
+  shotId: string,
+): { shot: Shot; kind: Volley["kind"]; volley: Volley } | undefined {
+  for (const volley of volleys.values()) {
+    const shot = volley.shots.find((item) => item.id === shotId);
+    if (shot) return { shot, kind: volley.kind, volley };
+  }
+  return undefined;
 }
 
 function defensesFrom(volleys: Map<string, Volley>, round: RoundNumber, fighter: Slot): { shot: Shot; shooter: Slot }[] {
