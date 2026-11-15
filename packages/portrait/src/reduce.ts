@@ -1,6 +1,6 @@
 import type { PixelPortrait } from "@sf-fight-club/schemas";
 
-import { hexToRgb, nearestIndex, type Rgb } from "./color.js";
+import { hexToRgb, nearestLabIndex, srgbToOklab, type Rgb } from "./color.js";
 import { spans } from "./image.js";
 import type { PortraitGrid } from "./types.js";
 
@@ -14,6 +14,7 @@ export function reducePortrait(portrait: PixelPortrait, size: number): PortraitG
     throw new RangeError(`reducePortrait: size must be an integer from 1 to ${portrait.size}`);
   }
   const palette: Rgb[] = portrait.palette.map((hex) => hexToRgb(hex));
+  const labs = palette.map((entry) => srgbToOklab(entry));
   const source = portrait.size;
   const xSpans = spans(source, size);
   const ySpans = spans(source, size);
@@ -54,7 +55,7 @@ export function reducePortrait(portrait: PixelPortrait, size: number): PortraitG
             (accum[cell * 3 + 1] ?? 0) / weight,
             (accum[cell * 3 + 2] ?? 0) / weight,
           ];
-    pixels.push(nearestIndex(palette, mean));
+    pixels.push(nearestLabIndex(labs, srgbToOklab(mean)));
   }
 
   return { size, palette: [...portrait.palette], pixels };

@@ -36,12 +36,26 @@ export interface PixelateOptions {
   readonly dither?: boolean;
   /** Flood a near-uniform background to one colour. Default true. */
   readonly flattenBackground?: boolean;
-  /** A 1px dark outline between the subject and a flattened background. Default true. */
+  /**
+   * A 1px contour on the subject side of the silhouette, in the darkest palette entry.
+   * Off by default: the portrait reads better without a hard edge at 24x24.
+   */
   readonly outline?: boolean;
 }
 
 export interface PixelateInput extends RgbaImage {
   readonly options?: PixelateOptions;
+}
+
+/**
+ * Four colours that describe a face: the skin tone, its shadow, what sits on
+ * the head and what the person is wearing.
+ */
+export interface PortraitTraits {
+  readonly skin: string;
+  readonly skinShadow: string;
+  readonly hair: string;
+  readonly accent: string;
 }
 
 /** An NxN indexed image that borrows the palette of the portrait it came from. */

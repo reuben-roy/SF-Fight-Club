@@ -1,4 +1,9 @@
-import { distance, isSkinTone, type Rgb } from "./color.js";
+import { isSkinLab, labDistance, srgbToOklab, type Rgb } from "./color.js";
+
+/** OKLab distance a wall has to stay within to count as one background. */
+const BACKGROUND_TOLERANCE = 0.1;
+const MIN_BACKGROUND_SHARE = 0.05;
+const MAX_BACKGROUND_SHARE = 0.85;
 
 export interface FlattenResult {
   readonly rgb: Float64Array;
@@ -13,63 +18,45 @@ function median(values: number[]): number {
   return ((sorted[middle - 1] ?? 0) + (sorted[middle] ?? 0)) / 2;
 }
 
-function borderColor(rgb: Float64Array, size: number): Rgb {
+function medianColor(rgb: Float64Array, cells: readonly number[]): Rgb {
   const reds: number[] = [];
   const greens: number[] = [];
   const blues: number[] = [];
-  const push = (x: number, y: number) => {
-    const offset = (y * size + x) * 3;
-    reds.push(rgb[offset] ?? 0);
-    greens.push(rgb[offset + 1] ?? 0);
-    blues.push(rgb[offset + 2] ?? 0);
-  };
-  for (let i = 0; i < size; i += 1) {
-    push(i, 0);
-    push(i, size - 1);
-    push(0, i);
-    push(size - 1, i);
+  for (const cell of cells) {
+    reds.push(rgb[cell * 3] ?? 0);
+    greens.push(rgb[cell * 3 + 1] ?? 0);
+    blues.push(rgb[cell * 3 + 2] ?? 0);
   }
   return [median(reds), median(greens), median(blues)];
 }
 
-/**
- * Flood a near-uniform background to one colour, starting from the frame edge.
- *
- * Portraits are shot against a wall, a studio sweep or the sky; at 24x24 that
- * becomes speckle that steals palette entries from the face. Only the region
- * connected to the border within `tolerance` is touched, so a busy scene keeps
- * its colour, and a skin-toned border (a tight face crop) is left alone.
- */
-export function flattenBackground(input: {
-  readonly rgb: Float64Array;
-  readonly size: number;
-  readonly tolerance: number;
-}): FlattenResult {
-  const { rgb, size, tolerance } = input;
-  const background = borderColor(rgb, size);
-  if (isSkinTone(background[0], background[1], background[2])) {
-    return { rgb, background: null };
-  }
-
-  const cells = size * size;
-  const mask = new Uint8Array(cells);
-  const queue: number[] = [];
-  const withinTolerance = (cell: number): boolean => {
-    const offset = cell * 3;
-    const color: Rgb = [rgb[offset] ?? 0, rgb[offset + 1] ?? 0, rgb[offset + 2] ?? 0];
-    return distance(color, background) <= tolerance;
-  };
-
+function borderCells(size: number): number[] {
+  const cells: number[] = [];
   for (let i = 0; i < size; i += 1) {
-    const edge = [i, (size - 1) * size + i, i * size, i * size + size - 1];
-    for (const cell of edge) {
-      if (mask[cell] === 0 && withinTolerance(cell)) {
-        mask[cell] = 1;
-        queue.push(cell);
-      }
-    }
+    cells.push(i, (size - 1) * size + i);
+    if (i > 0 && i < size - 1) cells.push(i * size, i * size + size - 1);
   }
+  return cells;
+}
 
+function flood(rgb: Float64Array, size: number, reference: Rgb): number[] {
+  const cells = size * size;
+  const referenceLab = srgbToOklab(reference);
+  const seen = new Uint8Array(cells);
+  const queue: number[] = [];
+  const matches = (cell: number): boolean => {
+    const lab = srgbToOklab([
+      rgb[cell * 3] ?? 0,
+      rgb[cell * 3 + 1] ?? 0,
+      rgb[cell * 3 + 2] ?? 0,
+    ]);
+    return labDistance(lab, referenceLab) <= BACKGROUND_TOLERANCE;
+  };
+  for (const cell of borderCells(size)) {
+    if (seen[cell] === 1 || !matches(cell)) continue;
+    seen[cell] = 1;
+    queue.push(cell);
+  }
   let head = 0;
   while (head < queue.length) {
     const cell = queue[head] ?? 0;
@@ -78,29 +65,56 @@ export function flattenBackground(input: {
     const y = (cell - x) / size;
     const neighbours = [
       x > 0 ? cell - 1 : -1,
-      x < size - 1 ? cell + 1 : -1,
+      x + 1 < size ? cell + 1 : -1,
       y > 0 ? cell - size : -1,
-      y < size - 1 ? cell + size : -1,
+      y + 1 < size ? cell + size : -1,
     ];
     for (const neighbour of neighbours) {
-      if (neighbour < 0 || mask[neighbour] === 1) continue;
-      if (!withinTolerance(neighbour)) continue;
-      mask[neighbour] = 1;
+      if (neighbour < 0 || seen[neighbour] === 1) continue;
+      if (!matches(neighbour)) continue;
+      seen[neighbour] = 1;
       queue.push(neighbour);
     }
   }
+  return queue;
+}
 
-  const share = queue.length / cells;
-  if (share < 0.12 || share > 0.62) {
+/**
+ * Flood a near-uniform background to one colour, starting from the frame edge.
+ *
+ * Portraits are shot against a wall, a studio sweep or the sky; at 24x24 that
+ * becomes speckle that steals palette entries from the face. Only the region
+ * connected to the border within tolerance is touched, so a busy scene keeps
+ * its colour, and a skin-toned border (a tight face crop) is left alone.
+ */
+export function flattenBackground(input: {
+  readonly rgb: Float64Array;
+  readonly size: number;
+  readonly tolerance: number;
+}): FlattenResult {
+  const { rgb, size, tolerance } = input;
+  const seed = medianColor(rgb, borderCells(size));
+  if (isSkinLab(srgbToOklab(seed))) {
     return { rgb, background: null };
   }
 
+  let region = flood(rgb, size, seed);
+  if (region.length === 0) return { rgb, background: null };
+  const refined = medianColor(rgb, region);
+  if (labDistance(srgbToOklab(refined), srgbToOklab(seed)) > tolerance / 2) {
+    region = flood(rgb, size, refined);
+  }
+  const share = region.length / (size * size);
+  if (share < MIN_BACKGROUND_SHARE || share > MAX_BACKGROUND_SHARE) {
+    return { rgb, background: null };
+  }
+
+  const background = medianColor(rgb, region);
   const out = new Float64Array(rgb);
-  for (const cell of queue) {
-    const offset = cell * 3;
-    out[offset] = background[0];
-    out[offset + 1] = background[1];
-    out[offset + 2] = background[2];
+  for (const cell of region) {
+    out[cell * 3] = background[0];
+    out[cell * 3 + 1] = background[1];
+    out[cell * 3 + 2] = background[2];
   }
   return { rgb: out, background };
 }

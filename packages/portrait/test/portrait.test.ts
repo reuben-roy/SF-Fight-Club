@@ -10,10 +10,14 @@ import {
   MAX_IMAGE_BYTES,
   decodeImage,
   pixelatePortrait,
+  portraitMetrics,
   portraitToPng,
+  portraitTraits,
   reducePortrait,
+  traitHead,
   type PortraitResult,
 } from "../src/index.js";
+import { hexToRgb, labChroma, srgbToOklab } from "../src/color.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const samplesDir = path.join(here, "..", "fixtures", "samples");
@@ -95,9 +99,29 @@ function syntheticFace(x: number, y: number): number[] {
   return [188, 188, 196, 255];
 }
 
+/** Mean OKLab chroma of a decoded photo, used to tell colour from monochrome. */
+function meanChroma(file: string): number {
+  const decoded = decodeImage(sampleBytes(file));
+  if (decoded.kind !== "ok") throw new Error(`${file}: ${decoded.reason}`);
+  const { rgba } = decoded.image;
+  let sum = 0;
+  let count = 0;
+  for (let offset = 0; offset < rgba.length; offset += 4) {
+    const lab = srgbToOklab([rgba[offset] ?? 0, rgba[offset + 1] ?? 0, rgba[offset + 2] ?? 0]);
+    sum += labChroma(lab);
+    count += 1;
+  }
+  return count === 0 ? 0 : sum / count;
+}
+
+const HEX = /^#[0-9a-f]{6}$/;
+
 describe("pixelatePortrait on the sample photos", () => {
-  it("has ten samples", () => {
-    expect(sampleFiles().length).toBe(10);
+  it("has twelve samples, at least eight of them in colour", () => {
+    const files = sampleFiles();
+    expect(files).toHaveLength(12);
+    const colour = files.filter((file) => meanChroma(file) > 0.012);
+    expect(colour.length).toBeGreaterThanOrEqual(8);
   });
 
   for (const file of sampleFiles()) {
@@ -105,6 +129,24 @@ describe("pixelatePortrait on the sample photos", () => {
       const portrait = expectPortrait(portraitOf(file));
       expect(portrait).toEqual(golden(file));
       expect(pixelPortraitSchema.safeParse(portrait).success).toBe(true);
+    });
+
+    it(`${file} meets the quality bands`, () => {
+      const portrait = expectPortrait(portraitOf(file));
+      const metrics = portraitMetrics(portrait);
+
+      expect(metrics.speckleRatio).toBeLessThanOrEqual(0.02);
+      expect(metrics.paletteMinCoverage).toBeGreaterThanOrEqual(6);
+      expect(metrics.backgroundTouchesBorder).toBe(true);
+      expect(metrics.backgroundLeaks).toBe(0);
+      expect(metrics.subjectShare).toBeGreaterThanOrEqual(0.45);
+      expect(metrics.subjectShare).toBeLessThanOrEqual(0.9);
+
+      const traits = portraitTraits(portrait);
+      for (const colour of [traits.skin, traits.skinShadow, traits.hair, traits.accent]) {
+        expect(colour).toMatch(HEX);
+      }
+      expect(traits.skin).not.toBe(traits.hair);
     });
   }
 
@@ -246,7 +288,7 @@ describe("decodeImage", () => {
   });
 
   it("rejects a truncated JPEG without throwing", () => {
-    const truncated = sampleBytes("einstein.jpg").slice(0, 2500);
+    const truncated = sampleBytes("lincoln.jpg").slice(0, 2500);
     const result = decodeImage(truncated);
     expect(result.kind).toBe("none");
   });
@@ -295,9 +337,62 @@ describe("reducePortrait", () => {
   });
 
   it("refuses a size that cannot be reduced", () => {
-    const portrait = expectPortrait(portraitOf("gandhi.jpg"));
+    const portrait = expectPortrait(portraitOf("obama.jpg"));
     expect(() => reducePortrait(portrait, 25)).toThrow(RangeError);
     expect(() => reducePortrait(portrait, 0)).toThrow(RangeError);
+  });
+});
+
+describe("portraitTraits", () => {
+  it("returns four hex colours with a skin tone apart from the hair", () => {
+    const traits = portraitTraits(expectPortrait(portraitOf("obama.jpg")));
+    for (const colour of [traits.skin, traits.skinShadow, traits.hair, traits.accent]) {
+      expect(colour).toMatch(HEX);
+    }
+    expect(traits.skin).not.toBe(traits.hair);
+    const skin = srgbToOklab(hexToRgb(traits.skin));
+    const shadow = srgbToOklab(hexToRgb(traits.skinShadow));
+    expect(shadow.L).toBeLessThan(skin.L);
+  });
+
+  it("gives a black and white portrait real colours rather than greys only", () => {
+    const traits = portraitTraits(expectPortrait(portraitOf("lincoln.jpg")));
+    expect(traits.skin).toMatch(HEX);
+    expect(traits.skin).not.toBe(traits.hair);
+  });
+});
+
+describe("traitHead", () => {
+  it("paints a 10x10 head from the traits", () => {
+    const traits = portraitTraits(expectPortrait(portraitOf("mae-jemison.jpg")));
+    const head = traitHead(traits);
+    expect(head.size).toBe(10);
+    expect(head.pixels).toHaveLength(100);
+    for (const index of head.pixels) {
+      expect(Number.isInteger(index)).toBe(true);
+      expect(index).toBeGreaterThanOrEqual(0);
+      expect(index).toBeLessThan(head.palette.length);
+    }
+    const at = (x: number, y: number): number => head.pixels[y * 10 + x] ?? -1;
+    const hair = head.palette.indexOf(traits.hair);
+    const skin = head.palette.indexOf(traits.skin);
+    expect(hair).toBeGreaterThanOrEqual(0);
+    expect(skin).toBeGreaterThanOrEqual(0);
+    expect(at(0, 0)).toBe(0);
+    expect(at(5, 0)).toBe(hair);
+    expect(at(5, 3)).toBe(skin);
+  });
+
+  it("keeps the eyes darker than the skin", () => {
+    const traits = portraitTraits(expectPortrait(portraitOf("obama.jpg")));
+    const head = traitHead(traits);
+    const eye = head.palette[head.pixels[5 * 10 + 3] ?? 0];
+    const skin = head.palette[head.pixels[3 * 10 + 5] ?? 0];
+    expect(eye).toBeDefined();
+    expect(skin).toBeDefined();
+    const eyeLab = srgbToOklab(hexToRgb(eye ?? "#000000"));
+    const skinLab = srgbToOklab(hexToRgb(skin ?? "#ffffff"));
+    expect(eyeLab.L).toBeLessThan(skinLab.L);
   });
 });
 

@@ -1,276 +1,331 @@
-import { clamp, distanceSq, isSkinTone, nearestIndex, type Rgb } from "./color.js";
+import {
+  isSkinLab,
+  labDistance,
+  labDistanceSq,
+  nearestLabIndex,
+  oklabToSrgb,
+  srgbToOklab,
+  type Lab,
+  type Rgb,
+} from "./color.js";
 
-const MERGE_DISTANCE = 20;
-const MERGE_DISTANCE_SQ = MERGE_DISTANCE * MERGE_DISTANCE;
 const LLOYD_ITERATIONS = 6;
-const SKIN_MIN_PIXELS = 24;
-const SKIN_DOMINANCE = 0.6;
-const MIN_ENTRY_CELLS = 10;
-const BAYER_4 = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5] as const;
-const DITHER_SPREAD = 30;
+/** OKLab distance under which two entries are the same colour to a viewer. */
+const MERGE_DISTANCE = 0.045;
+/** Every palette entry has to earn its place. */
+export const MIN_ENTRY_CELLS = 6;
+const MIN_SKIN_ENTRIES = 2;
+const MIN_SKIN_CELLS = 12;
+const MIN_PALETTE_ENTRIES = 2;
+const DITHER_STRENGTH = 0.02;
+
+const BAYER_4 = [
+  [0, 8, 2, 10],
+  [12, 4, 14, 6],
+  [3, 11, 1, 9],
+  [15, 7, 13, 5],
+];
+
+export interface QuantizeInput {
+  readonly rgb: Float64Array;
+  readonly size: number;
+  readonly paletteSize: number;
+  readonly dither: boolean;
+}
 
 export interface QuantizeResult {
   readonly palette: Rgb[];
   readonly indices: number[];
 }
 
-interface PaletteFit {
-  readonly palette: Rgb[];
-  readonly indices: number[];
-  readonly counts: number[];
+/**
+ * Cells with their clustering weight. The crop is centred on the face, so the
+ * middle of the frame is where the palette has to be spent: without this a
+ * spacesuit and a backdrop take five of eight entries and the face gets two.
+ */
+interface Sample {
+  readonly labs: readonly Lab[];
+  readonly weights: ArrayLike<number>;
 }
 
-function pixelAt(rgb: Float64Array, cell: number): Rgb {
-  const offset = cell * 3;
-  return [rgb[offset] ?? 0, rgb[offset + 1] ?? 0, rgb[offset + 2] ?? 0];
+function labsOf(rgb: Float64Array, size: number): Lab[] {
+  const labs: Lab[] = [];
+  for (let cell = 0; cell < size * size; cell += 1) {
+    labs.push(srgbToOklab([rgb[cell * 3] ?? 0, rgb[cell * 3 + 1] ?? 0, rgb[cell * 3 + 2] ?? 0]));
+  }
+  return labs;
 }
 
-function centroidOf(points: readonly Rgb[]): Rgb {
-  let r = 0;
-  let g = 0;
+function centroid(sample: Sample, members: readonly number[]): Lab {
+  let L = 0;
+  let a = 0;
   let b = 0;
-  for (const point of points) {
-    r += point[0];
-    g += point[1];
-    b += point[2];
+  let total = 0;
+  for (const cell of members) {
+    const lab = sample.labs[cell];
+    if (lab === undefined) continue;
+    const weight = sample.weights[cell] ?? 1;
+    L += lab.L * weight;
+    a += lab.a * weight;
+    b += lab.b * weight;
+    total += weight;
   }
-  const n = Math.max(1, points.length);
-  return [r / n, g / n, b / n];
+  const divisor = total === 0 ? 1 : total;
+  return { L: L / divisor, a: a / divisor, b: b / divisor };
 }
 
-function widestChannel(points: readonly Rgb[]): { channel: 0 | 1 | 2; range: number } {
-  let minR = 255;
-  let maxR = 0;
-  let minG = 255;
-  let maxG = 0;
-  let minB = 255;
-  let maxB = 0;
-  for (const point of points) {
-    if (point[0] < minR) minR = point[0];
-    if (point[0] > maxR) maxR = point[0];
-    if (point[1] < minG) minG = point[1];
-    if (point[1] > maxG) maxG = point[1];
-    if (point[2] < minB) minB = point[2];
-    if (point[2] > maxB) maxB = point[2];
+function bucketScore(sample: Sample, members: readonly number[]): number {
+  if (members.length < 2) return 0;
+  const mean = centroid(sample, members);
+  let variance = 0;
+  for (const cell of members) {
+    const lab = sample.labs[cell];
+    if (lab === undefined) continue;
+    variance += labDistanceSq(lab, mean) * (sample.weights[cell] ?? 1);
   }
-  const ranges: [number, number, number] = [maxR - minR, maxG - minG, maxB - minB];
-  let channel: 0 | 1 | 2 = 0;
-  for (const candidate of [1, 2] as const) {
-    if ((ranges[candidate] ?? 0) > (ranges[channel] ?? 0)) channel = candidate;
-  }
-  return { channel, range: ranges[channel] ?? 0 };
-}
-
-/** Weighted median cut in sRGB. Deterministic: ties split at the lower index. */
-function medianCut(points: readonly Rgb[], target: number): Rgb[] {
-  const buckets: Rgb[][] = [[...points]];
-  while (buckets.length < target) {
-    let bestIndex = -1;
-    let bestScore = 0;
-    for (let i = 0; i < buckets.length; i += 1) {
-      const bucket = buckets[i];
-      if (bucket === undefined || bucket.length < 2) continue;
-      const score = widestChannel(bucket).range * bucket.length;
-      if (score > bestScore) {
-        bestScore = score;
-        bestIndex = i;
-      }
-    }
-    if (bestIndex < 0 || bestScore < 1) break;
-    const bucket = buckets[bestIndex];
-    if (bucket === undefined) break;
-    const { channel } = widestChannel(bucket);
-    const sorted = [...bucket].sort((a, b) => a[channel] - b[channel] || a[0] - b[0] || a[1] - b[1]);
-    const half = Math.floor(sorted.length / 2);
-    buckets.splice(bestIndex, 1, sorted.slice(0, half), sorted.slice(half));
-  }
-  return buckets.map((bucket) => centroidOf(bucket));
-}
-
-function assignAll(points: readonly Rgb[], palette: readonly Rgb[]): PaletteFit {
-  const indices: number[] = [];
-  const counts = new Array<number>(palette.length).fill(0);
-  for (const point of points) {
-    const index = nearestIndex(palette, point);
-    indices.push(index);
-    counts[index] = (counts[index] ?? 0) + 1;
-  }
-  return { palette: [...palette], indices, counts };
-}
-
-function refine(points: readonly Rgb[], palette: readonly Rgb[], iterations: number): PaletteFit {
-  let current: PaletteFit = assignAll(points, palette);
-  for (let iteration = 0; iteration < iterations; iteration += 1) {
-    const sums = current.palette.map(() => [0, 0, 0, 0] as [number, number, number, number]);
-    for (let i = 0; i < points.length; i += 1) {
-      const point = points[i];
-      const index = current.indices[i];
-      if (point === undefined || index === undefined) continue;
-      const entry = sums[index];
-      if (entry === undefined) continue;
-      entry[0] += point[0];
-      entry[1] += point[1];
-      entry[2] += point[2];
-      entry[3] += 1;
-    }
-    const next = current.palette.map((color, index): Rgb => {
-      const entry = sums[index];
-      if (entry === undefined || entry[3] === 0) return color;
-      return [entry[0] / entry[3], entry[1] / entry[3], entry[2] / entry[3]];
-    });
-    const nextFit = assignAll(points, next);
-    const stable = nextFit.indices.every((value, i) => value === current.indices[i]);
-    current = nextFit;
-    if (stable) break;
-  }
-  return current;
-}
-
-/** Fold palette entries that are too close to tell apart at 24x24. */
-function mergeNearDuplicates(points: readonly Rgb[], fit: PaletteFit): PaletteFit {
-  let current = fit;
-  for (let pass = 0; pass < 8; pass += 1) {
-    let merged = false;
-    for (let i = 0; i < current.palette.length && !merged; i += 1) {
-      for (let j = i + 1; j < current.palette.length; j += 1) {
-        const a = current.palette[i];
-        const b = current.palette[j];
-        if (a === undefined || b === undefined) continue;
-        if (distanceSq(a, b) > MERGE_DISTANCE_SQ) continue;
-        const countA = current.counts[i] ?? 0;
-        const countB = current.counts[j] ?? 0;
-        const total = countA + countB;
-        const weightA = total === 0 ? 0.5 : countA / total;
-        const replacement: Rgb = [
-          a[0] * weightA + b[0] * (1 - weightA),
-          a[1] * weightA + b[1] * (1 - weightA),
-          a[2] * weightA + b[2] * (1 - weightA),
-        ];
-        const palette = current.palette.map((color, index) =>
-          index === i ? replacement : color,
-        ).filter((_, index) => index !== j);
-        current = assignAll(points, palette);
-        merged = true;
-        break;
-      }
-    }
-    if (!merged) break;
-  }
-  return current;
+  return variance;
 }
 
 /**
- * Keep skin and hair from collapsing into one brown. If almost all skin pixels
- * land on a single entry, add a dedicated skin tone (or replace the least-used
- * entry when the palette is full) and let Lloyd settle.
+ * Median cut in OKLab, splitting the bucket with the most total squared error
+ * along its widest weighted axis. Splitting sRGB channels (the old code) divides
+ * on red where the eye sees lightness, which is how a face ended up with three
+ * palette entries that all read as the same tone.
  */
-function protectSkinTones(
-  points: readonly Rgb[],
-  fit: PaletteFit,
-  paletteSize: number,
-): PaletteFit {
-  let skinTotal = 0;
-  const skinPerEntry = fit.palette.map(() => 0);
-  for (let i = 0; i < points.length; i += 1) {
-    const point = points[i];
-    const index = fit.indices[i];
-    if (point === undefined || index === undefined) continue;
-    if (!isSkinTone(point[0], point[1], point[2])) continue;
-    skinTotal += 1;
-    skinPerEntry[index] = (skinPerEntry[index] ?? 0) + 1;
-  }
-  if (skinTotal < SKIN_MIN_PIXELS) return fit;
-
-  const dominantSkinEntries = skinPerEntry.filter((skin, index) => {
-    const count = fit.counts[index] ?? 0;
-    return count > 0 && skin / count >= SKIN_DOMINANCE;
-  }).length;
-  if (dominantSkinEntries >= 2) return fit;
-
-  const skinPoints = points.filter((point) => isSkinTone(point[0], point[1], point[2]));
-  const skinColor = centroidOf(skinPoints);
-  if (fit.palette.some((color) => distanceSq(color, skinColor) <= MERGE_DISTANCE_SQ)) return fit;
-
-  const palette = [...fit.palette];
-  if (palette.length < paletteSize) {
-    palette.push(skinColor);
-  } else {
-    let victim = -1;
-    let fewest = Number.POSITIVE_INFINITY;
-    const background = fit.counts.indexOf(Math.max(...fit.counts));
-    for (let i = 0; i < palette.length; i += 1) {
-      const count = fit.counts[i] ?? 0;
-      if (i === background) continue;
-      if (count < fewest) {
-        fewest = count;
-        victim = i;
+function medianCut(sample: Sample, target: number): Lab[] {
+  const all = sample.labs.map((_, cell) => cell);
+  const buckets: number[][] = [all];
+  while (buckets.length < target) {
+    let pick = -1;
+    let pickScore = 0;
+    for (let i = 0; i < buckets.length; i += 1) {
+      const members = buckets[i];
+      if (members === undefined) continue;
+      const score = bucketScore(sample, members);
+      if (score > pickScore) {
+        pickScore = score;
+        pick = i;
       }
     }
-    if (victim < 0) return fit;
-    palette[victim] = skinColor;
-  }
-  return refine(points, palette, 3);
-}
-
-/** Drop entries that cover a handful of cells: at 24x24 they read as noise. */
-function dropRareEntries(points: readonly Rgb[], fit: PaletteFit): PaletteFit {
-  let current = fit;
-  while (current.palette.length > 2) {
-    const fewest = Math.min(...current.counts);
-    if (fewest >= MIN_ENTRY_CELLS) break;
-    const victim = current.counts.indexOf(fewest);
-    current = assignAll(
-      points,
-      current.palette.filter((_, index) => index !== victim),
+    if (pick < 0 || pickScore < 1e-9) break;
+    const members = buckets[pick];
+    if (members === undefined) break;
+    const mean = centroid(sample, members);
+    const spread = { L: 0, a: 0, b: 0 };
+    for (const cell of members) {
+      const lab = sample.labs[cell];
+      if (lab === undefined) continue;
+      const weight = sample.weights[cell] ?? 1;
+      spread.L += (lab.L - mean.L) ** 2 * weight;
+      spread.a += (lab.a - mean.a) ** 2 * weight;
+      spread.b += (lab.b - mean.b) ** 2 * weight;
+    }
+    const axis: keyof Lab =
+      spread.L >= spread.a && spread.L >= spread.b ? "L" : spread.a >= spread.b ? "a" : "b";
+    const sorted = [...members].sort(
+      (x, y) => (sample.labs[x]?.[axis] ?? 0) - (sample.labs[y]?.[axis] ?? 0),
     );
+    let half = 0;
+    let weightSum = 0;
+    for (const cell of sorted) weightSum += sample.weights[cell] ?? 1;
+    let running = 0;
+    for (let index = 0; index < sorted.length - 1; index += 1) {
+      running += sample.weights[sorted[index] ?? 0] ?? 1;
+      if (running * 2 >= weightSum) {
+        half = index + 1;
+        break;
+      }
+    }
+    if (half < 1) half = Math.max(1, Math.floor(sorted.length / 2));
+    buckets.splice(pick, 1, sorted.slice(0, half), sorted.slice(half));
   }
-  return current;
+  return buckets.filter((members) => members.length > 0).map((members) => centroid(sample, members));
 }
 
-function bayerOffset(x: number, y: number): number {
-  const value = BAYER_4[(y % 4) * 4 + (x % 4)] ?? 0;
-  return ((value + 0.5) / 16 - 0.5) * DITHER_SPREAD;
+function assign(labs: readonly Lab[], palette: readonly Lab[]): number[] {
+  return labs.map((lab) => nearestLabIndex(palette, lab));
 }
 
-export function quantize(input: {
-  readonly rgb: Float64Array;
-  readonly size: number;
-  readonly paletteSize: number;
-  readonly dither: boolean;
-}): QuantizeResult {
-  const { rgb, size, dither } = input;
-  const paletteSize = clamp(Math.round(input.paletteSize), 2, 8);
-  const cells = size * size;
-  const points: Rgb[] = [];
-  for (let cell = 0; cell < cells; cell += 1) points.push(pixelAt(rgb, cell));
+function countsOf(indices: readonly number[], entries: number): number[] {
+  const counts = new Array<number>(entries).fill(0);
+  for (const index of indices) counts[index] = (counts[index] ?? 0) + 1;
+  return counts;
+}
 
-  const initial = medianCut(points, paletteSize);
-  let fit = refine(points, initial, LLOYD_ITERATIONS);
-  fit = mergeNearDuplicates(points, fit);
-  fit = protectSkinTones(points, fit, paletteSize);
-  fit = mergeNearDuplicates(points, fit);
-  fit = dropRareEntries(points, fit);
+function lloyd(sample: Sample, seeds: readonly Lab[]): Lab[] {
+  let palette = [...seeds];
+  for (let iteration = 0; iteration < LLOYD_ITERATIONS; iteration += 1) {
+    const indices = assign(sample.labs, palette);
+    const buckets: number[][] = palette.map(() => []);
+    for (let cell = 0; cell < indices.length; cell += 1) {
+      buckets[indices[cell] ?? 0]?.push(cell);
+    }
+    const next = buckets
+      .filter((members) => members.length > 0)
+      .map((members) => centroid(sample, members));
+    if (next.length === 0) break;
+    palette = next;
+  }
+  return palette;
+}
 
-  if (fit.palette.length < 2) {
-    return { palette: fit.palette, indices: fit.indices };
+function mergeNearDuplicates(palette: readonly Lab[]): Lab[] {
+  const entries = [...palette];
+  let merged = true;
+  while (merged) {
+    merged = false;
+    outer: for (let i = 0; i < entries.length; i += 1) {
+      for (let j = i + 1; j < entries.length; j += 1) {
+        const x = entries[i];
+        const y = entries[j];
+        if (x === undefined || y === undefined) continue;
+        if (labDistance(x, y) >= MERGE_DISTANCE) continue;
+        entries.splice(j, 1);
+        merged = true;
+        break outer;
+      }
+    }
+  }
+  return entries;
+}
+
+/**
+ * Keep at least two skin entries when the photo is mostly skin. One entry per
+ * tone turns a face into a flat blob; two or three related tones keep the
+ * shadow under the brow and the cheek reading as one face.
+ */
+function protectSkin(sample: Sample, palette: readonly Lab[]): Lab[] {
+  const skinCells: number[] = [];
+  for (let cell = 0; cell < sample.labs.length; cell += 1) {
+    const lab = sample.labs[cell];
+    if (lab !== undefined && isSkinLab(lab)) skinCells.push(cell);
+  }
+  if (skinCells.length < MIN_SKIN_CELLS) return [...palette];
+  const indices = assign(sample.labs, palette);
+  const dominant = countsOf(indices, palette.length).map((count, index) => ({ index, count }));
+  let skinEntries = 0;
+  for (const entry of dominant) {
+    if (entry.count === 0) continue;
+    let skin = 0;
+    for (let cell = 0; cell < indices.length; cell += 1) {
+      if (indices[cell] !== entry.index) continue;
+      const lab = sample.labs[cell];
+      if (lab !== undefined && isSkinLab(lab)) skin += 1;
+    }
+    if (skin * 2 > entry.count) skinEntries += 1;
+  }
+  if (skinEntries >= MIN_SKIN_ENTRIES) return [...palette];
+
+  const sorted = [...skinCells].sort(
+    (x, y) => (sample.labs[x]?.L ?? 0) - (sample.labs[y]?.L ?? 0),
+  );
+  const half = Math.max(1, Math.floor(sorted.length / 2));
+  const shadow = centroid(sample, sorted.slice(0, half));
+  const light = centroid(sample, sorted.slice(half));
+  const entries = [...palette];
+  for (const candidate of [shadow, light]) {
+    const clash = entries.some((entry) => labDistance(entry, candidate) < MERGE_DISTANCE);
+    if (clash) continue;
+    if (entries.length >= palette.length) {
+      entries.splice(entries.length - 1, 1);
+    }
+    entries.push(candidate);
+  }
+  return entries;
+}
+
+function dropRare(labs: readonly Lab[], palette: readonly Lab[]): Lab[] {
+  let entries = [...palette];
+  for (let guard = 0; guard < 8; guard += 1) {
+    const indices = assign(labs, entries);
+    const counts = countsOf(indices, entries.length);
+    const keep = entries.filter((_, index) => (counts[index] ?? 0) >= MIN_ENTRY_CELLS);
+    if (keep.length === entries.length) break;
+    if (keep.length < MIN_PALETTE_ENTRIES) {
+      const ranked = counts
+        .map((count, index) => ({ index, count }))
+        .sort((x, y) => y.count - x.count)
+        .slice(0, MIN_PALETTE_ENTRIES);
+      entries = ranked
+        .map((entry) => entries[entry.index])
+        .filter((entry): entry is Lab => entry !== undefined);
+      break;
+    }
+    entries = keep;
+  }
+  return entries;
+}
+
+function toRgbPalette(palette: readonly Lab[]): Rgb[] {
+  const seen = new Map<string, Rgb>();
+  for (const lab of palette) {
+    const rgb = oklabToSrgb(lab);
+    const key = rgb.join(",");
+    if (!seen.has(key)) seen.set(key, rgb);
+  }
+  return [...seen.values()];
+}
+
+export function quantize(input: QuantizeInput): QuantizeResult {
+  const { size } = input;
+  const labs = labsOf(input.rgb, size);
+  const sample: Sample = { labs, weights: cellWeights(size) };
+  const target = Math.max(MIN_PALETTE_ENTRIES, Math.min(input.paletteSize, labs.length));
+  const seeds = lloyd(sample, medianCut(sample, target));
+  const protectedSeeds = protectSkin(sample, mergeNearDuplicates(seeds));
+  const trimmed = dropRare(labs, protectedSeeds);
+  let palette = toRgbPalette(trimmed);
+  if (palette.length < MIN_PALETTE_ENTRIES) {
+    palette = toRgbPalette(trimmed).slice(0, MIN_PALETTE_ENTRIES);
+    while (palette.length < MIN_PALETTE_ENTRIES) palette.push(palette[0] ?? [0, 0, 0]);
   }
 
-  if (!dither) {
-    return { palette: fit.palette, indices: fit.indices };
+  const paletteLabs = palette.map((entry) => srgbToOklab(entry));
+  let indices = assign(labs, paletteLabs);
+
+  if (input.dither) {
+    const dithered = labs.map((lab, cell) => {
+      const x = cell % size;
+      const y = (cell - x) / size;
+      const threshold = ((BAYER_4[y % 4]?.[x % 4] ?? 0) / 16 - 0.5) * 2;
+      return { L: lab.L + threshold * DITHER_STRENGTH, a: lab.a, b: lab.b };
+    });
+    indices = assign(dithered, paletteLabs);
   }
 
-  const indices = fit.indices.map((_, cell) => {
+  const counts = countsOf(indices, palette.length);
+  const used = counts.filter((count) => count > 0).length;
+  if (used < MIN_PALETTE_ENTRIES) {
+    const ranked = counts
+      .map((count, index) => ({ index, count }))
+      .sort((x, y) => y.count - x.count)
+      .slice(0, MIN_PALETTE_ENTRIES);
+    const remap = new Map<number, number>();
+    const nextPalette: Rgb[] = [];
+    for (const entry of ranked) {
+      remap.set(entry.index, nextPalette.length);
+      nextPalette.push(palette[entry.index] ?? [0, 0, 0]);
+    }
+    palette = nextPalette;
+    indices = indices.map((index) => remap.get(index) ?? 0);
+  }
+
+  return { palette, indices };
+}
+
+/** Central band of the frame, which the crop guarantees holds the face. */
+const CENTRE_BAND = 0.3;
+const CENTRE_WEIGHT = 2.5;
+
+function cellWeights(size: number): Float64Array {
+  const weights = new Float64Array(size * size);
+  const middle = (size - 1) / 2;
+  const band = size * CENTRE_BAND;
+  for (let cell = 0; cell < weights.length; cell += 1) {
     const x = cell % size;
     const y = (cell - x) / size;
-    const offset = bayerOffset(x, y);
-    const point = points[cell];
-    if (point === undefined) return 0;
-    const nudged: Rgb = [
-      clamp(point[0] + offset, 0, 255),
-      clamp(point[1] + offset, 0, 255),
-      clamp(point[2] + offset, 0, 255),
-    ];
-    return nearestIndex(fit.palette, nudged);
-  });
-  return { palette: fit.palette, indices };
+    const inside = Math.abs(x - middle) <= band && Math.abs(y - middle) <= band;
+    weights[cell] = inside ? CENTRE_WEIGHT : 1;
+  }
+  return weights;
 }

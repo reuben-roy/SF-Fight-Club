@@ -149,7 +149,7 @@ Rules for the art:
 
 The people behind the idea stand behind their mascot as a crew of 1 to 4 small pixel figures (12x16), generated from each founder's handle. They react: cheer on a hit, flinch on a backfire.
 
-A founder with a profile photo also gets a pixel portrait made from it (section 4). The portrait is the founder's face on the fighter card and in the crew roll call at walk-in, and a 10x10 reduction of it becomes the head of that founder's crew figure. A founder with no photo keeps the fully generated figure. We never show the photo itself.
+A founder with a profile photo also gets a pixel portrait made from it (section 4). The portrait is the founder's face on the fighter card and in the crew roll call at walk-in, and four colors pulled from it (`portraitTraits`) become the head of that founder's crew figure, painted from a 10x10 template. A founder with no photo keeps the fully generated figure. We never show the photo itself.
 
 When a fighter wins, the loser's crew crosses the stage and joins the winner's side. In later matches the winner walks in with everyone it has absorbed. This is the org chart, visible in the arena.
 
@@ -286,9 +286,15 @@ export interface PixelPortrait {
 ```
 
 - Input is decoded RGBA plus width and height. JPEG and PNG decode through pure-JS decoders at the edge of the package. Anything else returns a "no portrait" result and the founder keeps a generated figure.
-- Steps: center-crop to a square, downsample to 24x24 with a box filter, lift contrast, quantize to at most 8 colors, optional ordered dithering. The same input always gives the same output.
+- Steps: crop to the head, downsample to 24x24 with a box filter, tone-map in OKLab, quantize to at most 8 colors in OKLab, then clean up the grid. The same input always gives the same output.
+- The crop is the pipeline's own heuristic, not a face detector. It finds the largest skin-toned region on a coarse grid, prefers one away from the frame border and near the top middle, measures the face width across that region's upper band, and cuts a square about twice that width, lifted so the forehead sits near the top edge. A crop box can be passed instead, so a face detector can be dropped in later without touching the rest. If the resulting subject covers less than 45 percent or more than 90 percent of the frame, the crop is retried at a few other scales and the closest one wins.
+- Tone mapping works on OKLab lightness only, weighted toward the center of the frame where the face is, so a bright suit or a dark sky cannot eat the range the face needs. Chroma is untouched, so skin keeps its hue and a black and white photo keeps its midtones.
+- Quantizing happens in OKLab with lightness weighted well above hue, which keeps skin as two or three related tones in contiguous areas instead of a patchwork of unrelated colors. Every palette entry must cover at least six pixels.
+- Cleanup runs after quantizing, never before it: isolated pixels whose four neighbors all differ are replaced by the majority neighbor, except dark pixels that have a dark partner (eyes, brows, mouth) and are meant to be there; connected components of one or two pixels are folded away; the background is settled to a single palette entry from the frame corners and any background-colored hole inside the subject is repainted; and if the background tone sits too close to the subject, it is pushed apart so the silhouette reads.
+- There is no outline by default. A 1px ring painted on the background side of the edge came out as a jagged black halo. The option remains and now paints a continuous contour on the subject's outer edge in the darkest existing palette entry, for anyone who wants the look.
 - The result has to read as a face at 24x24 and still look like it belongs next to the mascots. Hard pixels, no blur, a limited palette.
-- X is deferred until there is an API token. Until then the pipeline is exercised on sample images. When the X adapter is live, `avatarUrl` comes from the user's profile image field and nothing else changes.
+- `portraitTraits(portrait)` distills the portrait into four colors: the dominant skin tone, a darker skin tone, the dominant hair or headwear color from the upper part of the subject, and a clothing color from the lower part. The crew figure generator paints a templated 10x10 head from those (`traitHead`), which is readable where a 10x10 box reduction of the picture is only ever a blur. `reducePortrait` stays exported for anything that genuinely wants a shrunken copy.
+- X is deferred until there is an API token. Until then the pipeline is exercised on twelve public-domain sample photos. When the X adapter is live, `avatarUrl` comes from the user's profile image field and nothing else changes.
 
 ### CLI
 
