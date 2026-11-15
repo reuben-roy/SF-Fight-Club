@@ -1124,7 +1124,7 @@
       "script": {
         "matchId": "demo-r0s1",
         "directorVersion": "2",
-        "durationMs": 89800,
+        "durationMs": 113600,
         "cues": [
           {
             "t": 0,
@@ -1178,8 +1178,8 @@
             "shotId": "r1.v1.A.s1",
             "criterion": "problem",
             "weapon": "flame_lance",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Walkout tabs bleed bars dry",
             "evidence": [
               {
@@ -1212,9 +1212,15 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Nice to Have",
+                "element": "market",
+                "criterion": "problem",
+                "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
             "t": 7100,
@@ -1225,7 +1231,7 @@
             "criterion": "problem",
             "weapon": "flame_lance",
             "impact": 1,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "Cold fries kill repeat orders",
             "evidence": [
               {
@@ -1233,6 +1239,16 @@
                 "status": "supported"
               }
             ],
+            "parry": {
+              "defenseShotId": "r1.v2.A.s1",
+              "headline": "Cold fries are a luxury problem",
+              "move": {
+                "name": "Pain Receipt",
+                "element": "market",
+                "criterion": "problem",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 100,
@@ -1258,9 +1274,15 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. TabClear still wins problem."
+            "verdictLine": "TabClear answered with PAIN RECEIPT."
           },
           {
             "t": 10700,
@@ -1298,6 +1320,12 @@
                 "name": "Niche Trap",
                 "element": "market",
                 "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Nice to Have",
+                "element": "market",
+                "criterion": "problem",
                 "type": "attack"
               }
             ],
@@ -1348,12 +1376,112 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
             "verdictLine": "The judges did not move."
           },
           {
             "t": 17900,
+            "id": "r1.shot.r1.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r1.v1.A.s3",
+            "criterion": "problem",
+            "weapon": "flame_lance",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Tabs walk out nightly",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 100,
+              "B": 64
+            },
+            "turn": 5,
+            "volley": 1,
+            "move": {
+              "name": "Nice to Have",
+              "element": "market",
+              "criterion": "problem",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Hair on Fire",
+                "element": "market",
+                "criterion": "problem",
+                "type": "pitch"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Nice to Have",
+                "element": "market",
+                "criterion": "problem",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 21500,
+            "id": "r1.shot.r1.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r1.v1.B.s3",
+            "criterion": "wtp",
+            "weapon": "coin_cannon",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Tabs already have rails",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 100,
+              "B": 64
+            },
+            "turn": 6,
+            "volley": 1,
+            "move": {
+              "name": "Free Alternative",
+              "element": "market",
+              "criterion": "wtp",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Hair on Fire",
+                "element": "market",
+                "criterion": "problem",
+                "type": "pitch"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 25100,
             "id": "r1.shot.r1.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -1374,7 +1502,7 @@
               "A": 100,
               "B": 50
             },
-            "turn": 5,
+            "turn": 7,
             "volley": 2,
             "move": {
               "name": "Signed LOI",
@@ -1399,7 +1527,7 @@
             "verdictLine": "It landed."
           },
           {
-            "t": 21500,
+            "t": 28700,
             "id": "r1.shot.r1.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -1415,7 +1543,7 @@
               "A": 100,
               "B": 50
             },
-            "turn": 6,
+            "turn": 8,
             "volley": 2,
             "move": {
               "name": "Free Alternative",
@@ -1440,7 +1568,7 @@
             "verdictLine": "Fair point. TabClear still wins wtp."
           },
           {
-            "t": 25100,
+            "t": 32300,
             "id": "status-2",
             "kind": "status",
             "target": "A",
@@ -1448,7 +1576,7 @@
             "on": false
           },
           {
-            "t": 25100,
+            "t": 32300,
             "id": "r1.scorecard",
             "kind": "scorecard",
             "round": 1,
@@ -1481,7 +1609,7 @@
             "agreement": 1
           },
           {
-            "t": 29100,
+            "t": 36300,
             "id": "r2.title",
             "kind": "round_title",
             "round": 2,
@@ -1502,7 +1630,7 @@
             ]
           },
           {
-            "t": 30600,
+            "t": 37800,
             "id": "r2.shot.r2.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
@@ -1510,7 +1638,7 @@
             "criterion": "differentiation",
             "weapon": "laser_rifle",
             "impact": 1,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "One tap beats the card stack",
             "evidence": [
               {
@@ -1518,12 +1646,22 @@
                 "status": "supported"
               }
             ],
+            "parry": {
+              "defenseShotId": "r2.v2.B.s1",
+              "headline": "Heat-aware batching is the product",
+              "move": {
+                "name": "Side by Side",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 100,
               "B": 50
             },
-            "turn": 7,
+            "turn": 9,
             "volley": 1,
             "move": {
               "name": "Ten Times Better",
@@ -1543,12 +1681,18 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "pitch"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. PaperRoute still wins differentiation."
+            "verdictLine": "PaperRoute answered with SIDE BY SIDE."
           },
           {
-            "t": 34200,
+            "t": 41400,
             "id": "r2.shot.r2.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
@@ -1569,7 +1713,7 @@
               "A": 91,
               "B": 50
             },
-            "turn": 8,
+            "turn": 10,
             "volley": 1,
             "move": {
               "name": "Why Now",
@@ -1589,20 +1733,26 @@
                 "element": "moat",
                 "criterion": "differentiation",
                 "type": "attack"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
               }
             ],
             "verdictLine": "It landed."
           },
           {
-            "t": 37800,
+            "t": 45000,
             "id": "r2.shot.r2.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
             "shotId": "r2.v1.A.s2",
             "criterion": "moat",
             "weapon": "trebuchet",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 1,
+            "outcome": "glancing",
             "headline": "Ledger history locks venues in",
             "evidence": [
               {
@@ -1610,12 +1760,12 @@
                 "status": "supported"
               }
             ],
-            "damage": 9,
+            "damage": 0,
             "hpAfter": {
               "A": 91,
-              "B": 41
+              "B": 50
             },
-            "turn": 9,
+            "turn": 11,
             "volley": 1,
             "move": {
               "name": "Compounding Data",
@@ -1635,12 +1785,18 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "pitch"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "Fair point. PaperRoute still wins moat."
           },
           {
-            "t": 41400,
+            "t": 48600,
             "id": "r2.shot.r2.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -1654,9 +1810,9 @@
             "damage": 0,
             "hpAfter": {
               "A": 91,
-              "B": 41
+              "B": 50
             },
-            "turn": 10,
+            "turn": 12,
             "volley": 1,
             "move": {
               "name": "Feature Not Product",
@@ -1676,12 +1832,112 @@
                 "element": "moat",
                 "criterion": "differentiation",
                 "type": "attack"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
               }
             ],
             "verdictLine": "The judges did not move."
           },
           {
-            "t": 45000,
+            "t": 52200,
+            "id": "r2.shot.r2.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r2.v1.A.s3",
+            "criterion": "timing",
+            "weapon": "clockwork_railgun",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Subsidy lines favor incumbents",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 91,
+              "B": 50
+            },
+            "turn": 13,
+            "volley": 1,
+            "move": {
+              "name": "Too Early",
+              "element": "moat",
+              "criterion": "timing",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Ten Times Better",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "pitch"
+              },
+              {
+                "name": "Compounding Data",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "pitch"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. PaperRoute still wins timing."
+          },
+          {
+            "t": 55800,
+            "id": "r2.shot.r2.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r2.v1.B.s3",
+            "criterion": "moat",
+            "weapon": "trebuchet",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Switching takes an afternoon",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 91,
+              "B": 50
+            },
+            "turn": 14,
+            "volley": 1,
+            "move": {
+              "name": "Weekend Clone",
+              "element": "moat",
+              "criterion": "moat",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Why Now",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "pitch"
+              },
+              {
+                "name": "Feature Not Product",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "attack"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 59400,
             "id": "r2.shot.r2.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -1695,9 +1951,9 @@
             "damage": 0,
             "hpAfter": {
               "A": 91,
-              "B": 41
+              "B": 50
             },
-            "turn": 11,
+            "turn": 15,
             "volley": 2,
             "move": {
               "name": "Feature Not Product",
@@ -1722,7 +1978,7 @@
             "verdictLine": "Fair point. PaperRoute still wins differentiation."
           },
           {
-            "t": 48600,
+            "t": 63000,
             "id": "r2.shot.r2.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -1736,9 +1992,9 @@
             "damage": 0,
             "hpAfter": {
               "A": 91,
-              "B": 41
+              "B": 50
             },
-            "turn": 12,
+            "turn": 16,
             "volley": 2,
             "move": {
               "name": "Weekend Clone",
@@ -1763,7 +2019,20 @@
             "verdictLine": "The judges did not move."
           },
           {
-            "t": 52200,
+            "t": 66600,
+            "id": "r2.hammer.moat.B",
+            "kind": "hammer",
+            "target": "B",
+            "criterion": "moat",
+            "reason": "No scoring shot carried the moat gap",
+            "damage": 9,
+            "hpAfter": {
+              "A": 91,
+              "B": 41
+            }
+          },
+          {
+            "t": 68800,
             "id": "r2.scorecard",
             "kind": "scorecard",
             "round": 2,
@@ -1796,7 +2065,7 @@
             "agreement": 1
           },
           {
-            "t": 56200,
+            "t": 72800,
             "id": "r3.title",
             "kind": "round_title",
             "round": 3,
@@ -1817,15 +2086,15 @@
             ]
           },
           {
-            "t": 57700,
+            "t": 74300,
             "id": "r3.shot.r3.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
             "shotId": "r3.v1.A.s1",
             "criterion": "gtm",
             "weapon": "gatling",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Launch with twenty register partners",
             "evidence": [
               {
@@ -1838,7 +2107,7 @@
               "A": 91,
               "B": 20
             },
-            "turn": 13,
+            "turn": 17,
             "volley": 1,
             "move": {
               "name": "First Hundred",
@@ -1858,12 +2127,18 @@
                 "element": "execution",
                 "criterion": "feasibility",
                 "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
-            "t": 61300,
+            "t": 77900,
             "id": "status-3",
             "kind": "status",
             "target": "B",
@@ -1871,7 +2146,7 @@
             "on": true
           },
           {
-            "t": 61300,
+            "t": 77900,
             "id": "r3.shot.r3.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
@@ -1892,7 +2167,7 @@
               "A": 82,
               "B": 20
             },
-            "turn": 14,
+            "turn": 18,
             "volley": 1,
             "move": {
               "name": "Shipped Demo",
@@ -1912,12 +2187,18 @@
                 "element": "execution",
                 "criterion": "gtm",
                 "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
               }
             ],
             "verdictLine": "It landed."
           },
           {
-            "t": 64900,
+            "t": 81500,
             "id": "r3.shot.r3.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -1925,15 +2206,25 @@
             "criterion": "feasibility",
             "weapon": "rocket",
             "impact": 1,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "Bikes break, batteries die",
             "evidence": [],
+            "parry": {
+              "defenseShotId": "r3.v2.B.s1",
+              "headline": "Software breaks too",
+              "move": {
+                "name": "Proof of Build",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 82,
               "B": 20
             },
-            "turn": 15,
+            "turn": 19,
             "volley": 1,
             "move": {
               "name": "Science Project",
@@ -1953,12 +2244,18 @@
                 "element": "execution",
                 "criterion": "feasibility",
                 "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. PaperRoute still wins feasibility."
+            "verdictLine": "PaperRoute answered with PROOF OF BUILD."
           },
           {
-            "t": 68500,
+            "t": 85100,
             "id": "r3.shot.r3.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -1966,15 +2263,25 @@
             "criterion": "gtm",
             "weapon": "gatling",
             "impact": 1,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "Registers gate every bar",
             "evidence": [],
+            "parry": {
+              "defenseShotId": "r3.v2.A.s1",
+              "headline": "Riders still need recruiting",
+              "move": {
+                "name": "Channel Lock",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 82,
               "B": 20
             },
-            "turn": 16,
+            "turn": 20,
             "volley": 1,
             "move": {
               "name": "CAC Spiral",
@@ -1994,12 +2301,112 @@
                 "element": "execution",
                 "criterion": "gtm",
                 "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. TabClear still wins gtm."
+            "verdictLine": "TabClear answered with CHANNEL LOCK."
           },
           {
-            "t": 72100,
+            "t": 88700,
+            "id": "r3.shot.r3.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r3.v1.A.s3",
+            "criterion": "scale",
+            "weapon": "orbital_beam",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Groups split every bill",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 82,
+              "B": 20
+            },
+            "turn": 21,
+            "volley": 1,
+            "move": {
+              "name": "Lifestyle Business",
+              "element": "execution",
+              "criterion": "scale",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "First Hundred",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "pitch"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. PaperRoute still wins scale."
+          },
+          {
+            "t": 92300,
+            "id": "r3.shot.r3.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r3.v1.B.s3",
+            "criterion": "scale",
+            "weapon": "orbital_beam",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Counters belong to incumbents",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 82,
+              "B": 20
+            },
+            "turn": 22,
+            "volley": 1,
+            "move": {
+              "name": "Lifestyle Business",
+              "element": "execution",
+              "criterion": "scale",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Shipped Demo",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "pitch"
+              },
+              {
+                "name": "CAC Spiral",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 95900,
             "id": "r3.shot.r3.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -2020,7 +2427,7 @@
               "A": 82,
               "B": 12
             },
-            "turn": 17,
+            "turn": 23,
             "volley": 2,
             "move": {
               "name": "Platform Play",
@@ -2045,7 +2452,7 @@
             "verdictLine": "Partly landed."
           },
           {
-            "t": 75700,
+            "t": 99500,
             "id": "r3.shot.r3.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -2061,7 +2468,7 @@
               "A": 82,
               "B": 12
             },
-            "turn": 18,
+            "turn": 24,
             "volley": 2,
             "move": {
               "name": "Lifestyle Business",
@@ -2086,7 +2493,7 @@
             "verdictLine": "The judges did not move."
           },
           {
-            "t": 79300,
+            "t": 103100,
             "id": "r3.scorecard",
             "kind": "scorecard",
             "round": 3,
@@ -2119,7 +2526,7 @@
             "agreement": 1
           },
           {
-            "t": 83300,
+            "t": 107100,
             "id": "outcome",
             "kind": "outcome",
             "outcome": "DECISION",
@@ -2128,7 +2535,7 @@
             "pyrrhic": false
           },
           {
-            "t": 85300,
+            "t": 109100,
             "id": "finisher",
             "kind": "finisher",
             "winner": "A",
@@ -2136,7 +2543,7 @@
             "style": "decision"
           },
           {
-            "t": 87300,
+            "t": 111100,
             "id": "winner",
             "kind": "winner",
             "winner": "A",
@@ -2196,7 +2603,7 @@
       "script": {
         "matchId": "demo-r0s2",
         "directorVersion": "2",
-        "durationMs": 92000,
+        "durationMs": 113600,
         "cues": [
           {
             "t": 0,
@@ -2250,8 +2657,8 @@
             "shotId": "r1.v1.A.s1",
             "criterion": "problem",
             "weapon": "flame_lance",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Urgent lesions wait months unseen",
             "evidence": [
               {
@@ -2284,9 +2691,15 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
             "t": 7100,
@@ -2297,7 +2710,7 @@
             "criterion": "problem",
             "weapon": "flame_lance",
             "impact": 0,
-            "outcome": "whiff",
+            "outcome": "parried",
             "headline": "Threads never reach decisions",
             "evidence": [
               {
@@ -2305,6 +2718,16 @@
                 "status": "supported"
               }
             ],
+            "parry": {
+              "defenseShotId": "r1.v2.A.s1",
+              "headline": "Muted threads are not triage",
+              "move": {
+                "name": "Pain Receipt",
+                "element": "market",
+                "criterion": "problem",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 100,
@@ -2330,9 +2753,15 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
               }
             ],
-            "verdictLine": "The judges did not move."
+            "verdictLine": "Dermalens answered with PAIN RECEIPT."
           },
           {
             "t": 10700,
@@ -2370,6 +2799,12 @@
                 "name": "Niche Trap",
                 "element": "market",
                 "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
                 "type": "attack"
               }
             ],
@@ -2420,12 +2855,112 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
               }
             ],
             "verdictLine": "The judges did not move."
           },
           {
             "t": 17900,
+            "id": "r1.shot.r1.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r1.v1.A.s3",
+            "criterion": "wtp",
+            "weapon": "coin_cannon",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Triage bills per screen",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 100,
+              "B": 65
+            },
+            "turn": 5,
+            "volley": 1,
+            "move": {
+              "name": "Free Alternative",
+              "element": "market",
+              "criterion": "wtp",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Hair on Fire",
+                "element": "market",
+                "criterion": "problem",
+                "type": "pitch"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. LoopRoom still wins wtp."
+          },
+          {
+            "t": 21500,
+            "id": "r1.shot.r1.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r1.v1.B.s3",
+            "criterion": "market",
+            "weapon": "ballista",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Clinics buy no software",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 100,
+              "B": 65
+            },
+            "turn": 6,
+            "volley": 1,
+            "move": {
+              "name": "Niche Trap",
+              "element": "market",
+              "criterion": "market",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Hair on Fire",
+                "element": "market",
+                "criterion": "problem",
+                "type": "pitch"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 25100,
             "id": "r1.shot.r1.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -2446,7 +2981,7 @@
               "A": 100,
               "B": 59
             },
-            "turn": 5,
+            "turn": 7,
             "volley": 2,
             "move": {
               "name": "Signed LOI",
@@ -2471,7 +3006,7 @@
             "verdictLine": "It landed."
           },
           {
-            "t": 21500,
+            "t": 28700,
             "id": "r1.shot.r1.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -2487,7 +3022,7 @@
               "A": 100,
               "B": 59
             },
-            "turn": 6,
+            "turn": 8,
             "volley": 2,
             "move": {
               "name": "Free Alternative",
@@ -2512,7 +3047,7 @@
             "verdictLine": "The judges did not move."
           },
           {
-            "t": 25100,
+            "t": 32300,
             "id": "status-2",
             "kind": "status",
             "target": "A",
@@ -2520,7 +3055,7 @@
             "on": false
           },
           {
-            "t": 25100,
+            "t": 32300,
             "id": "r1.scorecard",
             "kind": "scorecard",
             "round": 1,
@@ -2553,7 +3088,7 @@
             "agreement": 1
           },
           {
-            "t": 29100,
+            "t": 36300,
             "id": "r2.title",
             "kind": "round_title",
             "round": 2,
@@ -2574,7 +3109,7 @@
             ]
           },
           {
-            "t": 30600,
+            "t": 37800,
             "id": "r2.shot.r2.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
@@ -2595,7 +3130,7 @@
               "A": 100,
               "B": 50
             },
-            "turn": 7,
+            "turn": 9,
             "volley": 1,
             "move": {
               "name": "Ten Times Better",
@@ -2615,12 +3150,18 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
               }
             ],
             "verdictLine": "It landed."
           },
           {
-            "t": 34200,
+            "t": 41400,
             "id": "r2.shot.r2.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
@@ -2628,7 +3169,7 @@
             "criterion": "timing",
             "weapon": "clockwork_railgun",
             "impact": 0,
-            "outcome": "whiff",
+            "outcome": "parried",
             "headline": "Voice notes already won",
             "evidence": [
               {
@@ -2636,12 +3177,22 @@
                 "status": "supported"
               }
             ],
+            "parry": {
+              "defenseShotId": "r2.v2.A.s1",
+              "headline": "Voice notes decide nothing",
+              "move": {
+                "name": "Side by Side",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 100,
               "B": 50
             },
-            "turn": 8,
+            "turn": 10,
             "volley": 1,
             "move": {
               "name": "Why Now",
@@ -2661,12 +3212,18 @@
                 "element": "moat",
                 "criterion": "differentiation",
                 "type": "attack"
+              },
+              {
+                "name": "Feature Not Product",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "attack"
               }
             ],
-            "verdictLine": "The judges did not move."
+            "verdictLine": "Dermalens answered with SIDE BY SIDE."
           },
           {
-            "t": 37800,
+            "t": 45000,
             "id": "r2.shot.r2.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -2682,7 +3239,7 @@
               "A": 100,
               "B": 47
             },
-            "turn": 9,
+            "turn": 11,
             "volley": 1,
             "move": {
               "name": "Weekend Clone",
@@ -2702,12 +3259,18 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
               }
             ],
             "verdictLine": "Partly landed."
           },
           {
-            "t": 41400,
+            "t": 48600,
             "id": "status-3",
             "kind": "status",
             "target": "A",
@@ -2715,7 +3278,7 @@
             "on": true
           },
           {
-            "t": 41400,
+            "t": 48600,
             "id": "r2.shot.r2.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -2731,7 +3294,7 @@
               "A": 100,
               "B": 47
             },
-            "turn": 10,
+            "turn": 12,
             "volley": 1,
             "move": {
               "name": "Feature Not Product",
@@ -2751,12 +3314,112 @@
                 "element": "moat",
                 "criterion": "differentiation",
                 "type": "attack"
+              },
+              {
+                "name": "Feature Not Product",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "attack"
               }
             ],
             "verdictLine": "The judges did not move."
           },
           {
-            "t": 45000,
+            "t": 52200,
+            "id": "r2.shot.r2.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r2.v1.A.s3",
+            "criterion": "moat",
+            "weapon": "trebuchet",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Rank data compounds",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 100,
+              "B": 47
+            },
+            "turn": 13,
+            "volley": 1,
+            "move": {
+              "name": "Weekend Clone",
+              "element": "moat",
+              "criterion": "moat",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Ten Times Better",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. LoopRoom still wins moat."
+          },
+          {
+            "t": 55800,
+            "id": "r2.shot.r2.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r2.v1.B.s3",
+            "criterion": "differentiation",
+            "weapon": "laser_rifle",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Sorting is not triage",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 100,
+              "B": 47
+            },
+            "turn": 14,
+            "volley": 1,
+            "move": {
+              "name": "Feature Not Product",
+              "element": "moat",
+              "criterion": "differentiation",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Why Now",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "pitch"
+              },
+              {
+                "name": "Feature Not Product",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "attack"
+              },
+              {
+                "name": "Feature Not Product",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 59400,
             "id": "r2.shot.r2.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -2777,7 +3440,7 @@
               "A": 100,
               "B": 36
             },
-            "turn": 11,
+            "turn": 15,
             "volley": 2,
             "move": {
               "name": "Why Now",
@@ -2802,7 +3465,7 @@
             "verdictLine": "It landed."
           },
           {
-            "t": 48600,
+            "t": 63000,
             "id": "r2.shot.r2.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -2823,7 +3486,7 @@
               "A": 100,
               "B": 36
             },
-            "turn": 12,
+            "turn": 16,
             "volley": 2,
             "move": {
               "name": "Why Now",
@@ -2848,7 +3511,7 @@
             "verdictLine": "Fair point. Dermalens still wins timing."
           },
           {
-            "t": 52200,
+            "t": 66600,
             "id": "status-4",
             "kind": "status",
             "target": "A",
@@ -2856,7 +3519,7 @@
             "on": false
           },
           {
-            "t": 52200,
+            "t": 66600,
             "id": "r2.scorecard",
             "kind": "scorecard",
             "round": 2,
@@ -2889,7 +3552,7 @@
             "agreement": 1
           },
           {
-            "t": 56200,
+            "t": 70600,
             "id": "r3.title",
             "kind": "round_title",
             "round": 3,
@@ -2910,15 +3573,15 @@
             ]
           },
           {
-            "t": 57700,
+            "t": 72100,
             "id": "r3.shot.r3.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
             "shotId": "r3.v1.A.s1",
             "criterion": "gtm",
             "weapon": "gatling",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Three clinics already screen",
             "evidence": [
               {
@@ -2931,7 +3594,7 @@
               "A": 100,
               "B": 19
             },
-            "turn": 13,
+            "turn": 17,
             "volley": 1,
             "move": {
               "name": "First Hundred",
@@ -2951,12 +3614,18 @@
                 "element": "execution",
                 "criterion": "scale",
                 "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
-            "t": 61300,
+            "t": 75700,
             "id": "status-5",
             "kind": "status",
             "target": "B",
@@ -2964,7 +3633,7 @@
             "on": true
           },
           {
-            "t": 61300,
+            "t": 75700,
             "id": "r3.shot.r3.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
@@ -2972,7 +3641,7 @@
             "criterion": "feasibility",
             "weapon": "rocket",
             "impact": 0,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "Rooms ship in a weekend",
             "evidence": [
               {
@@ -2980,12 +3649,22 @@
                 "status": "supported"
               }
             ],
+            "parry": {
+              "defenseShotId": "r3.v2.A.s1",
+              "headline": "Regulars are not distribution",
+              "move": {
+                "name": "Channel Lock",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 100,
               "B": 19
             },
-            "turn": 14,
+            "turn": 18,
             "volley": 1,
             "move": {
               "name": "Shipped Demo",
@@ -3005,12 +3684,18 @@
                 "element": "execution",
                 "criterion": "gtm",
                 "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. Dermalens still wins feasibility."
+            "verdictLine": "Dermalens answered with CHANNEL LOCK."
           },
           {
-            "t": 64900,
+            "t": 79300,
             "id": "r3.shot.r3.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -3026,7 +3711,7 @@
               "A": 100,
               "B": 13
             },
-            "turn": 15,
+            "turn": 19,
             "volley": 1,
             "move": {
               "name": "Lifestyle Business",
@@ -3046,12 +3731,18 @@
                 "element": "execution",
                 "criterion": "scale",
                 "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
               }
             ],
             "verdictLine": "Partly landed."
           },
           {
-            "t": 68500,
+            "t": 82900,
             "id": "status-6",
             "kind": "status",
             "target": "A",
@@ -3059,7 +3750,7 @@
             "on": true
           },
           {
-            "t": 68500,
+            "t": 82900,
             "id": "r3.shot.r3.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -3075,7 +3766,7 @@
               "A": 100,
               "B": 13
             },
-            "turn": 16,
+            "turn": 20,
             "volley": 1,
             "move": {
               "name": "CAC Spiral",
@@ -3095,12 +3786,112 @@
                 "element": "execution",
                 "criterion": "gtm",
                 "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
               }
             ],
             "verdictLine": "The judges did not move."
           },
           {
-            "t": 72100,
+            "t": 86500,
+            "id": "r3.shot.r3.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r3.v1.A.s3",
+            "criterion": "feasibility",
+            "weapon": "rocket",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Pilot cleared the board",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 100,
+              "B": 13
+            },
+            "turn": 21,
+            "volley": 1,
+            "move": {
+              "name": "Science Project",
+              "element": "execution",
+              "criterion": "feasibility",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "First Hundred",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "pitch"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. LoopRoom still wins feasibility."
+          },
+          {
+            "t": 90100,
+            "id": "r3.shot.r3.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r3.v1.B.s3",
+            "criterion": "feasibility",
+            "weapon": "rocket",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Regulators slow everything",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 100,
+              "B": 13
+            },
+            "turn": 22,
+            "volley": 1,
+            "move": {
+              "name": "Science Project",
+              "element": "execution",
+              "criterion": "feasibility",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Shipped Demo",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "pitch"
+              },
+              {
+                "name": "CAC Spiral",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 93700,
             "id": "r3.shot.r3.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -3121,7 +3912,7 @@
               "A": 100,
               "B": 8
             },
-            "turn": 17,
+            "turn": 23,
             "volley": 2,
             "move": {
               "name": "Platform Play",
@@ -3146,7 +3937,7 @@
             "verdictLine": "Partly landed."
           },
           {
-            "t": 75700,
+            "t": 97300,
             "id": "r3.shot.r3.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -3162,7 +3953,7 @@
               "A": 100,
               "B": 8
             },
-            "turn": 18,
+            "turn": 24,
             "volley": 2,
             "move": {
               "name": "Lifestyle Business",
@@ -3187,7 +3978,7 @@
             "verdictLine": "The judges did not move."
           },
           {
-            "t": 79300,
+            "t": 100900,
             "id": "r3.hammer.feasibility.B",
             "kind": "hammer",
             "target": "B",
@@ -3200,7 +3991,7 @@
             }
           },
           {
-            "t": 81500,
+            "t": 103100,
             "id": "status-7",
             "kind": "status",
             "target": "A",
@@ -3208,7 +3999,7 @@
             "on": false
           },
           {
-            "t": 81500,
+            "t": 103100,
             "id": "r3.scorecard",
             "kind": "scorecard",
             "round": 3,
@@ -3241,7 +4032,7 @@
             "agreement": 1
           },
           {
-            "t": 85500,
+            "t": 107100,
             "id": "outcome",
             "kind": "outcome",
             "outcome": "KO",
@@ -3249,7 +4040,7 @@
             "pyrrhic": false
           },
           {
-            "t": 87500,
+            "t": 109100,
             "id": "finisher",
             "kind": "finisher",
             "winner": "A",
@@ -3257,7 +4048,7 @@
             "style": "ko"
           },
           {
-            "t": 89500,
+            "t": 111100,
             "id": "winner",
             "kind": "winner",
             "winner": "A",
@@ -3322,7 +4113,7 @@
       "script": {
         "matchId": "demo-r0s3",
         "directorVersion": "2",
-        "durationMs": 89800,
+        "durationMs": 111400,
         "cues": [
           {
             "t": 0,
@@ -3410,6 +4201,12 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. CurbBot still wins problem."
@@ -3422,8 +4219,8 @@
             "shotId": "r1.v1.B.s1",
             "criterion": "problem",
             "weapon": "flame_lance",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Missing ramps bring lawsuits",
             "evidence": [
               {
@@ -3456,9 +4253,15 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Nice to Have",
+                "element": "market",
+                "criterion": "problem",
+                "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
             "t": 10700,
@@ -3469,9 +4272,19 @@
             "criterion": "market",
             "weapon": "ballista",
             "impact": 1,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "Curb budgets need councils",
             "evidence": [],
+            "parry": {
+              "defenseShotId": "r1.v2.B.s1",
+              "headline": "Surveys are not shelfware",
+              "move": {
+                "name": "Adjacent Market",
+                "element": "market",
+                "criterion": "market",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 84,
@@ -3497,9 +4310,15 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. CurbBot still wins market."
+            "verdictLine": "CurbBot answered with ADJACENT MARKET."
           },
           {
             "t": 14300,
@@ -3543,6 +4362,12 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Nice to Have",
+                "element": "market",
+                "criterion": "problem",
+                "type": "attack"
               }
             ],
             "verdictLine": "Partly landed."
@@ -3557,6 +4382,100 @@
           },
           {
             "t": 17900,
+            "id": "r1.shot.r1.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r1.v1.A.s3",
+            "criterion": "wtp",
+            "weapon": "coin_cannon",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Retries burn real money",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 71,
+              "B": 100
+            },
+            "turn": 5,
+            "volley": 1,
+            "move": {
+              "name": "Free Alternative",
+              "element": "market",
+              "criterion": "wtp",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Hair on Fire",
+                "element": "market",
+                "criterion": "problem",
+                "type": "pitch"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 21500,
+            "id": "r1.shot.r1.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r1.v1.B.s3",
+            "criterion": "problem",
+            "weapon": "flame_lance",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Decrees name dollar amounts",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 71,
+              "B": 100
+            },
+            "turn": 6,
+            "volley": 1,
+            "move": {
+              "name": "Nice to Have",
+              "element": "market",
+              "criterion": "problem",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Hair on Fire",
+                "element": "market",
+                "criterion": "problem",
+                "type": "pitch"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Nice to Have",
+                "element": "market",
+                "criterion": "problem",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. FlakeHunter still wins problem."
+          },
+          {
+            "t": 25100,
             "id": "r1.shot.r1.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -3577,7 +4496,7 @@
               "A": 71,
               "B": 92
             },
-            "turn": 5,
+            "turn": 7,
             "volley": 2,
             "move": {
               "name": "Signed LOI",
@@ -3602,7 +4521,7 @@
             "verdictLine": "It landed."
           },
           {
-            "t": 21500,
+            "t": 28700,
             "id": "status-2",
             "kind": "status",
             "target": "B",
@@ -3610,7 +4529,7 @@
             "on": false
           },
           {
-            "t": 21500,
+            "t": 28700,
             "id": "r1.shot.r1.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -3626,7 +4545,7 @@
               "A": 71,
               "B": 92
             },
-            "turn": 6,
+            "turn": 8,
             "volley": 2,
             "move": {
               "name": "Free Alternative",
@@ -3651,7 +4570,7 @@
             "verdictLine": "Fair point. FlakeHunter still wins wtp."
           },
           {
-            "t": 25100,
+            "t": 32300,
             "id": "r1.scorecard",
             "kind": "scorecard",
             "round": 1,
@@ -3684,7 +4603,7 @@
             "agreement": 0
           },
           {
-            "t": 29100,
+            "t": 36300,
             "id": "r2.title",
             "kind": "round_title",
             "round": 2,
@@ -3705,7 +4624,7 @@
             ]
           },
           {
-            "t": 30600,
+            "t": 37800,
             "id": "r2.shot.r2.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
@@ -3726,7 +4645,7 @@
               "A": 71,
               "B": 92
             },
-            "turn": 7,
+            "turn": 9,
             "volley": 1,
             "move": {
               "name": "Ten Times Better",
@@ -3746,12 +4665,18 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. CurbBot still wins differentiation."
           },
           {
-            "t": 34200,
+            "t": 41400,
             "id": "r2.shot.r2.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
@@ -3772,7 +4697,7 @@
               "A": 58,
               "B": 92
             },
-            "turn": 8,
+            "turn": 10,
             "volley": 1,
             "move": {
               "name": "Feature Not Product",
@@ -3792,12 +4717,18 @@
                 "element": "moat",
                 "criterion": "timing",
                 "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
               }
             ],
             "verdictLine": "Partly landed."
           },
           {
-            "t": 37800,
+            "t": 45000,
             "id": "r2.shot.r2.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -3805,15 +4736,25 @@
             "criterion": "moat",
             "weapon": "trebuchet",
             "impact": 2,
-            "outcome": "partial",
+            "outcome": "parried",
             "headline": "Robots rust, software compounds",
             "evidence": [],
-            "damage": 4,
+            "parry": {
+              "defenseShotId": "r2.v2.B.s1",
+              "headline": "Rules are copyable configs",
+              "move": {
+                "name": "Switching Cost",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "defense"
+              }
+            },
+            "damage": 0,
             "hpAfter": {
               "A": 58,
-              "B": 88
+              "B": 92
             },
-            "turn": 9,
+            "turn": 11,
             "volley": 1,
             "move": {
               "name": "Weekend Clone",
@@ -3833,12 +4774,18 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Partly landed."
+            "verdictLine": "CurbBot answered with SWITCHING COST."
           },
           {
-            "t": 41400,
+            "t": 48600,
             "id": "r2.shot.r2.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -3857,9 +4804,9 @@
             "damage": 10,
             "hpAfter": {
               "A": 48,
-              "B": 88
+              "B": 92
             },
-            "turn": 10,
+            "turn": 12,
             "volley": 1,
             "move": {
               "name": "Why Now",
@@ -3879,12 +4826,120 @@
                 "element": "moat",
                 "criterion": "timing",
                 "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
               }
             ],
             "verdictLine": "It landed."
           },
           {
-            "t": 45000,
+            "t": 52200,
+            "id": "status-3",
+            "kind": "status",
+            "target": "B",
+            "status": "momentum",
+            "on": true
+          },
+          {
+            "t": 52200,
+            "id": "r2.shot.r2.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r2.v1.A.s3",
+            "criterion": "timing",
+            "weapon": "clockwork_railgun",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Flakes block every release",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 48,
+              "B": 92
+            },
+            "turn": 13,
+            "volley": 1,
+            "move": {
+              "name": "Too Early",
+              "element": "moat",
+              "criterion": "timing",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Ten Times Better",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. CurbBot still wins timing."
+          },
+          {
+            "t": 55800,
+            "id": "r2.shot.r2.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r2.v1.B.s3",
+            "criterion": "moat",
+            "weapon": "trebuchet",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Mile maps compound",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 48,
+              "B": 92
+            },
+            "turn": 14,
+            "volley": 1,
+            "move": {
+              "name": "Weekend Clone",
+              "element": "moat",
+              "criterion": "moat",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Feature Not Product",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "attack"
+              },
+              {
+                "name": "Why Now",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 59400,
             "id": "r2.shot.r2.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -3900,12 +4955,12 @@
                 "status": "supported"
               }
             ],
-            "damage": 7,
+            "damage": 11,
             "hpAfter": {
               "A": 48,
               "B": 81
             },
-            "turn": 11,
+            "turn": 15,
             "volley": 2,
             "move": {
               "name": "Compounding Data",
@@ -3930,7 +4985,15 @@
             "verdictLine": "It landed."
           },
           {
-            "t": 48600,
+            "t": 63000,
+            "id": "status-4",
+            "kind": "status",
+            "target": "B",
+            "status": "momentum",
+            "on": false
+          },
+          {
+            "t": 63000,
             "id": "r2.shot.r2.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -3946,7 +5009,7 @@
               "A": 48,
               "B": 81
             },
-            "turn": 12,
+            "turn": 16,
             "volley": 2,
             "move": {
               "name": "Too Early",
@@ -3971,7 +5034,7 @@
             "verdictLine": "Fair point. FlakeHunter still wins timing."
           },
           {
-            "t": 52200,
+            "t": 66600,
             "id": "r2.scorecard",
             "kind": "scorecard",
             "round": 2,
@@ -4004,7 +5067,7 @@
             "agreement": 0
           },
           {
-            "t": 56200,
+            "t": 70600,
             "id": "r3.title",
             "kind": "round_title",
             "round": 3,
@@ -4025,7 +5088,7 @@
             ]
           },
           {
-            "t": 57700,
+            "t": 72100,
             "id": "r3.shot.r3.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
@@ -4046,7 +5109,7 @@
               "A": 48,
               "B": 81
             },
-            "turn": 13,
+            "turn": 17,
             "volley": 1,
             "move": {
               "name": "First Hundred",
@@ -4066,20 +5129,26 @@
                 "element": "execution",
                 "criterion": "feasibility",
                 "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. CurbBot still wins gtm."
           },
           {
-            "t": 61300,
+            "t": 75700,
             "id": "r3.shot.r3.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
             "shotId": "r3.v1.B.s1",
             "criterion": "gtm",
             "weapon": "gatling",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Sell the mile, keep the monitor",
             "evidence": [
               {
@@ -4092,7 +5161,7 @@
               "A": 23,
               "B": 81
             },
-            "turn": 14,
+            "turn": 18,
             "volley": 1,
             "move": {
               "name": "First Hundred",
@@ -4112,20 +5181,26 @@
                 "element": "execution",
                 "criterion": "feasibility",
                 "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
-            "t": 64900,
-            "id": "status-3",
+            "t": 79300,
+            "id": "status-5",
             "kind": "status",
             "target": "A",
             "status": "last_stand",
             "on": true
           },
           {
-            "t": 64900,
+            "t": 79300,
             "id": "r3.shot.r3.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -4133,15 +5208,25 @@
             "criterion": "feasibility",
             "weapon": "rocket",
             "impact": 1,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "Sidewalks fight robots",
             "evidence": [],
+            "parry": {
+              "defenseShotId": "r3.v2.B.s1",
+              "headline": "Routes already roll",
+              "move": {
+                "name": "Proof of Build",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 23,
               "B": 81
             },
-            "turn": 15,
+            "turn": 19,
             "volley": 1,
             "move": {
               "name": "Science Project",
@@ -4161,12 +5246,18 @@
                 "element": "execution",
                 "criterion": "feasibility",
                 "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. CurbBot still wins feasibility."
+            "verdictLine": "CurbBot answered with PROOF OF BUILD."
           },
           {
-            "t": 68500,
+            "t": 82900,
             "id": "r3.shot.r3.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -4182,7 +5273,7 @@
               "A": 23,
               "B": 81
             },
-            "turn": 16,
+            "turn": 20,
             "volley": 1,
             "move": {
               "name": "Science Project",
@@ -4202,12 +5293,112 @@
                 "element": "execution",
                 "criterion": "feasibility",
                 "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. FlakeHunter still wins feasibility."
           },
           {
-            "t": 72100,
+            "t": 86500,
+            "id": "r3.shot.r3.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r3.v1.A.s3",
+            "criterion": "scale",
+            "weapon": "orbital_beam",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Monorepos multiply flakes",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 23,
+              "B": 81
+            },
+            "turn": 21,
+            "volley": 1,
+            "move": {
+              "name": "Lifestyle Business",
+              "element": "execution",
+              "criterion": "scale",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "First Hundred",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "pitch"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 90100,
+            "id": "r3.shot.r3.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r3.v1.B.s3",
+            "criterion": "scale",
+            "weapon": "orbital_beam",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Counties copy the decree",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 23,
+              "B": 81
+            },
+            "turn": 22,
+            "volley": 1,
+            "move": {
+              "name": "Lifestyle Business",
+              "element": "execution",
+              "criterion": "scale",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "First Hundred",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "pitch"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. FlakeHunter still wins scale."
+          },
+          {
+            "t": 93700,
             "id": "r3.shot.r3.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -4228,7 +5419,7 @@
               "A": 23,
               "B": 81
             },
-            "turn": 17,
+            "turn": 23,
             "volley": 2,
             "move": {
               "name": "Platform Play",
@@ -4253,7 +5444,7 @@
             "verdictLine": "Fair point. CurbBot still wins scale."
           },
           {
-            "t": 75700,
+            "t": 97300,
             "id": "r3.shot.r3.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -4274,7 +5465,7 @@
               "A": 12,
               "B": 81
             },
-            "turn": 18,
+            "turn": 24,
             "volley": 2,
             "move": {
               "name": "Platform Play",
@@ -4299,7 +5490,7 @@
             "verdictLine": "Partly landed."
           },
           {
-            "t": 79300,
+            "t": 100900,
             "id": "r3.scorecard",
             "kind": "scorecard",
             "round": 3,
@@ -4332,7 +5523,7 @@
             "agreement": 0.6666666666666666
           },
           {
-            "t": 83300,
+            "t": 104900,
             "id": "outcome",
             "kind": "outcome",
             "outcome": "DECISION",
@@ -4341,7 +5532,7 @@
             "pyrrhic": false
           },
           {
-            "t": 85300,
+            "t": 106900,
             "id": "finisher",
             "kind": "finisher",
             "winner": "B",
@@ -4349,7 +5540,7 @@
             "style": "decision"
           },
           {
-            "t": 87300,
+            "t": 108900,
             "id": "winner",
             "kind": "winner",
             "winner": "B",
@@ -4429,7 +5620,7 @@
       "script": {
         "matchId": "demo-r1s0",
         "directorVersion": "2",
-        "durationMs": 89800,
+        "durationMs": 111400,
         "cues": [
           {
             "t": 0,
@@ -4517,6 +5708,12 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. TabClear still wins problem."
@@ -4563,6 +5760,12 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
             "verdictLine": "It landed."
@@ -4576,9 +5779,19 @@
             "criterion": "market",
             "weapon": "ballista",
             "impact": 0,
-            "outcome": "whiff",
+            "outcome": "parried",
             "headline": "Bars are one street",
             "evidence": [],
+            "parry": {
+              "defenseShotId": "r1.v2.B.s1",
+              "headline": "Registers are everywhere",
+              "move": {
+                "name": "Adjacent Market",
+                "element": "market",
+                "criterion": "market",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 80,
@@ -4604,9 +5817,15 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
-            "verdictLine": "The judges did not move."
+            "verdictLine": "TabClear answered with ADJACENT MARKET."
           },
           {
             "t": 14300,
@@ -4650,6 +5869,12 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
             "verdictLine": "Partly landed."
@@ -4664,6 +5889,100 @@
           },
           {
             "t": 17900,
+            "id": "r1.shot.r1.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r1.v1.A.s3",
+            "criterion": "wtp",
+            "weapon": "coin_cannon",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Stalled crews bill anyway",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 72,
+              "B": 100
+            },
+            "turn": 5,
+            "volley": 1,
+            "move": {
+              "name": "Free Alternative",
+              "element": "market",
+              "criterion": "wtp",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Hair on Fire",
+                "element": "market",
+                "criterion": "problem",
+                "type": "pitch"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. TabClear still wins wtp."
+          },
+          {
+            "t": 21500,
+            "id": "r1.shot.r1.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r1.v1.B.s3",
+            "criterion": "wtp",
+            "weapon": "coin_cannon",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Tabs pay for themselves",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 72,
+              "B": 100
+            },
+            "turn": 6,
+            "volley": 1,
+            "move": {
+              "name": "Free Alternative",
+              "element": "market",
+              "criterion": "wtp",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Hair on Fire",
+                "element": "market",
+                "criterion": "problem",
+                "type": "pitch"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. PermitPilot still wins wtp."
+          },
+          {
+            "t": 25100,
             "id": "r1.shot.r1.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -4684,7 +6003,7 @@
               "A": 72,
               "B": 100
             },
-            "turn": 5,
+            "turn": 7,
             "volley": 2,
             "move": {
               "name": "Signed LOI",
@@ -4709,7 +6028,7 @@
             "verdictLine": "Fair point. TabClear still wins wtp."
           },
           {
-            "t": 21500,
+            "t": 28700,
             "id": "r1.shot.r1.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -4730,7 +6049,7 @@
               "A": 67,
               "B": 100
             },
-            "turn": 6,
+            "turn": 8,
             "volley": 2,
             "move": {
               "name": "Signed LOI",
@@ -4755,7 +6074,7 @@
             "verdictLine": "It landed."
           },
           {
-            "t": 25100,
+            "t": 32300,
             "id": "status-2",
             "kind": "status",
             "target": "B",
@@ -4763,7 +6082,7 @@
             "on": false
           },
           {
-            "t": 25100,
+            "t": 32300,
             "id": "r1.scorecard",
             "kind": "scorecard",
             "round": 1,
@@ -4796,7 +6115,7 @@
             "agreement": 1
           },
           {
-            "t": 29100,
+            "t": 36300,
             "id": "r2.title",
             "kind": "round_title",
             "round": 2,
@@ -4817,15 +6136,15 @@
             ]
           },
           {
-            "t": 30600,
+            "t": 37800,
             "id": "r2.shot.r2.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
             "shotId": "r2.v1.A.s1",
             "criterion": "differentiation",
             "weapon": "laser_rifle",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "We file, then we chase",
             "evidence": [
               {
@@ -4838,7 +6157,7 @@
               "A": 67,
               "B": 77
             },
-            "turn": 7,
+            "turn": 9,
             "volley": 1,
             "move": {
               "name": "Ten Times Better",
@@ -4858,12 +6177,18 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
-            "t": 34200,
+            "t": 41400,
             "id": "r2.shot.r2.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
@@ -4871,7 +6196,7 @@
             "criterion": "differentiation",
             "weapon": "laser_rifle",
             "impact": 1,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "Settlement at the table",
             "evidence": [
               {
@@ -4879,12 +6204,22 @@
                 "status": "supported"
               }
             ],
+            "parry": {
+              "defenseShotId": "r2.v2.A.s1",
+              "headline": "Settlement is a feature",
+              "move": {
+                "name": "Side by Side",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 67,
               "B": 77
             },
-            "turn": 8,
+            "turn": 10,
             "volley": 1,
             "move": {
               "name": "Ten Times Better",
@@ -4904,12 +6239,18 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. PermitPilot still wins differentiation."
+            "verdictLine": "PermitPilot answered with SIDE BY SIDE."
           },
           {
-            "t": 37800,
+            "t": 45000,
             "id": "r2.shot.r2.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -4925,7 +6266,7 @@
               "A": 67,
               "B": 64
             },
-            "turn": 9,
+            "turn": 11,
             "volley": 1,
             "move": {
               "name": "Weekend Clone",
@@ -4945,12 +6286,18 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
             "verdictLine": "Partly landed."
           },
           {
-            "t": 41400,
+            "t": 48600,
             "id": "status-3",
             "kind": "status",
             "target": "A",
@@ -4958,7 +6305,7 @@
             "on": true
           },
           {
-            "t": 41400,
+            "t": 48600,
             "id": "r2.shot.r2.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -4974,7 +6321,7 @@
               "A": 67,
               "B": 64
             },
-            "turn": 10,
+            "turn": 12,
             "volley": 1,
             "move": {
               "name": "Weekend Clone",
@@ -4994,12 +6341,112 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
             "verdictLine": "The judges did not move."
           },
           {
-            "t": 45000,
+            "t": 52200,
+            "id": "r2.shot.r2.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r2.v1.A.s3",
+            "criterion": "timing",
+            "weapon": "clockwork_railgun",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Hiring freeze opens desks",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 67,
+              "B": 64
+            },
+            "turn": 13,
+            "volley": 1,
+            "move": {
+              "name": "Too Early",
+              "element": "moat",
+              "criterion": "timing",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Ten Times Better",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. TabClear still wins timing."
+          },
+          {
+            "t": 55800,
+            "id": "r2.shot.r2.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r2.v1.B.s3",
+            "criterion": "timing",
+            "weapon": "clockwork_railgun",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Nightlife never closes",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 67,
+              "B": 64
+            },
+            "turn": 14,
+            "volley": 1,
+            "move": {
+              "name": "Too Early",
+              "element": "moat",
+              "criterion": "timing",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Ten Times Better",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 59400,
             "id": "r2.shot.r2.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -5020,7 +6467,7 @@
               "A": 67,
               "B": 57
             },
-            "turn": 11,
+            "turn": 15,
             "volley": 2,
             "move": {
               "name": "Why Now",
@@ -5045,7 +6492,7 @@
             "verdictLine": "It landed."
           },
           {
-            "t": 48600,
+            "t": 63000,
             "id": "r2.shot.r2.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -5061,7 +6508,7 @@
               "A": 67,
               "B": 57
             },
-            "turn": 12,
+            "turn": 16,
             "volley": 2,
             "move": {
               "name": "Too Early",
@@ -5086,7 +6533,7 @@
             "verdictLine": "The judges did not move."
           },
           {
-            "t": 52200,
+            "t": 66600,
             "id": "status-4",
             "kind": "status",
             "target": "A",
@@ -5094,7 +6541,7 @@
             "on": false
           },
           {
-            "t": 52200,
+            "t": 66600,
             "id": "r2.scorecard",
             "kind": "scorecard",
             "round": 2,
@@ -5127,7 +6574,7 @@
             "agreement": 1
           },
           {
-            "t": 56200,
+            "t": 70600,
             "id": "r3.title",
             "kind": "round_title",
             "round": 3,
@@ -5148,15 +6595,15 @@
             ]
           },
           {
-            "t": 57700,
+            "t": 72100,
             "id": "r3.shot.r3.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
             "shotId": "r3.v1.A.s1",
             "criterion": "gtm",
             "weapon": "gatling",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Sell where fees already flow",
             "evidence": [
               {
@@ -5169,7 +6616,7 @@
               "A": 67,
               "B": 33
             },
-            "turn": 13,
+            "turn": 17,
             "volley": 1,
             "move": {
               "name": "First Hundred",
@@ -5189,12 +6636,18 @@
                 "element": "execution",
                 "criterion": "scale",
                 "type": "pitch"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
-            "t": 61300,
+            "t": 75700,
             "id": "r3.shot.r3.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
@@ -5215,7 +6668,7 @@
               "A": 67,
               "B": 33
             },
-            "turn": 14,
+            "turn": 18,
             "volley": 1,
             "move": {
               "name": "Shipped Demo",
@@ -5235,12 +6688,18 @@
                 "element": "execution",
                 "criterion": "gtm",
                 "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. PermitPilot still wins feasibility."
           },
           {
-            "t": 64900,
+            "t": 79300,
             "id": "r3.shot.r3.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -5261,7 +6720,7 @@
               "A": 67,
               "B": 7
             },
-            "turn": 15,
+            "turn": 19,
             "volley": 1,
             "move": {
               "name": "Platform Play",
@@ -5281,12 +6740,18 @@
                 "element": "execution",
                 "criterion": "scale",
                 "type": "pitch"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
               }
             ],
             "verdictLine": "Partly landed."
           },
           {
-            "t": 68500,
+            "t": 82900,
             "id": "status-5",
             "kind": "status",
             "target": "A",
@@ -5294,7 +6759,7 @@
             "on": true
           },
           {
-            "t": 68500,
+            "t": 82900,
             "id": "status-6",
             "kind": "status",
             "target": "B",
@@ -5302,7 +6767,7 @@
             "on": true
           },
           {
-            "t": 68500,
+            "t": 82900,
             "id": "r3.shot.r3.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -5310,15 +6775,25 @@
             "criterion": "gtm",
             "weapon": "gatling",
             "impact": 0,
-            "outcome": "whiff",
+            "outcome": "parried",
             "headline": "Desks sell to nobody",
             "evidence": [],
+            "parry": {
+              "defenseShotId": "r3.v2.A.s1",
+              "headline": "Registers gatekeep bars",
+              "move": {
+                "name": "Channel Lock",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 67,
               "B": 7
             },
-            "turn": 16,
+            "turn": 20,
             "volley": 1,
             "move": {
               "name": "CAC Spiral",
@@ -5338,12 +6813,112 @@
                 "element": "execution",
                 "criterion": "gtm",
                 "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "PermitPilot answered with CHANNEL LOCK."
+          },
+          {
+            "t": 86500,
+            "id": "r3.shot.r3.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r3.v1.A.s3",
+            "criterion": "feasibility",
+            "weapon": "rocket",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Paperwork needs no hardware",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 67,
+              "B": 7
+            },
+            "turn": 21,
+            "volley": 1,
+            "move": {
+              "name": "Science Project",
+              "element": "execution",
+              "criterion": "feasibility",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "First Hundred",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "pitch"
+              },
+              {
+                "name": "Platform Play",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "pitch"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. TabClear still wins feasibility."
+          },
+          {
+            "t": 90100,
+            "id": "r3.shot.r3.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r3.v1.B.s3",
+            "criterion": "scale",
+            "weapon": "orbital_beam",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Counters cap the city",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 67,
+              "B": 7
+            },
+            "turn": 22,
+            "volley": 1,
+            "move": {
+              "name": "Lifestyle Business",
+              "element": "execution",
+              "criterion": "scale",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Shipped Demo",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "pitch"
+              },
+              {
+                "name": "CAC Spiral",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
               }
             ],
             "verdictLine": "The judges did not move."
           },
           {
-            "t": 72100,
+            "t": 93700,
             "id": "r3.shot.r3.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -5359,7 +6934,7 @@
               "A": 67,
               "B": 0
             },
-            "turn": 17,
+            "turn": 23,
             "volley": 2,
             "move": {
               "name": "Science Project",
@@ -5384,7 +6959,7 @@
             "verdictLine": "Partly landed."
           },
           {
-            "t": 75700,
+            "t": 97300,
             "id": "r3.shot.r3.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -5400,7 +6975,7 @@
               "A": 67,
               "B": 0
             },
-            "turn": 18,
+            "turn": 24,
             "volley": 2,
             "move": {
               "name": "Lifestyle Business",
@@ -5425,7 +7000,7 @@
             "verdictLine": "The judges did not move."
           },
           {
-            "t": 79300,
+            "t": 100900,
             "id": "status-7",
             "kind": "status",
             "target": "A",
@@ -5433,7 +7008,7 @@
             "on": false
           },
           {
-            "t": 79300,
+            "t": 100900,
             "id": "r3.scorecard",
             "kind": "scorecard",
             "round": 3,
@@ -5466,7 +7041,7 @@
             "agreement": 1
           },
           {
-            "t": 83300,
+            "t": 104900,
             "id": "outcome",
             "kind": "outcome",
             "outcome": "KO",
@@ -5474,7 +7049,7 @@
             "pyrrhic": false
           },
           {
-            "t": 85300,
+            "t": 106900,
             "id": "finisher",
             "kind": "finisher",
             "winner": "A",
@@ -5482,7 +7057,7 @@
             "style": "ko"
           },
           {
-            "t": 87300,
+            "t": 108900,
             "id": "winner",
             "kind": "winner",
             "winner": "A",
@@ -5562,7 +7137,7 @@
       "script": {
         "matchId": "demo-r1s1",
         "directorVersion": "2",
-        "durationMs": 89800,
+        "durationMs": 111400,
         "cues": [
           {
             "t": 0,
@@ -5650,6 +7225,12 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. CurbBot still wins problem."
@@ -5662,8 +7243,8 @@
             "shotId": "r1.v1.B.s1",
             "criterion": "problem",
             "weapon": "flame_lance",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Settlements dwarf the survey",
             "evidence": [
               {
@@ -5696,9 +7277,15 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
             "t": 10700,
@@ -5709,9 +7296,19 @@
             "criterion": "market",
             "weapon": "ballista",
             "impact": 0,
-            "outcome": "whiff",
+            "outcome": "parried",
             "headline": "Surveys need council votes",
             "evidence": [],
+            "parry": {
+              "defenseShotId": "r1.v2.B.s1",
+              "headline": "Decrees stack city by city",
+              "move": {
+                "name": "Adjacent Market",
+                "element": "market",
+                "criterion": "market",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 86,
@@ -5737,9 +7334,15 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
-            "verdictLine": "The judges did not move."
+            "verdictLine": "CurbBot answered with ADJACENT MARKET."
           },
           {
             "t": 14300,
@@ -5783,6 +7386,12 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
             "verdictLine": "Partly landed."
@@ -5797,6 +7406,100 @@
           },
           {
             "t": 17900,
+            "id": "r1.shot.r1.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r1.v1.A.s3",
+            "criterion": "wtp",
+            "weapon": "coin_cannon",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Waitlists ration care",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 75,
+              "B": 100
+            },
+            "turn": 5,
+            "volley": 1,
+            "move": {
+              "name": "Free Alternative",
+              "element": "market",
+              "criterion": "wtp",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Hair on Fire",
+                "element": "market",
+                "criterion": "problem",
+                "type": "pitch"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 21500,
+            "id": "r1.shot.r1.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r1.v1.B.s3",
+            "criterion": "wtp",
+            "weapon": "coin_cannon",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Fines fund the survey",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 75,
+              "B": 100
+            },
+            "turn": 6,
+            "volley": 1,
+            "move": {
+              "name": "Free Alternative",
+              "element": "market",
+              "criterion": "wtp",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Hair on Fire",
+                "element": "market",
+                "criterion": "problem",
+                "type": "pitch"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. Dermalens still wins wtp."
+          },
+          {
+            "t": 25100,
             "id": "r1.shot.r1.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -5817,7 +7520,7 @@
               "A": 75,
               "B": 100
             },
-            "turn": 5,
+            "turn": 7,
             "volley": 2,
             "move": {
               "name": "Signed LOI",
@@ -5842,7 +7545,7 @@
             "verdictLine": "Fair point. CurbBot still wins wtp."
           },
           {
-            "t": 21500,
+            "t": 28700,
             "id": "r1.shot.r1.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -5858,7 +7561,7 @@
               "A": 75,
               "B": 100
             },
-            "turn": 6,
+            "turn": 8,
             "volley": 2,
             "move": {
               "name": "Free Alternative",
@@ -5883,7 +7586,7 @@
             "verdictLine": "Fair point. Dermalens still wins wtp."
           },
           {
-            "t": 25100,
+            "t": 32300,
             "id": "status-2",
             "kind": "status",
             "target": "B",
@@ -5891,7 +7594,7 @@
             "on": false
           },
           {
-            "t": 25100,
+            "t": 32300,
             "id": "r1.scorecard",
             "kind": "scorecard",
             "round": 1,
@@ -5924,7 +7627,7 @@
             "agreement": 1
           },
           {
-            "t": 29100,
+            "t": 36300,
             "id": "r2.title",
             "kind": "round_title",
             "round": 2,
@@ -5945,7 +7648,7 @@
             ]
           },
           {
-            "t": 30600,
+            "t": 37800,
             "id": "r2.shot.r2.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
@@ -5966,7 +7669,7 @@
               "A": 75,
               "B": 100
             },
-            "turn": 7,
+            "turn": 9,
             "volley": 1,
             "move": {
               "name": "Ten Times Better",
@@ -5986,12 +7689,18 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. CurbBot still wins differentiation."
           },
           {
-            "t": 34200,
+            "t": 41400,
             "id": "r2.shot.r2.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
@@ -6012,7 +7721,7 @@
               "A": 64,
               "B": 100
             },
-            "turn": 8,
+            "turn": 10,
             "volley": 1,
             "move": {
               "name": "Ten Times Better",
@@ -6032,12 +7741,18 @@
                 "element": "moat",
                 "criterion": "timing",
                 "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
               }
             ],
             "verdictLine": "It landed."
           },
           {
-            "t": 37800,
+            "t": 45000,
             "id": "r2.shot.r2.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -6045,15 +7760,25 @@
             "criterion": "moat",
             "weapon": "trebuchet",
             "impact": 1,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "Routes are just driving",
             "evidence": [],
+            "parry": {
+              "defenseShotId": "r2.v2.B.s1",
+              "headline": "Photos compound too",
+              "move": {
+                "name": "Switching Cost",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 64,
               "B": 100
             },
-            "turn": 9,
+            "turn": 11,
             "volley": 1,
             "move": {
               "name": "Weekend Clone",
@@ -6073,20 +7798,26 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. CurbBot still wins moat."
+            "verdictLine": "CurbBot answered with SWITCHING COST."
           },
           {
-            "t": 41400,
+            "t": 48600,
             "id": "r2.shot.r2.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
             "shotId": "r2.v1.B.s2",
             "criterion": "timing",
             "weapon": "clockwork_railgun",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Deadlines bind this year",
             "evidence": [
               {
@@ -6099,7 +7830,7 @@
               "A": 46,
               "B": 100
             },
-            "turn": 10,
+            "turn": 12,
             "volley": 1,
             "move": {
               "name": "Why Now",
@@ -6119,12 +7850,18 @@
                 "element": "moat",
                 "criterion": "timing",
                 "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
-            "t": 45000,
+            "t": 52200,
             "id": "status-3",
             "kind": "status",
             "target": "B",
@@ -6132,7 +7869,101 @@
             "on": true
           },
           {
-            "t": 45000,
+            "t": 52200,
+            "id": "r2.shot.r2.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r2.v1.A.s3",
+            "criterion": "timing",
+            "weapon": "clockwork_railgun",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Queues grow every winter",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 46,
+              "B": 100
+            },
+            "turn": 13,
+            "volley": 1,
+            "move": {
+              "name": "Too Early",
+              "element": "moat",
+              "criterion": "timing",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Ten Times Better",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. CurbBot still wins timing."
+          },
+          {
+            "t": 55800,
+            "id": "r2.shot.r2.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r2.v1.B.s3",
+            "criterion": "moat",
+            "weapon": "trebuchet",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Depot data compounds",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 46,
+              "B": 100
+            },
+            "turn": 14,
+            "volley": 1,
+            "move": {
+              "name": "Weekend Clone",
+              "element": "moat",
+              "criterion": "moat",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Ten Times Better",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "pitch"
+              },
+              {
+                "name": "Why Now",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 59400,
             "id": "r2.shot.r2.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -6148,7 +7979,7 @@
               "A": 46,
               "B": 100
             },
-            "turn": 11,
+            "turn": 15,
             "volley": 2,
             "move": {
               "name": "Too Early",
@@ -6173,7 +8004,7 @@
             "verdictLine": "The judges did not move."
           },
           {
-            "t": 48600,
+            "t": 63000,
             "id": "r2.shot.r2.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -6189,7 +8020,7 @@
               "A": 46,
               "B": 100
             },
-            "turn": 12,
+            "turn": 16,
             "volley": 2,
             "move": {
               "name": "Weekend Clone",
@@ -6214,7 +8045,7 @@
             "verdictLine": "Fair point. Dermalens still wins moat."
           },
           {
-            "t": 52200,
+            "t": 66600,
             "id": "status-4",
             "kind": "status",
             "target": "B",
@@ -6222,7 +8053,7 @@
             "on": false
           },
           {
-            "t": 52200,
+            "t": 66600,
             "id": "r2.scorecard",
             "kind": "scorecard",
             "round": 2,
@@ -6255,7 +8086,7 @@
             "agreement": 1
           },
           {
-            "t": 56200,
+            "t": 70600,
             "id": "r3.title",
             "kind": "round_title",
             "round": 3,
@@ -6276,7 +8107,7 @@
             ]
           },
           {
-            "t": 57700,
+            "t": 72100,
             "id": "r3.shot.r3.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
@@ -6292,12 +8123,22 @@
                 "status": "fabricated"
               }
             ],
+            "parry": {
+              "defenseShotId": "r3.v2.B.s1",
+              "headline": "That backlog is not sourced",
+              "move": {
+                "name": "Second Act",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "defense"
+              }
+            },
             "damage": 14,
             "hpAfter": {
               "A": 32,
               "B": 100
             },
-            "turn": 13,
+            "turn": 17,
             "volley": 1,
             "move": {
               "name": "Platform Play",
@@ -6317,12 +8158,18 @@
                 "element": "execution",
                 "criterion": "gtm",
                 "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
               }
             ],
             "verdictLine": "FACT-CHECKED. It blew up in Dermalens's hands."
           },
           {
-            "t": 61300,
+            "t": 75700,
             "id": "status-5",
             "kind": "status",
             "target": "A",
@@ -6330,7 +8177,7 @@
             "on": true
           },
           {
-            "t": 61300,
+            "t": 75700,
             "id": "r3.shot.r3.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
@@ -6351,7 +8198,7 @@
               "A": 21,
               "B": 100
             },
-            "turn": 14,
+            "turn": 18,
             "volley": 1,
             "move": {
               "name": "First Hundred",
@@ -6371,12 +8218,18 @@
                 "element": "execution",
                 "criterion": "scale",
                 "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
               }
             ],
             "verdictLine": "It landed."
           },
           {
-            "t": 64900,
+            "t": 79300,
             "id": "status-6",
             "kind": "status",
             "target": "A",
@@ -6384,7 +8237,7 @@
             "on": true
           },
           {
-            "t": 64900,
+            "t": 79300,
             "id": "r3.shot.r3.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -6400,7 +8253,7 @@
               "A": 21,
               "B": 100
             },
-            "turn": 15,
+            "turn": 19,
             "volley": 1,
             "move": {
               "name": "CAC Spiral",
@@ -6420,12 +8273,18 @@
                 "element": "execution",
                 "criterion": "gtm",
                 "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. CurbBot still wins gtm."
           },
           {
-            "t": 68500,
+            "t": 82900,
             "id": "r3.shot.r3.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -6446,7 +8305,7 @@
               "A": 12,
               "B": 100
             },
-            "turn": 16,
+            "turn": 20,
             "volley": 1,
             "move": {
               "name": "Lifestyle Business",
@@ -6466,12 +8325,18 @@
                 "element": "execution",
                 "criterion": "scale",
                 "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
               }
             ],
             "verdictLine": "Partly landed."
           },
           {
-            "t": 72100,
+            "t": 86500,
             "id": "status-7",
             "kind": "status",
             "target": "B",
@@ -6479,7 +8344,101 @@
             "on": true
           },
           {
-            "t": 72100,
+            "t": 86500,
+            "id": "r3.shot.r3.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r3.v1.A.s3",
+            "criterion": "feasibility",
+            "weapon": "rocket",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Phones are the clinic",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 12,
+              "B": 100
+            },
+            "turn": 21,
+            "volley": 1,
+            "move": {
+              "name": "Science Project",
+              "element": "execution",
+              "criterion": "feasibility",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Platform Play",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "pitch"
+              },
+              {
+                "name": "CAC Spiral",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. CurbBot still wins feasibility."
+          },
+          {
+            "t": 90100,
+            "id": "r3.shot.r3.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r3.v1.B.s3",
+            "criterion": "feasibility",
+            "weapon": "rocket",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Clinics distrust vendors",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 12,
+              "B": 100
+            },
+            "turn": 22,
+            "volley": 1,
+            "move": {
+              "name": "Science Project",
+              "element": "execution",
+              "criterion": "feasibility",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "First Hundred",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "pitch"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 93700,
             "id": "r3.shot.r3.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -6500,7 +8459,7 @@
               "A": 12,
               "B": 90
             },
-            "turn": 17,
+            "turn": 23,
             "volley": 2,
             "move": {
               "name": "Shipped Demo",
@@ -6525,7 +8484,7 @@
             "verdictLine": "It landed."
           },
           {
-            "t": 75700,
+            "t": 97300,
             "id": "status-8",
             "kind": "status",
             "target": "B",
@@ -6533,7 +8492,7 @@
             "on": false
           },
           {
-            "t": 75700,
+            "t": 97300,
             "id": "r3.shot.r3.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -6549,7 +8508,7 @@
               "A": 12,
               "B": 90
             },
-            "turn": 18,
+            "turn": 24,
             "volley": 2,
             "move": {
               "name": "Science Project",
@@ -6574,7 +8533,7 @@
             "verdictLine": "Fair point. Dermalens still wins feasibility."
           },
           {
-            "t": 79300,
+            "t": 100900,
             "id": "r3.scorecard",
             "kind": "scorecard",
             "round": 3,
@@ -6607,7 +8566,7 @@
             "agreement": 1
           },
           {
-            "t": 83300,
+            "t": 104900,
             "id": "outcome",
             "kind": "outcome",
             "outcome": "DECISION",
@@ -6616,7 +8575,7 @@
             "pyrrhic": false
           },
           {
-            "t": 85300,
+            "t": 106900,
             "id": "finisher",
             "kind": "finisher",
             "winner": "B",
@@ -6624,7 +8583,7 @@
             "style": "decision"
           },
           {
-            "t": 87300,
+            "t": 108900,
             "id": "winner",
             "kind": "winner",
             "winner": "B",
@@ -6709,7 +8668,7 @@
       "script": {
         "matchId": "demo-r2s0",
         "directorVersion": "2",
-        "durationMs": 93800,
+        "durationMs": 117600,
         "cues": [
           {
             "t": 0,
@@ -6763,8 +8722,8 @@
             "shotId": "r1.v1.A.s1",
             "criterion": "problem",
             "weapon": "flame_lance",
-            "impact": 2,
-            "outcome": "glancing",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Packets stall real builds",
             "evidence": [
               {
@@ -6772,10 +8731,10 @@
                 "status": "supported"
               }
             ],
-            "damage": 0,
+            "damage": 15,
             "hpAfter": {
               "A": 100,
-              "B": 100
+              "B": 85
             },
             "turn": 1,
             "volley": 1,
@@ -6797,9 +8756,15 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. CurbBot still wins problem."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
             "t": 7100,
@@ -6810,7 +8775,7 @@
             "criterion": "problem",
             "weapon": "flame_lance",
             "impact": 2,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "Ramps block real people",
             "evidence": [
               {
@@ -6818,10 +8783,20 @@
                 "status": "supported"
               }
             ],
+            "parry": {
+              "defenseShotId": "r1.v2.A.s1",
+              "headline": "Pain is still pain",
+              "move": {
+                "name": "Pain Receipt",
+                "element": "market",
+                "criterion": "problem",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 100,
-              "B": 100
+              "B": 85
             },
             "turn": 2,
             "volley": 1,
@@ -6843,9 +8818,15 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Nice to Have",
+                "element": "market",
+                "criterion": "problem",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. PermitPilot still wins problem."
+            "verdictLine": "PermitPilot answered with PAIN RECEIPT."
           },
           {
             "t": 10700,
@@ -6862,7 +8843,7 @@
             "damage": 0,
             "hpAfter": {
               "A": 100,
-              "B": 100
+              "B": 85
             },
             "turn": 3,
             "volley": 1,
@@ -6884,6 +8865,12 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. CurbBot still wins market."
@@ -6896,14 +8883,19 @@
             "shotId": "r1.v1.B.s2",
             "criterion": "market",
             "weapon": "ballista",
-            "impact": 1,
-            "outcome": "glancing",
+            "impact": 2,
+            "outcome": "partial",
             "headline": "Permits are one desk",
-            "evidence": [],
-            "damage": 0,
+            "evidence": [
+              {
+                "id": "E26",
+                "status": "supported"
+              }
+            ],
+            "damage": 24,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 76,
+              "B": 85
             },
             "turn": 4,
             "volley": 1,
@@ -6925,12 +8917,112 @@
                 "element": "market",
                 "criterion": "market",
                 "type": "attack"
+              },
+              {
+                "name": "Nice to Have",
+                "element": "market",
+                "criterion": "problem",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. PermitPilot still wins market."
+            "verdictLine": "Partly landed."
           },
           {
             "t": 17900,
+            "id": "r1.shot.r1.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r1.v1.A.s3",
+            "criterion": "wtp",
+            "weapon": "coin_cannon",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Chase fees fund the product",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 76,
+              "B": 85
+            },
+            "turn": 5,
+            "volley": 1,
+            "move": {
+              "name": "Free Alternative",
+              "element": "market",
+              "criterion": "wtp",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Hair on Fire",
+                "element": "market",
+                "criterion": "problem",
+                "type": "pitch"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Free Alternative",
+                "element": "market",
+                "criterion": "wtp",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. CurbBot still wins wtp."
+          },
+          {
+            "t": 21500,
+            "id": "r1.shot.r1.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r1.v1.B.s3",
+            "criterion": "problem",
+            "weapon": "flame_lance",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Fines price the pain",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 76,
+              "B": 85
+            },
+            "turn": 6,
+            "volley": 1,
+            "move": {
+              "name": "Nice to Have",
+              "element": "market",
+              "criterion": "problem",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Hair on Fire",
+                "element": "market",
+                "criterion": "problem",
+                "type": "pitch"
+              },
+              {
+                "name": "Niche Trap",
+                "element": "market",
+                "criterion": "market",
+                "type": "attack"
+              },
+              {
+                "name": "Nice to Have",
+                "element": "market",
+                "criterion": "problem",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 25100,
             "id": "r1.shot.r1.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -6938,7 +9030,7 @@
             "criterion": "wtp",
             "weapon": "coin_cannon",
             "impact": 2,
-            "outcome": "glancing",
+            "outcome": "partial",
             "headline": "Chase fees prove budget",
             "evidence": [
               {
@@ -6946,12 +9038,12 @@
                 "status": "supported"
               }
             ],
-            "damage": 0,
+            "damage": 16,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 76,
+              "B": 69
             },
-            "turn": 5,
+            "turn": 7,
             "volley": 2,
             "move": {
               "name": "Signed LOI",
@@ -6973,10 +9065,10 @@
                 "type": "pitch"
               }
             ],
-            "verdictLine": "Fair point. CurbBot still wins wtp."
+            "verdictLine": "Partly landed."
           },
           {
-            "t": 21500,
+            "t": 28700,
             "id": "r1.shot.r1.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -6994,10 +9086,10 @@
             ],
             "damage": 0,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 76,
+              "B": 69
             },
-            "turn": 6,
+            "turn": 8,
             "volley": 2,
             "move": {
               "name": "Signed LOI",
@@ -7022,40 +9114,40 @@
             "verdictLine": "Fair point. PermitPilot still wins wtp."
           },
           {
-            "t": 25100,
+            "t": 32300,
             "id": "r1.scorecard",
             "kind": "scorecard",
             "round": 1,
             "rows": [
               {
                 "criterion": "problem",
-                "A": 5,
-                "B": 5,
-                "points": 0,
-                "hp": 0,
-                "to": null
+                "A": 7,
+                "B": 6,
+                "points": 1.5,
+                "hp": 15,
+                "to": "B"
               },
               {
                 "criterion": "market",
                 "A": 5,
-                "B": 5,
-                "points": 0,
-                "hp": 0,
-                "to": null
+                "B": 7,
+                "points": 2.4,
+                "hp": 24,
+                "to": "A"
               },
               {
                 "criterion": "wtp",
-                "A": 5,
-                "B": 5,
-                "points": 0,
-                "hp": 0,
-                "to": null
+                "A": 8,
+                "B": 6,
+                "points": 1.6,
+                "hp": 16,
+                "to": "B"
               }
             ],
             "agreement": 1
           },
           {
-            "t": 29100,
+            "t": 36300,
             "id": "r2.title",
             "kind": "round_title",
             "round": 2,
@@ -7076,7 +9168,7 @@
             ]
           },
           {
-            "t": 30600,
+            "t": 37800,
             "id": "r2.shot.r2.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
@@ -7094,10 +9186,10 @@
             ],
             "damage": 0,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 76,
+              "B": 69
             },
-            "turn": 7,
+            "turn": 9,
             "volley": 1,
             "move": {
               "name": "Ten Times Better",
@@ -7117,20 +9209,26 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. CurbBot still wins differentiation."
           },
           {
-            "t": 34200,
+            "t": 41400,
             "id": "r2.shot.r2.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
             "shotId": "r2.v1.B.s1",
             "criterion": "differentiation",
             "weapon": "laser_rifle",
-            "impact": 2,
-            "outcome": "glancing",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Grades never existed",
             "evidence": [
               {
@@ -7138,12 +9236,12 @@
                 "status": "supported"
               }
             ],
-            "damage": 0,
+            "damage": 35,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 41,
+              "B": 69
             },
-            "turn": 8,
+            "turn": 10,
             "volley": 1,
             "move": {
               "name": "Ten Times Better",
@@ -7163,12 +9261,18 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. PermitPilot still wins differentiation."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
-            "t": 37800,
+            "t": 45000,
             "id": "r2.shot.r2.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -7176,15 +9280,25 @@
             "criterion": "moat",
             "weapon": "trebuchet",
             "impact": 1,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "Routes can be walked",
             "evidence": [],
+            "parry": {
+              "defenseShotId": "r2.v2.B.s1",
+              "headline": "Miles train graders",
+              "move": {
+                "name": "Switching Cost",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 41,
+              "B": 69
             },
-            "turn": 9,
+            "turn": 11,
             "volley": 1,
             "move": {
               "name": "Weekend Clone",
@@ -7204,12 +9318,18 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. CurbBot still wins moat."
+            "verdictLine": "CurbBot answered with SWITCHING COST."
           },
           {
-            "t": 41400,
+            "t": 48600,
             "id": "r2.shot.r2.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -7222,10 +9342,10 @@
             "evidence": [],
             "damage": 0,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 41,
+              "B": 69
             },
-            "turn": 10,
+            "turn": 12,
             "volley": 1,
             "move": {
               "name": "Weekend Clone",
@@ -7245,12 +9365,112 @@
                 "element": "moat",
                 "criterion": "moat",
                 "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. PermitPilot still wins moat."
           },
           {
-            "t": 45000,
+            "t": 52200,
+            "id": "r2.shot.r2.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r2.v1.A.s3",
+            "criterion": "timing",
+            "weapon": "clockwork_railgun",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Backlogs peak this year",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 41,
+              "B": 69
+            },
+            "turn": 13,
+            "volley": 1,
+            "move": {
+              "name": "Too Early",
+              "element": "moat",
+              "criterion": "timing",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Ten Times Better",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. CurbBot still wins timing."
+          },
+          {
+            "t": 55800,
+            "id": "r2.shot.r2.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r2.v1.B.s3",
+            "criterion": "timing",
+            "weapon": "clockwork_railgun",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Decrees renew yearly",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 41,
+              "B": 69
+            },
+            "turn": 14,
+            "volley": 1,
+            "move": {
+              "name": "Too Early",
+              "element": "moat",
+              "criterion": "timing",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Ten Times Better",
+                "element": "moat",
+                "criterion": "differentiation",
+                "type": "pitch"
+              },
+              {
+                "name": "Weekend Clone",
+                "element": "moat",
+                "criterion": "moat",
+                "type": "attack"
+              },
+              {
+                "name": "Too Early",
+                "element": "moat",
+                "criterion": "timing",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. PermitPilot still wins timing."
+          },
+          {
+            "t": 59400,
             "id": "r2.shot.r2.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -7268,10 +9488,10 @@
             ],
             "damage": 0,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 41,
+              "B": 69
             },
-            "turn": 11,
+            "turn": 15,
             "volley": 2,
             "move": {
               "name": "Why Now",
@@ -7296,7 +9516,7 @@
             "verdictLine": "Fair point. CurbBot still wins timing."
           },
           {
-            "t": 48600,
+            "t": 63000,
             "id": "r2.shot.r2.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -7304,7 +9524,7 @@
             "criterion": "timing",
             "weapon": "clockwork_railgun",
             "impact": 2,
-            "outcome": "glancing",
+            "outcome": "partial",
             "headline": "Deadlines bind now",
             "evidence": [
               {
@@ -7312,12 +9532,12 @@
                 "status": "supported"
               }
             ],
-            "damage": 0,
+            "damage": 20,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 21,
+              "B": 69
             },
-            "turn": 12,
+            "turn": 16,
             "volley": 2,
             "move": {
               "name": "Why Now",
@@ -7339,10 +9559,31 @@
                 "type": "pitch"
               }
             ],
-            "verdictLine": "Fair point. PermitPilot still wins timing."
+            "verdictLine": "Partly landed."
           },
           {
-            "t": 52200,
+            "t": 66600,
+            "id": "status-1",
+            "kind": "status",
+            "target": "A",
+            "status": "last_stand",
+            "on": true
+          },
+          {
+            "t": 66600,
+            "id": "r2.hammer.moat.B",
+            "kind": "hammer",
+            "target": "B",
+            "criterion": "moat",
+            "reason": "No scoring shot carried the moat gap",
+            "damage": 19,
+            "hpAfter": {
+              "A": 21,
+              "B": 50
+            }
+          },
+          {
+            "t": 68800,
             "id": "r2.scorecard",
             "kind": "scorecard",
             "round": 2,
@@ -7350,32 +9591,32 @@
               {
                 "criterion": "differentiation",
                 "A": 5,
-                "B": 5,
-                "points": 0,
-                "hp": 0,
-                "to": null
+                "B": 8,
+                "points": 3.6,
+                "hp": 35,
+                "to": "A"
               },
               {
                 "criterion": "moat",
-                "A": 5,
+                "A": 7,
                 "B": 5,
-                "points": 0,
-                "hp": 0,
-                "to": null
+                "points": 2,
+                "hp": 19,
+                "to": "B"
               },
               {
                 "criterion": "timing",
                 "A": 5,
-                "B": 5,
-                "points": 0,
-                "hp": 0,
-                "to": null
+                "B": 7,
+                "points": 2,
+                "hp": 20,
+                "to": "A"
               }
             ],
             "agreement": 1
           },
           {
-            "t": 56200,
+            "t": 72800,
             "id": "r3.title",
             "kind": "round_title",
             "round": 3,
@@ -7396,15 +9637,15 @@
             ]
           },
           {
-            "t": 57700,
+            "t": 74300,
             "id": "r3.shot.r3.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
             "shotId": "r3.v1.A.s1",
             "criterion": "gtm",
             "weapon": "gatling",
-            "impact": 2,
-            "outcome": "glancing",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Expediters sell it first",
             "evidence": [
               {
@@ -7412,12 +9653,12 @@
                 "status": "supported"
               }
             ],
-            "damage": 0,
+            "damage": 24,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 21,
+              "B": 26
             },
-            "turn": 13,
+            "turn": 17,
             "volley": 1,
             "move": {
               "name": "First Hundred",
@@ -7437,20 +9678,26 @@
                 "element": "execution",
                 "criterion": "scale",
                 "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. CurbBot still wins gtm."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
-            "t": 61300,
+            "t": 77900,
             "id": "r3.shot.r3.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
             "shotId": "r3.v1.B.s1",
             "criterion": "feasibility",
             "weapon": "rocket",
-            "impact": 2,
-            "outcome": "glancing",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Routes roll today",
             "evidence": [
               {
@@ -7458,12 +9705,12 @@
                 "status": "supported"
               }
             ],
-            "damage": 0,
+            "damage": 11,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 10,
+              "B": 26
             },
-            "turn": 14,
+            "turn": 18,
             "volley": 1,
             "move": {
               "name": "Shipped Demo",
@@ -7483,12 +9730,18 @@
                 "element": "execution",
                 "criterion": "gtm",
                 "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. PermitPilot still wins feasibility."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
-            "t": 64900,
+            "t": 81500,
             "id": "r3.shot.r3.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -7501,10 +9754,10 @@
             "evidence": [],
             "damage": 0,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 10,
+              "B": 26
             },
-            "turn": 15,
+            "turn": 19,
             "volley": 1,
             "move": {
               "name": "Lifestyle Business",
@@ -7524,12 +9777,18 @@
                 "element": "execution",
                 "criterion": "scale",
                 "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
               }
             ],
             "verdictLine": "Fair point. CurbBot still wins scale."
           },
           {
-            "t": 68500,
+            "t": 85100,
             "id": "r3.shot.r3.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -7537,15 +9796,25 @@
             "criterion": "gtm",
             "weapon": "gatling",
             "impact": 1,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "Desks buy slowly",
             "evidence": [],
+            "parry": {
+              "defenseShotId": "r3.v2.A.s1",
+              "headline": "Monitors still need mayors",
+              "move": {
+                "name": "Channel Lock",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 10,
+              "B": 26
             },
-            "turn": 16,
+            "turn": 20,
             "volley": 1,
             "move": {
               "name": "CAC Spiral",
@@ -7565,12 +9834,112 @@
                 "element": "execution",
                 "criterion": "gtm",
                 "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. PermitPilot still wins gtm."
+            "verdictLine": "PermitPilot answered with CHANNEL LOCK."
           },
           {
-            "t": 72100,
+            "t": 88700,
+            "id": "r3.shot.r3.v1.A.s3",
+            "kind": "shot",
+            "shooter": "A",
+            "shotId": "r3.v1.A.s3",
+            "criterion": "feasibility",
+            "weapon": "rocket",
+            "impact": 0,
+            "outcome": "whiff",
+            "headline": "Forms ship as software",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 10,
+              "B": 26
+            },
+            "turn": 21,
+            "volley": 1,
+            "move": {
+              "name": "Science Project",
+              "element": "execution",
+              "criterion": "feasibility",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "First Hundred",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "pitch"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
+              },
+              {
+                "name": "Science Project",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "The judges did not move."
+          },
+          {
+            "t": 92300,
+            "id": "r3.shot.r3.v1.B.s3",
+            "kind": "shot",
+            "shooter": "B",
+            "shotId": "r3.v1.B.s3",
+            "criterion": "scale",
+            "weapon": "orbital_beam",
+            "impact": 1,
+            "outcome": "glancing",
+            "headline": "Maps sell twice over",
+            "evidence": [],
+            "damage": 0,
+            "hpAfter": {
+              "A": 10,
+              "B": 26
+            },
+            "turn": 22,
+            "volley": 1,
+            "move": {
+              "name": "Lifestyle Business",
+              "element": "execution",
+              "criterion": "scale",
+              "type": "attack"
+            },
+            "menu": [
+              {
+                "name": "Shipped Demo",
+                "element": "execution",
+                "criterion": "feasibility",
+                "type": "pitch"
+              },
+              {
+                "name": "CAC Spiral",
+                "element": "execution",
+                "criterion": "gtm",
+                "type": "attack"
+              },
+              {
+                "name": "Lifestyle Business",
+                "element": "execution",
+                "criterion": "scale",
+                "type": "attack"
+              }
+            ],
+            "verdictLine": "Fair point. PermitPilot still wins scale."
+          },
+          {
+            "t": 95900,
             "id": "r3.shot.r3.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -7578,7 +9947,7 @@
             "criterion": "scale",
             "weapon": "orbital_beam",
             "impact": 2,
-            "outcome": "glancing",
+            "outcome": "partial",
             "headline": "Desks fill every city",
             "evidence": [
               {
@@ -7586,12 +9955,12 @@
                 "status": "supported"
               }
             ],
-            "damage": 0,
+            "damage": 20,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 10,
+              "B": 6
             },
-            "turn": 17,
+            "turn": 23,
             "volley": 2,
             "move": {
               "name": "Platform Play",
@@ -7613,10 +9982,18 @@
                 "type": "pitch"
               }
             ],
-            "verdictLine": "Fair point. CurbBot still wins scale."
+            "verdictLine": "Partly landed."
           },
           {
-            "t": 75700,
+            "t": 99500,
+            "id": "status-2",
+            "kind": "status",
+            "target": "B",
+            "status": "last_stand",
+            "on": true
+          },
+          {
+            "t": 99500,
             "id": "r3.shot.r3.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -7629,10 +10006,10 @@
             "evidence": [],
             "damage": 0,
             "hpAfter": {
-              "A": 100,
-              "B": 100
+              "A": 10,
+              "B": 6
             },
-            "turn": 18,
+            "turn": 24,
             "volley": 2,
             "move": {
               "name": "Lifestyle Business",
@@ -7657,48 +10034,48 @@
             "verdictLine": "Fair point. PermitPilot still wins scale."
           },
           {
-            "t": 79300,
+            "t": 103100,
             "id": "r3.scorecard",
             "kind": "scorecard",
             "round": 3,
             "rows": [
               {
                 "criterion": "gtm",
-                "A": 5,
-                "B": 5,
-                "points": 0,
-                "hp": 0,
-                "to": null
+                "A": 8,
+                "B": 6,
+                "points": 2.4,
+                "hp": 24,
+                "to": "B"
               },
               {
                 "criterion": "feasibility",
-                "A": 5,
-                "B": 5,
-                "points": 0,
-                "hp": 0,
-                "to": null
+                "A": 6,
+                "B": 7,
+                "points": 1.1,
+                "hp": 11,
+                "to": "A"
               },
               {
                 "criterion": "scale",
-                "A": 5,
+                "A": 7,
                 "B": 5,
-                "points": 0,
-                "hp": 0,
-                "to": null
+                "points": 2,
+                "hp": 20,
+                "to": "B"
               }
             ],
             "agreement": 1
           },
           {
-            "t": 83300,
+            "t": 107100,
             "id": "outcome",
             "kind": "outcome",
             "outcome": "SUDDEN_DEATH",
-            "perfect": true,
+            "perfect": false,
             "pyrrhic": false
           },
           {
-            "t": 85300,
+            "t": 109100,
             "id": "sudden-death",
             "kind": "sudden_death",
             "closings": {
@@ -7711,7 +10088,7 @@
             }
           },
           {
-            "t": 89300,
+            "t": 113100,
             "id": "finisher",
             "kind": "finisher",
             "winner": "A",
@@ -7719,7 +10096,7 @@
             "style": "ko"
           },
           {
-            "t": 91300,
+            "t": 115100,
             "id": "winner",
             "kind": "winner",
             "winner": "A",

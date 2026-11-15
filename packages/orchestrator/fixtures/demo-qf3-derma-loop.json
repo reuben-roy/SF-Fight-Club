@@ -59,6 +59,14 @@
                 "claim": "Freemium moderation tools have no payer with budget.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "wtp",
+                "headline": "Triage bills per screen",
+                "claim": "Urgency ranking fits existing billing codes.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -86,6 +94,13 @@
               },
               {
                 "shotId": "r1.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -180,6 +195,14 @@
                 "claim": "Every camera app claims triage now.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "market",
+                "headline": "Clinics buy no software",
+                "claim": "Waiting rooms run on paper and habit.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -207,6 +230,13 @@
               },
               {
                 "shotId": "r1.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -331,7 +361,7 @@
               {
                 "shotId": "r1.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -341,10 +371,16 @@
                 "note": "Scored from the claim."
               },
               {
-                "shotId": "r1.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r1.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Billing fit asserted, not shown."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "Dermalens swats the thread talk aside."
               },
               {
                 "shotId": "r1.v2.A.s2",
@@ -363,6 +399,12 @@
                 "verdict": "whiff",
                 "impact": 0,
                 "note": "No competitor named."
+              },
+              {
+                "shotId": "r1.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "No buyer interviewed."
               },
               {
                 "shotId": "r1.v2.B.s1",
@@ -436,7 +478,7 @@
               {
                 "shotId": "r1.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -446,10 +488,16 @@
                 "note": "Scored from the claim."
               },
               {
-                "shotId": "r1.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r1.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Billing fit asserted, not shown."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "Dermalens swats the thread talk aside."
               },
               {
                 "shotId": "r1.v2.A.s2",
@@ -468,6 +516,12 @@
                 "verdict": "whiff",
                 "impact": 0,
                 "note": "No competitor named."
+              },
+              {
+                "shotId": "r1.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "No buyer interviewed."
               },
               {
                 "shotId": "r1.v2.B.s1",
@@ -511,6 +565,14 @@
                 "claim": "Every screened photo sharpens the next rank.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "moat",
+                "headline": "Rank data compounds",
+                "claim": "Each resolved case sharpens the next rank.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -538,6 +600,13 @@
               },
               {
                 "shotId": "r2.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -632,6 +701,14 @@
                 "claim": "Apple will ship this in an update.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "differentiation",
+                "headline": "Sorting is not triage",
+                "claim": "A ranked list is not a clinical decision.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -659,6 +736,13 @@
               },
               {
                 "shotId": "r2.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -801,10 +885,16 @@
                 "note": "Scored from the claim."
               },
               {
-                "shotId": "r2.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r2.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Compounding asserted, not measured."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "Dermalens mutes the voice-note defense."
               },
               {
                 "shotId": "r2.v2.A.s2",
@@ -823,6 +913,12 @@
                 "verdict": "whiff",
                 "impact": 0,
                 "note": "Platform claim with no evidence."
+              },
+              {
+                "shotId": "r2.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Concedes the ranking works."
               },
               {
                 "shotId": "r2.v2.B.s1",
@@ -906,10 +1002,16 @@
                 "note": "Scored from the claim."
               },
               {
-                "shotId": "r2.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r2.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Compounding asserted, not measured."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "Dermalens mutes the voice-note defense."
               },
               {
                 "shotId": "r2.v2.A.s2",
@@ -928,6 +1030,12 @@
                 "verdict": "whiff",
                 "impact": 0,
                 "note": "Platform claim with no evidence."
+              },
+              {
+                "shotId": "r2.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Concedes the ranking works."
               },
               {
                 "shotId": "r2.v2.B.s1",
@@ -971,6 +1079,14 @@
                 "claim": "No payer, no expansion, no acquirer.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "feasibility",
+                "headline": "Pilot cleared the board",
+                "claim": "Ethics review passed on first submission.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -998,6 +1114,13 @@
               },
               {
                 "shotId": "r3.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -1092,6 +1215,14 @@
                 "claim": "Pilots die in procurement.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "feasibility",
+                "headline": "Regulators slow everything",
+                "claim": "Clinical claims invite a long review.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -1119,6 +1250,13 @@
               },
               {
                 "shotId": "r3.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -1243,7 +1381,7 @@
               {
                 "shotId": "r3.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -1253,10 +1391,16 @@
                 "note": "Scored from the claim."
               },
               {
-                "shotId": "r3.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r3.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "One board, not every board."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "Dermalens dismisses the regulars claim."
               },
               {
                 "shotId": "r3.v2.A.s2",
@@ -1275,6 +1419,12 @@
                 "verdict": "whiff",
                 "impact": 0,
                 "note": "The pilot already cleared it."
+              },
+              {
+                "shotId": "r3.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Fear without a filing."
               },
               {
                 "shotId": "r3.v2.B.s1",
@@ -1348,7 +1498,7 @@
               {
                 "shotId": "r3.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -1358,10 +1508,16 @@
                 "note": "Scored from the claim."
               },
               {
-                "shotId": "r3.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r3.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "One board, not every board."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "Dermalens dismisses the regulars claim."
               },
               {
                 "shotId": "r3.v2.A.s2",
@@ -1380,6 +1536,12 @@
                 "verdict": "whiff",
                 "impact": 0,
                 "note": "The pilot already cleared it."
+              },
+              {
+                "shotId": "r3.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Fear without a filing."
               },
               {
                 "shotId": "r3.v2.B.s1",

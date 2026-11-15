@@ -23,7 +23,7 @@ const EXPECTED = [
   { matchId: "demo-r0s3", winner: "curbbot", outcome: "DECISION", decisionType: "majority", perfect: false, decidedBy: "scores" },
   { matchId: "demo-r1s0", winner: "permitpilot", outcome: "KO", decisionType: undefined, perfect: false, decidedBy: "scores" },
   { matchId: "demo-r1s1", winner: "curbbot", outcome: "DECISION", decisionType: "unanimous", perfect: false, decidedBy: "scores" },
-  { matchId: "demo-r2s0", winner: "permitpilot", outcome: "SUDDEN_DEATH", decisionType: undefined, perfect: true, decidedBy: "sudden_death_judge" },
+  { matchId: "demo-r2s0", winner: "permitpilot", outcome: "SUDDEN_DEATH", decisionType: undefined, perfect: false, decidedBy: "sudden_death_judge" },
 ] as const;
 
 const KNOWN_EVIDENCE = [

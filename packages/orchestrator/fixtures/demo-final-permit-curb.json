@@ -59,6 +59,14 @@
                 "claim": "Budgets move at election speed.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "wtp",
+                "headline": "Chase fees fund the product",
+                "claim": "Expediters already charge for the follow-up.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -86,6 +94,13 @@
               },
               {
                 "shotId": "r1.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -178,6 +193,16 @@
                 "criterion": "market",
                 "headline": "Permits are one desk",
                 "claim": "A single city starts narrow.",
+                "evidence": [
+                  "E26"
+                ],
+                "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "problem",
+                "headline": "Fines price the pain",
+                "claim": "Each missing ramp risks a settlement.",
                 "evidence": [],
                 "estimate": true
               }
@@ -207,6 +232,19 @@
               },
               {
                 "shotId": "r1.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E26",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -294,53 +332,53 @@
             "criteria": [
               {
                 "criterion": "problem",
-                "comparison": "Mandated access against stalled livelihoods; neither outranks the other.",
+                "comparison": "A stalled build costs crews; a missing ramp costs settlements. The permit pain prices higher today.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Crews idle for months with budget on the line. 7.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 7
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Mandated access with real harm. 6.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 6
                 }
               },
               {
                 "criterion": "market",
-                "comparison": "Both size bottom-up from real budgets; both start local.",
+                "comparison": "Per-mile mandates beat one city's desks.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Credible path, narrower today. 5.",
                   "capsApplied": [],
                   "score": 5
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Budgeted surveys with growth. 7.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 7
                 }
               },
               {
                 "criterion": "wtp",
-                "comparison": "Both redirect money already spent by named payers.",
+                "comparison": "Chase fees today beat survey quotes tomorrow.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Payer has budget and precedent prices. 8.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 8
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Plausible margins on survey spend. 6.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 6
                 }
               }
             ],
             "shots": [
               {
                 "shotId": "r1.v1.A.s1",
-                "verdict": "partial",
-                "impact": 2,
-                "note": "Sourced, matched."
+                "verdict": "landed",
+                "impact": 3,
+                "note": "Scored from the claim."
               },
               {
                 "shotId": "r1.v1.A.s2",
@@ -349,10 +387,16 @@
                 "note": "True and matched."
               },
               {
-                "shotId": "r1.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r1.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Charged today, priced opaquely."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "PermitPilot absorbs the access pain."
               },
               {
                 "shotId": "r1.v2.A.s2",
@@ -368,9 +412,15 @@
               },
               {
                 "shotId": "r1.v1.B.s2",
-                "verdict": "glancing",
-                "impact": 1,
-                "note": "True and matched."
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Narrow today, sourced."
+              },
+              {
+                "shotId": "r1.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Priced by courts, not buyers."
               },
               {
                 "shotId": "r1.v2.B.s1",
@@ -386,7 +436,7 @@
               }
             ],
             "injectionSuspected": false,
-            "roundSummary": "Dead even: lawsuits against layoffs, budgets against budgets."
+            "roundSummary": "PermitPilot takes the opener on priced chase fees against a narrower market."
           }
         }
       ]
@@ -399,53 +449,53 @@
             "criteria": [
               {
                 "criterion": "problem",
-                "comparison": "Mandated access against stalled livelihoods; neither outranks the other.",
+                "comparison": "A stalled build costs crews; a missing ramp costs settlements. The permit pain prices higher today.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Mandated access with real harm. 6.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 6
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Crews idle for months with budget on the line. 7.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 7
                 }
               },
               {
                 "criterion": "market",
-                "comparison": "Both size bottom-up from real budgets; both start local.",
+                "comparison": "Per-mile mandates beat one city's desks.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Budgeted surveys with growth. 7.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 7
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Credible path, narrower today. 5.",
                   "capsApplied": [],
                   "score": 5
                 }
               },
               {
                 "criterion": "wtp",
-                "comparison": "Both redirect money already spent by named payers.",
+                "comparison": "Chase fees today beat survey quotes tomorrow.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Plausible margins on survey spend. 6.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 6
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Payer has budget and precedent prices. 8.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 8
                 }
               }
             ],
             "shots": [
               {
                 "shotId": "r1.v1.A.s1",
-                "verdict": "partial",
-                "impact": 2,
-                "note": "Sourced, matched."
+                "verdict": "landed",
+                "impact": 3,
+                "note": "Scored from the claim."
               },
               {
                 "shotId": "r1.v1.A.s2",
@@ -454,10 +504,16 @@
                 "note": "True and matched."
               },
               {
-                "shotId": "r1.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r1.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Charged today, priced opaquely."
+              },
+              {
+                "shotId": "r1.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "PermitPilot absorbs the access pain."
               },
               {
                 "shotId": "r1.v2.A.s2",
@@ -473,9 +529,15 @@
               },
               {
                 "shotId": "r1.v1.B.s2",
-                "verdict": "glancing",
-                "impact": 1,
-                "note": "True and matched."
+                "verdict": "partial",
+                "impact": 2,
+                "note": "Narrow today, sourced."
+              },
+              {
+                "shotId": "r1.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Priced by courts, not buyers."
               },
               {
                 "shotId": "r1.v2.B.s1",
@@ -491,7 +553,7 @@
               }
             ],
             "injectionSuspected": false,
-            "roundSummary": "Dead even: lawsuits against layoffs, budgets against budgets."
+            "roundSummary": "PermitPilot takes the opener on priced chase fees against a narrower market."
           }
         }
       ]
@@ -517,6 +579,14 @@
                 "criterion": "moat",
                 "headline": "Routes can be walked",
                 "claim": "Crews already grade by hand.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "timing",
+                "headline": "Backlogs peak this year",
+                "claim": "Retirement wave empties the desks.",
                 "evidence": [],
                 "estimate": true
               }
@@ -546,6 +616,13 @@
               },
               {
                 "shotId": "r2.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -640,6 +717,14 @@
                 "claim": "Filing know-how travels with staff.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "timing",
+                "headline": "Decrees renew yearly",
+                "claim": "Each deadline spawns the next audit.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -667,6 +752,13 @@
               },
               {
                 "shotId": "r2.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -754,44 +846,44 @@
             "criteria": [
               {
                 "criterion": "differentiation",
-                "comparison": "Each ten-times one dimension the other ignores.",
+                "comparison": "A first inventory beats a better form.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Meaningfully better on the chase. 5.",
                   "capsApplied": [],
                   "score": 5
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Ten times faster than walking crews. 8.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 8
                 }
               },
               {
                 "criterion": "moat",
-                "comparison": "Each compounds data the other cannot easily copy.",
+                "comparison": "Filing history compounds; grading data starts over each city.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "A compounding moat with a path to it. 7.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 7
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "One plausible moat at best. 5.",
                   "capsApplied": [],
                   "score": 5
                 }
               },
               {
                 "criterion": "timing",
-                "comparison": "Both windows are datable and open right now.",
+                "comparison": "Binding inventory dates beat a demographic drift.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "A real shift, slow to convert. 5.",
                   "capsApplied": [],
                   "score": 5
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "A specific enabling shift with a window. 7.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 7
                 }
               }
             ],
@@ -809,6 +901,12 @@
                 "note": "True and matched."
               },
               {
+                "shotId": "r2.v1.A.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Dated, thinly sourced."
+              },
+              {
                 "shotId": "r2.v2.A.s1",
                 "verdict": "parried",
                 "impact": 1,
@@ -822,9 +920,9 @@
               },
               {
                 "shotId": "r2.v1.B.s1",
-                "verdict": "partial",
-                "impact": 2,
-                "note": "Better, matched."
+                "verdict": "landed",
+                "impact": 3,
+                "note": "Scored from the claim."
               },
               {
                 "shotId": "r2.v1.B.s2",
@@ -833,10 +931,16 @@
                 "note": "True and matched."
               },
               {
-                "shotId": "r2.v2.B.s1",
-                "verdict": "parried",
+                "shotId": "r2.v1.B.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Renewed, not new."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "CurbBot answers the walking-crews jab."
               },
               {
                 "shotId": "r2.v2.B.s2",
@@ -846,7 +950,7 @@
               }
             ],
             "injectionSuspected": false,
-            "roundSummary": "Dead even: first inventory against the follow-up."
+            "roundSummary": "CurbBot answers with the first inventory and binding deadlines."
           }
         }
       ]
@@ -859,42 +963,42 @@
             "criteria": [
               {
                 "criterion": "differentiation",
-                "comparison": "Each ten-times one dimension the other ignores.",
+                "comparison": "A first inventory beats a better form.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Ten times faster than walking crews. 8.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 8
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Meaningfully better on the chase. 5.",
                   "capsApplied": [],
                   "score": 5
                 }
               },
               {
                 "criterion": "moat",
-                "comparison": "Each compounds data the other cannot easily copy.",
+                "comparison": "Filing history compounds; grading data starts over each city.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "One plausible moat at best. 5.",
                   "capsApplied": [],
                   "score": 5
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "A compounding moat with a path to it. 7.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 7
                 }
               },
               {
                 "criterion": "timing",
-                "comparison": "Both windows are datable and open right now.",
+                "comparison": "Binding inventory dates beat a demographic drift.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "A specific enabling shift with a window. 7.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 7
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "A real shift, slow to convert. 5.",
                   "capsApplied": [],
                   "score": 5
                 }
@@ -914,6 +1018,12 @@
                 "note": "True and matched."
               },
               {
+                "shotId": "r2.v1.A.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Dated, thinly sourced."
+              },
+              {
                 "shotId": "r2.v2.A.s1",
                 "verdict": "parried",
                 "impact": 1,
@@ -927,9 +1037,9 @@
               },
               {
                 "shotId": "r2.v1.B.s1",
-                "verdict": "partial",
-                "impact": 2,
-                "note": "Better, matched."
+                "verdict": "landed",
+                "impact": 3,
+                "note": "Scored from the claim."
               },
               {
                 "shotId": "r2.v1.B.s2",
@@ -938,10 +1048,16 @@
                 "note": "True and matched."
               },
               {
-                "shotId": "r2.v2.B.s1",
-                "verdict": "parried",
+                "shotId": "r2.v1.B.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Renewed, not new."
+              },
+              {
+                "shotId": "r2.v2.B.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "CurbBot answers the walking-crews jab."
               },
               {
                 "shotId": "r2.v2.B.s2",
@@ -951,7 +1067,7 @@
               }
             ],
             "injectionSuspected": false,
-            "roundSummary": "Dead even: first inventory against the follow-up."
+            "roundSummary": "CurbBot answers with the first inventory and binding deadlines."
           }
         }
       ]
@@ -977,6 +1093,14 @@
                 "criterion": "scale",
                 "headline": "Maps cap at sidewalks",
                 "claim": "Concrete ends somewhere.",
+                "evidence": [],
+                "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "feasibility",
+                "headline": "Forms ship as software",
+                "claim": "No hardware stands between filing and done.",
                 "evidence": [],
                 "estimate": true
               }
@@ -1006,6 +1130,13 @@
               },
               {
                 "shotId": "r3.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -1100,6 +1231,14 @@
                 "claim": "Governments deliberate for years.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "scale",
+                "headline": "Maps sell twice over",
+                "claim": "Survey once, monitor forever.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -1127,6 +1266,13 @@
               },
               {
                 "shotId": "r3.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -1198,42 +1344,42 @@
             "criteria": [
               {
                 "criterion": "gtm",
-                "comparison": "Both name a channel with a named first buyer.",
+                "comparison": "Expediters who charge today beat robots that need mayors.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Named first customers and a cheap channel. 8.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 8
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "A plausible channel with a gate. 6.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 6
                 }
               },
               {
                 "criterion": "feasibility",
-                "comparison": "Both ship with off-the-shelf parts and named risks.",
+                "comparison": "Shipping robots beat shipping forms by a step.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Buildable with real risks. 6.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 6
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Clear build path with hardware live. 7.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 7
                 }
               },
               {
                 "criterion": "scale",
-                "comparison": "Both plausibly grow past the first market; neither proves it.",
+                "comparison": "Every desk in every city beats every curb.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "A path past the first market. 7.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 7
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Several paths, one organ at a time. 5.",
                   "capsApplied": [],
                   "score": 5
                 }
@@ -1242,9 +1388,9 @@
             "shots": [
               {
                 "shotId": "r3.v1.A.s1",
-                "verdict": "partial",
-                "impact": 2,
-                "note": "Named, matched."
+                "verdict": "landed",
+                "impact": 3,
+                "note": "Scored from the claim."
               },
               {
                 "shotId": "r3.v1.A.s2",
@@ -1253,10 +1399,16 @@
                 "note": "True and matched."
               },
               {
+                "shotId": "r3.v1.A.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Software, except the waiting."
+              },
+              {
                 "shotId": "r3.v2.A.s1",
-                "verdict": "parried",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "PermitPilot checks the slow-desk jab."
               },
               {
                 "shotId": "r3.v2.A.s2",
@@ -1266,15 +1418,21 @@
               },
               {
                 "shotId": "r3.v1.B.s1",
-                "verdict": "partial",
-                "impact": 2,
-                "note": "Shipping, matched."
+                "verdict": "landed",
+                "impact": 3,
+                "note": "Scored from the claim."
               },
               {
                 "shotId": "r3.v1.B.s2",
                 "verdict": "glancing",
                 "impact": 1,
                 "note": "True and matched."
+              },
+              {
+                "shotId": "r3.v1.B.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Renewal priced, delivery assumed."
               },
               {
                 "shotId": "r3.v2.B.s1",
@@ -1290,7 +1448,7 @@
               }
             ],
             "injectionSuspected": false,
-            "roundSummary": "Dead even: renewals against expediters. The judges need more."
+            "roundSummary": "PermitPilot retakes it on expediters and every-city desks. The judges need more."
           }
         }
       ]
@@ -1303,53 +1461,53 @@
             "criteria": [
               {
                 "criterion": "gtm",
-                "comparison": "Both name a channel with a named first buyer.",
+                "comparison": "Expediters who charge today beat robots that need mayors.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "A plausible channel with a gate. 6.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 6
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Named first customers and a cheap channel. 8.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 8
                 }
               },
               {
                 "criterion": "feasibility",
-                "comparison": "Both ship with off-the-shelf parts and named risks.",
+                "comparison": "Shipping robots beat shipping forms by a step.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Clear build path with hardware live. 7.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 7
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Buildable with real risks. 6.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 6
                 }
               },
               {
                 "criterion": "scale",
-                "comparison": "Both plausibly grow past the first market; neither proves it.",
+                "comparison": "Every desk in every city beats every curb.",
                 "fighter_1": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "Several paths, one organ at a time. 5.",
                   "capsApplied": [],
                   "score": 5
                 },
                 "fighter_2": {
-                  "rationale": "Typical of an SF pitch, honestly argued. 5.",
+                  "rationale": "A path past the first market. 7.",
                   "capsApplied": [],
-                  "score": 5
+                  "score": 7
                 }
               }
             ],
             "shots": [
               {
                 "shotId": "r3.v1.A.s1",
-                "verdict": "partial",
-                "impact": 2,
-                "note": "Named, matched."
+                "verdict": "landed",
+                "impact": 3,
+                "note": "Scored from the claim."
               },
               {
                 "shotId": "r3.v1.A.s2",
@@ -1358,10 +1516,16 @@
                 "note": "True and matched."
               },
               {
+                "shotId": "r3.v1.A.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Software, except the waiting."
+              },
+              {
                 "shotId": "r3.v2.A.s1",
-                "verdict": "parried",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "PermitPilot checks the slow-desk jab."
               },
               {
                 "shotId": "r3.v2.A.s2",
@@ -1371,15 +1535,21 @@
               },
               {
                 "shotId": "r3.v1.B.s1",
-                "verdict": "partial",
-                "impact": 2,
-                "note": "Shipping, matched."
+                "verdict": "landed",
+                "impact": 3,
+                "note": "Scored from the claim."
               },
               {
                 "shotId": "r3.v1.B.s2",
                 "verdict": "glancing",
                 "impact": 1,
                 "note": "True and matched."
+              },
+              {
+                "shotId": "r3.v1.B.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Renewal priced, delivery assumed."
               },
               {
                 "shotId": "r3.v2.B.s1",
@@ -1395,7 +1565,7 @@
               }
             ],
             "injectionSuspected": false,
-            "roundSummary": "Dead even: renewals against expediters. The judges need more."
+            "roundSummary": "PermitPilot retakes it on expediters and every-city desks. The judges need more."
           }
         }
       ]
@@ -1407,16 +1577,17 @@
           "output": {
             "headline": "PermitPilot takes the belt in sudden death",
             "whyTheyWon": [
-              "The scoreline was a draw across all nine criteria.",
-              "Three sudden-death votes picked the permit chase.",
-              "The cascade stopped at the judges, 3 to 1."
+              "Won problem, willingness to pay, moat, go-to-market, and scale.",
+              "Lost market, differentiation, timing, and feasibility by wider margins.",
+              "Less than half a point separated the damage totals; the closings broke it."
             ],
             "turningPoint": {
-              "text": "The closing volley tipped a tied card."
+              "criterion": "gtm",
+              "text": "The expediter channel closed the gap in the final round."
             },
             "loserTakeaways": [
-              "Separate the idea on one criterion.",
-              "Bring a sourced number next time."
+              "Win one more criterion in the final round.",
+              "Bring a sourced number for the backlog."
             ],
             "announcerLines": [
               {

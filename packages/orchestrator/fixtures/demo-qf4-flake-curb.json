@@ -59,6 +59,14 @@
                 "claim": "One election can freeze every survey contract.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "wtp",
+                "headline": "Retries burn real money",
+                "claim": "Failed runs bill by the minute.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -86,6 +94,13 @@
               },
               {
                 "shotId": "r1.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -182,6 +197,14 @@
                   "E25"
                 ],
                 "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "problem",
+                "headline": "Decrees name dollar amounts",
+                "claim": "Noncompliance fines scale per missing ramp.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -219,6 +242,13 @@
                 ],
                 "numberContradicted": false,
                 "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.B.s3",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
               }
             ]
           }
@@ -236,8 +266,10 @@
                 "criterion": "market",
                 "headline": "Surveys are not shelfware",
                 "claim": "No platform photographs a curb.",
-                "evidence": [],
-                "estimate": true,
+                "evidence": [
+                  "E25"
+                ],
+                "estimate": false,
                 "respondsTo": "r1.v1.A.s2"
               },
               {
@@ -262,7 +294,13 @@
               {
                 "shotId": "r1.v2.B.s1",
                 "missingIds": [],
-                "perEvidence": [],
+                "perEvidence": [
+                  {
+                    "evidenceId": "E25",
+                    "verdict": "supported",
+                    "note": "The snippet agrees."
+                  }
+                ],
                 "numberContradicted": false,
                 "fabricated": false
               },
@@ -341,6 +379,12 @@
                 "note": "True of budgets, thinly tied."
               },
               {
+                "shotId": "r1.v1.A.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Plausible, unmeasured."
+              },
+              {
                 "shotId": "r1.v2.A.s1",
                 "verdict": "parried",
                 "impact": 1,
@@ -355,7 +399,7 @@
               {
                 "shotId": "r1.v1.B.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -365,10 +409,16 @@
                 "note": "Crowded shelf, sourced."
               },
               {
-                "shotId": "r1.v2.B.s1",
-                "verdict": "parried",
+                "shotId": "r1.v1.B.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Fines exist; amounts vary."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "CurbBot blocks the shelfware jab."
               },
               {
                 "shotId": "r1.v2.B.s2",
@@ -446,6 +496,12 @@
                 "note": "True of budgets, thinly tied."
               },
               {
+                "shotId": "r1.v1.A.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Plausible, unmeasured."
+              },
+              {
                 "shotId": "r1.v2.A.s1",
                 "verdict": "parried",
                 "impact": 1,
@@ -460,7 +516,7 @@
               {
                 "shotId": "r1.v1.B.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -470,10 +526,16 @@
                 "note": "Crowded shelf, sourced."
               },
               {
-                "shotId": "r1.v2.B.s1",
-                "verdict": "parried",
+                "shotId": "r1.v1.B.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Fines exist; amounts vary."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "CurbBot blocks the shelfware jab."
               },
               {
                 "shotId": "r1.v2.B.s2",
@@ -511,6 +573,14 @@
                 "claim": "Every quarantine rule improves every customer.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "timing",
+                "headline": "Flakes block every release",
+                "claim": "Red builds gate Friday deploys.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -538,6 +608,13 @@
               },
               {
                 "shotId": "r2.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -634,6 +711,14 @@
                   "E8"
                 ],
                 "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "moat",
+                "headline": "Mile maps compound",
+                "claim": "Each surveyed block sharpens the next estimate.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -669,6 +754,13 @@
                     "note": "The snippet agrees."
                   }
                 ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.B.s3",
+                "missingIds": [],
+                "perEvidence": [],
                 "numberContradicted": false,
                 "fabricated": false
               }
@@ -793,6 +885,12 @@
                 "note": "Scored from the claim."
               },
               {
+                "shotId": "r2.v1.A.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True of cadence, not of buying."
+              },
+              {
                 "shotId": "r2.v2.A.s1",
                 "verdict": "parried",
                 "impact": 1,
@@ -817,10 +915,16 @@
                 "note": "Scored from the claim."
               },
               {
+                "shotId": "r2.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Compounding asserted, not measured."
+              },
+              {
                 "shotId": "r2.v2.B.s1",
-                "verdict": "parried",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "CurbBot answers the compounding claim."
               },
               {
                 "shotId": "r2.v2.B.s2",
@@ -898,6 +1002,12 @@
                 "note": "Scored from the claim."
               },
               {
+                "shotId": "r2.v1.A.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "True of cadence, not of buying."
+              },
+              {
                 "shotId": "r2.v2.A.s1",
                 "verdict": "parried",
                 "impact": 1,
@@ -922,10 +1032,16 @@
                 "note": "Scored from the claim."
               },
               {
+                "shotId": "r2.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Compounding asserted, not measured."
+              },
+              {
                 "shotId": "r2.v2.B.s1",
-                "verdict": "parried",
+                "verdict": "landed",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "CurbBot answers the compounding claim."
               },
               {
                 "shotId": "r2.v2.B.s2",
@@ -963,6 +1079,14 @@
                 "claim": "Rain, vandals, and permits stall every route.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "scale",
+                "headline": "Monorepos multiply flakes",
+                "claim": "One repo can bleed a thousand suites.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -990,6 +1114,13 @@
               },
               {
                 "shotId": "r3.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -1084,6 +1215,14 @@
                 "claim": "Detection is statistics, not research.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "scale",
+                "headline": "Counties copy the decree",
+                "claim": "Each ruling cites the last survey.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -1111,6 +1250,13 @@
               },
               {
                 "shotId": "r3.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -1253,6 +1399,12 @@
                 "note": "Real friction, asserted."
               },
               {
+                "shotId": "r3.v1.A.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Scales the pain, not the budget."
+              },
+              {
                 "shotId": "r3.v2.A.s1",
                 "verdict": "parried",
                 "impact": 1,
@@ -1267,7 +1419,7 @@
               {
                 "shotId": "r3.v1.B.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -1277,10 +1429,16 @@
                 "note": "Concedes buildability."
               },
               {
-                "shotId": "r3.v2.B.s1",
-                "verdict": "parried",
+                "shotId": "r3.v1.B.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Precedent helps, slowly."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "CurbBot proves the routes run."
               },
               {
                 "shotId": "r3.v2.B.s2",
@@ -1358,6 +1516,12 @@
                 "note": "Real friction, asserted."
               },
               {
+                "shotId": "r3.v1.A.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Scales the pain, not the budget."
+              },
+              {
                 "shotId": "r3.v2.A.s1",
                 "verdict": "parried",
                 "impact": 1,
@@ -1372,7 +1536,7 @@
               {
                 "shotId": "r3.v1.B.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -1382,10 +1546,16 @@
                 "note": "Concedes buildability."
               },
               {
-                "shotId": "r3.v2.B.s1",
-                "verdict": "parried",
+                "shotId": "r3.v1.B.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Precedent helps, slowly."
+              },
+              {
+                "shotId": "r3.v2.B.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "CurbBot proves the routes run."
               },
               {
                 "shotId": "r3.v2.B.s2",

@@ -59,6 +59,14 @@
                 "claim": "Nightlife cannot carry a venture outcome.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "wtp",
+                "headline": "Stalled crews bill anyway",
+                "claim": "Idle contractors charge for waiting weeks.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -86,6 +94,13 @@
               },
               {
                 "shotId": "r1.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -190,6 +205,14 @@
                   "E15"
                 ],
                 "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "wtp",
+                "headline": "Tabs pay for themselves",
+                "claim": "Tonight's revenue funds the product.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -225,6 +248,13 @@
                     "note": "The snippet agrees."
                   }
                 ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r1.v1.B.s3",
+                "missingIds": [],
+                "perEvidence": [],
                 "numberContradicted": false,
                 "fabricated": false
               }
@@ -365,6 +395,12 @@
                 "note": "Dismisses a real market."
               },
               {
+                "shotId": "r1.v1.A.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Waiting has a price."
+              },
+              {
                 "shotId": "r1.v2.A.s1",
                 "verdict": "glancing",
                 "impact": 0,
@@ -389,10 +425,16 @@
                 "note": "Narrow today, sourced."
               },
               {
-                "shotId": "r1.v2.B.s1",
-                "verdict": "parried",
+                "shotId": "r1.v1.B.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Tonight pays; tomorrow is thin."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "TabClear's reach answers the one-street jab."
               },
               {
                 "shotId": "r1.v2.B.s2",
@@ -470,6 +512,12 @@
                 "note": "Dismisses a real market."
               },
               {
+                "shotId": "r1.v1.A.s3",
+                "verdict": "glancing",
+                "impact": 1,
+                "note": "Waiting has a price."
+              },
+              {
                 "shotId": "r1.v2.A.s1",
                 "verdict": "glancing",
                 "impact": 0,
@@ -494,10 +542,16 @@
                 "note": "Narrow today, sourced."
               },
               {
-                "shotId": "r1.v2.B.s1",
-                "verdict": "parried",
+                "shotId": "r1.v1.B.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Tonight pays; tomorrow is thin."
+              },
+              {
+                "shotId": "r1.v2.B.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "TabClear's reach answers the one-street jab."
               },
               {
                 "shotId": "r1.v2.B.s2",
@@ -535,6 +589,14 @@
                 "claim": "Every filing trains the next chase.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "timing",
+                "headline": "Hiring freeze opens desks",
+                "claim": "Unfilled reviewer posts stall every queue.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -562,6 +624,13 @@
               },
               {
                 "shotId": "r2.v1.A.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.A.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -656,6 +725,14 @@
                 "claim": "Expediters carry the know-how door to door.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "timing",
+                "headline": "Nightlife never closes",
+                "claim": "Weekends refill the demand curve.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -683,6 +760,13 @@
               },
               {
                 "shotId": "r2.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r2.v1.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -799,7 +883,7 @@
               {
                 "shotId": "r2.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -809,10 +893,16 @@
                 "note": "Scored from the claim."
               },
               {
-                "shotId": "r2.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r2.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Empty chairs, full inboxes."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "PermitPilot blocks the feature framing."
               },
               {
                 "shotId": "r2.v2.A.s2",
@@ -831,6 +921,12 @@
                 "verdict": "whiff",
                 "impact": 0,
                 "note": "Asserts away the data moat."
+              },
+              {
+                "shotId": "r2.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Demand is not a window."
               },
               {
                 "shotId": "r2.v2.B.s1",
@@ -904,7 +1000,7 @@
               {
                 "shotId": "r2.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -914,10 +1010,16 @@
                 "note": "Scored from the claim."
               },
               {
-                "shotId": "r2.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r2.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Empty chairs, full inboxes."
+              },
+              {
+                "shotId": "r2.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "PermitPilot blocks the feature framing."
               },
               {
                 "shotId": "r2.v2.A.s2",
@@ -936,6 +1038,12 @@
                 "verdict": "whiff",
                 "impact": 0,
                 "note": "Asserts away the data moat."
+              },
+              {
+                "shotId": "r2.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Demand is not a window."
               },
               {
                 "shotId": "r2.v2.B.s1",
@@ -981,6 +1089,14 @@
                   "E12"
                 ],
                 "estimate": false
+              },
+              {
+                "type": "attack",
+                "criterion": "feasibility",
+                "headline": "Paperwork needs no hardware",
+                "claim": "Forms and follow-ups ship as software.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -1016,6 +1132,13 @@
                     "note": "The snippet agrees."
                   }
                 ],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.A.s3",
+                "missingIds": [],
+                "perEvidence": [],
                 "numberContradicted": false,
                 "fabricated": false
               }
@@ -1100,6 +1223,14 @@
                 "claim": "Governments buy software at glacial pace.",
                 "evidence": [],
                 "estimate": true
+              },
+              {
+                "type": "attack",
+                "criterion": "scale",
+                "headline": "Counters cap the city",
+                "claim": "Settlement ends where nightlife ends.",
+                "evidence": [],
+                "estimate": true
               }
             ]
           }
@@ -1127,6 +1258,13 @@
               },
               {
                 "shotId": "r3.v1.B.s2",
+                "missingIds": [],
+                "perEvidence": [],
+                "numberContradicted": false,
+                "fabricated": false
+              },
+              {
+                "shotId": "r3.v1.B.s3",
                 "missingIds": [],
                 "perEvidence": [],
                 "numberContradicted": false,
@@ -1251,7 +1389,7 @@
               {
                 "shotId": "r3.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -1261,10 +1399,16 @@
                 "note": "Expansion with receipts."
               },
               {
-                "shotId": "r3.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r3.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Software margins, paper cuts."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "PermitPilot answers the glacial-pace jab."
               },
               {
                 "shotId": "r3.v2.A.s2",
@@ -1283,6 +1427,12 @@
                 "verdict": "whiff",
                 "impact": 0,
                 "note": "Expediters are the buyer."
+              },
+              {
+                "shotId": "r3.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Ignores every other desk."
               },
               {
                 "shotId": "r3.v2.B.s1",
@@ -1356,7 +1506,7 @@
               {
                 "shotId": "r3.v1.A.s1",
                 "verdict": "landed",
-                "impact": 2,
+                "impact": 3,
                 "note": "Scored from the claim."
               },
               {
@@ -1366,10 +1516,16 @@
                 "note": "Expansion with receipts."
               },
               {
-                "shotId": "r3.v2.A.s1",
-                "verdict": "parried",
+                "shotId": "r3.v1.A.s3",
+                "verdict": "glancing",
                 "impact": 1,
-                "note": "The answer stands."
+                "note": "Software margins, paper cuts."
+              },
+              {
+                "shotId": "r3.v2.A.s1",
+                "verdict": "landed",
+                "impact": 1,
+                "note": "PermitPilot answers the glacial-pace jab."
               },
               {
                 "shotId": "r3.v2.A.s2",
@@ -1388,6 +1544,12 @@
                 "verdict": "whiff",
                 "impact": 0,
                 "note": "Expediters are the buyer."
+              },
+              {
+                "shotId": "r3.v1.B.s3",
+                "verdict": "whiff",
+                "impact": 0,
+                "note": "Ignores every other desk."
               },
               {
                 "shotId": "r3.v2.B.s1",
