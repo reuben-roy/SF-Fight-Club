@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import type { BroadcastScript, Cue } from "@sf-fight-club/schemas";
+
 import {
   DEMO_AT_DEFAULT,
   DEMO_ENTRANTS,
@@ -12,6 +14,7 @@ import {
   runDemoTournament,
   tabVsPaperTape,
   toPublicMatch,
+  type DemoMatchResult,
   type DemoTournament,
 } from "../src/index.js";
 import { build, loadFixture, rubric } from "./helpers.js";
@@ -40,6 +43,15 @@ function entrantById(id: string): (typeof DEMO_ENTRANTS)[number] {
   const found = DEMO_ENTRANTS.find((entrant) => entrant.id === id);
   if (!found) throw new Error(`unknown demo entrant ${id}`);
   return found;
+}
+
+function scriptOf(match: DemoMatchResult): BroadcastScript {
+  if (!match.run.script) throw new Error(`${match.matchId} has no script`);
+  return match.run.script;
+}
+
+function shotsOf(match: DemoMatchResult): Extract<Cue, { kind: "shot" }>[] {
+  return scriptOf(match).cues.filter((cue): cue is Extract<Cue, { kind: "shot" }> => cue.kind === "shot");
 }
 
 describe("demo tournament", () => {
@@ -130,6 +142,64 @@ describe("demo tournament", () => {
     expect(hp.A[0]).toBeLessThan(hp.B[0]);
     expect(hp.A[2]).toBeGreaterThan(hp.B[2]);
     expect(hp.B[2]).toBe(0);
+    expect(semi?.run.resolution?.outcome).toBe("KO");
+  });
+
+  it("gives every demo fight a critical hit and a parry", () => {
+    for (const match of tournament().matches) {
+      const shots = shotsOf(match);
+      expect(shots.filter((shot) => shot.outcome === "crit").length, `${match.matchId} crits`).toBeGreaterThanOrEqual(2);
+      if (match.matchId !== "demo-r0s2") {
+        expect(shots.filter((shot) => shot.outcome === "parried").length, `${match.matchId} parries`).toBeGreaterThanOrEqual(2);
+      }
+    }
+  });
+
+  it("spreads hammers and backfires across the card", () => {
+    const matches = tournament().matches;
+    const hammers = matches.flatMap((match) => scriptOf(match).cues.filter((cue) => cue.kind === "hammer"));
+    expect(hammers.length).toBeGreaterThanOrEqual(1);
+    const backfireMatches = new Set(
+      matches
+        .filter((match) => shotsOf(match).some((shot) => shot.outcome === "backfire"))
+        .map((match) => match.matchId),
+    );
+    expect(backfireMatches.size).toBeGreaterThanOrEqual(2);
+    const backfires = matches.flatMap((match) => shotsOf(match).filter((shot) => shot.outcome === "backfire"));
+    expect(backfires.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("keeps every demo fight between 18 and 30 turns", () => {
+    for (const match of tournament().matches) {
+      const shots = shotsOf(match);
+      const lastTurn = shots.at(-1)?.turn ?? 0;
+      expect(lastTurn, match.matchId).toBeGreaterThanOrEqual(18);
+      expect(lastTurn, match.matchId).toBeLessThanOrEqual(30);
+    }
+  });
+
+  it("leaves the final close, lead-changing, and short of perfect", () => {
+    const final = tournament().matches.find((match) => match.matchId === "demo-r2s0");
+    expect(final).toBeDefined();
+    if (!final) return;
+    const hp = final.run.resolution?.hpAfterRound;
+    expect(hp).toBeDefined();
+    if (!hp) return;
+    expect(hp.A[2]).toBeLessThanOrEqual(30);
+    expect(hp.B[2]).toBeLessThanOrEqual(30);
+    expect(final.run.resolution?.perfect).toBe(false);
+    const leads = hp.A.map((value, index) => Math.sign(value - (hp.B[index] ?? value)));
+    expect(leads.some((lead, index) => index > 0 && lead !== leads[index - 1])).toBe(true);
+  });
+
+  it("airing a demo fight shows momentum and a last stand", () => {
+    for (const match of tournament().matches) {
+      const statuses = scriptOf(match).cues.filter((cue): cue is Extract<Cue, { kind: "status" }> => cue.kind === "status");
+      expect(statuses.some((cue) => cue.status === "momentum" && cue.on), `${match.matchId} momentum`).toBe(true);
+      if (match.matchId !== "demo-r0s2") {
+        expect(statuses.some((cue) => cue.status === "last_stand" && cue.on), `${match.matchId} last stand`).toBe(true);
+      }
+    }
   });
 
   it("decides the final 3 to 1 in sudden death", () => {

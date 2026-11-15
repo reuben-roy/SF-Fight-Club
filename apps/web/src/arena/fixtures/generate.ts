@@ -3,7 +3,14 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { DEMO_AT_DEFAULT, runDemoTournament, type DemoEntrant } from "@sf-fight-club/orchestrator";
-import { loadVcDefaultRubric, type FighterBuild, type OrgTitle, type Slot } from "@sf-fight-club/schemas";
+import {
+  loadVcDefaultRubric,
+  type BroadcastScript,
+  type FighterBuild,
+  type MatchResolution,
+  type OrgTitle,
+  type Slot,
+} from "@sf-fight-club/schemas";
 
 import type { ArenaFighter } from "../types.js";
 
@@ -116,7 +123,21 @@ function labelFor(roundIndex: number, slotIndex: number): string {
   return prefix === undefined ? "FINAL" : `${prefix} ${slotIndex + 1}`;
 }
 
-async function main(): Promise<void> {
+export async function buildArenaFixture(): Promise<{
+  source: string;
+  at: string;
+  buildHash: string;
+  matches: {
+    matchId: string;
+    roundIndex: number;
+    slotIndex: number;
+    label: string;
+    winner: Slot;
+    outcome: MatchResolution["outcome"];
+    fighters: Record<Slot, ArenaFighter>;
+    script: BroadcastScript;
+  }[];
+}> {
   const tournament = runDemoTournament({
     at: DEMO_AT_DEFAULT,
     build: demoBuild(),
@@ -172,16 +193,21 @@ async function main(): Promise<void> {
     };
   });
 
-  const payload = {
+  return {
     source: "runDemoTournament",
     at: DEMO_AT_DEFAULT,
     buildHash: tournament.matches[0]?.run.buildHash ?? "",
     matches,
   };
-
-  await mkdir(here, { recursive: true });
-  await writeFile(outFile, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
-  process.stdout.write(`wrote ${matches.length} matches to ${outFile}\n`);
 }
 
-await main();
+async function main(): Promise<void> {
+  const payload = await buildArenaFixture();
+  await mkdir(here, { recursive: true });
+  await writeFile(outFile, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+  process.stdout.write(`wrote ${payload.matches.length} matches to ${outFile}\n`);
+}
+
+if (process.argv[1] !== undefined && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
+  await main();
+}

@@ -203,7 +203,7 @@ export function ArenaScreen(props: ArenaScreenProps): ReactElement {
             setAnnouncement((previous) => ({ id: previous.id + 1, text: announceTurn(turn, fighters) }));
           }
         }
-        if (timeline.winnerAt !== null && was < timeline.winnerAt && timeMs >= timeline.winnerAt && !done.current) {
+        if (timeline.winnerAt !== null && was < timeline.durationMs && timeMs >= timeline.durationMs && !done.current) {
           done.current = true;
           callbacks.current.onComplete?.();
         }
@@ -803,7 +803,7 @@ function TurnOverlay({
         </div>
       ) : null}
 
-      {phase === "menu" && chosen ? (
+      {phase === "menu" && chosen?.name === cue.move.name ? (
         <div className="arena-menupeek" data-slot={actor}>
           <span className="arena-menupeek__label">COMMIT</span>
           <span className="arena-menupeek__move">{chosen.name}</span>

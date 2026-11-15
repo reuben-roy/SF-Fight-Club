@@ -59,7 +59,7 @@
       "script": {
         "matchId": "demo-r0s0",
         "directorVersion": "2",
-        "durationMs": 89800,
+        "durationMs": 92000,
         "cues": [
           {
             "t": 0,
@@ -113,8 +113,8 @@
             "shotId": "r1.v1.A.s1",
             "criterion": "problem",
             "weapon": "flame_lance",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Permits stall builds",
             "evidence": [
               {
@@ -149,7 +149,7 @@
                 "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
             "t": 7100,
@@ -160,9 +160,19 @@
             "criterion": "problem",
             "weapon": "flame_lance",
             "impact": 2,
-            "outcome": "glancing",
+            "outcome": "parried",
             "headline": "Fog empties patios",
             "evidence": [],
+            "parry": {
+              "defenseShotId": "r1.v2.A.s1",
+              "headline": "Patios still open",
+              "move": {
+                "name": "Pain Receipt",
+                "element": "market",
+                "criterion": "problem",
+                "type": "defense"
+              }
+            },
             "damage": 0,
             "hpAfter": {
               "A": 100,
@@ -190,7 +200,7 @@
                 "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. PermitPilot still wins problem."
+            "verdictLine": "PermitPilot answered with PAIN RECEIPT."
           },
           {
             "t": 10700,
@@ -201,13 +211,23 @@
             "criterion": "market",
             "weapon": "ballista",
             "impact": 2,
-            "outcome": "hit",
+            "outcome": "parried",
             "headline": "Weather budgets are small",
             "evidence": [],
-            "damage": 17,
+            "parry": {
+              "defenseShotId": "r1.v2.B.s3",
+              "headline": "Weather spend hides in ops budgets",
+              "move": {
+                "name": "Adjacent Market",
+                "element": "market",
+                "criterion": "market",
+                "type": "defense"
+              }
+            },
+            "damage": 0,
             "hpAfter": {
               "A": 100,
-              "B": 61
+              "B": 78
             },
             "turn": 3,
             "volley": 1,
@@ -231,15 +251,7 @@
                 "type": "attack"
               }
             ],
-            "verdictLine": "It landed."
-          },
-          {
-            "t": 14300,
-            "id": "status-1",
-            "kind": "status",
-            "target": "A",
-            "status": "momentum",
-            "on": true
+            "verdictLine": "Fogcast answered with ADJACENT MARKET."
           },
           {
             "t": 14300,
@@ -249,14 +261,14 @@
             "shotId": "r1.v1.B.s2",
             "criterion": "market",
             "weapon": "ballista",
-            "impact": 2,
+            "impact": 1,
             "outcome": "glancing",
             "headline": "Permit volume is local",
             "evidence": [],
             "damage": 0,
             "hpAfter": {
               "A": 100,
-              "B": 61
+              "B": 78
             },
             "turn": 4,
             "volley": 1,
@@ -297,7 +309,7 @@
             "damage": 12,
             "hpAfter": {
               "A": 100,
-              "B": 49
+              "B": 66
             },
             "turn": 5,
             "volley": 2,
@@ -331,14 +343,14 @@
             "shotId": "r1.v2.B.s2",
             "criterion": "wtp",
             "weapon": "coin_cannon",
-            "impact": 2,
+            "impact": 1,
             "outcome": "glancing",
             "headline": "Software budget is thin",
             "evidence": [],
             "damage": 0,
             "hpAfter": {
               "A": 100,
-              "B": 49
+              "B": 66
             },
             "turn": 6,
             "volley": 2,
@@ -360,20 +372,31 @@
                 "element": "market",
                 "criterion": "wtp",
                 "type": "attack"
+              },
+              {
+                "name": "Adjacent Market",
+                "element": "market",
+                "criterion": "market",
+                "type": "defense"
               }
             ],
             "verdictLine": "Fair point. PermitPilot still wins wtp."
           },
           {
             "t": 25100,
-            "id": "status-2",
-            "kind": "status",
-            "target": "A",
-            "status": "momentum",
-            "on": false
+            "id": "r1.hammer.market.B",
+            "kind": "hammer",
+            "target": "B",
+            "criterion": "market",
+            "reason": "No scoring shot carried the market gap",
+            "damage": 17,
+            "hpAfter": {
+              "A": 100,
+              "B": 49
+            }
           },
           {
-            "t": 25100,
+            "t": 27300,
             "id": "r1.scorecard",
             "kind": "scorecard",
             "round": 1,
@@ -406,7 +429,7 @@
             "agreement": 1
           },
           {
-            "t": 29100,
+            "t": 31300,
             "id": "r2.title",
             "kind": "round_title",
             "round": 2,
@@ -427,14 +450,14 @@
             ]
           },
           {
-            "t": 30600,
+            "t": 32800,
             "id": "r2.shot.r2.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
             "shotId": "r2.v1.A.s1",
             "criterion": "differentiation",
             "weapon": "laser_rifle",
-            "impact": 2,
+            "impact": 1,
             "outcome": "glancing",
             "headline": "Filing plus chasing",
             "evidence": [],
@@ -468,7 +491,7 @@
             "verdictLine": "Fair point. Fogcast still wins differentiation."
           },
           {
-            "t": 34200,
+            "t": 36400,
             "id": "r2.shot.r2.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
@@ -509,15 +532,15 @@
             "verdictLine": "It landed."
           },
           {
-            "t": 37800,
+            "t": 40000,
             "id": "r2.shot.r2.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
             "shotId": "r2.v1.A.s2",
             "criterion": "moat",
             "weapon": "trebuchet",
-            "impact": 2,
-            "outcome": "glancing",
+            "impact": 0,
+            "outcome": "whiff",
             "headline": "Workflow lock-in",
             "evidence": [],
             "damage": 0,
@@ -547,17 +570,17 @@
                 "type": "pitch"
               }
             ],
-            "verdictLine": "Fair point. Fogcast still wins moat."
+            "verdictLine": "The judges did not move."
           },
           {
-            "t": 41400,
+            "t": 43600,
             "id": "r2.shot.r2.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
             "shotId": "r2.v1.B.s2",
             "criterion": "timing",
             "weapon": "clockwork_railgun",
-            "impact": 2,
+            "impact": 1,
             "outcome": "glancing",
             "headline": "Sensors got cheap",
             "evidence": [],
@@ -591,7 +614,7 @@
             "verdictLine": "Fair point. PermitPilot still wins timing."
           },
           {
-            "t": 45000,
+            "t": 47200,
             "id": "r2.shot.r2.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -632,14 +655,14 @@
             "verdictLine": "It landed."
           },
           {
-            "t": 48600,
+            "t": 50800,
             "id": "r2.shot.r2.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
             "shotId": "r2.v2.B.s2",
             "criterion": "moat",
             "weapon": "trebuchet",
-            "impact": 2,
+            "impact": 1,
             "outcome": "glancing",
             "headline": "Station network",
             "evidence": [],
@@ -673,7 +696,7 @@
             "verdictLine": "Fair point. PermitPilot still wins moat."
           },
           {
-            "t": 52200,
+            "t": 54400,
             "id": "r2.scorecard",
             "kind": "scorecard",
             "round": 2,
@@ -706,7 +729,7 @@
             "agreement": 0.6666666666666666
           },
           {
-            "t": 56200,
+            "t": 58400,
             "id": "r3.title",
             "kind": "round_title",
             "round": 3,
@@ -727,15 +750,15 @@
             ]
           },
           {
-            "t": 57700,
+            "t": 59900,
             "id": "r3.shot.r3.v1.A.s1",
             "kind": "shot",
             "shooter": "A",
             "shotId": "r3.v1.A.s1",
             "criterion": "gtm",
             "weapon": "gatling",
-            "impact": 2,
-            "outcome": "hit",
+            "impact": 3,
+            "outcome": "crit",
             "headline": "Start with expediters",
             "evidence": [
               {
@@ -770,10 +793,10 @@
                 "type": "pitch"
               }
             ],
-            "verdictLine": "It landed."
+            "verdictLine": "DIRECT HIT. The judges bought all of it."
           },
           {
-            "t": 61300,
+            "t": 63500,
             "id": "r3.shot.r3.v1.B.s1",
             "kind": "shot",
             "shooter": "B",
@@ -819,23 +842,23 @@
             "verdictLine": "FACT-CHECKED. It blew up in Fogcast's hands."
           },
           {
-            "t": 64900,
-            "id": "status-3",
+            "t": 67100,
+            "id": "status-1",
             "kind": "status",
             "target": "B",
             "status": "exposed",
             "on": true
           },
           {
-            "t": 64900,
-            "id": "status-4",
+            "t": 67100,
+            "id": "status-2",
             "kind": "status",
             "target": "B",
             "status": "last_stand",
             "on": true
           },
           {
-            "t": 64900,
+            "t": 67100,
             "id": "r3.shot.r3.v1.A.s2",
             "kind": "shot",
             "shooter": "A",
@@ -876,15 +899,15 @@
             "verdictLine": "It landed."
           },
           {
-            "t": 68500,
-            "id": "status-5",
+            "t": 70700,
+            "id": "status-3",
             "kind": "status",
             "target": "A",
             "status": "momentum",
             "on": true
           },
           {
-            "t": 68500,
+            "t": 70700,
             "id": "r3.shot.r3.v1.B.s2",
             "kind": "shot",
             "shooter": "B",
@@ -925,23 +948,23 @@
             "verdictLine": "It landed."
           },
           {
-            "t": 72100,
-            "id": "status-6",
+            "t": 74300,
+            "id": "status-4",
             "kind": "status",
             "target": "A",
             "status": "momentum",
             "on": false
           },
           {
-            "t": 72100,
+            "t": 74300,
             "id": "r3.shot.r3.v2.A.s2",
             "kind": "shot",
             "shooter": "A",
             "shotId": "r3.v2.A.s2",
             "criterion": "feasibility",
             "weapon": "rocket",
-            "impact": 2,
-            "outcome": "glancing",
+            "impact": 0,
+            "outcome": "whiff",
             "headline": "Hardware is slow",
             "evidence": [],
             "damage": 0,
@@ -971,18 +994,18 @@
                 "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. Fogcast still wins feasibility."
+            "verdictLine": "The judges did not move."
           },
           {
-            "t": 75700,
+            "t": 77900,
             "id": "r3.shot.r3.v2.B.s2",
             "kind": "shot",
             "shooter": "B",
             "shotId": "r3.v2.B.s2",
             "criterion": "scale",
             "weapon": "orbital_beam",
-            "impact": 2,
-            "outcome": "glancing",
+            "impact": 0,
+            "outcome": "whiff",
             "headline": "Every outdoor block",
             "evidence": [],
             "damage": 0,
@@ -1012,10 +1035,10 @@
                 "type": "pitch"
               }
             ],
-            "verdictLine": "Fair point. PermitPilot still wins scale."
+            "verdictLine": "The judges did not move."
           },
           {
-            "t": 79300,
+            "t": 81500,
             "id": "r3.scorecard",
             "kind": "scorecard",
             "round": 3,
@@ -1048,7 +1071,7 @@
             "agreement": 1
           },
           {
-            "t": 83300,
+            "t": 85500,
             "id": "outcome",
             "kind": "outcome",
             "outcome": "KO",
@@ -1056,7 +1079,7 @@
             "pyrrhic": false
           },
           {
-            "t": 85300,
+            "t": 87500,
             "id": "finisher",
             "kind": "finisher",
             "winner": "A",
@@ -1064,7 +1087,7 @@
             "style": "ko"
           },
           {
-            "t": 87300,
+            "t": 89500,
             "id": "winner",
             "kind": "winner",
             "winner": "A",
@@ -8936,13 +8959,13 @@
             "criterion": "wtp",
             "weapon": "coin_cannon",
             "impact": 1,
-            "outcome": "glancing",
+            "outcome": "partial",
             "headline": "Chase fees fund the product",
             "evidence": [],
-            "damage": 0,
+            "damage": 5,
             "hpAfter": {
               "A": 76,
-              "B": 85
+              "B": 80
             },
             "turn": 5,
             "volley": 1,
@@ -8972,7 +8995,7 @@
                 "type": "attack"
               }
             ],
-            "verdictLine": "Fair point. CurbBot still wins wtp."
+            "verdictLine": "Partly landed."
           },
           {
             "t": 21500,
@@ -8989,7 +9012,7 @@
             "damage": 0,
             "hpAfter": {
               "A": 76,
-              "B": 85
+              "B": 80
             },
             "turn": 6,
             "volley": 1,
@@ -9038,7 +9061,7 @@
                 "status": "supported"
               }
             ],
-            "damage": 16,
+            "damage": 11,
             "hpAfter": {
               "A": 76,
               "B": 69
@@ -9066,6 +9089,14 @@
               }
             ],
             "verdictLine": "Partly landed."
+          },
+          {
+            "t": 28700,
+            "id": "status-1",
+            "kind": "status",
+            "target": "A",
+            "status": "momentum",
+            "on": true
           },
           {
             "t": 28700,
@@ -9112,6 +9143,14 @@
               }
             ],
             "verdictLine": "Fair point. PermitPilot still wins wtp."
+          },
+          {
+            "t": 32300,
+            "id": "status-2",
+            "kind": "status",
+            "target": "A",
+            "status": "momentum",
+            "on": false
           },
           {
             "t": 32300,
@@ -9563,7 +9602,7 @@
           },
           {
             "t": 66600,
-            "id": "status-1",
+            "id": "status-3",
             "kind": "status",
             "target": "A",
             "status": "last_stand",
@@ -9986,7 +10025,7 @@
           },
           {
             "t": 99500,
-            "id": "status-2",
+            "id": "status-4",
             "kind": "status",
             "target": "B",
             "status": "last_stand",

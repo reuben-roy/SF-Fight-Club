@@ -158,31 +158,26 @@ export default function MatchEntry(): ReactElement {
 
   if (view.status === "live") {
     const arena = selectArena(state, bundle, view.matchId);
-    const resumed = state.turnsSeen[view.matchId] ?? 0;
     return (
       <section className="sfc-match" data-theme="night" aria-label="Match">
-        <div className="sfc-page sfc-match__inner">
-          <div className="sfc-match__head">
-            <p className="sfc-kicker">{roundLabel} · Live</p>
-            <p className="sfc-status">Status: live</p>
-          </div>
-          {resumed > 0 ? <p className="sfc-status">Resumed at turn {resumed}.</p> : null}
-          {arena.props ? (
-            <ArenaScreen
-              {...arena.props}
-              onTurn={(turn) => dispatch({ type: "mark_turn", matchId: view.matchId, turn })}
-              onComplete={() => dispatch({ type: "finish", matchId: view.matchId })}
-            />
-          ) : null}
-          <div>
-            <Button variant="hot" onClick={() => dispatch({ type: "finish", matchId: view.matchId })}>
+        <div className="sfc-match__livebar">
+          <p className="sfc-kicker">{roundLabel} · Live</p>
+          <div className="sfc-match__liveactions">
+            <Button variant="hot" size="sm" onClick={() => dispatch({ type: "finish", matchId: view.matchId })}>
               Skip to result
             </Button>
+            <Link className="sfc-btn sfc-btn--ghost sfc-btn--sm" to="/tower">
+              Back to the Tower
+            </Link>
           </div>
-          <p className="sfc-status">
-            <Link to="/tower">Back to the Tower</Link>
-          </p>
         </div>
+        {arena.props ? (
+          <ArenaScreen
+            {...arena.props}
+            onTurn={(turn) => dispatch({ type: "mark_turn", matchId: view.matchId, turn })}
+            onComplete={() => dispatch({ type: "finish", matchId: view.matchId })}
+          />
+        ) : null}
       </section>
     );
   }

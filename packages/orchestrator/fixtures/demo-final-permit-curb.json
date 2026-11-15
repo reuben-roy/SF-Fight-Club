@@ -388,7 +388,7 @@
               },
               {
                 "shotId": "r1.v1.A.s3",
-                "verdict": "glancing",
+                "verdict": "partial",
                 "impact": 1,
                 "note": "Charged today, priced opaquely."
               },
@@ -505,7 +505,7 @@
               },
               {
                 "shotId": "r1.v1.A.s3",
-                "verdict": "glancing",
+                "verdict": "partial",
                 "impact": 1,
                 "note": "Charged today, priced opaquely."
               },

@@ -128,9 +128,21 @@ async function main(): Promise<void> {
     await top(page);
     await shoot(page, "prefight-1280");
 
-    // K.O. result.
+    // Fight phase on the real arena, at both widths.
     await page.getByRole("button", { name: "Ring the bell (lock bets)" }).click();
     await page.getByRole("button", { name: "Ring the bell (start the fight)" }).click();
+    await page.locator(".arena").waitFor();
+    await wait(7000);
+    await page.getByRole("button", { name: "PAUSE" }).click();
+    await top(page);
+    await shoot(page, "fight-1280");
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await wait(500);
+    await top(page);
+    await shoot(page, "fight-390");
+
+    await page.setViewportSize({ width: 1280, height: 720 });
     await page.getByRole("button", { name: "Skip to result" }).click();
     await page.getByRole("heading", { name: /PermitPilot wins/ }).waitFor();
     await wait(450);
