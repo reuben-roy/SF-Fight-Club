@@ -1100,6 +1100,7 @@ function publicFighters(fighters: Record<Slot, FighterInput>): Record<Slot, Publ
     seed: fighter.seed,
     tier: fighter.tier,
     spriteSeed: fighter.spriteSeed,
+    category: fighter.category,
   });
   return { A: show(fighters.A), B: show(fighters.B) };
 }

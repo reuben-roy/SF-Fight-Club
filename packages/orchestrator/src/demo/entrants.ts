@@ -395,10 +395,7 @@ export const DEMO_ENTRANTS: readonly DemoEntrant[] = [
   },
 ];
 
-/**
- * Single constructor for every FighterInput in the demo tournament. If a
- * required `category` field lands on FighterInput, add it here once.
- */
+/** Single constructor for every FighterInput in the demo tournament. */
 export function makeFighterInput(
   entrant: DemoEntrant,
   seed: number,
@@ -408,6 +405,7 @@ export function makeFighterInput(
     seed,
     tier: entrant.tier,
     spriteSeed: entrant.spriteSeed,
+    category: entrant.category,
     ideaId: entrant.id,
     weighinTotal: entrant.weighinTotal,
     brief: entrant.brief,

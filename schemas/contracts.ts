@@ -263,6 +263,21 @@ export interface SuddenDeathVote {
 }
 
 // ---------------------------------------------------------------------------
+// Turn-based battle presentation
+// ---------------------------------------------------------------------------
+
+export type MoveElement = "market" | "moat" | "execution";
+
+export interface Move {
+  name: string; // from the fixed table in docs/09-battle-revamp.md
+  element: MoveElement;
+  criterion: CriterionId;
+  type: ShotType;
+}
+
+export type FighterStatus = "momentum" | "exposed" | "last_stand";
+
+// ---------------------------------------------------------------------------
 // Engine outputs (deterministic code, labeled A / B)
 // ---------------------------------------------------------------------------
 
@@ -389,7 +404,7 @@ interface CueBase {
 }
 
 export type Cue =
-  | (CueBase & { kind: "intro"; fighters: Record<Slot, { name: string; seed: number; tier: string; spriteSeed: string; corner: "left" | "right" }> })
+  | (CueBase & { kind: "intro"; fighters: Record<Slot, { name: string; seed: number; tier: string; spriteSeed: string; corner: "left" | "right"; category: string }> })
   | (CueBase & { kind: "round_title"; round: RoundNumber; name: RoundName; criteria: { id: CriterionId; weight: number }[] })
   | (CueBase & {
       kind: "shot";
@@ -401,11 +416,17 @@ export type Cue =
       outcome: "hit" | "crit" | "partial" | "parried" | "glancing" | "whiff" | "backfire";
       headline: string;
       evidence: { id: string; status: "supported" | "partial" | "estimate" | "fabricated" }[];
-      parry?: { defenseShotId: string; headline: string };
+      parry?: { defenseShotId: string; headline: string; move: Move };
       damage: number; // displayed integer HP to the target (or to the shooter on backfire)
       hpAfter: Record<Slot, number>;
+      turn: number; // 1-based, counts shot cues across the whole match in airing order
+      volley: 1 | 2;
+      move: Move;
+      menu: Move[]; // the shooter's shots in this volley, in shot order, includes `move`
+      verdictLine: string; // filled from the outcome table in docs/02-fight-system.md
     })
   | (CueBase & { kind: "hammer"; target: Slot; criterion: CriterionId; reason: string; damage: number; hpAfter: Record<Slot, number> })
+  | (CueBase & { kind: "status"; target: Slot; status: FighterStatus; on: boolean })
   | (CueBase & { kind: "scorecard"; round: RoundNumber; rows: { criterion: CriterionId; A: number; B: number; points: number; hp: number; to: Slot | null }[]; agreement: number })
   | (CueBase & {
       kind: "outcome";
@@ -423,4 +444,29 @@ export interface BroadcastScript {
   directorVersion: string;
   durationMs: number;
   cues: Cue[]; // sorted by t
+}
+
+// ---------------------------------------------------------------------------
+// Org chart
+// ---------------------------------------------------------------------------
+
+export type OrgTitle = "Intern" | "Associate" | "Manager" | "Director" | "VP" | "President" | "CEO";
+
+export interface OrgNode {
+  entrantId: string;
+  seed: number;
+  title: OrgTitle;
+  wins: number; // fights won, byes excluded
+  headcount: number;
+  alive: boolean;
+  defeatedBy: string | null;
+  defeatedInRound: number | null; // roundIndex
+  via: "FIGHT" | "WALKOVER" | null;
+  reports: OrgNode[]; // most recent acquisition first
+}
+
+export interface OrgChart {
+  rounds: number;
+  roots: OrgNode[]; // alive fighters, in bracket order left to right
+  championId: string | null;
 }
