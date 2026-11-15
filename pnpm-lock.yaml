@@ -38,6 +38,9 @@ importers:
       '@sf-fight-club/orchestrator':
         specifier: workspace:*
         version: link:../../packages/orchestrator
+      '@sf-fight-club/portrait':
+        specifier: workspace:*
+        version: link:../../packages/portrait
       '@types/node':
         specifier: ^22.19.0
         version: 22.20.5
@@ -84,6 +87,9 @@ importers:
 
   packages/intake:
     dependencies:
+      '@sf-fight-club/portrait':
+        specifier: workspace:*
+        version: link:../portrait
       '@sf-fight-club/schemas':
         specifier: workspace:*
         version: link:../schemas

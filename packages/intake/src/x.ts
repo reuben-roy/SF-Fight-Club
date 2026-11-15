@@ -26,6 +26,12 @@ const xUserSchema = z.object({
   }),
 });
 
+const xAvatarSchema = z.object({
+  data: z.object({
+    profile_image_url: z.string().nullable().optional(),
+  }),
+});
+
 const xTweetSchema = z.object({
   id: z.string(),
   text: z.string(),
@@ -67,6 +73,8 @@ export interface XValue {
   name: string;
   handle: string;
   followers: number;
+  /** Profile photo in the larger variant, when the user object carries one. */
+  avatarUrl?: string;
   posts: XPostDraft[];
 }
 
@@ -96,6 +104,45 @@ function parsePostId(input: string): string | null {
   return null;
 }
 
+/**
+ * The user lookup returns the small `_normal` thumbnail. The same file exists
+ * at `_400x400`, which is what the portrait pipeline wants. URLs without the
+ * documented suffix pass through unchanged.
+ */
+export function largerAvatarUrl(raw: string): string {
+  const hashIndex = raw.indexOf("#");
+  const queryIndex = raw.indexOf("?");
+  const end = [hashIndex, queryIndex].filter((index) => index !== -1).sort((a, b) => a - b)[0] ?? raw.length;
+  const stem = raw.slice(0, end);
+  const suffix = raw.slice(end);
+  const match = stem.match(/^(.*)_normal(\.[A-Za-z0-9]+)$/);
+  if (match?.[1] === undefined || match?.[2] === undefined) return raw;
+  return `${match[1]}_400x400${match[2]}${suffix}`;
+}
+
+function toAvatarUrl(raw: string | null | undefined): string | undefined {
+  if (raw === null || raw === undefined || raw.trim() === "") return undefined;
+  return largerAvatarUrl(raw);
+}
+
+/**
+ * The profile photo in its larger variant. Requested on its own lookup so the
+ * main user lookup — whose URL is recorded in committed demo profiles — never
+ * changes. Anything missing or malformed resolves to no avatar, silently.
+ */
+async function fetchAvatarUrl(
+  args: { userId: string },
+  deps: { fetch: NetworkDeps["fetch"]; sleep: NetworkDeps["sleep"]; now: NetworkDeps["now"]; headers: Record<string, string> },
+): Promise<{ avatarUrl?: string; source?: SourceEntry }> {
+  const url = `${X_API}/users/${encodeURIComponent(args.userId)}?user.fields=profile_image_url`;
+  const result = await getJsonWithRetry({ fetch: deps.fetch, sleep: deps.sleep, url, options: { headers: deps.headers } });
+  if (result.kind !== "ok") return {};
+  const parsed = xAvatarSchema.safeParse(result.body);
+  const avatarUrl = parsed.success ? toAvatarUrl(parsed.data.data.profile_image_url) : undefined;
+  if (avatarUrl === undefined) return {};
+  return { avatarUrl, source: { source: "x", url, retrievedAt: deps.now() } };
+}
+
 function toDraft(args: { tweet: z.infer<typeof xTweetSchema>; handle: string }): XPostDraft {
   const metrics = args.tweet.public_metrics;
   return {
@@ -117,7 +164,8 @@ function toDraft(args: { tweet: z.infer<typeof xTweetSchema>; handle: string }):
  * lookup. Bearer token comes from the caller; without one the adapter is
  * skipped. Verified against the X API v2 user and post lookup docs:
  * GET /2/users/by/username/{username}, GET /2/users/{id}/tweets,
- * GET /2/tweets/{id}, all with public_metrics field selections.
+ * GET /2/tweets/{id}, all with public_metrics field selections, plus a
+ * profile_image_url lookup for the founder avatar.
  */
 export async function fetchX(
   input: XInput,
@@ -135,6 +183,7 @@ export async function fetchX(
   let name = "";
   let handle = (input.handle ?? "").trim().replace(/^@/, "");
   let followers = 0;
+  let avatarUrl: string | undefined;
 
   if (userId === "") {
     if (handle === "") {
@@ -168,6 +217,15 @@ export async function fetchX(
     if (handle === "") handle = parsed.data.data.username;
     followers = parsed.data.data.public_metrics?.followers_count ?? 0;
     sources.push({ source: "x", url, retrievedAt: deps.now() });
+  }
+
+  // The avatar lives on a separate lookup so the main lookup URL — recorded in
+  // committed demo profiles — never changes. A missing photo is normal and
+  // stays silent; only a known avatar that fails to portrait warns later.
+  const avatar = await fetchAvatarUrl({ userId }, { fetch: deps.fetch, sleep: deps.sleep, now: deps.now, headers });
+  if (avatar.avatarUrl !== undefined) {
+    avatarUrl = avatar.avatarUrl;
+    if (avatar.source !== undefined) sources.push(avatar.source);
   }
 
   const posts: XPostDraft[] = [];
@@ -211,5 +269,5 @@ export async function fetchX(
     }
   }
 
-  return { kind: "ok", value: { userId, name, handle, followers, posts }, sources, warnings };
+  return { kind: "ok", value: { userId, name, handle, followers, avatarUrl, posts }, sources, warnings };
 }

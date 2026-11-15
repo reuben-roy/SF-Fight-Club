@@ -23,6 +23,36 @@ describe("entrant profile", () => {
     expect(entrantProfileSchema.parse(base)).toEqual(base);
   });
 
+  it("parses a founder with a portrait and trait colors", () => {
+    const pixels = Array.from({ length: 1024 }, (_, index) => index % 3);
+    const founder = {
+      ...base.founders[0],
+      avatarUrl: "https://pbs.twimg.com/profile_images/1/abc_400x400.jpg",
+      portrait: { size: 32, palette: ["#1a2130", "#e0b48a", "#7a4a30"], pixels },
+      portraitTraits: { skin: "#e0b48a", skinShadow: "#7a4a30", hair: "#1a2130", accent: "#44ba82" },
+    };
+    const parsed = entrantProfileSchema.parse({ ...base, founders: [founder] });
+    expect(parsed.founders[0]).toEqual(founder);
+  });
+
+  it("rejects a portrait with the wrong size and traits with a non-hex color", () => {
+    const pixels = Array.from({ length: 1024 }, () => 0);
+    const portrait = { size: 32, palette: ["#1a2130", "#e0b48a"], pixels };
+    const traits = { skin: "#e0b48a", skinShadow: "#7a4a30", hair: "#1a2130", accent: "#44ba82" };
+    expect(
+      entrantProfileSchema.safeParse({
+        ...base,
+        founders: [{ ...base.founders[0], portrait: { ...portrait, size: 24 }, portraitTraits: traits }],
+      }).success,
+    ).toBe(false);
+    expect(
+      entrantProfileSchema.safeParse({
+        ...base,
+        founders: [{ ...base.founders[0], portrait, portraitTraits: { ...traits, skin: "tan" } }],
+      }).success,
+    ).toBe(false);
+  });
+
   it("rejects a profile with an out-of-range clout score", () => {
     const bad = { ...base, clout: { ...base.clout, score: 140 } };
     expect(entrantProfileSchema.safeParse(bad).success).toBe(false);

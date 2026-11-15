@@ -221,6 +221,12 @@
   min-width: 0;
 }
 
+.fighter-card__portrait {
+  image-rendering: pixelated;
+  border: 2px solid var(--ink);
+  background: var(--ink);
+}
+
 .fighter-card__founder-text {
   display: flex;
   flex-direction: column;

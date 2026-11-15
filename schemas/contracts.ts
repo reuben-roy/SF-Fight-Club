@@ -151,6 +151,9 @@ export interface EntrantProfile {
     hnUser?: string;
     followers?: number;
     hnKarma?: number;
+    avatarUrl?: string; // the source photo, kept for provenance, never rendered
+    portrait?: PixelPortrait;
+    portraitTraits?: { skin: string; skinShadow: string; hair: string; accent: string }; // hex colors
   }[];
   posts: {
     source: "x" | "hn" | "web";

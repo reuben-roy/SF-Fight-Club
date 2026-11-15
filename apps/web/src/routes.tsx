@@ -18,4 +18,5 @@ export const ROUTES: readonly RouteDefinition[] = [
   { path: "/dev/tower", Component: lazy(() => import("./tower/dev.js")) },
   { path: "/dev/cards", Component: lazy(() => import("./cards/dev.js")) },
   { path: "/dev/art", Component: lazy(() => import("./art/dev.js")) },
+  { path: "/dev/portraits", Component: lazy(() => import("./art/portraits-dev.js")) },
 ];

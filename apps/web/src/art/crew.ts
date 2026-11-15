@@ -8,6 +8,13 @@ export type CrewState = (typeof CREW_STATES)[number];
 export const CREW_WIDTH = 12;
 export const CREW_HEIGHT = 16;
 
+/** Trait colors measured from a founder portrait. Only colors: the figure keeps its generated shape. */
+export interface CrewTraitColors {
+  skin: string;
+  hair: string;
+  shirt: string;
+}
+
 export interface CrewPalette {
   skin: string;
   hair: string;
@@ -43,7 +50,7 @@ interface CrewPose {
 
 const BASE_POSE: CrewPose = { bob: 0, lean: 0, arms: "down", stride: 0, glasses: false };
 
-function drawPerson(hair: number, pose: CrewPose): PixelGrid {
+function drawPerson(hair: number, pose: CrewPose, eyeSlot: number = SLOT.ink): PixelGrid {
   const grid = emptyPeopleGrid();
   const ox = pose.lean;
   const oy = pose.bob;
@@ -98,8 +105,8 @@ function drawPerson(hair: number, pose: CrewPose): PixelGrid {
     rect(grid, 7 + ox, 4 + oy, 1, 1, SLOT.white);
     rect(grid, 5 + ox, 4 + oy, 2, 1, SLOT.metalLight);
   } else {
-    rect(grid, 5 + ox, 4 + oy, 1, 1, SLOT.ink);
-    rect(grid, 7 + ox, 4 + oy, 1, 1, SLOT.ink);
+    rect(grid, 5 + ox, 4 + oy, 1, 1, eyeSlot);
+    rect(grid, 7 + ox, 4 + oy, 1, 1, eyeSlot);
   }
   rect(grid, 5 + ox, 6 + oy, 2, 1, SLOT.bodyShade);
 
@@ -126,7 +133,24 @@ function putHairline(grid: PixelGrid, ox: number, oy: number): void {
   rect(grid, 4 + ox, 2 + oy, 4, 1, SLOT.accent);
 }
 
-export function buildCrew(handle: string): CrewMember {
+/** OKLab lightness of a hex color, 0 to 1. Same matrix as the portrait pipeline; decides whether eyes need to be light. */
+function oklabLightness(hex: string): number {
+  const value = Number.parseInt(hex.slice(1), 16);
+  if (!Number.isFinite(value)) return 1;
+  const linear = (shift: number): number => {
+    const c = ((value >> shift) & 0xff) / 255;
+    return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
+  const r = linear(16);
+  const g = linear(8);
+  const b = linear(0);
+  const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+  const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+  const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+  return 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
+}
+
+export function buildCrew(handle: string, traits?: CrewTraitColors): CrewMember {
   const rng = rngFromSeed(`crew:${handle}`);
   const palette: CrewPalette = {
     skin: SKIN_TONES[Math.floor(rng() * SKIN_TONES.length)] ?? SKIN_TONES[0]!,
@@ -136,22 +160,30 @@ export function buildCrew(handle: string): CrewMember {
     shoe: "#242433",
     trim: TRIMS[Math.floor(rng() * TRIMS.length)] ?? TRIMS[0]!,
   };
+  // Trait colors repaint the head and shirt. On dark skin the ink eyes would
+  // vanish into the face, so they turn light — the same rule as the trait head.
+  if (traits !== undefined) {
+    palette.skin = traits.skin;
+    palette.hair = traits.hair;
+    palette.shirt = traits.shirt;
+  }
+  const eyeSlot = traits !== undefined && oklabLightness(traits.skin) < 0.5 ? SLOT.white : SLOT.ink;
   const hair = Math.floor(rng() * 6);
   const glasses = rng() < 0.3;
 
   const base: CrewPose = { ...BASE_POSE, glasses };
   const frames: Record<CrewState, readonly PixelGrid[]> = {
-    idle: [drawPerson(hair, { ...base, bob: 0 }), drawPerson(hair, { ...base, bob: -1 })],
+    idle: [drawPerson(hair, { ...base, bob: 0 }, eyeSlot), drawPerson(hair, { ...base, bob: -1 }, eyeSlot)],
     cheer: [
-      drawPerson(hair, { ...base, bob: -1, arms: "up" }),
-      drawPerson(hair, { ...base, bob: -2, arms: "up" }),
+      drawPerson(hair, { ...base, bob: -1, arms: "up" }, eyeSlot),
+      drawPerson(hair, { ...base, bob: -2, arms: "up" }, eyeSlot),
     ],
-    flinch: [drawPerson(hair, { ...base, bob: 1, lean: -1, arms: "back" })],
+    flinch: [drawPerson(hair, { ...base, bob: 1, lean: -1, arms: "back" }, eyeSlot)],
     walk: [
-      drawPerson(hair, { ...base, stride: 1 }),
-      drawPerson(hair, { ...base, stride: 0 }),
-      drawPerson(hair, { ...base, stride: 1, bob: -1 }),
-      drawPerson(hair, { ...base, stride: 0, bob: -1 }),
+      drawPerson(hair, { ...base, stride: 1 }, eyeSlot),
+      drawPerson(hair, { ...base, stride: 0 }, eyeSlot),
+      drawPerson(hair, { ...base, stride: 1, bob: -1 }, eyeSlot),
+      drawPerson(hair, { ...base, stride: 0, bob: -1 }, eyeSlot),
     ],
   };
 

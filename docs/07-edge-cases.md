@@ -138,7 +138,7 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 
 ## Portraits
 
-A founder's profile photo becomes a 24x24 pixel portrait ([09 Battle revamp](09-battle-revamp.md#pixel-portraits)). Any failure below keeps the generated crew figure and never blocks intake.
+A founder's profile photo becomes a 32x32 pixel portrait ([09 Battle revamp](09-battle-revamp.md#pixel-portraits)). Any failure below keeps the generated crew figure and never blocks intake.
 
 | ID | Case | Expected behavior | Status |
 |---|---|---|---|
@@ -149,6 +149,10 @@ A founder's profile photo becomes a 24x24 pixel portrait ([09 Battle revamp](09-
 | PT-5 | Photo is blank, or one flat colour | No portrait. | Decided. [portrait pipeline tests](../packages/portrait/test/portrait.test.ts) |
 | PT-6 | File is corrupt, truncated, or over the cap (8 MB, 4096 px a side) | No portrait. The decoder returns a reason, never throws. | Decided. [portrait decoder tests](../packages/portrait/test/portrait.test.ts) |
 | PT-7 | Host turns portraits off for an entrant | Portrait dropped from the profile, generated figure used. | Decided. [09 Decisions](09-battle-revamp.md#8-decisions) |
+| PT-8 | Avatar download fails (404, timeout, oversize body, corrupt bytes) | No portrait; a warning on the profile. Intake continues with the generated figure. | Decided. `packages/intake/test/portrait.test.ts`, `packages/intake/test/build.test.ts` |
+| PT-9 | Avatar URL is not an image (wrong content type, non-http(s) URL) | No portrait; a warning. The URL is never rendered. | Decided. `packages/intake/test/portrait.test.ts` |
+| PT-10 | Founder has no X account, or the X adapter is skipped | No avatar URL, no portrait, no warning. Generated figure only. | Decided. `packages/intake/test/adapters.test.ts`, `packages/intake/test/build.test.ts` |
+| PT-11 | Host supplies an avatar by hand (`--avatar "<name>=<url>"`) | Attached to the matching founder and portraited like an X avatar. An unknown founder name fails the CLI; `--no-portraits` skips the step. | Decided. `packages/intake/src/cli.ts`, `packages/intake/test/build.test.ts` |
 
 ## Web client
 

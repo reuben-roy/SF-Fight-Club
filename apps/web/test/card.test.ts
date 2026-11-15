@@ -92,7 +92,39 @@ describe("FighterCard", () => {
     expect(html).toContain("&lt;b&gt;bold&lt;/b&gt;");
   });
 
+describe("FighterCard portraits", () => {
+  const portrait = { size: 32 as const, palette: ["#1a2130", "#e0b48a"], pixels: Array.from({ length: 1024 }, (_, i) => i % 2) };
+  const profileWithPortrait: EntrantProfile = {
+    ...PROFILE,
+    founders: [
+      {
+        name: "Ada Lovelace",
+        role: "CEO",
+        xHandle: "adalove",
+        avatarUrl: "https://example.com/ada.jpg",
+        portrait,
+        portraitTraits: { skin: "#e0b48a", skinShadow: "#7a4a30", hair: "#1a2130", accent: "#44ba82" },
+      },
+      { name: "Dev Raman", xHandle: "devraman" },
+    ],
+  };
+
+  it("draws the founder portrait instead of the generated figure", () => {
+    const html = renderCard(profileWithPortrait);
+    expect(html).toContain('aria-label="Ada Lovelace"');
+    expect(html).toContain("Generated crew figure for Dev Raman");
+    expect(html).not.toContain("Generated crew figure for Ada Lovelace");
+  });
+
+  it("never renders the avatar URL as an image or a link", () => {
+    const html = renderCard(profileWithPortrait);
+    expect(html).not.toContain("https://example.com/ada.jpg");
+    expect(html).not.toContain("<img");
+    expect(html).not.toContain("avatarUrl");
+  });
+
   it("reads the main metric of a post", () => {
+});
     expect(mainMetric({ points: 60, comments: 2 })).toEqual({ label: "points", value: 60 });
     expect(mainMetric({ views: 1500, likes: 60 })).toEqual({ label: "views", value: 1500 });
     expect(mainMetric({})).toBeNull();

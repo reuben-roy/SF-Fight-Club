@@ -5,7 +5,7 @@ export const PORTRAIT_PIXEL_COUNT = PORTRAIT_SIZE * PORTRAIT_SIZE;
 export const MIN_PORTRAIT_COLORS = 2;
 export const MAX_PORTRAIT_COLORS = 12;
 
-const hexColorSchema = z
+export const hexColorSchema = z
   .string()
   .regex(/^#[0-9a-fA-F]{6}$/, "expected a 6-digit hex color such as #a1b2c3");
 

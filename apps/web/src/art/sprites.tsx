@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, type ReactElement } from "react";
 
-import { CREW_HEIGHT, CREW_WIDTH, buildCrew, drawCrew } from "./crew.js";
+import { CREW_HEIGHT, CREW_WIDTH, buildCrew, drawCrew, type CrewTraitColors } from "./crew.js";
 import { buildMascot, drawMascot, type Mascot } from "./mascot.js";
 import { CORNER_PALETTE, type Corner } from "./palette.js";
 
@@ -83,11 +83,13 @@ export interface CrewCanvasProps {
   size?: number;
   className?: string;
   label?: string;
+  traits?: CrewTraitColors;
+  state?: "idle" | "cheer";
 }
 
-export function CrewCanvas({ handle, size = 28, className, label }: CrewCanvasProps): ReactElement {
+export function CrewCanvas({ handle, size = 28, className, label, traits, state = "idle" }: CrewCanvasProps): ReactElement {
   const ref = useRef<HTMLCanvasElement>(null);
-  const member = useMemo(() => buildCrew(handle), [handle]);
+  const member = useMemo(() => buildCrew(handle, traits), [handle, traits]);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -99,11 +101,11 @@ export function CrewCanvas({ handle, size = 28, className, label }: CrewCanvasPr
       x: CREW_WIDTH,
       y: CREW_HEIGHT * 2,
       facing: 1,
-      state: "idle",
+      state,
       timeMs: 0,
       scale: 2,
     });
-  }, [member]);
+  }, [member, state]);
 
   return (
     <canvas
