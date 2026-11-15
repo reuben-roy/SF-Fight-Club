@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, createBrowserRouter, useLocation } from "react-r
 
 import { PlaceholderPage, StripeWipe, classNames } from "../styles/components.js";
 import { useAppState } from "../styles/app-state.js";
+import { AppStoreProvider } from "../data/index.js";
 import { ROUTES } from "../routes.js";
 
 function TopBar(): ReactElement {
@@ -75,7 +76,9 @@ function Shell(): ReactElement {
       <TopBar />
       <main id="main">
         <Suspense fallback={<PlaceholderPage kicker="Loading" title="SF FIGHT CLUB" />}>
-          <Outlet />
+          <AppStoreProvider>
+            <Outlet />
+          </AppStoreProvider>
         </Suspense>
       </main>
       <footer className="sfc-footer">
