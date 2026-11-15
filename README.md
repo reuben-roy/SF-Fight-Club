@@ -26,6 +26,7 @@ Design and groundwork. Shared contracts live in `packages/schemas`. Fight math l
 | [packages/intake](packages/intake) | `@sf-fight-club/intake`. Entrant intake from HN, X and company sites into `EntrantProfile`, plus the founder-free `IdeaSubmission` draft. Committed demo profiles for the eight fictional entrants. |
 | [packages/orchestrator](packages/orchestrator) | `@sf-fight-club/orchestrator`. Fake orchestrator. Replays committed JSON fixtures through the match pipeline into a compute log and director script. Ships a canned eight-entrant demo tournament via `runDemoTournament`. |
 | [apps/web](apps/web) | `@sf-fight-club/web`. Vite, React and TypeScript client. Procedural mascots, crew, skyline and weapon effects live in `src/art`; the gallery is at `/dev/art`. |
+| [packages/portrait](packages/portrait) | `@sf-fight-club/portrait`. Profile photo to 24x24 pixel portrait: pure pipeline, pure-JS JPEG/PNG decoders at the edge. |
 | [prompts/](prompts/) | Prompt templates for every agent role |
 | [prototype/arena.html](prototype/arena.html) | Standalone visual prototype of the arena and the Tower. Open it in a browser. |
 

@@ -136,6 +136,20 @@ A starting register for the reviewing agent. Each row has an expected behavior. 
 | FA-4 | Judge model favors some industries | Measure per-category win rates over tournaments on the host console. Never retune mid-tournament. Not fixable per match. | Decided. [03 Judging the judge](03-evals.md#judging-the-judge), [04 Observability](04-architecture.md#observability) |
 | FA-5 | Upset rate drifts outside 15% to 35% | Host console warns. Tune before the next tournament, never mid-tournament. | Decided |
 
+## Portraits
+
+A founder's profile photo becomes a 24x24 pixel portrait ([09 Battle revamp](09-battle-revamp.md#pixel-portraits)). Any failure below keeps the generated crew figure and never blocks intake.
+
+| ID | Case | Expected behavior | Status |
+|---|---|---|---|
+| PT-1 | Photo is not a JPEG or PNG (GIF, WebP, HEIC, anything else) | No portrait. Intake keeps the generated figure. | Decided. [portrait decoder tests](../packages/portrait/test/portrait.test.ts) |
+| PT-2 | Founder has no profile photo | No portrait, generated figure only. The photo is never rendered even when there is one. | Decided. [09 Decisions](09-battle-revamp.md#8-decisions) |
+| PT-3 | Photo is smaller than 24x24 | No portrait. Upscaling would invent detail. | Decided. [portrait pipeline tests](../packages/portrait/test/portrait.test.ts) |
+| PT-4 | Photo is transparent, or mostly transparent (a cut-out with no background) | No portrait. | Decided. [portrait pipeline tests](../packages/portrait/test/portrait.test.ts) |
+| PT-5 | Photo is blank, or one flat colour | No portrait. | Decided. [portrait pipeline tests](../packages/portrait/test/portrait.test.ts) |
+| PT-6 | File is corrupt, truncated, or over the cap (8 MB, 4096 px a side) | No portrait. The decoder returns a reason, never throws. | Decided. [portrait decoder tests](../packages/portrait/test/portrait.test.ts) |
+| PT-7 | Host turns portraits off for an entrant | Portrait dropped from the profile, generated figure used. | Decided. [09 Decisions](09-battle-revamp.md#8-decisions) |
+
 ## Web client
 
 The demo client has no server, so these are decided client-side. All four are covered by unit tests and the Playwright tournament walkthrough.
