@@ -6,7 +6,7 @@ A single-elimination tournament for San Francisco startup ideas, built at the Mi
 
 ## Status
 
-Design and groundwork. Shared contracts live in `packages/schemas`. Fight math lives in `packages/engine`. `packages/intake` builds entrant profiles from public posts. `packages/orchestrator` replays a canned eight-entrant tournament into sealed matches and broadcast scripts, so the arena can be built without a live model API. `apps/web` is the Vite and React client: the shared art library, design tokens, the playable demo tournament (home, Tower, match, film room), play-money betting and the committed `Arena` / `Tower` / `FighterCard` screens are in place.
+Design and groundwork. Shared contracts live in `packages/schemas`. Fight math lives in `packages/engine`. `packages/intake` builds entrant profiles from public posts. `packages/orchestrator` replays a canned eight-entrant tournament into sealed matches and broadcast scripts, so the arena can be built without a live model API. `apps/web` is the Vite and React client: the shared art library, design tokens, the playable demo tournament (home, Tower, match, film room), play-money betting and the committed `Arena` / `Tower` / `FighterCard` screens are in place. The deploy target is Cloudflare: the client ships as static assets, with the Worker API, D1, Durable Objects and Better Auth to follow per [docs/08-cloudflare.md](docs/08-cloudflare.md).
 
 ## What's here
 
@@ -15,13 +15,14 @@ Design and groundwork. Shared contracts live in `packages/schemas`. Fight math l
 | [docs/01-product.md](docs/01-product.md) | The idea, personas, core loop, fairness story, phases, open decisions |
 | [docs/02-fight-system.md](docs/02-fight-system.md) | Match format, volleys, fact-checks, scores to HP math, outcomes, tiebreaks, broadcast |
 | [docs/03-evals.md](docs/03-evals.md) | The rubric with anchors and caps, judge protocol, bias controls, the judge-the-judge harness |
-| [docs/04-architecture.md](docs/04-architecture.md) | Stack, repo layout, compute log, orchestrator pipeline, data model, API, sealing |
+| [docs/04-architecture.md](docs/04-architecture.md) | Logical architecture: compute log, orchestrator pipeline, data model, API, sealing |
 | [docs/05-ui.md](docs/05-ui.md) | Mistral-derived design tokens, the Tower, the arena, weapons, choreography, film room |
 | [docs/06-betting-and-vc.md](docs/06-betting-and-vc.md) | Play-money parimutuel betting, and the v2 VC panel |
 | [docs/07-edge-cases.md](docs/07-edge-cases.md) | Edge-case register with decided, proposed and open items |
+| [docs/08-cloudflare.md](docs/08-cloudflare.md) | Deploy path: Workers, D1, Durable Objects, Agents SDK, Better Auth, model providers |
 | [schemas/contracts.ts](schemas/contracts.ts) | Types for every LLM output, the compute log and the broadcast script. Plain TypeScript, no dependencies. |
 | [schemas/rubric.vc-default.json](schemas/rubric.vc-default.json) | The default rubric, machine-readable |
-| [packages/schemas](packages/schemas) | `@sf-fight-club/schemas`. Zod parsers for those contracts, plus committed JSON Schema for Mistral structured outputs. |
+| [packages/schemas](packages/schemas) | `@sf-fight-club/schemas`. Zod parsers for those contracts, plus committed JSON Schema for structured outputs (Mistral helper included). |
 | [packages/engine](packages/engine) | `@sf-fight-club/engine`. Pure bracket, scoring, HP, tiebreak, and director. No I/O. |
 | [packages/intake](packages/intake) | `@sf-fight-club/intake`. Entrant intake from HN, X and company sites into `EntrantProfile`, plus the founder-free `IdeaSubmission` draft. Committed demo profiles for the eight fictional entrants. Single-entrant mode takes `--avatar "<name>=<url>"` (repeatable) and `--no-portraits` to skip portraits. |
 | [packages/orchestrator](packages/orchestrator) | `@sf-fight-club/orchestrator`. Fake orchestrator. Replays committed JSON fixtures through the match pipeline into a compute log and director script. Ships a canned eight-entrant demo tournament via `runDemoTournament`. |

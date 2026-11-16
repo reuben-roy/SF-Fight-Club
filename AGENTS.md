@@ -4,7 +4,7 @@ Guidance for coding agents working in this repo.
 
 ## What this is
 
-SF Fight Club: a tournament where startup ideas fight through identical Mistral-powered agents. Read [README.md](README.md) first, then the docs in number order.
+SF Fight Club: a tournament where startup ideas fight through identical agents. The hackathon default model is Mistral. A real fight pins either Workers AI or an external provider, and demos replay fixtures. Deploy target is Cloudflare. Read [README.md](README.md) first, then the docs in number order. [docs/08-cloudflare.md](docs/08-cloudflare.md) is the deploy path.
 
 ## Sources of truth
 
@@ -36,9 +36,9 @@ Don't break these without the user's explicit approval. Tests should enforce the
 
 ## Build order suggestion
 
-1. `packages/schemas` from `contracts.ts`, with zod and generated JSON schemas for Mistral structured outputs.
+1. `packages/schemas` from `contracts.ts`, with zod and generated JSON schemas for structured outputs. The Mistral response-format helper stays. Other providers use the same schemas.
 2. `packages/engine` with unit and property tests: seeding, byes, resolve round, resolve match, HP scaling, damage distribution, tiebreak cascade, director.
-3. A fake orchestrator that replays canned LLM outputs, so the UI can be built without API calls.
+3. A fake orchestrator (`packages/orchestrator` fixture replay) that replays canned LLM outputs, so the UI and tests run without a model call.
 4. Arena renderer driven by the broadcast script. [prototype/arena.html](prototype/arena.html) shows the target look and the cue format in action.
-5. Real orchestrator against Mistral, then the eval harness.
+5. Real orchestrator on a Durable Object (Agents SDK), against the pinned build (Workers AI or an external provider such as Mistral), then the eval harness.
 6. Betting, then host console and Arena Mode.

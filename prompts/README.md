@@ -2,6 +2,8 @@
 
 One file per agent role. The orchestrator loads each file, hashes its content into the fighter build, and fills `{{placeholders}}` with Mustache-style substitution. Sections marked `## system` and `## user` become the system and user messages.
 
+These templates were written for the Mistral hackathon roles and stay valid for a Workers AI build. Do not delete them when the provider changes. Search, moderation, and embeddings are fighter-build fields. The Mistral path uses Conversations `web_search`, Moderation 2, and Embed. A Workers AI build names its own tools and keeps these files. Demos skip the model and replay fixtures. See [docs/08-cloudflare.md](../docs/08-cloudflare.md#models).
+
 | File | Role | Model | Output type in contracts.ts |
 |---|---|---|---|
 | [brief.md](brief.md) | Rewrite a submission into the Standard Brief | Utility | `StandardBrief` |
