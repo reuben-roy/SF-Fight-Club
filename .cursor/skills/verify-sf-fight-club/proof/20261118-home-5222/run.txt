@@ -1,0 +1,5 @@
+base: http://127.0.0.1:5222
+entry: / (?reset=1)
+feature: home (home-progress, home-rules, home-wallet)
+date: 2026-11-18T01:46:25.178Z
+result: PASS

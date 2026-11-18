@@ -1,0 +1,63 @@
+- banner:
+  - link "SF FIGHT CLUB":
+    - /url: /
+  - navigation "Main":
+    - link "Tower":
+      - /url: /tower
+    - link "Art lab":
+      - /url: /dev/art
+    - link "Cards":
+      - /url: /dev/cards
+  - button "Sound off"
+  - button "Reduced motion off"
+- main:
+  - region "SF Fight Club":
+    - paragraph: A tournament of identical agents
+    - heading "SF FIGHT CLUB" [level=1]
+    - paragraph: Startup ideas enter the ring. One gets the belt.
+    - link "Enter the Tower":
+      - /url: /tower
+  - region "Tournament progress":
+    - heading "The tournament" [level=2]
+    - text: Seven fights. One champion.
+    - paragraph: "Tournament: 0 of 7 fights complete"
+    - paragraph: "Wallet: S$1000"
+    - paragraph: "Champion: TBD"
+  - region "House rules":
+    - heading "House rules" [level=2]
+    - text: Five rules. No exceptions.
+    - list:
+      - listitem:
+        - paragraph: Every fighter is the same agent. Only the idea fights.
+      - listitem:
+        - paragraph: No source, no damage. Claims without evidence hit softer. Made-up evidence blows up in your own hands.
+      - listitem:
+        - paragraph: Every hit has a receipt.
+      - listitem:
+        - paragraph: Nobody sees the result before the bell. Bets lock before the match is computed.
+      - listitem:
+        - paragraph: The judges never see seeds, odds, names of submitters, or who the crowd likes.
+  - region "The field":
+    - heading "The field" [level=2]
+    - text: Eight entrants. One frozen build.
+    - list:
+      - listitem:
+        - button "Fighter card for PermitPilot": SEED 1 PermitPilot AI agent that files and chases SF building permits.
+      - listitem:
+        - button "Fighter card for Dermalens": SEED 2 Dermalens Skin-check triage from phone photos for clinics.
+      - listitem:
+        - button "Fighter card for FlakeHunter": SEED 3 FlakeHunter Finds and quarantines flaky tests in CI.
+      - listitem:
+        - button "Fighter card for TabClear": SEED 4 TabClear Instant bill settlement for bars and group tabs.
+      - listitem:
+        - button "Fighter card for PaperRoute": SEED 5 PaperRoute E-bike courier dispatch for neighborhood shops.
+      - listitem:
+        - button "Fighter card for CurbBot": SEED 6 CurbBot Sidewalk robot that audits curb ramps for the city.
+      - listitem:
+        - button "Fighter card for LoopRoom": SEED 7 LoopRoom Voice rooms for neighborhood groups.
+      - listitem:
+        - button "Fighter card for Fogcast": SEED 8 Fogcast Microclimate forecasts for SF outdoor businesses.
+  - region "Restart tournament":
+    - button "Restart tournament"
+    - paragraph: Play money only. Restarting clears the bracket, the bets and the wallet.
+- contentinfo: Built at the Mistral AI hackathon / Fictional demo data / Play money only, no cash value
